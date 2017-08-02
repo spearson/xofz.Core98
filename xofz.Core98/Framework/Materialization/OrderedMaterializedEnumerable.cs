@@ -11,6 +11,11 @@
             this.list = list;
         }
 
+        public OrderedMaterializedEnumerable(IEnumerable<T> source)
+        {
+            this.list = new List<T>(source);
+        }
+
         public T this[int index] => this.list[index];
 
         public long Count => this.list.Count;

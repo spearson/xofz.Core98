@@ -5,6 +5,28 @@
 
     public static class LogHelpers
     {
+        public static void AddEntry(
+            LogEditor logEditor, 
+            UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+            if (ex == null)
+            {
+                logEditor.AddEntry(
+                    "Error",
+                    new[]
+                    {
+                        "An unhandled exception occurred, but the exception "
+                        + "did not derive from System.Exception.",
+                        "Here is the exception's type: "
+                        + e.ExceptionObject.GetType()
+                    });
+                return;
+            }
+
+            AddEntry(logEditor, ex);
+        }
+
         public static void AddEntry(LogEditor logEditor, Exception e)
         {
             var content = new List<string>

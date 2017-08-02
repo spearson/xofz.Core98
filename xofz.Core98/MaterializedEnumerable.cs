@@ -1,31 +1,18 @@
 ﻿namespace xofz
 {
     using System.Collections.Generic;
+    using xofz.Framework.Materialization;
 
     public interface MaterializedEnumerable<T> : IEnumerable<T>
     {
         long Count { get; }
     }
 
-    public class MEHelpers
+    public static class MaterializedEnumerable
     {
-        public static T[] ToArray<T>(MaterializedEnumerable<T> me)
+        public static MaterializedEnumerable<T> Empty<T>()
         {
-            if (me == default(MaterializedEnumerable<T>))
-            {
-                return new T[0];
-            }
-
-            var array = new T[me.Count];
-            var e = me.GetEnumerator();
-            for (var i = 0; i < array.Length; ++i)
-            {
-                e.MoveNext();
-                array[i] = e.Current;
-            }
-
-            e.Dispose();
-            return array;
+            return new LinkedListMaterializedEnumerable<T>();
         }
     }
 }
