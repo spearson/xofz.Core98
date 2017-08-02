@@ -1,0 +1,53 @@
+<Project DefaultTargets="ChangeVersion;Build;Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+
+
+  <PropertyGroup>
+    <Version>$(BUILD_NUMBER)</Version>
+    <ProjectName>xofz.Core98</ProjectName>
+    <BuildDir>$(ProjectName)\bin\Release</BuildDir>
+  </PropertyGroup>
+
+
+  <Target Name="ChangeVersion">
+    <AssemblyInfo
+      CodeLanguage="CS" 
+      OutputFile="$(ProjectName)\Properties\AssemblyInfo.cs"
+      AssemblyTitle="$(ProjectName)" 
+      AssemblyCompany="X of Z"
+      AssemblyProduct="Core98"
+      AssemblyCopyright="Copyright (c) Sam Pearson"
+      AssemblyDescription="This class library runs on Windows 98, if it has .NET 2.0!"
+      ComVisible="false"
+      AssemblyVersion="$(Version)"
+      AssemblyFileVersion="$(Version)" />
+  </Target>
+
+
+  <Target Name="Build" DependsOnTargets="ChangeVersion">
+    <RemoveDir Directories="$(BuildDir)" />
+    <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=Release;Platform=Any CPU" />
+  </Target>
+
+  <UsingTask AssemblyFile="C:\Dropbox\Libraries\xUnit\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
+  <Target Name="Test" DependsOnTargets="Build">
+    <xunit Assembly="CareControls.Tests\bin\Release\CareControls.Tests.dll" Xml="test.xunit.dll.xml"/>
+  </Target>
+
+
+  <Target Name="Deploy" DependsOnTargets="Build">
+    <ItemGroup>
+      <FilesToDelete Include="C:\Dropbox\Libraries\$(ProjectName)\*.*" />
+    </ItemGroup>
+    <Delete Files="@(FilesToDelete)" />
+    <Move SourceFiles="$(BuildDir)\version.txt" DestinationFiles="$(BuildDir)\version-$(Version).txt" />
+    <ItemGroup>
+      <FilesToCopy Include="$(BuildDir)\$(ProjectName).dll" />
+      <FilesToCopy Include="$(BuildDir)\$(ProjectName).pdb" />
+      <FilesToCopy Include="$(BuildDir)\version-$(Version).txt" />
+    </ItemGroup>
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="C:\Dropbox\Libraries\$(ProjectName)" />
+  </Target>
+</Project>

@@ -1,0 +1,12 @@
+*.ReSharper.user
+*.DotSettings.user
+*.suo
+obj
+bin
+Debug
+Release
+*.csproj.user
+StyleCop.Cache
+*.TeamCity.user
+*.swp
+.vs
