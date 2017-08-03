@@ -1,6 +1,9 @@
 ﻿namespace xofz
 {
+    using System.Collections;
+    using System.Collections.Generic;
     using xofz.Framework;
+    using xofz.Framework.Materialization;
 
     public static class MEHelpers
     {
@@ -27,6 +30,13 @@
             Func<T, bool> predicate)
         {
             return EnumerableHelpers.Count(me, predicate);
+        }
+
+        public static MaterializedEnumerable<T> OfType<T>(
+            IEnumerable source)
+        {
+            return new LinkedListMaterializedEnumerable<T>(
+                EnumerableHelpers.OfType<T>(source));
         }
     }
 }
