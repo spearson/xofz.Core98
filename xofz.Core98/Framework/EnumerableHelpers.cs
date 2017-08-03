@@ -1,5 +1,6 @@
 ﻿namespace xofz.Framework
 {
+    using System.Collections;
     using System.Collections.Generic;
     using xofz.Framework.Materialization;
 
@@ -253,6 +254,17 @@
             }
 
             return end;
+        }
+
+        public static IEnumerable<T> OfType<T>(IEnumerable source)
+        {
+            foreach (var item in source)
+            {
+                if (item is T)
+                {
+                    yield return (T)item;
+                }
+            }
         }
     }
 }
