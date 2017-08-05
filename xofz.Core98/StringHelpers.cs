@@ -36,6 +36,7 @@
                 if (!char.IsWhiteSpace(c))
                 {
                     allWhiteSpace = false;
+                    break;
                 }
             }
 

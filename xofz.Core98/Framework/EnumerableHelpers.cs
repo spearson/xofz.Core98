@@ -1,5 +1,6 @@
 ﻿namespace xofz.Framework
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using xofz.Framework.Materialization;
@@ -67,6 +68,63 @@
                     yield return item;
                 }
             }
+        }
+
+        public static T First<T>(
+            IEnumerable<T> source)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is null and therefore "
+                    + "does not have a first item.  If this can happen, "
+                    + "consider using FirstOrDefault<T>()");
+            }
+
+            foreach (var item in source)
+            {
+                return item;
+            }
+
+            throw new InvalidOperationException(
+                "The enumerable is empty and therefore "
+                + "does not have a first item.  If this can happen, "
+                + "consider using FirstOrDefault<T>()");
+        }
+
+        public static T First<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is null and therefore "
+                    + "does not have a first item.  If this can happen, "
+                    + "consider using FirstOrDefault<T>()");
+            }
+
+            var empty = true;
+            foreach (var item in source)
+            {
+                empty = false;
+                if (predicate(item))
+                {
+                    return item;
+                }
+            }
+
+            if (empty)
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is empty and therefore "
+                    + "does not have a first item.  If this can happen, "
+                    + "consider using FirstOrDefault<T>()");
+            }
+
+            throw new InvalidOperationException(
+                "The non-empty enumerable did not have any elements "
+                + "which matched the predicate.");
         }
 
         public static T FirstOrDefault<T>(
@@ -258,12 +316,30 @@
 
         public static IEnumerable<T> OfType<T>(IEnumerable source)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
             foreach (var item in source)
             {
                 if (item is T)
                 {
                     yield return (T)item;
                 }
+            }
+        }
+
+        public static IEnumerable<T> SafeForEach<T>(IEnumerable<T> source)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                yield return item;
             }
         }
     }
