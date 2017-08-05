@@ -37,5 +37,12 @@
             return new LinkedListMaterializedEnumerable<T>(
                 EnumerableHelpers.OfType<T>(source));
         }
+
+        public static MaterializedEnumerable<T> SafeForEach<T>(
+            MaterializedEnumerable<T> me)
+        {
+            return new LinkedListMaterializedEnumerable<T>(
+                EnumerableHelpers.SafeForEach(me));
+        }
     }
 }
