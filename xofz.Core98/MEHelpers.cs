@@ -1,6 +1,8 @@
 ﻿namespace xofz
 {
     using System.Collections;
+    using System.Collections.Generic;
+    using System.Reflection;
     using xofz.Framework;
     using xofz.Framework.Materialization;
 
@@ -36,6 +38,25 @@
         {
             return new LinkedListMaterializedEnumerable<T>(
                 EnumerableHelpers.OfType<T>(source));
+        }
+
+        public static MaterializedEnumerable<T> PrivateFieldsOfType<T>(
+            object o)
+        {
+            var ll = new LinkedList<T>();
+            foreach (var fieldInfo in o.GetType()
+                .GetFields(
+                    BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                var value = fieldInfo.GetValue(o);
+                if (value is T)
+                {
+                    ll.AddLast((T)value);
+                }
+            }
+
+            return new LinkedListMaterializedEnumerable<T>(
+                ll);
         }
 
         public static MaterializedEnumerable<T> SafeForEach<T>(
