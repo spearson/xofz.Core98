@@ -48,7 +48,6 @@
     <Compile Include="Delegates.cs" />
     <Compile Include="Framework\EventRaiser.cs" />
     <Compile Include="Framework\Implementation\TextFileLog.cs" />
-    <Compile Include="Framework\Impossibility\InfiniteLoopTester.cs" />
     <Compile Include="Framework\LatchHolder.cs" />
     <Compile Include="Framework\Log.cs" />
     <Compile Include="Framework\LogEditor.cs" />

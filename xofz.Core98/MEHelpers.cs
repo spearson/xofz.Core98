@@ -44,8 +44,7 @@
             object o)
         {
             var ll = new LinkedList<T>();
-            foreach (var fieldInfo in o.GetType()
-                .GetFields(
+            foreach (var fieldInfo in o.GetType().GetFields(
                     BindingFlags.Instance | BindingFlags.NonPublic))
             {
                 var value = fieldInfo.GetValue(o);
