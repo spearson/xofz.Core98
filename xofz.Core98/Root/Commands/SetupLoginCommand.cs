@@ -10,12 +10,10 @@
         public SetupLoginCommand(
             LoginUi ui,
             MethodWeb web,
-            bool support98 = false,
             int loginDurationMinutes = 15)
         {
             this.ui = ui;
             this.web = web;
-            this.support98 = support98;
             this.loginDurationMinutes = loginDurationMinutes;
         }
 
@@ -33,9 +31,7 @@
         {
             var w = this.web;
             w.RegisterDependency(
-                this.support98
-                    ? new xofz.Framework.Timer()
-                    : new xofz.Framework.Timer(),
+                new xofz.Framework.Timer(),
                 "LoginTimer");
             w.RegisterDependency(
                 new LatchHolder
@@ -47,7 +43,6 @@
 
         private readonly LoginUi ui;
         private readonly MethodWeb web;
-        private readonly bool support98;
         private readonly int loginDurationMinutes;
     }
 }

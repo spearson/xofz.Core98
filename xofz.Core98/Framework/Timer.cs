@@ -8,7 +8,6 @@ namespace xofz.Framework
 {
     using System;
     using System.Threading;
-    using System.Windows.Forms;
 
     public class Timer : IDisposable
     {
@@ -66,7 +65,9 @@ namespace xofz.Framework
             this.innerTimer?.Dispose();
         }
 
-        private void innerTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void innerTimer_Elapsed(
+            object sender, 
+            System.Timers.ElapsedEventArgs e)
         {
             if (!this.AutoReset)
             {
