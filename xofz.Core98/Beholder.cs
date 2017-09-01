@@ -1,7 +1,18 @@
 ﻿namespace xofz
 {
-    public interface Beholder<in T>
+    public class Beholder<T>
     {
-        void Receive(T state);
+        public virtual void Receive(T state)
+        {
+            this.currentState = state;
+        }
+
+        public virtual void Swap(T newIn, out T previous)
+        {
+            previous = this.currentState;
+            this.currentState = newIn;
+        }
+
+        private T currentState;
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace xofz.UI
 {
-    using System;
-
     public interface LogEditorUi : PopupUi
     {
         event Action AddKeyTapped;

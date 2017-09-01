@@ -1,6 +1,5 @@
 ﻿namespace xofz.Presentation
 {
-    using System;
     using System.Diagnostics;
     using System.Threading;
     using UI;
@@ -31,8 +30,9 @@
 
         public override void Start()
         {
-            UiHelpers.Write(this.mainUi, () => this.cleanup());
-            this.mainUi.WriteFinished.WaitOne();
+            var mUi = this.mainUi;
+            UiHelpers.Write(mUi, () => this.cleanup());
+            mUi.WriteFinished.WaitOne();
             Process.GetCurrentProcess().Kill();
         }
 

@@ -31,13 +31,16 @@
             this.ui.LoginKeyTapped += this.ui_LoginKeyTapped;
             this.ui.CancelKeyTapped += this.Stop;
             this.ui.BackspaceKeyTapped += this.ui_BackspaceKeyTapped;
-            UiHelpers.Write(this.ui, () => this.ui.TimeRemaining = "Not logged in");
+            UiHelpers.Write(
+                this.ui, 
+                () => this.ui.TimeRemaining = "Not logged in");
 
-            this.web.Run<Timer>(
+            var w = this.web;
+            w.Run<Timer>(
                 t => t.Elapsed += this.timer_Elapsed,
                 "LoginTimer");
-            this.web.Run<Navigator>(n => n.RegisterPresenter(this));
-            this.web.Run<Timer>(t => t.Start(1000), "LoginTimer");
+            w.Run<Navigator>(n => n.RegisterPresenter(this));
+            w.Run<Timer>(t => t.Start(1000), "LoginTimer");
         }
 
         public override void Start()

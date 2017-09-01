@@ -36,6 +36,18 @@
         private void ui_ShutdownRequested()
         {
             var w = this.web;
+            var acExists = false;
+            w.Run<AccessController>(ac =>
+            {
+                acExists = true;
+            });
+
+            if (!acExists)
+            {
+                w.Run<Navigator>(n => n.Present<ShutdownPresenter>());
+                return;
+            }
+
             var cal = w.Run<AccessController, AccessLevel>(
                 ac => ac.CurrentAccessLevel);
 
@@ -53,7 +65,7 @@
                     w.Run<EventRaiser>(
                         er => er.Raise(
                             this.ui,
-                            "ShutdownRequested"));
+                            nameof(this.ui.ShutdownRequested)));
                 }
             }
         }
