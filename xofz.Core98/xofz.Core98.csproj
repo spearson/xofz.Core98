@@ -102,7 +102,6 @@
     <Compile Include="Framework\Transformation\EnumerableTrapper.cs" />
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
-    <Compile Include="Framework\VncSettingsHolder.cs" />
     <Compile Include="Internal\EmbeddedAssemblyLoader.cs" />
     <Compile Include="MaterializedEnumerable.cs" />
     <Compile Include="Materializer.cs" />
@@ -118,7 +117,6 @@
     <Compile Include="Presentation\PopupPresenter.cs" />
     <Compile Include="Presentation\Presenter.cs" />
     <Compile Include="Presentation\ShutdownPresenter.cs" />
-    <Compile Include="Presentation\VncPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Root\Command.cs" />
     <Compile Include="Root\CommandExecutor.cs" />
@@ -126,7 +124,6 @@
     <Compile Include="Root\Commands\SetupLoginCommand.cs" />
     <Compile Include="Root\Commands\SetupMainCommand.cs" />
     <Compile Include="Root\Commands\SetupShutdownCommand.cs" />
-    <Compile Include="Root\Commands\SetupVncCommand.cs" />
     <Compile Include="StringHelpers.cs" />
     <Compile Include="Tuple.cs" />
     <Compile Include="UI\Forms\ControlHelpers.cs" />
@@ -171,12 +168,6 @@
     <Compile Include="UI\Forms\UserControlUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\UserControlVncUi.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\UserControlVncUi.Designer.cs">
-      <DependentUpon>UserControlVncUi.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\LabeledUi.cs" />
     <Compile Include="UI\LogEditorUi.cs" />
     <Compile Include="UI\LoginUi.cs" />
@@ -210,9 +201,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\UserControlToggleUi.resx">
       <DependentUpon>UserControlToggleUi.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\UserControlVncUi.resx">
-      <DependentUpon>UserControlVncUi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
