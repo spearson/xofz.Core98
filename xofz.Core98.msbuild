@@ -42,7 +42,7 @@
   </Target>
 
 
-  <Target Name="Deploy" DependsOnTargets="Test">
+  <Target Name="Deploy" DependsOnTargets="Build">
     <ItemGroup>
       <FilesToDelete Include="C:\Dropbox\Libraries\$(ProjectName)\*.*" />
     </ItemGroup>
