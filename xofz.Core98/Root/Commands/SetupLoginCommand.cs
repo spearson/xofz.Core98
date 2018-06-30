@@ -1,5 +1,6 @@
 ﻿namespace xofz.Root.Commands
 {
+    using System;
     using System.Threading;
     using xofz.Framework;
     using xofz.Presentation;
@@ -11,10 +12,21 @@
             LoginUi ui,
             MethodWeb web,
             int loginDurationMinutes = 15)
+            : this(
+                ui,
+                web,
+                TimeSpan.FromMinutes(loginDurationMinutes))
+        {
+        }
+
+        public SetupLoginCommand(
+            LoginUi ui,
+            MethodWeb web,
+            TimeSpan loginDuration)
         {
             this.ui = ui;
             this.web = web;
-            this.loginDurationMinutes = loginDurationMinutes;
+            this.loginDuration = loginDuration;
         }
 
         public override void Execute()
@@ -24,7 +36,7 @@
                     this.ui,
                     this.web)
                 .Setup(
-                    this.loginDurationMinutes);
+                    this.loginDuration);
         }
 
         private void registerDependencies()
@@ -39,10 +51,12 @@
                     Latch = new ManualResetEvent(true)
                 },
                 "LoginLatch");
+            w.RegisterDependency(
+                new KeyboardLoader());
         }
 
         private readonly LoginUi ui;
         private readonly MethodWeb web;
-        private readonly int loginDurationMinutes;
+        private readonly TimeSpan loginDuration;
     }
 }

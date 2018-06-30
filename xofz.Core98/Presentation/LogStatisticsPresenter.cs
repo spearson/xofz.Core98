@@ -4,13 +4,14 @@
     using System.Globalization;
     using System.Threading;
     using xofz.Framework;
+    using xofz.Framework.Logging;
     using xofz.UI;
 
-    public sealed class LogStatisticsPresenter : PopupPresenter
+    public sealed class LogStatisticsPresenter : PopupNamedPresenter
     {
         public LogStatisticsPresenter(
-            LogStatisticsUi ui, 
-            MethodWeb web) 
+            LogStatisticsUi ui,
+            MethodWeb web)
             : base(ui)
         {
             this.ui = ui;
@@ -44,12 +45,34 @@
                 return;
             }
 
+            base.Start();
             if (this.resetOnStart)
             {
                 this.resetDates();
             }
 
-            base.Start();
+            var w = this.web;
+            var fc = UiHelpers.Read(this.ui, () => this.ui.FilterContent);
+            if (string.IsNullOrEmpty(fc))
+            {
+                w.Run<Navigator, Messenger>((n, m) =>
+                {
+                    var logUi = n.GetUi<LogPresenter, LogUi>(
+                        this.Name);
+                    if (logUi == default(LogUi))
+                    {
+                        return;
+                    }
+
+                    fc = UiHelpers.Read(
+                        logUi,
+                        () => logUi.FilterContent);
+                    UiHelpers.Write(
+                        this.ui,
+                        () => this.ui.FilterContent = fc);
+                    this.ui.WriteFinished.WaitOne();
+                });
+            }
         }
 
         private void resetDates()
@@ -70,16 +93,17 @@
                     stats.Reset();
                     this.showStatistics(
                         stats, true);
-                });
+                },
+                this.Name);
         }
 
         private void ui_RangeKeyTapped()
         {
             var w = this.web;
-            var start = UiHelpers.Read(
+            var startDate = UiHelpers.Read(
                 this.ui,
                 () => this.ui.StartDate);
-            var end = UiHelpers.Read(
+            var endDate = UiHelpers.Read(
                 this.ui,
                 () => this.ui.EndDate);
             w.Run<LogStatistics>(
@@ -87,18 +111,19 @@
                 {
                     this.setFilters(stats);
                     stats.ComputeRange(
-                        start, end);
+                        startDate, endDate);
                     var typeInfo =
                         "Range: "
-                        + this.formatDate(start)
+                        + this.formatDate(startDate)
                         + " to "
-                        + this.formatDate(end);
+                        + this.formatDate(endDate);
                     UiHelpers.Write(
                         this.ui,
                         () => this.ui.Header = typeInfo);
                     this.ui.WriteFinished.WaitOne();
                     this.showStatistics(stats, false);
-                });
+                },
+                this.Name);
         }
 
         private void ui_OverallKeyTapped()
@@ -114,7 +139,8 @@
                         () => this.ui.Header = "Overall");
                     this.ui.WriteFinished.WaitOne();
                     this.showStatistics(stats, false);
-                });
+                },
+                this.Name);
         }
 
         private void setFilters(LogStatistics statistics)

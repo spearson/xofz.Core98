@@ -1,7 +1,8 @@
 ﻿namespace xofz.Root.Commands
 {
+    using System;
     using xofz.Framework;
-    using xofz.Framework.Implementation;
+    using xofz.Framework.Logging;
     using xofz.Framework.Materialization;
     using xofz.Presentation;
     using xofz.UI;
@@ -13,19 +14,100 @@
             ShellUi shell,
             LogEditorUi editorUi,
             MethodWeb web,
-            string filePath = @"Log.log",
+            string logName,
+            string sourceName,
+            AccessLevel clearLevel = AccessLevel.None,
+            AccessLevel editLevel = AccessLevel.None,
+            bool resetOnStart = false,
+            Func<string> computeBackupLocation = default(Func<string>))
+        {
+            this.ui = ui;
+            this.shell = shell;
+            this.editorUi = editorUi;
+            this.web = web;
+            this.logName = logName;
+            this.sourceName = sourceName;
+            this.filePath = null;
+            this.clearLevel = clearLevel;
+            this.editLevel = editLevel;
+            this.resetOnStart = resetOnStart;
+            this.computeBackupLocation = computeBackupLocation;
+        }
+
+        public SetupLogCommand(
+            LogUi ui,
+            ShellUi shell,
+            LogEditorUi editorUi,
+            LogStatisticsUi statisticsUi,
+            MethodWeb web,
+            string logName,
+            string sourceName,
+            AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false)
         {
             this.ui = ui;
             this.shell = shell;
             this.editorUi = editorUi;
+            this.statisticsUi = statisticsUi;
             this.web = web;
-            
-            this.filePath = filePath;
+            this.logName = logName;
+            this.sourceName = sourceName;
+            this.filePath = null;
+            this.clearLevel = clearLevel;
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
+            this.computeBackupLocation = default(
+                Func<string>);
+        }
 
+        public SetupLogCommand(
+            LogUi ui,
+            ShellUi shell,
+            LogEditorUi editorUi,
+            LogStatisticsUi statisticsUi,
+            MethodWeb web,
+            string logName,
+            string sourceName,
+            AccessLevel clearLevel = AccessLevel.None,
+            AccessLevel editLevel = AccessLevel.None,
+            bool resetOnStart = false,
+            Func<string> computeBackupLocation = default(Func<string>))
+        {
+            this.ui = ui;
+            this.shell = shell;
+            this.editorUi = editorUi;
+            this.statisticsUi = statisticsUi;
+            this.web = web;
+            this.logName = logName;
+            this.sourceName = sourceName;
+            this.filePath = null;
+            this.clearLevel = clearLevel;
+            this.editLevel = editLevel;
+            this.resetOnStart = resetOnStart;
+            this.computeBackupLocation = computeBackupLocation;
+        }
+
+        public SetupLogCommand(
+            LogUi ui,
+            ShellUi shell,
+            LogEditorUi editorUi,
+            MethodWeb web,
+            string filePath = @"Log.log",
+            AccessLevel clearLevel = AccessLevel.None,
+            AccessLevel editLevel = AccessLevel.None,
+            bool resetOnStart = false,
+            Func<string> computeBackupLocation = default(Func<string>))
+        {
+            this.ui = ui;
+            this.shell = shell;
+            this.editorUi = editorUi;
+            this.web = web;
+            this.filePath = filePath;
+            this.clearLevel = clearLevel;
+            this.editLevel = editLevel;
+            this.resetOnStart = resetOnStart;
+            this.computeBackupLocation = computeBackupLocation;
             this.statisticsEnabled = false;
         }
 
@@ -36,19 +118,21 @@
             LogStatisticsUi statisticsUi,
             MethodWeb web,
             string filePath = @"Log.log",
+            AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false)
+            bool resetOnStart = false,
+            Func<string> computeBackupLocation = default(Func<string>))
         {
             this.ui = ui;
             this.shell = shell;
             this.editorUi = editorUi;
             this.statisticsUi = statisticsUi;
             this.web = web;
-
             this.filePath = filePath;
             this.editLevel = editLevel;
+            this.clearLevel = clearLevel;
             this.resetOnStart = resetOnStart;
-
+            this.computeBackupLocation = computeBackupLocation;
             this.statisticsEnabled = true;
         }
 
@@ -64,6 +148,8 @@
                     w)
                 .Setup(
                     this.editLevel,
+                    this.clearLevel,
+                    this.computeBackupLocation,
                     ros,
                     se);
 
@@ -84,11 +170,21 @@
         private void registerDependencies()
         {
             var w = this.web;
+            var ln = this.logName;
+            if (ln == null)
+            {
+                w.RegisterDependency(
+                    new TextFileLog(
+                        this.filePath));
+                goto finish;
+            }
+
             w.RegisterDependency(
-                new TextFileLog(this.filePath));
-            w.RegisterDependency(
-                new xofz.Framework.Timer(),
-                "LogTimer");
+                new EventLogLog(
+                    ln,
+                    this.sourceName));
+
+            finish:
             w.RegisterDependency(
                 new LinkedListMaterializer(),
                 "LogMaterializer");
@@ -105,8 +201,12 @@
         private readonly LogStatisticsUi statisticsUi;
         private readonly MethodWeb web;
         private readonly string filePath;
+        private readonly string logName;
+        private readonly string sourceName;
         private readonly AccessLevel editLevel;
+        private readonly AccessLevel clearLevel;
         private readonly bool resetOnStart;
+        private readonly Func<string> computeBackupLocation;
         private readonly bool statisticsEnabled;
     }
 }

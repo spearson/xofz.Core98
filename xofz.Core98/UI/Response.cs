@@ -3,6 +3,7 @@
     public enum Response
     {
         No,
-        Yes // todo: add more
+        Yes,
+        Cancel // todo: add more
     }
 }

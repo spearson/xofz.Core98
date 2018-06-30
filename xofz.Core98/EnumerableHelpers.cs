@@ -1,4 +1,4 @@
-﻿namespace xofz.Framework
+﻿namespace xofz
 {
     using System;
     using System.Collections;
@@ -28,7 +28,7 @@
         }
 
         public static IEnumerable<T> Where<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             Func<T, bool> predicate)
         {
             if (source == default(IEnumerable<T>))
@@ -51,7 +51,7 @@
         }
 
         public static IEnumerable<T> Skip<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             int numberToSkip)
         {
             if (source == default(IEnumerable<T>))
@@ -125,6 +125,76 @@
             throw new InvalidOperationException(
                 "The non-empty enumerable did not have any elements "
                 + "which matched the predicate.");
+        }
+
+        public static bool Any<T>(
+            IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return false;
+            }
+
+            foreach (var item in source)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool Any<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                return false;
+            }
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool All<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                return true;
+            }
+
+            foreach (var item in source)
+            {
+                if (!predicate(item))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static IEnumerable<T> Cast<T>(
+            IEnumerable source)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                yield return (T)item;
+            }
         }
 
         public static T FirstOrDefault<T>(
@@ -338,6 +408,14 @@
             }
 
             foreach (var item in source)
+            {
+                yield return item;
+            }
+        }
+
+        public static IEnumerable<T> Iterate<T>(params T[] items)
+        {
+            foreach (var item in items)
             {
                 yield return item;
             }

@@ -1,8 +1,6 @@
 ﻿namespace xofz.UI
 {
-    using System;
-
-    public interface LoginUi : Ui
+    public interface LoginUi : PopupUi
     {
         event Action BackspaceKeyTapped;
 
@@ -10,14 +8,16 @@
 
         event Action CancelKeyTapped;
 
+        event Action KeyboardKeyTapped;
+
+        AccessLevel CurrentAccessLevel { get; set; }
+
         string CurrentPassword { get; set; }
 
         string TimeRemaining { get; set; }
 
-        AccessLevel CurrentAccessLevel { get; set; }
+        bool KeyboardKeyVisible { get; set; }
 
-        void Display();
-
-        void Hide();
+        void FocusPassword();
     }
 }

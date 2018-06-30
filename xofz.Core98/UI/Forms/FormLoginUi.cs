@@ -6,12 +6,15 @@
     using System.Windows.Forms;
     using xofz.UI;
 
-    public partial class FormLoginUi : FormUi, LoginUi
+    public partial class FormLoginUi 
+        : FormUi, LoginUi
     {
         public FormLoginUi(Form shell)
         {
             this.shell = shell;
+
             this.InitializeComponent();
+
             this.FormClosing += this.this_FormClosing;
             var h = this.Handle;
         }
@@ -22,6 +25,8 @@
 
         public event Action CancelKeyTapped;
 
+        public event Action KeyboardKeyTapped;
+
         string LoginUi.CurrentPassword
         {
             get => this.passwordTextBox.Text;
@@ -29,11 +34,25 @@
             set => this.passwordTextBox.Text = value;
         }
 
-        public string TimeRemaining
+        string LoginUi.TimeRemaining
         {
             get => this.timeRemainingLabel.Text;
 
             set => this.timeRemainingLabel.Text = value;
+        }
+
+        bool LoginUi.KeyboardKeyVisible
+        {
+            get => this.keyboardKey.Visible;
+
+            set => this.keyboardKey.Visible = value;
+        }
+
+        void LoginUi.FocusPassword()
+        {
+            var ptb = this.passwordTextBox;
+            ptb.Focus();
+            ptb.Select(ptb.Text.Length, 0);
         }
 
         AccessLevel LoginUi.CurrentAccessLevel
@@ -50,16 +69,24 @@
             }
         }
 
-        void LoginUi.Display()
+        void PopupUi.Display()
         {
-            this.Location = new Point(this.shell.Location.X, this.shell.Location.Y);
+            this.Location = new Point(
+                this.shell.Location.X, 
+                this.shell.Location.Y);
             this.Visible = true;
-            this.passwordTextBox.Focus();
-            this.passwordTextBox.SelectAll();
-            this.firstNumKeyPressed = false;
+            var ptb = this.passwordTextBox;
+            ptb.Focus();
+            ptb.SelectAll();
+            if (string.IsNullOrEmpty(ptb.Text))
+            {
+                ptb.Focus();
+            }
+
+            this.firstInputKeyPressed = false;
         }
 
-        void LoginUi.Hide()
+        void PopupUi.Hide()
         {
             this.Visible = false;
         }
@@ -81,48 +108,66 @@
 
         private void loginKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.LoginKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.LoginKeyTapped?.Invoke());
         }
 
         private void numKey_Click(object sender, EventArgs e)
         {
             var key = (Button)sender;
-            if (!this.firstNumKeyPressed)
+            var ptb = this.passwordTextBox;
+            if (!this.firstInputKeyPressed)
             {
-                this.passwordTextBox.Text = key.Text;
-                this.firstNumKeyPressed = true;
+                ptb.Text = key.Text;
+                this.firstInputKeyPressed = true;
             }
             else
             {
-                this.passwordTextBox.Text += key.Text;
+                ptb.Text += key.Text;
             }
 
-            this.passwordTextBox.Focus();
-            this.passwordTextBox.Select(this.passwordTextBox.Text.Length, 0);
+            LoginUi ui = this;
+            ui.FocusPassword();
         }
 
         private void clearKey_Click(object sender, EventArgs e)
         {
-            this.passwordTextBox.Text = string.Empty;
+            this.passwordTextBox.Text = null;
+            LoginUi ui = this;
+            ui.FocusPassword();
         }
 
         private void backspaceKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.BackspaceKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.BackspaceKeyTapped?.Invoke());
         }
 
         private void cancelKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.CancelKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.CancelKeyTapped?.Invoke());
         }
 
         private void this_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            new Thread(() => this.CancelKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.CancelKeyTapped?.Invoke());
         }
 
-        private bool firstNumKeyPressed;
+        private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.firstInputKeyPressed = true;
+        }
+
+        private void keyboardKey_Click(object sender, EventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(
+                o => this.KeyboardKeyTapped?.Invoke());
+        }
+
+        private bool firstInputKeyPressed;
         private AccessLevel currentAccessLevel;
         private readonly Form shell;
     }

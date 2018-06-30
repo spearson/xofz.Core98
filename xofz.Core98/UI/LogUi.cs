@@ -10,6 +10,8 @@
 
         event Action AddKeyTapped;
 
+        event Action ClearKeyTapped;
+
         event Action StatisticsKeyTapped;
 
         event Action FilterTextChanged;
@@ -26,6 +28,10 @@
 
         bool AddKeyVisible { get; set; }
 
+        bool ClearKeyVisible { get; set; }
+
         bool StatisticsKeyVisible { get; set; }
+
+        void AddToTop(Tuple<string, string, string> entry);
     }
 }

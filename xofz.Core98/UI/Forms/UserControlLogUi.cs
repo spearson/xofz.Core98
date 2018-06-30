@@ -5,7 +5,8 @@
     using System.Threading;
     using System.Windows.Forms;
 
-    public partial class UserControlLogUi : UserControlUi, LogUi
+    public partial class UserControlLogUi 
+        : UserControlUi, LogUi
     {
         public UserControlLogUi(Materializer materializer)
         {
@@ -22,6 +23,8 @@
         public event Action EndDateChanged;
 
         public event Action AddKeyTapped;
+
+        public event Action ClearKeyTapped;
 
         public event Action StatisticsKeyTapped;
 
@@ -69,8 +72,9 @@
 
             set
             {
-                this.startDatePicker.SelectionStart = value;
-                this.startDatePicker.SelectionEnd = value;
+                var sdp = this.startDatePicker;
+                sdp.SelectionStart = value;
+                sdp.SelectionEnd = value;
             }
         }
 
@@ -80,8 +84,9 @@
 
             set
             {
-                this.endDatePicker.SelectionStart = value;
-                this.endDatePicker.SelectionEnd = value;
+                var edp = this.endDatePicker;
+                edp.SelectionStart = value;
+                edp.SelectionEnd = value;
             }
         }
 
@@ -106,68 +111,103 @@
             set => this.addKey.Visible = value;
         }
 
+        bool LogUi.ClearKeyVisible
+        {
+            get => this.clearKey.Visible;
+
+            set => this.clearKey.Visible = value;
+        }
+
         bool LogUi.StatisticsKeyVisible
         {
             get => this.statisticsKey.Visible;
+
             set => this.statisticsKey.Visible = value;
+        }
+
+        void LogUi.AddToTop(
+            Tuple<string, string, string> entry)
+        {
+            this.entriesGrid.Rows.Insert(0,
+                entry.Item1,
+                entry.Item2,
+                entry.Item3);
         }
 
         private void addKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.AddKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.AddKeyTapped?.Invoke());
         }
 
-        private void startDatePicker_DateChanged(object sender, DateRangeEventArgs e)
+        private void clearKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.StartDateChanged?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.ClearKeyTapped?.Invoke());
         }
 
-        private void endDatePicker_DateChanged(object sender, DateRangeEventArgs e)
+        private void startDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            new Thread(() => this.EndDateChanged?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.StartDateChanged?.Invoke());
+        }
+
+        private void endDatePicker_DateSelected(object sender, DateRangeEventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(
+                o => this.EndDateChanged?.Invoke());
         }
 
         private void downKey_Click(object sender, EventArgs e)
         {
             this.entriesGrid.Focus();
+            
             SendKeys.Send("{PGDN}");
         }
 
         private void upKey_Click(object sender, EventArgs e)
         {
             this.entriesGrid.Focus();
+
             SendKeys.Send("{PGUP}");
         }
 
         private void statisticsKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.StatisticsKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.StatisticsKeyTapped?.Invoke());
         }
 
         private void filterContentTextBox_TextChanged(object sender, EventArgs e)
         {
             this.activeFilterTextBox = this.filterContentTextBox;
-            new Thread(() => this.FilterTextChanged?.Invoke()).Start();
+
+            ThreadPool.QueueUserWorkItem(
+                o => this.FilterTextChanged?.Invoke());
         }
 
         private void filterTypeTextBox_TextChanged(object sender, EventArgs e)
         {
             this.activeFilterTextBox = this.filterTypeTextBox;
-            new Thread(() => this.FilterTextChanged?.Invoke()).Start();
+
+            ThreadPool.QueueUserWorkItem(
+                o => this.FilterTextChanged?.Invoke());
         }
 
         private void resetContentKey_Click(object sender, EventArgs e)
         {
-            this.activeFilterTextBox = this.filterContentTextBox;
-            this.filterContentTextBox.Text = string.Empty;
-            this.filterContentTextBox.Focus();
+            var fctb = this.filterContentTextBox;
+            this.activeFilterTextBox = fctb;
+            fctb.Text = string.Empty;
+            fctb.Focus();
         }
 
         private void resetTypeKey_Click(object sender, EventArgs e)
         {
-            this.activeFilterTextBox = this.filterTypeTextBox;
-            this.filterTypeTextBox.Text = string.Empty;
-            this.filterTypeTextBox.Focus();
+            var fttb = this.filterTypeTextBox;
+            this.activeFilterTextBox = fttb;
+            fttb.Text = string.Empty;
+            fttb.Focus();
         }
 
         private TextBox activeFilterTextBox;

@@ -18,11 +18,21 @@
 
         public override void Execute()
         {
+            this.registerDependencies();
             new MainPresenter(
                     this.ui,
                     this.web)
-                .Setup(
-                    this.shutdownLevel);
+                .Setup();
+        }
+
+        private void registerDependencies()
+        {
+            var w = this.web;
+            w.RegisterDependency(
+                new MainUiSettings
+                {
+                    ShutdownLevel = this.shutdownLevel
+                });
         }
 
         private readonly MainUi ui;

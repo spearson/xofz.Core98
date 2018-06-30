@@ -8,6 +8,7 @@
     <Version>$(BUILD_NUMBER)</Version>
     <ProjectName>xofz.Core98</ProjectName>
     <BuildDir>$(ProjectName)\bin\Release</BuildDir>
+    <DeployFolder>C:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
   </PropertyGroup>
 
 
@@ -15,12 +16,15 @@
     <AssemblyInfo
       CodeLanguage="CS" 
       OutputFile="$(ProjectName)\Properties\AssemblyInfo.cs"
-      AssemblyTitle="$(ProjectName)" 
+      AssemblyTitle="$(ProjectName)"
+      AssemblyDescription="Core library for building desktop applications for Windows 98 and above"
+      AssemblyConfiguration=""
       AssemblyCompany="X of Z"
-      AssemblyProduct="Core98"
-      AssemblyCopyright="Copyright (c) Sam Pearson"
-      AssemblyDescription="This class library runs on Windows 98, if it has .NET 2.0!"
+      AssemblyProduct="X of Z Core98"
+      AssemblyCopyright="Copyright (c) X of Z"
+      AssemblyTrademark=""
       ComVisible="false"
+      Guid="2a428598-6312-4e45-9d63-32170108b91e"
       AssemblyVersion="$(Version)"
       AssemblyFileVersion="$(Version)" />
   </Target>
@@ -31,13 +35,14 @@
     <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=Release;Platform=Any CPU" />
   </Target>
 
+
   <UsingTask AssemblyFile="C:\Dropbox\Libraries\xUnit\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
   <Target Name="Test" DependsOnTargets="Build">
-    <xunit Assembly="CareControls.Tests\bin\Release\CareControls.Tests.dll" Xml="test.xunit.dll.xml"/>
+    <xunit Assemblies="$(ProjectName).Tests\bin\Release\$(ProjectName).Tests.dll" />
   </Target>
 
 
-  <Target Name="Deploy" DependsOnTargets="Build">
+  <Target Name="Deploy" DependsOnTargets="Test">
     <ItemGroup>
       <FilesToDelete Include="C:\Dropbox\Libraries\$(ProjectName)\*.*" />
     </ItemGroup>
@@ -48,6 +53,6 @@
       <FilesToCopy Include="$(BuildDir)\$(ProjectName).pdb" />
       <FilesToCopy Include="$(BuildDir)\version-$(Version).txt" />
     </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="C:\Dropbox\Libraries\$(ProjectName)" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder)" />
   </Target>
 </Project>

@@ -10,130 +10,108 @@
         public Navigator(MethodWeb web)
         {
             this.web = web;
-            this.presenters = new List<Presenter>();
+            this.presenters = new LinkedList<Presenter>();
         }
 
         public virtual void RegisterPresenter(Presenter presenter)
         {
-            this.presenters.Add(presenter);
+            this.presenters.AddLast(presenter);
+        }
+
+        public virtual bool IsRegistered<T>()
+            where T : Presenter
+        {
+            return EnumerableHelpers.Any(
+                EnumerableHelpers.OfType<T>(
+                    this.presenters));
+        }
+
+        public virtual bool IsRegistered<T>(string name)
+            where T : NamedPresenter
+        {
+            return EnumerableHelpers.Any(
+                EnumerableHelpers.OfType<T>(
+                    this.presenters),
+                p => p.Name == name);
+
         }
 
         public virtual void Present<T>() where T : Presenter
         {
             var ps = this.presenters;
-            Presenter p = default(Presenter);
-            foreach (var presenter in ps)
-            {
-                if (presenter is T)
-                {
-                    p = presenter;
-                    break;
-                }
-            }
-
-            if (p == default(Presenter))
+            var presenter = EnumerableHelpers.FirstOrDefault(
+                ps,
+                p => p is T);
+            if (presenter == null)
             {
                 return;
             }
 
-            foreach (var presenter in ps)
+            foreach (var p in ps)
             {
-                presenter.Stop();
+                p.Stop();
             }
 
-            new Thread(() =>
-            {
-                p.Start();
-            }).Start();
-
+            ThreadPool.QueueUserWorkItem(o => presenter.Start());
         }
 
-        public virtual void Present<T>(string name) where T : NamedPresenter
+        public virtual void Present<T>(string name)
+            where T : NamedPresenter
         {
             var ps = this.presenters;
-            Presenter match = default(Presenter);
-            foreach (var presenter in ps)
+            var matchingPresenters = EnumerableHelpers.Cast<T>(
+                EnumerableHelpers.Where(
+                    ps,
+                    p => p is T));
+            foreach (var presenter in matchingPresenters)
             {
-                if (!(presenter is T))
+                if (presenter.Name != name)
                 {
                     continue;
                 }
 
-                if (((T)presenter).Name != name)
+                foreach (var p in ps)
                 {
-                    continue;
+                    p.Stop();
                 }
 
-                match = presenter;
+                ThreadPool.QueueUserWorkItem(o => presenter.Start());
                 break;
             }
+        }
 
-            if (match == default(Presenter))
+        public virtual void PresentFluidly<T>()
+            where T : Presenter
+        {
+            var presenter = EnumerableHelpers.FirstOrDefault(
+                this.presenters,
+                p => p is T);
+            if (presenter == null)
             {
                 return;
             }
 
-            foreach (var presenter in ps)
-            {
-                presenter.Stop();
-            }
-
-            new Thread(() =>
-            {
-                match.Start();
-            }).Start();
+            ThreadPool.QueueUserWorkItem(o => presenter.Start());
         }
 
-        public virtual void PresentFluidly<T>() where T : Presenter
+        public virtual void PresentFluidly<T>(string name)
+            where T : NamedPresenter
         {
-            var ps = this.presenters;
-            Presenter p = default(Presenter);
-            foreach (var presenter in ps)
+            var matchingPresenters =
+                EnumerableHelpers.Cast<T>(
+                    EnumerableHelpers.Where(
+                        this.presenters,
+                        p => p is T));
+            foreach (var presenter in matchingPresenters)
             {
-                if (presenter is T)
-                {
-                    p = presenter;
-                    break;
-                }
-            }
-
-            if (p == default(Presenter))
-            {
-                return;
-            }
-
-            new Thread(() => p.Start()).Start();
-        }
-
-        public virtual void PresentFluidly<T>(string name) where T : NamedPresenter
-        {
-            var ps = this.presenters;
-            Presenter match = default(Presenter);
-            foreach (var presenter in ps)
-            {
-                if (!(presenter is T))
+                if (presenter.Name != name)
                 {
                     continue;
                 }
 
-                if (((T)presenter).Name != name)
-                {
-                    continue;
-                }
-
-                match = presenter;
+                ThreadPool.QueueUserWorkItem(o => presenter.Start());
                 break;
             }
-
-            if (match == default(Presenter))
-            {
-                return;
-            }
-
-            new Thread(() =>
-            {
-                match.Start();
-            }).Start();
         }
 
         public virtual void LoginFluidly()
@@ -153,47 +131,39 @@
             string fieldName = "ui")
             where TPresenter : Presenter
         {
-            var ps = this.presenters;
-            var match = default(Presenter);
-            if (presenterName == null)
-            {
-                foreach (var presenter in ps)
-                {
-                    if (presenter is TPresenter)
-                    {
-                        match = presenter;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                foreach (var presenter in ps)
-                {
-                    if (!(presenter is NamedPresenter))
-                    {
-                        continue;
-                    }
-
-                    if (!(presenter is TPresenter))
-                    {
-                        continue;
-                    }
-
-                    if (((NamedPresenter)presenter).Name == presenterName)
-                    {
-                        match = presenter;
-                        break;
-                    }
-                }
-            }
-
-            if (match == default(Presenter))
+            var matchingPresenters = new LinkedList<Presenter>(
+                EnumerableHelpers.Where(
+                    this.presenters,
+                    p => p is TPresenter));
+            if (matchingPresenters.Count == 0)
             {
                 return default(TUi);
             }
 
-            return this.getUi<TUi>(match, fieldName);
+            if (presenterName == null)
+            {
+                return this.getUi<TUi>(
+                    matchingPresenters.First.Value,
+                    fieldName);
+            }
+
+            foreach (var p in matchingPresenters)
+            {
+                if (!(p is NamedPresenter))
+                {
+                    continue;
+                }
+
+                var np = (NamedPresenter)p;
+                if (np.Name == presenterName)
+                {
+                    return this.getUi<TUi>(
+                        np,
+                        fieldName);
+                }
+            }
+
+            return default(TUi);
         }
 
         private TUi getUi<TUi>(object presenter, string fieldName)
@@ -204,7 +174,7 @@
                 ?.GetValue(presenter);
         }
 
-        private readonly List<Presenter> presenters;
+        private readonly LinkedList<Presenter> presenters;
         private readonly MethodWeb web;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace xofz.Framework
+﻿namespace xofz.Framework.Logging
 {
     using System;
 

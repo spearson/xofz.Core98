@@ -13,10 +13,12 @@ namespace xofz.Framework
     {
         public Timer()
         {
+            this.autoReset = true;
+
             this.innerTimer = new System.Timers.Timer();
             this.innerTimer.Elapsed += this.innerTimer_Elapsed;
-            this.autoReset = true;
-            this.priority = ThreadPriority.Normal;
+
+            this.locker = new object();
         }
 
         public virtual event Action Elapsed;
@@ -28,36 +30,38 @@ namespace xofz.Framework
             set => this.autoReset = value;
         }
 
-        public virtual ThreadPriority Priority
+        public virtual void Start(TimeSpan interval)
         {
-            get => this.priority;
-
-            set
-            {
-                this.priority = value;
-                this.threadPrioritySet = false;
-            }
+            this.Start((long)interval.TotalMilliseconds);
         }
 
-        public virtual void Start(int intervalInMs)
+        public virtual void Start(long intervalMilliseconds)
         {
-            if (Interlocked.CompareExchange(ref this.startedIf1, 1, 0) == 1)
+            lock (this.locker)
             {
-                return;
-            }
+                if (this.started)
+                {
+                    return;
+                }
 
-            this.innerTimer.Interval = intervalInMs;
-            this.innerTimer.Start();
+                var it = this.innerTimer;
+                it.Interval = intervalMilliseconds;
+                it.Start();
+                this.started = true;
+            }
         }
 
         public virtual void Stop()
         {
-            if (Interlocked.CompareExchange(ref this.startedIf1, 0, 1) == 0)
+            lock (this.locker)
             {
-                return;
-            }
+                if (!this.started)
+                {
+                    return;
+                }
 
-            this.innerTimer.Stop();
+                this.innerTimer.Stop();
+            }
         }
 
         public virtual void Dispose()
@@ -65,7 +69,7 @@ namespace xofz.Framework
             this.innerTimer?.Dispose();
         }
 
-        private void innerTimer_Elapsed(
+        protected virtual void innerTimer_Elapsed(
             object sender, 
             System.Timers.ElapsedEventArgs e)
         {
@@ -74,24 +78,12 @@ namespace xofz.Framework
                 this.Stop();
             }
 
-            if (!this.threadPrioritySet)
-            {
-                this.changeThreadPriority();
-            }
-
-            new Thread(() => this.Elapsed?.Invoke()).Start();
+            this.Elapsed?.Invoke();
         }
 
-        private void changeThreadPriority()
-        {
-            Thread.CurrentThread.Priority = this.Priority;
-            this.threadPrioritySet = true;
-        }
-
-        private bool threadPrioritySet;
-        private int startedIf1;
-        private ThreadPriority priority;
-        private volatile bool autoReset;
+        protected volatile bool autoReset;
+        protected bool started;
         private readonly System.Timers.Timer innerTimer;
+        private readonly object locker;
     }
 }

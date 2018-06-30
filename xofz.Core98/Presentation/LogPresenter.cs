@@ -7,22 +7,27 @@
     using Framework;
     using Framework.Materialization;
     using UI;
+    using xofz.Framework.Logging;
 
-    public sealed class LogPresenter : Presenter
+    public sealed class LogPresenter : NamedPresenter
     {
         public LogPresenter(
-            LogUi ui, 
+            LogUi ui,
             ShellUi shell,
             MethodWeb web)
             : base(ui, shell)
         {
             this.ui = ui;
             this.web = web;
-            this.locker = new object();
+            this.entriesToAddOnRefresh = new List<LogEntry>(0x100);
         }
 
+        public override string Name { get; set; }
+
         public void Setup(
-            AccessLevel editLevel, 
+            AccessLevel editLevel,
+            AccessLevel clearLevel,
+            Func<string> computeBackupLocation = default(Func<string>),
             bool resetOnStart = false,
             bool statisticsEnabled = false)
         {
@@ -31,32 +36,67 @@
                 return;
             }
 
+            this.resetDatesAndFilters();
             var w = this.web;
             this.editLevel = editLevel;
+            this.clearLevel = clearLevel;
+            this.computeBackupLocation = computeBackupLocation;
             this.resetOnStart = resetOnStart;
-            this.ui.StartDateChanged += this.ui_DateChanged;
-            this.ui.EndDateChanged += this.ui_DateChanged;
-            this.ui.AddKeyTapped += this.ui_AddKeyTapped;
-            this.ui.StatisticsKeyTapped += this.ui_StatisticsKeyTapped;
-            this.ui.FilterTextChanged += this.ui_FilterTextChanged;
-            this.resetDatesAndFilters();
+            var addKeyVisible = editLevel == AccessLevel.None;
+            var clearKeyVisible = clearLevel == AccessLevel.None;
             UiHelpers.Write(this.ui, () =>
             {
-                this.ui.AddKeyVisible = false;
+                this.ui.AddKeyVisible = addKeyVisible;
                 this.ui.StatisticsKeyVisible = statisticsEnabled;
+                this.ui.ClearKeyVisible = clearKeyVisible;
             });
             this.ui.WriteFinished.WaitOne();
 
-            w.Run<Log>(l => l.EntryWritten += this.log_EntryWritten);
-            new Thread(this.timer_Elapsed).Start();
+            var subscriberRegistered = false;
+            w.Run<EventSubscriber>(subscriber =>
+            {
+                subscriberRegistered = true;
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.StartDateChanged),
+                    this.ui_DateChanged);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.EndDateChanged),
+                    this.ui_DateChanged);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.AddKeyTapped),
+                    this.ui_AddKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.ClearKeyTapped),
+                    this.ui_ClearKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.StatisticsKeyTapped),
+                    this.ui_StatisticsKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.FilterTextChanged),
+                    this.ui_FilterTextChanged);
+            });
 
-            w.Run<xofz.Framework.Timer>(
-                t =>
-                {
-                    t.Elapsed += this.timer_Elapsed;
-                    t.Start(1000);
-                },
-                "LogTimer");
+            if (!subscriberRegistered)
+            {
+                this.ui.StartDateChanged += this.ui_DateChanged;
+                this.ui.EndDateChanged += this.ui_DateChanged;
+                this.ui.AddKeyTapped += this.ui_AddKeyTapped;
+                this.ui.ClearKeyTapped += this.ui_ClearKeyTapped;
+                this.ui.StatisticsKeyTapped += this.ui_StatisticsKeyTapped;
+                this.ui.FilterTextChanged += this.ui_FilterTextChanged;
+            }
+
+            w.Run<Log>(
+                l => l.EntryWritten += this.log_EntryWritten,
+                this.Name);
+            w.Run<AccessController>(ac =>
+                ac.AccessLevelChanged += this.accessLevelChanged);
             w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
@@ -67,31 +107,105 @@
                 return;
             }
 
+            Interlocked.CompareExchange(ref this.startedIf1, 1, 0);
+            base.Start();
+
+            if (Interlocked.CompareExchange(
+                    ref this.startedFirstTimeIf1, 1, 0) == 0)
+            {
+                this.reloadEntries();
+                return;
+            }
+
             if (this.resetOnStart)
             {
                 this.resetDatesAndFilters();
+                goto finish;
             }
 
-            base.Start();
+            if (Interlocked.CompareExchange(
+                    ref this.refreshOnStartIf1, 0, 1) == 1)
+            {
+                this.reloadEntries();
+                return;
+            }
+
+            finish:
+            this.insertNewEntries();
+            this.entriesToAddOnRefresh.Clear();
+        }
+
+        public override void Stop()
+        {
+            Interlocked.CompareExchange(ref this.startedIf1, 0, 1);
         }
 
         private void resetDatesAndFilters()
         {
+            var w = this.web;
             var today = DateTime.Today;
             var lastWeek = today.Subtract(TimeSpan.FromDays(6));
+            var needsReload = true;
+            var started = Interlocked.Read(ref this.startedIf1) == 1;
+            if (UiHelpers.Read(this.ui, () => this.ui.StartDate)
+                == lastWeek
+                && UiHelpers.Read(this.ui, () => this.ui.EndDate)
+                == today
+                && UiHelpers.Read(this.ui, () => this.ui.FilterContent)
+                == string.Empty
+                && UiHelpers.Read(this.ui, () => this.ui.FilterType)
+                == string.Empty)
+            {
+                if (started && Interlocked.Read(
+                        ref this.startedFirstTimeIf1) == 1)
+                {
+                    needsReload = false;
+                }
+            }
+
+            Interlocked.CompareExchange(
+                ref this.refreshOnStartIf1, 0, 1);
             UiHelpers.Write(this.ui, () =>
             {
                 this.ui.StartDate = lastWeek;
                 this.ui.EndDate = today;
-                this.ui.FilterContent = string.Empty;
                 this.ui.FilterType = string.Empty;
+                this.ui.FilterContent = string.Empty;
             });
             this.ui.WriteFinished.WaitOne();
+
+            if (started && needsReload)
+            {
+                w.Run<EventRaiser>(er => er.Raise(
+                    this.ui,
+                    nameof(this.ui.StartDateChanged)));
+            }
         }
 
         private void ui_DateChanged()
         {
-            this.reloadEntries();
+            if (Interlocked.Read(ref this.startedIf1) == 1)
+            {
+                this.reloadEntries();
+                return;
+            }
+
+            Interlocked.CompareExchange(
+                ref this.refreshOnStartIf1, 1, 0);
+        }
+
+        private void insertNewEntries()
+        {
+            var etaor = this.entriesToAddOnRefresh;
+            foreach (var entry in etaor)
+            {
+                var tuple = this.createTuple(entry);
+                UiHelpers.Write(
+                    this.ui,
+                    () => this.ui.AddToTop(
+                        tuple));
+                this.ui.WriteFinished.WaitOne();
+            }
         }
 
         private void reloadEntries()
@@ -100,89 +214,204 @@
             var start = UiHelpers.Read(this.ui, () => this.ui.StartDate);
             var end = UiHelpers.Read(this.ui, () => this.ui.EndDate);
             var filterContent = UiHelpers.Read(
-                this.ui, 
+                this.ui,
                 () => this.ui.FilterContent);
             var filterType = UiHelpers.Read(
                 this.ui,
                 () => this.ui.FilterType);
             w.Run<Log>(l =>
+                {
+                    // first, begin reading all entries
+                    var matchingEntries = l.ReadEntries();
+
+                    // second, get all the entries in the date range
+                    matchingEntries = EnumerableHelpers.Where(
+                        matchingEntries,
+                        e => e.Timestamp >= start
+                             && e.Timestamp < end.AddDays(1));
+
+                    // third, match on content
+                    if (!StringHelpers.NullOrWhiteSpace(filterContent))
+                    {
+                        matchingEntries = EnumerableHelpers.Where(
+                            matchingEntries,
+                            e => EnumerableHelpers.Any(
+                                e.Content,
+                                s => s
+                                    .ToLowerInvariant()
+                                    .Contains(
+                                        filterContent.ToLowerInvariant())));
+                    }
+
+                    // fourth, match on type
+                    if (!StringHelpers.NullOrWhiteSpace(filterType))
+                    {
+                        matchingEntries = EnumerableHelpers.Where(
+                            matchingEntries,
+                            e => e.Type.ToLowerInvariant()
+                                .Contains(filterType.ToLowerInvariant()));
+                    }
+
+                    // finally, order them by newest first
+                    matchingEntries = EnumerableHelpers.OrderByDescending(
+                        matchingEntries,
+                        e => e.Timestamp);
+
+                    var uiEntries = new LinkedListMaterializedEnumerable<
+                        Tuple<string, string, string>>(
+                        EnumerableHelpers.Select(
+                            matchingEntries,
+                            this.createTuple));
+
+                    UiHelpers.Write(
+                        this.ui,
+                        () => this.ui.Entries = uiEntries);
+                    this.ui.WriteFinished.WaitOne();
+                },
+                this.Name);
+        }
+
+        private bool passesDatesAndFilters(LogEntry e)
+        {
+            var startDate = UiHelpers.Read(
+                this.ui,
+                () => this.ui.StartDate);
+            var endDate = UiHelpers.Read(
+                this.ui,
+                () => this.ui.EndDate);
+            if (e.Timestamp < startDate)
             {
-                // first, begin reading all entries
-                var ll = new LinkedList<LogEntry>();
-                foreach (var entry in l.ReadEntries())
-                {
-                    if (entry.Timestamp < start
-                        || entry.Timestamp >= end.AddDays(1))
-                    {
-                        continue;
-                    }
+                return false;
+            }
 
-                    if (!string.IsNullOrEmpty(filterContent))
-                    {
-                        var contains = false;
-                        foreach (var line in entry.Content)
-                        {
-                            if (line.Contains(filterContent))
-                            {
-                                contains = true;
-                                break;
-                            }
-                        }
+            if (e.Timestamp > endDate.AddDays(1))
+            {
+                return false;
+            }
 
-                        if (!contains)
-                        {
-                            continue;
-                        }
-                    }
+            var filterType = UiHelpers.Read(
+                this.ui,
+                () => this.ui.FilterType);
+            if (!(e.Type?.Contains(filterType)
+                  ?? false))
+            {
+                return false;
+            }
 
-                    if (!string.IsNullOrEmpty(filterType))
-                    {
-                        if (!entry.Type.Contains(filterType))
-                        {
-                            continue;
-                        }
-                    }
+            var filterContent = UiHelpers.Read(
+                this.ui,
+                () => this.ui.FilterContent);
+            if (EnumerableHelpers.All(
+                e.Content,
+                s => !s.ToLowerInvariant().Contains(
+                    filterContent.ToLowerInvariant())))
+            {
+                return false;
+            }
 
-                    ll.AddLast(entry);
-                }
-
-                var array = new LogEntry[ll.Count];
-                ll.CopyTo(array, 0);
-                Array.Reverse(array);
-                var ll2 = new LinkedList<
-                    Tuple<string, string, string>>();
-                foreach (var entry in array)
-                {
-                    ll2.AddLast(this.createTuple(entry));
-                }
-
-                var uiEntries = new LinkedListMaterializedEnumerable<
-                    Tuple<string, string, string>>(ll2);
-
-                UiHelpers.Write(
-                    this.ui, 
-                    () => this.ui.Entries = uiEntries);
-                this.ui.WriteFinished.WaitOne();
-            });
+            return true;
         }
 
         private void ui_AddKeyTapped()
         {
             var w = this.web;
             w.Run<Navigator>(
-                n => n.PresentFluidly<LogEditorPresenter>());
+                n => n.PresentFluidly<LogEditorPresenter>(
+                    this.Name));
+        }
+
+        private void ui_ClearKeyTapped()
+        {
+            var w = this.web;
+            var response = Response.No;
+            var cbl = this.computeBackupLocation;
+            w.Run<Messenger>(m =>
+            {
+                if (cbl == default(Func<string>))
+                {
+                    response = UiHelpers.Read(
+                        m.Subscriber,
+                        () => m.Question(
+                            "Really clear the log? "
+                            + "A backup will not be created."));
+                    return;
+                }
+
+                response = UiHelpers.Read(
+                    m.Subscriber,
+                    () => m.Question(
+                        "Clear log? "
+                        + "A backup will be created."));
+            });
+
+            if (response != Response.Yes)
+            {
+                return;
+            }
+
+            w.Run<LogEditor>(le =>
+            {
+                if (cbl != default(Func<string>))
+                {
+                    var bl = cbl();
+                    try
+                    {
+                        le.Clear(bl);
+                    }
+                    catch
+                    {
+                        return;
+                    }
+
+                    this.reloadEntries();
+                    le.AddEntry(
+                        "Information",
+                        new[]
+                        {
+                                "The log was cleared.  A backup "
+                                + "was created at " + bl + "."
+                        });
+                    return;
+                }
+
+                try
+                {
+                    le.Clear();
+                }
+                catch
+                {
+                    return;
+                }
+
+                this.reloadEntries();
+                le.AddEntry(
+                    "Information",
+                    new[]
+                    {
+                            "The log was cleared."
+                    });
+            },
+                this.Name);
         }
 
         private void ui_StatisticsKeyTapped()
         {
             var w = this.web;
             w.Run<Navigator>(
-                n => n.PresentFluidly<LogStatisticsPresenter>());
+                n => n.PresentFluidly<LogStatisticsPresenter>(
+                    this.Name));
         }
 
         private void ui_FilterTextChanged()
         {
-            this.reloadEntries();
+            if (Interlocked.Read(ref this.startedIf1) == 1)
+            {
+                this.reloadEntries();
+                return;
+            }
+
+            Interlocked.CompareExchange(
+                ref this.refreshOnStartIf1, 1, 0);
         }
 
         private void log_EntryWritten(LogEntry e)
@@ -192,52 +421,60 @@
                 return;
             }
 
-            lock (this.locker)
+            if (Interlocked.Read(ref this.startedIf1) == 0)
             {
-                var newEntries = new LinkedList<Tuple<string, string, string>>(
-                    UiHelpers.Read(this.ui, () => this.ui.Entries));
-                newEntries.AddFirst(this.createTuple(e));
+                if (Interlocked.Read(
+                        ref this.startedFirstTimeIf1) == 1 &&
+                    this.passesDatesAndFilters(e))
+                {
+                    this.entriesToAddOnRefresh.Add(e);
+                }
 
-                UiHelpers.Write(this.ui, () => this.ui.Entries =
-                    new LinkedListMaterializedEnumerable<
-                        Tuple<string, string, string>>(newEntries));
-                this.ui.WriteFinished.WaitOne();
+                return;
+            }
+
+            if (this.passesDatesAndFilters(e))
+            {
+                var tuple = this.createTuple(e);
+                UiHelpers.Write(
+                    this.ui,
+                    () => this.ui.AddToTop(tuple));
             }
         }
 
         private Tuple<string, string, string> createTuple(LogEntry e)
         {
-            var contentArray = new string[e.Content.Count];
-            var en = e.Content.GetEnumerator();
-            for (var i = 0; i < contentArray.Length; ++i)
-            {
-                en.MoveNext();
-                contentArray[i] = en.Current;
-            }
-
-            en.Dispose();
             return Tuple.Create(
-                e.Timestamp.ToString("yyyy/MM/dd HH:mm.ss", CultureInfo.CurrentCulture),
+                e.Timestamp.ToString(
+                    "yyyy/MM/dd HH:mm.ss.fffffff",
+                    CultureInfo.CurrentCulture),
                 e.Type,
-                string.Join(
-                    Environment.NewLine, 
-                    contentArray));
+                string.Join(Environment.NewLine, MEHelpers.ToArray(e.Content)));
         }
 
-        private void timer_Elapsed()
+        private void accessLevelChanged(AccessLevel newAccessLevel)
         {
-            var w = this.web;
-            var cal = w.Run<AccessController, AccessLevel>(
-                ac => ac.CurrentAccessLevel);
-            var visible = cal >= this.editLevel;
-            UiHelpers.Write(this.ui, () => this.ui.AddKeyVisible = visible);
+            var addVisible = newAccessLevel >= this.editLevel;
+            UiHelpers.Write(
+                this.ui,
+                () => this.ui.AddKeyVisible = addVisible);
+
+            var clearVisible = newAccessLevel >= this.clearLevel;
+            UiHelpers.Write(
+                this.ui,
+                () => this.ui.ClearKeyVisible = clearVisible);
         }
 
-        private long setupIf1;
+        private long
+            setupIf1,
+            startedIf1,
+            refreshOnStartIf1,
+            startedFirstTimeIf1;
         private bool resetOnStart;
-        private AccessLevel editLevel;
+        private AccessLevel editLevel, clearLevel;
+        private Func<string> computeBackupLocation;
         private readonly LogUi ui;
         private readonly MethodWeb web;
-        private readonly object locker;
+        private readonly List<LogEntry> entriesToAddOnRefresh;
     }
 }

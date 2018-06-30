@@ -3,14 +3,15 @@
     using System.Collections.Generic;
     using System.Threading;
     using xofz.Framework;
+    using xofz.Framework.Logging;
     using xofz.Framework.Materialization;
     using xofz.UI;
 
-    public sealed class LogEditorPresenter : Presenter
+    public sealed class LogEditorPresenter : NamedPresenter
     {
         public LogEditorPresenter(
-            LogEditorUi ui, 
-            MethodWeb web) 
+            LogEditorUi ui,
+            MethodWeb web)
             : base(ui, null)
         {
             this.ui = ui;
@@ -29,7 +30,13 @@
             UiHelpers.Write(this.ui, () =>
             {
                 this.ui.Types = new OrderedMaterializedEnumerable<string>(
-                    new List<string> { "Information", "Warning", "Error", "Custom" });
+                    new List<string>
+                    {
+                        "Information",
+                        "Warning",
+                        "Error",
+                        "Custom"
+                    });
                 this.ui.SelectedType = "Information";
             });
 
@@ -38,12 +45,12 @@
 
         public override void Start()
         {
-            UiHelpers.Write(this.ui, () => this.ui.Display());
+            UiHelpers.Write(this.ui, this.ui.Display);
         }
 
         public override void Stop()
         {
-            UiHelpers.Write(this.ui, () => this.ui.Hide());
+            UiHelpers.Write(this.ui, this.ui.Hide);
         }
 
         private void ui_TypeChanged()
@@ -60,8 +67,9 @@
                 : UiHelpers.Read(this.ui, () => this.ui.SelectedType);
 
             this.web.Run<LogEditor>(le => le.AddEntry(
-                type,
-                UiHelpers.Read(this.ui, () => this.ui.Content)));
+                    type,
+                    UiHelpers.Read(this.ui, () => this.ui.Content)),
+                this.Name);
 
             UiHelpers.Write(this.ui, () =>
             {

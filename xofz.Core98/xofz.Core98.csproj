@@ -31,18 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Modbus">
-      <HintPath>..\Libraries\NModbus\Modbus.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessLevel.cs" />
-    <Compile Include="Beholder.cs" />
-    <Compile Include="Delayer.cs" />
-    <Compile Include="Framework\EnumerableHelpers.cs" />
+    <Compile Include="EnumerableHelpers.cs" />
+    <Compile Include="EnumHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
     <Compile Include="Framework\Computation\Imploder.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
@@ -51,13 +47,17 @@
     <Compile Include="Framework\Computation\ShiftRegister.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Framework\EventRaiser.cs" />
-    <Compile Include="Framework\Implementation\TextFileLog.cs" />
+    <Compile Include="Framework\EventSubscriber.cs" />
+    <Compile Include="Framework\KeyboardLoader.cs" />
+    <Compile Include="Framework\Logging\EventLogLog.cs" />
+    <Compile Include="Framework\Logging\TextFileLog.cs" />
     <Compile Include="Framework\LatchHolder.cs" />
-    <Compile Include="Framework\Log.cs" />
-    <Compile Include="Framework\LogEditor.cs" />
-    <Compile Include="Framework\LogEntry.cs" />
-    <Compile Include="Framework\LogHelpers.cs" />
-    <Compile Include="Framework\LogStatistics.cs" />
+    <Compile Include="Framework\Logging\Log.cs" />
+    <Compile Include="Framework\Logging\LogEditor.cs" />
+    <Compile Include="Framework\Logging\LogEntry.cs" />
+    <Compile Include="Framework\Logging\LogHelpers.cs" />
+    <Compile Include="Framework\Logging\LogStatistics.cs" />
+    <Compile Include="Framework\MainUiSettings.cs" />
     <Compile Include="Framework\Materialization\ArrayMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\LinkedListMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\LinkedListMaterializer.cs" />
@@ -70,14 +70,9 @@
     <Compile Include="Framework\Materialization\StackMaterializer.cs" />
     <Compile Include="Framework\Materialization\StringMaterializedEnumerable.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
-    <Compile Include="Framework\Modbus\Controller.cs" />
-    <Compile Include="Framework\Modbus\ControllerFactory.cs" />
-    <Compile Include="Framework\Modbus\Internal\SerialController.cs" />
-    <Compile Include="Framework\Modbus\Internal\SerialNModbusConnection.cs" />
-    <Compile Include="Framework\Modbus\Internal\TcpController.cs" />
-    <Compile Include="Framework\Modbus\Internal\TcpNModbusConnection.cs" />
-    <Compile Include="Framework\Modbus\SerialMode.cs" />
     <Compile Include="Framework\Timer.cs" />
+    <Compile Include="Framework\Timers\LoggingTimer.cs" />
+    <Compile Include="Framework\Timers\OneOffTimer.cs" />
     <Compile Include="Framework\Transformation\EnumerableBreaker.cs" />
     <Compile Include="Framework\Transformation\EnumerableConnector.cs" />
     <Compile Include="Framework\Transformation\EnumerableDecorator.cs" />
@@ -102,7 +97,6 @@
     <Compile Include="Framework\Transformation\EnumerableTrapper.cs" />
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
-    <Compile Include="Internal\EmbeddedAssemblyLoader.cs" />
     <Compile Include="MaterializedEnumerable.cs" />
     <Compile Include="Materializer.cs" />
     <Compile Include="MEHelpers.cs" />
@@ -153,10 +147,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Forms\Internal\CenterWinDialog.cs" />
+    <Compile Include="UI\Forms\Internal\ColumnDefinition.cs" />
+    <Compile Include="UI\Forms\Internal\ColumnSorter.cs" />
+    <Compile Include="UI\Forms\MultiColumnSortDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Forms\UserControlLogUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\UserControlLogUi.Designer.cs">
+    <Compile Include="UI\Forms\UserControlLogUi.designer.cs">
       <DependentUpon>UserControlLogUi.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\UserControlToggleUi.cs">
@@ -184,7 +183,6 @@
     <Compile Include="UI\ToggleUi.cs" />
     <Compile Include="UI\Ui.cs" />
     <Compile Include="UI\UiHelpers.cs" />
-    <Compile Include="UI\VncUi.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Forms\FormLogEditorUi.resx">

@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.startDatePicker = new System.Windows.Forms.MonthCalendar();
             this.endDatePicker = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.entriesGrid = new System.Windows.Forms.DataGridView();
+            this.entriesGrid = new xofz.UI.Forms.MultiColumnSortDataGridView();
             this.timestampColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +49,7 @@
             this.filterContentTextBox = new System.Windows.Forms.TextBox();
             this.resetContentKey = new System.Windows.Forms.Button();
             this.resetTypeKey = new System.Windows.Forms.Button();
+            this.clearKey = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.entriesGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             this.startDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.startDatePicker.Name = "startDatePicker";
             this.startDatePicker.TabIndex = 15;
-            this.startDatePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.startDatePicker_DateChanged);
+            this.startDatePicker.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.startDatePicker_DateSelected);
             // 
             // endDatePicker
             // 
@@ -66,7 +68,7 @@
             this.endDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.endDatePicker.Name = "endDatePicker";
             this.endDatePicker.TabIndex = 16;
-            this.endDatePicker.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.endDatePicker_DateChanged);
+            this.endDatePicker.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.endDatePicker_DateSelected);
             // 
             // label1
             // 
@@ -108,17 +110,18 @@
             this.timestampColumn,
             this.typeColumn,
             this.contentColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.entriesGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.entriesGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.entriesGrid.Location = new System.Drawing.Point(0, 246);
             this.entriesGrid.Margin = new System.Windows.Forms.Padding(0);
+            this.entriesGrid.MaxSortColumns = 0;
             this.entriesGrid.Name = "entriesGrid";
             this.entriesGrid.ReadOnly = true;
             this.entriesGrid.RowHeadersVisible = false;
@@ -132,7 +135,7 @@
             this.timestampColumn.HeaderText = "Timestamp";
             this.timestampColumn.Name = "timestampColumn";
             this.timestampColumn.ReadOnly = true;
-            this.timestampColumn.Width = 165;
+            this.timestampColumn.Width = 220;
             // 
             // typeColumn
             // 
@@ -145,6 +148,8 @@
             // contentColumn
             // 
             this.contentColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contentColumn.DefaultCellStyle = dataGridViewCellStyle2;
             this.contentColumn.HeaderText = "Content";
             this.contentColumn.Name = "contentColumn";
             this.contentColumn.ReadOnly = true;
@@ -216,7 +221,7 @@
             this.statisticsKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.statisticsKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.statisticsKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statisticsKey.Location = new System.Drawing.Point(228, 101);
+            this.statisticsKey.Location = new System.Drawing.Point(228, 112);
             this.statisticsKey.Margin = new System.Windows.Forms.Padding(0);
             this.statisticsKey.Name = "statisticsKey";
             this.statisticsKey.Size = new System.Drawing.Size(96, 32);
@@ -247,7 +252,7 @@
             // 
             // filterTypeTextBox
             // 
-            this.filterTypeTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterTypeTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterTypeTextBox.Location = new System.Drawing.Point(158, 217);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
             this.filterTypeTextBox.Size = new System.Drawing.Size(204, 26);
@@ -258,7 +263,7 @@
             // 
             this.filterContentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.filterContentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filterContentTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterContentTextBox.Location = new System.Drawing.Point(158, 185);
             this.filterContentTextBox.Name = "filterContentTextBox";
             this.filterContentTextBox.Size = new System.Drawing.Size(370, 26);
@@ -300,9 +305,29 @@
             this.resetTypeKey.UseVisualStyleBackColor = true;
             this.resetTypeKey.Click += new System.EventHandler(this.resetTypeKey_Click);
             // 
+            // clearKey
+            // 
+            this.clearKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearKey.AutoSize = true;
+            this.clearKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.clearKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.clearKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.clearKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.clearKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearKey.Location = new System.Drawing.Point(228, 76);
+            this.clearKey.Margin = new System.Windows.Forms.Padding(0);
+            this.clearKey.Name = "clearKey";
+            this.clearKey.Size = new System.Drawing.Size(98, 32);
+            this.clearKey.TabIndex = 17;
+            this.clearKey.Text = "Clear Log";
+            this.clearKey.UseVisualStyleBackColor = true;
+            this.clearKey.Click += new System.EventHandler(this.clearKey_Click);
+            // 
             // UserControlLogUi
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.clearKey);
             this.Controls.Add(this.resetTypeKey);
             this.Controls.Add(this.resetContentKey);
             this.Controls.Add(this.filterContentTextBox);
@@ -332,11 +357,8 @@
         private System.Windows.Forms.MonthCalendar endDatePicker;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView entriesGrid;
+        private xofz.UI.Forms.MultiColumnSortDataGridView entriesGrid;
         private System.Windows.Forms.Button addKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timestampColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
         private System.Windows.Forms.Button downKey;
         private System.Windows.Forms.Button upKey;
         private System.Windows.Forms.Button statisticsKey;
@@ -346,5 +368,9 @@
         private System.Windows.Forms.TextBox filterContentTextBox;
         private System.Windows.Forms.Button resetContentKey;
         private System.Windows.Forms.Button resetTypeKey;
+        private System.Windows.Forms.Button clearKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timestampColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
     }
 }

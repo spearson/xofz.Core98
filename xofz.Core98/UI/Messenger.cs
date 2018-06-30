@@ -6,6 +6,8 @@
 
         Response Question(string question);
 
+        Response QuestionWithCancel(string question);
+
         void Inform(string message);
 
         void Warn(string warning);

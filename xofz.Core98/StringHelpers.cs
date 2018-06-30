@@ -5,8 +5,22 @@
     public static class StringHelpers
     {
         public static T ToEnum<T>(string s)
+            where T : struct
         {
-            return (T)Enum.Parse(typeof(T), s);
+            if (s == null)
+            {
+                return default(T);
+            }
+
+            try
+            {
+                return (T)Enum.Parse(typeof(T), s);
+            }
+            catch
+            {
+                return default(T);
+            }
+            
         }
 
         public static string RemoveEndChars(string s, int count)
