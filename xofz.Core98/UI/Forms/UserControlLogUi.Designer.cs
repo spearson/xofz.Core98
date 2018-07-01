@@ -35,7 +35,7 @@
             this.endDatePicker = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.entriesGrid = new xofz.UI.Forms.MultiColumnSortDataGridView();
+            this.entriesGrid = new System.Windows.Forms.DataGridView();
             this.timestampColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,7 +121,6 @@
             this.entriesGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.entriesGrid.Location = new System.Drawing.Point(0, 246);
             this.entriesGrid.Margin = new System.Windows.Forms.Padding(0);
-            this.entriesGrid.MaxSortColumns = 0;
             this.entriesGrid.Name = "entriesGrid";
             this.entriesGrid.ReadOnly = true;
             this.entriesGrid.RowHeadersVisible = false;
@@ -357,7 +356,7 @@
         private System.Windows.Forms.MonthCalendar endDatePicker;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private xofz.UI.Forms.MultiColumnSortDataGridView entriesGrid;
+        private System.Windows.Forms.DataGridView entriesGrid;
         private System.Windows.Forms.Button addKey;
         private System.Windows.Forms.Button downKey;
         private System.Windows.Forms.Button upKey;
