@@ -14,7 +14,7 @@
                 list.AddRange(linkedList);
             }
 
-            return new OrderedMaterializedEnumerable<T>(list);
+            return new ListMaterializedEnumerable<T>(list);
         }
     }
 }

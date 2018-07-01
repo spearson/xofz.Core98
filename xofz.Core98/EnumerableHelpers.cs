@@ -3,7 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using xofz.Framework.Materialization;
+    using System.Reflection;
 
     public static class EnumerableHelpers
     {
@@ -273,19 +273,16 @@
             return array;
         }
 
-        public static OrderedMaterializedEnumerable<T> ToOrdered<T>(
+        public static List<T> ToList<T>(
             IEnumerable<T> source)
         {
             var l = new List<T>();
-            foreach (var item in source)
-            {
-                l.Add(item);
-            }
+            l.AddRange(source);
 
-            return new OrderedMaterializedEnumerable<T>(l);
+            return l;
         }
 
-        public static OrderedMaterializedEnumerable<T> OrderBy<T, TKey>(
+        public static List<T> OrderBy<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
@@ -295,7 +292,7 @@
                 false);
         }
 
-        public static OrderedMaterializedEnumerable<T> OrderByDescending<T, TKey>(
+        public static List<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
@@ -305,20 +302,19 @@
                 true);
         }
 
-        private static OrderedMaterializedEnumerable<T> orderBy<T, TKey>(
+        private static List<T> orderBy<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector,
             bool descending)
         {
             if (source == default(IEnumerable<T>))
             {
-                return default(OrderedMaterializedEnumerable<T>);
+                return new List<T>();
             }
 
             if (keySelector == default(Func<T, TKey>))
             {
-                return new OrderedMaterializedEnumerable<T>(
-                    source);
+                return new List<T>();
             }
 
             var d = new Dictionary<TKey, IList<T>>();
@@ -357,7 +353,7 @@
             }
             finalList.AddRange(itemsWithNullKeys);
 
-            return new OrderedMaterializedEnumerable<T>(finalList);
+            return finalList;
         }
 
         public static TEnd Aggregate<T, TEnd>(
@@ -393,9 +389,9 @@
 
             foreach (var item in source)
             {
-                if (item is T)
+                if (item is T t)
                 {
-                    yield return (T)item;
+                    yield return t;
                 }
             }
         }
@@ -418,6 +414,25 @@
             foreach (var item in items)
             {
                 yield return item;
+            }
+        }
+
+        public static IEnumerable<T> PrivateFieldsOfType<T>(
+            object o)
+        {
+            if (o == null)
+            {
+                yield break;
+            }
+
+            foreach (var fieldInfo in o.GetType().GetFields(
+                BindingFlags.Instance | BindingFlags.NonPublic))
+            {
+                var value = fieldInfo.GetValue(o);
+                if (value is T t)
+                {
+                    yield return t;
+                }
             }
         }
     }

@@ -40,7 +40,6 @@
     <Compile Include="EnumerableHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
-    <Compile Include="Framework\Computation\Imploder.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\Shifter.cs" />
@@ -49,8 +48,9 @@
     <Compile Include="Framework\EventRaiser.cs" />
     <Compile Include="Framework\EventSubscriber.cs" />
     <Compile Include="Framework\KeyboardLoader.cs" />
-    <Compile Include="Framework\Logging\EventLogLog.cs" />
-    <Compile Include="Framework\Logging\TextFileLog.cs" />
+    <Compile Include="Framework\Logging\LogFactory.cs" />
+    <Compile Include="Framework\Logging\Logs\EventLogLog.cs" />
+    <Compile Include="Framework\Logging\Logs\TextFileLog.cs" />
     <Compile Include="Framework\LatchHolder.cs" />
     <Compile Include="Framework\Logging\Log.cs" />
     <Compile Include="Framework\Logging\LogEditor.cs" />
@@ -59,16 +59,15 @@
     <Compile Include="Framework\Logging\LogStatistics.cs" />
     <Compile Include="Framework\MainUiSettings.cs" />
     <Compile Include="Framework\Materialization\ArrayMaterializedEnumerable.cs" />
+    <Compile Include="Framework\Materialization\ArrayMaterializer.cs" />
     <Compile Include="Framework\Materialization\LinkedListMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\LinkedListMaterializer.cs" />
-    <Compile Include="Framework\Materialization\OrderedMaterializedEnumerable.cs" />
-    <Compile Include="Framework\Materialization\OrderedMaterializer.cs" />
+    <Compile Include="Framework\Materialization\ListMaterializedEnumerable.cs" />
+    <Compile Include="Framework\Materialization\ListMaterializer.cs" />
     <Compile Include="Framework\Materialization\QueueMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\QueueMaterializer.cs" />
-    <Compile Include="Framework\Materialization\SingleMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\StackMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\StackMaterializer.cs" />
-    <Compile Include="Framework\Materialization\StringMaterializedEnumerable.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Framework\Transformation\Translator.cs" />
     <Compile Include="MaterializedEnumerable.cs" />
     <Compile Include="Materializer.cs" />
-    <Compile Include="MEHelpers.cs" />
     <Compile Include="Presentation\LogEditorPresenter.cs" />
     <Compile Include="Presentation\LoginPresenter.cs" />
     <Compile Include="Presentation\LogPresenter.cs" />

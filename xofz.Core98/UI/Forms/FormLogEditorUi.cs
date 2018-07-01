@@ -125,12 +125,14 @@
 
         private void entryTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            new Thread(() => this.TypeChanged?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.TypeChanged?.Invoke());
         }
 
         private void addKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.AddKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.AddKeyTapped?.Invoke());
         }
 
         private readonly Form shell;

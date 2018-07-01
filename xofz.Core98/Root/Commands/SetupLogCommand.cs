@@ -3,6 +3,7 @@
     using System;
     using xofz.Framework;
     using xofz.Framework.Logging;
+    using xofz.Framework.Logging.Logs;
     using xofz.Framework.Materialization;
     using xofz.Presentation;
     using xofz.UI;

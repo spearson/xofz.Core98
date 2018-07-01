@@ -29,7 +29,7 @@
             this.ui.AddKeyTapped += this.ui_AddKeyTapped;
             UiHelpers.Write(this.ui, () =>
             {
-                this.ui.Types = new OrderedMaterializedEnumerable<string>(
+                this.ui.Types = new ListMaterializedEnumerable<string>(
                     new List<string>
                     {
                         "Information",

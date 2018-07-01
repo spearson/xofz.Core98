@@ -5,14 +5,27 @@
     public class PrimeGenerator
     {
         public PrimeGenerator()
+            : this(
+                new PrimeTester(),
+                new LinkedList<long>(new long[]
+                {
+                    2,
+                    3
+                }))
         {
-            this.tester = new PrimeTester();
-            this.currentSet = new LinkedList<long>(new long[] { 2, 3 });
         }
 
-        public PrimeGenerator(LinkedList<long> currentSet)
+        public PrimeGenerator(
+            LinkedList<long> currentSet)
+            : this(new PrimeTester(), currentSet)
         {
-            this.tester = new PrimeTester();
+        }
+
+        public PrimeGenerator(
+            PrimeTester tester,
+            LinkedList<long> currentSet)
+        {
+            this.tester = tester;
             this.currentSet = currentSet;
         }
 
@@ -38,15 +51,16 @@
 
         private long collectPrime()
         {
-            this.currentSet.AddLast(this.currentSet.Last.Value + 2);
-            while (!this.tester.RelativelyPrime(this.currentSet, true))
+            var cs = this.currentSet;
+            cs.AddLast(cs.Last.Value + 2);
+            while (!this.tester.RelativelyPrime(cs, true))
             {
-                var node = this.currentSet.Last;
-                this.currentSet.RemoveLast();
-                this.currentSet.AddLast(node.Value + 2);
+                var node = cs.Last;
+                cs.RemoveLast();
+                cs.AddLast(node.Value + 2);
             }
 
-            return this.currentSet.Last.Value;
+            return cs.Last.Value;
         }
 
         private readonly LinkedList<long> currentSet;

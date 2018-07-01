@@ -123,7 +123,8 @@
             FormClosingEventArgs e)
         {
             e.Cancel = true;
-            new Thread(() => this.HideKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.HideKeyTapped?.Invoke());
         }
 
         void PopupUi.Display()
@@ -136,27 +137,32 @@
 
         private void overallKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.OverallKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.OverallKeyTapped?.Invoke());
         }
 
         private void rangeKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.RangeKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.RangeKeyTapped?.Invoke());
         }
 
         private void hideKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.HideKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.HideKeyTapped?.Invoke());
         }
 
         private void resetContentKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.ResetContentKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.ResetContentKeyTapped?.Invoke());
         }
 
         private void resetTypeKey_Click(object sender, EventArgs e)
         {
-            new Thread(() => this.ResetTypeKeyTapped?.Invoke()).Start();
+            ThreadPool.QueueUserWorkItem(
+                o => this.ResetTypeKeyTapped?.Invoke());
         }
 
         private readonly Form shell;

@@ -13,13 +13,13 @@
 
         public override void Start()
         {
-            UiHelpers.Write(this.ui, () => this.ui.Display());
+            UiHelpers.Write(this.ui, this.ui.Display);
             this.ui.WriteFinished.WaitOne();
         }
 
         public override void Stop()
         {
-            UiHelpers.Write(this.ui, () => this.ui.Hide());
+            UiHelpers.Write(this.ui, this.ui.Hide);
             this.ui.WriteFinished.WaitOne();
         }
 

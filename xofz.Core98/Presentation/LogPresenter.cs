@@ -449,7 +449,9 @@
                     "yyyy/MM/dd HH:mm.ss.fffffff",
                     CultureInfo.CurrentCulture),
                 e.Type,
-                string.Join(Environment.NewLine, MEHelpers.ToArray(e.Content)));
+                string.Join(
+                    Environment.NewLine, 
+                    EnumerableHelpers.ToArray(e.Content)));
         }
 
         private void accessLevelChanged(AccessLevel newAccessLevel)

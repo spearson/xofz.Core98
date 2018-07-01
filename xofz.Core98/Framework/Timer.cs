@@ -7,7 +7,6 @@
 namespace xofz.Framework
 {
     using System;
-    using System.Threading;
 
     public class Timer : IDisposable
     {

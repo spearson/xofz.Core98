@@ -1,5 +1,6 @@
 ﻿namespace xofz.Presentation
 {
+    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
@@ -15,6 +16,12 @@
 
         public virtual void RegisterPresenter(Presenter presenter)
         {
+            if (presenter == default(Presenter))
+            {
+                throw new ArgumentNullException(
+                    nameof(presenter));
+            }
+
             this.presenters.AddLast(presenter);
         }
 

@@ -11,8 +11,8 @@
 
     public delegate void Action();
 
-    public delegate void Action<in T>(
-        T arg);
+/*    public delegate void Action<in T>(
+        T arg);*/
 
     public delegate void Action<in T, in U>(
         T arg1, 

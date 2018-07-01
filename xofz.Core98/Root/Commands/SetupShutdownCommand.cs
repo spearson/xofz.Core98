@@ -1,6 +1,5 @@
 ﻿namespace xofz.Root.Commands
 {
-    using System;
     using xofz.Framework;
     using xofz.Presentation;
     using xofz.UI;
@@ -11,6 +10,19 @@
             Ui mainUi,
             MethodWeb web)
             : this(mainUi, () => { }, web)
+        {
+        }
+
+        public SetupShutdownCommand(
+            MethodWeb web)
+            : this(() => { }, web)
+        {
+        }
+
+        public SetupShutdownCommand(
+            Action cleanup,
+            MethodWeb web)
+            : this(default(Ui), cleanup, web)
         {
         }
 

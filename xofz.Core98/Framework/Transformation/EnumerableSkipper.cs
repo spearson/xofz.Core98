@@ -33,7 +33,7 @@
                 ll.RemoveFirst();
             }
 
-            return new OrderedMaterializedEnumerable<T>(result);
+            return new ListMaterializedEnumerable<T>(result);
         }
     }
 }

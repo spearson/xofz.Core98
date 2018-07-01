@@ -1,11 +1,11 @@
-﻿namespace xofz.Framework.Logging
+﻿namespace xofz.Framework.Logging.Logs
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using xofz.Framework.Materialization;
 
-    public sealed class EventLogLog
+    public sealed class EventLogLog 
         : Log, LogEditor
     {
         public EventLogLog(
@@ -91,7 +91,7 @@
             this.eventLog.WriteEntry(
                 string.Join(
                     Environment.NewLine,
-                    MEHelpers.ToArray(entry.Content)),
+                    EnumerableHelpers.ToArray(entry.Content)),
                 getEventLogEntryType(entry.Type));
             this.EntryWritten?.Invoke(entry);
         }

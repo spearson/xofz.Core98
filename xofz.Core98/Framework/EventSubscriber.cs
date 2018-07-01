@@ -6,11 +6,6 @@
     // because += is hard to test
     public class EventSubscriber
     {
-        public EventSubscriber(MethodWeb web)
-        {
-            this.web = web;
-        }
-
         public virtual void Subscribe(
             object publisher,
             string eventName,
@@ -168,7 +163,5 @@
                     publisher,
                     handler);
         }
-
-        protected readonly MethodWeb web;
     }
 }

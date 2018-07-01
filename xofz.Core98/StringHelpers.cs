@@ -30,6 +30,11 @@
                 return null;
             }
 
+            if (count < 0)
+            {
+                return s;
+            }
+
             return count >= s.Length
                 ? string.Empty
                 : s.Substring(

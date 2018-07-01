@@ -2,13 +2,12 @@
 {
     using System.Collections.Generic;
 
-    public sealed class LinkedListMaterializer : Materializer
+    public sealed class ListMaterializer : Materializer
     {
         MaterializedEnumerable<T> Materializer.Materialize<T>(
             IEnumerable<T> source)
         {
-            return new LinkedListMaterializedEnumerable<T>(
-                new LinkedList<T>(source));
+            return new ListMaterializedEnumerable<T>(source);
         }
     }
 }

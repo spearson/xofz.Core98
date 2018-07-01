@@ -16,14 +16,14 @@
 
         public T this[int index]
         {
-            get { return this.array[index]; }
+            get => this.array[index];
 
-            set { this.array[index] = value; }
+            set => this.array[index] = value;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return (IEnumerator<T>)this.array.GetEnumerator();
+            return ((IEnumerable<T>)this.array).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

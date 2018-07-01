@@ -1,4 +1,4 @@
-﻿namespace xofz.Framework.Logging
+﻿namespace xofz.Framework.Logging.Logs
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,8 @@
     using System.Text;
     using xofz.Framework.Materialization;
 
-    public sealed class TextFileLog : Log, LogEditor
+    public sealed class TextFileLog 
+        : Log, LogEditor
     {
         public TextFileLog(string filePath)
         {
@@ -164,13 +165,14 @@
         {
             lock (this.locker)
             {
-                if (!File.Exists(this.filePath))
+                var path = this.filePath;
+                if (!File.Exists(path))
                 {
                     return;
                 }
 
-                File.Copy(this.filePath, backupLocation);
-                File.Delete(this.filePath);
+                File.Copy(path, backupLocation);
+                File.Delete(path);
             }
 
             this.Cleared?.Invoke();

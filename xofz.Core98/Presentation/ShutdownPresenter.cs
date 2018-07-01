@@ -1,5 +1,6 @@
 ﻿namespace xofz.Presentation
 {
+    using System;
     using System.Diagnostics;
     using System.Threading;
     using UI;
@@ -8,12 +9,22 @@
     public sealed class ShutdownPresenter : Presenter
     {
         public ShutdownPresenter(
-            Ui mainUi, 
+            Ui mainUi,
             Action cleanup,
-            MethodWeb web) 
+            MethodWeb web)
             : base(mainUi, null)
         {
             this.mainUi = mainUi;
+            this.cleanup = cleanup;
+            this.web = web;
+        }
+
+        public ShutdownPresenter(
+            Action cleanup,
+            MethodWeb web)
+            : base(null, null)
+        {
+            this.mainUi = default(Ui);
             this.cleanup = cleanup;
             this.web = web;
         }
@@ -31,8 +42,16 @@
         public override void Start()
         {
             var mUi = this.mainUi;
-            UiHelpers.Write(mUi, () => this.cleanup());
-            mUi.WriteFinished.WaitOne();
+            var c = this.cleanup;
+            if (mUi != default(Ui))
+            {
+                UiHelpers.Write(mUi, c);
+                mUi.WriteFinished.WaitOne();
+                Process.GetCurrentProcess().Kill();
+                return;
+            }
+
+            c();
             Process.GetCurrentProcess().Kill();
         }
 
