@@ -84,11 +84,13 @@
     <Compile Include="Framework\Transformation\EnumerableInterceptor.cs" />
     <Compile Include="Framework\Transformation\EnumerableJoiner.cs" />
     <Compile Include="Framework\Transformation\EnumerableKicker.cs" />
+    <Compile Include="Framework\Transformation\EnumerableProjector.cs" />
     <Compile Include="Framework\Transformation\EnumerableRaker.cs" />
     <Compile Include="Framework\Transformation\EnumerableRepeater.cs" />
     <Compile Include="Framework\Transformation\EnumerableRotator.cs" />
     <Compile Include="Framework\Transformation\EnumerableSelector.cs" />
     <Compile Include="Framework\Transformation\EnumerableSkipper.cs" />
+    <Compile Include="Framework\Transformation\EnumerableSplicer.cs" />
     <Compile Include="Framework\Transformation\EnumerableSplitter.cs" />
     <Compile Include="Framework\Transformation\EnumerableSpreader.cs" />
     <Compile Include="Framework\Transformation\EnumerableStriker.cs" />

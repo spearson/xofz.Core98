@@ -1,6 +1,5 @@
 ﻿namespace xofz.Presentation
 {
-    using System;
     using System.Diagnostics;
     using System.Threading;
     using UI;

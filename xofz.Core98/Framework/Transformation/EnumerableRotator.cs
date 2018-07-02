@@ -5,7 +5,10 @@
 
     public class EnumerableRotator
     {
-        public virtual MaterializedEnumerable<T> Rotate<T>(IEnumerable<T> source, int cycles, bool goRight = true)
+        public virtual MaterializedEnumerable<T> Rotate<T>(
+            IEnumerable<T> source, 
+            int cycles, 
+            bool goRight = true)
         {
             var linkedList = new LinkedList<T>(source);
             if (goRight)

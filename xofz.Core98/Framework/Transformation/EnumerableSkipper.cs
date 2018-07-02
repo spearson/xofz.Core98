@@ -5,7 +5,9 @@
 
     public class EnumerableSkipper
     {
-        public virtual IEnumerable<T> Skip<T>(IEnumerable<T> source, int skipPoint)
+        public virtual IEnumerable<T> Skip<T>(
+            IEnumerable<T> source, 
+            int skipPoint)
         {
             var enumerator = source.GetEnumerator();
             var counter = 0;
@@ -23,7 +25,9 @@
             enumerator.Dispose();
         }
 
-        public virtual MaterializedEnumerable<T> SkipThrough<T>(IEnumerable<T> finiteSource, int skipPoint)
+        public virtual MaterializedEnumerable<T> SkipThrough<T>(
+            IEnumerable<T> finiteSource, 
+            int skipPoint)
         {
             var ll = new LinkedList<T>(finiteSource);
             var result = new List<T>();

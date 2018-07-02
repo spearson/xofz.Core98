@@ -435,5 +435,50 @@
                 }
             }
         }
+
+        public static int Sum<T>(
+            IEnumerable<T> source,
+            Func<T, int> valueComputer)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            var sum = 0;
+            foreach (var item in source)
+            {
+                sum += valueComputer(item);
+            }
+
+            return sum;
+        }
+
+        public static int Min(
+            IEnumerable<int> source)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            var min = int.MaxValue;
+            var minChanged = false;
+            foreach (var item in source)
+            {
+                minChanged = true;
+                if (item < min)
+                {
+                    min = item;
+                }
+            }
+
+            if (!minChanged)
+            {
+                return 0;
+            }
+
+            return min;
+        }
     }
 }
