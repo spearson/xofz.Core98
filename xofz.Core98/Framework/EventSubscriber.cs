@@ -2,8 +2,6 @@
 {
     using System;
 
-    // this class is pretty much for testing that event subscriptions went through
-    // because += is hard to test
     public class EventSubscriber
     {
         public virtual void Subscribe(

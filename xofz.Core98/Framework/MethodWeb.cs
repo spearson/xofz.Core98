@@ -13,6 +13,12 @@
             object dependency,
             string name = null)
         {
+            if (dependency == null)
+            {
+                throw new System.ArgumentNullException(
+                    nameof(dependency));
+            }
+
             this.dependencies.AddLast(
                 new Dependency
                 {
