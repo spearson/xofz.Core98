@@ -1,4 +1,6 @@
 ﻿// graciously taken from a StackOverflow answer by Hans Passant
+// https://stackoverflow.com/questions/2576156/winforms-how-can-i-make-messagebox-appear-centered-on-mainform
+
 namespace xofz.UI.Forms.Internal
 {
     using System;

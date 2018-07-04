@@ -80,6 +80,17 @@
                     this.ui,
                     nameof(this.ui.FilterTextChanged),
                     this.ui_FilterTextChanged);
+                w.Run<Log>(l =>
+                        subscriber.Subscribe<LogEntry>(
+                            l,
+                            nameof(l.EntryWritten),
+                            this.log_EntryWritten),
+                    this.Name);
+                w.Run<AccessController>(ac =>
+                    subscriber.Subscribe<AccessLevel>(
+                        ac,
+                        nameof(ac.AccessLevelChanged),
+                        this.accessLevelChanged));
             });
 
             if (!subscriberRegistered)
@@ -90,13 +101,13 @@
                 this.ui.ClearKeyTapped += this.ui_ClearKeyTapped;
                 this.ui.StatisticsKeyTapped += this.ui_StatisticsKeyTapped;
                 this.ui.FilterTextChanged += this.ui_FilterTextChanged;
+                w.Run<Log>(
+                    l => l.EntryWritten += this.log_EntryWritten,
+                    this.Name);
+                w.Run<AccessController>(ac =>
+                    ac.AccessLevelChanged += this.accessLevelChanged);
             }
-
-            w.Run<Log>(
-                l => l.EntryWritten += this.log_EntryWritten,
-                this.Name);
-            w.Run<AccessController>(ac =>
-                ac.AccessLevelChanged += this.accessLevelChanged);
+            
             w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
@@ -457,14 +468,14 @@
         private void accessLevelChanged(AccessLevel newAccessLevel)
         {
             var addVisible = newAccessLevel >= this.editLevel;
-            UiHelpers.Write(
-                this.ui,
-                () => this.ui.AddKeyVisible = addVisible);
-
             var clearVisible = newAccessLevel >= this.clearLevel;
             UiHelpers.Write(
                 this.ui,
-                () => this.ui.ClearKeyVisible = clearVisible);
+                () =>
+                {
+                    this.ui.AddKeyVisible = addVisible;
+                    this.ui.ClearKeyVisible = clearVisible;
+                });
         }
 
         private long

@@ -1,4 +1,4 @@
-<Project DefaultTargets="ChangeVersion;Build;Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="ChangeVersion;Build;Test;Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
 
   <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
@@ -42,7 +42,7 @@
   </Target>
 
 
-  <Target Name="Deploy" DependsOnTargets="Build">
+  <Target Name="Deploy" DependsOnTargets="Test">
     <ItemGroup>
       <FilesToDelete Include="C:\Dropbox\Libraries\$(ProjectName)\*.*" />
     </ItemGroup>

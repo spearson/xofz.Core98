@@ -86,11 +86,26 @@
                 ac.AccessLevelChanged += this.accessLevelChanged;
             });
             w.Run<xofz.Framework.Timer, Navigator>((t, n) =>
-            {
-                t.Elapsed += this.timer_Elapsed;
-                t.Start(1000);
-                n.RegisterPresenter(this);
-            },
+                {
+                    if (subscriberRegistered)
+                    {
+                        w.Run<EventSubscriber>(subscriber =>
+                        {
+                            subscriber.Subscribe(
+                                t,
+                                nameof(t.Elapsed),
+                                this.timer_Elapsed);
+                        });
+
+                        goto start;
+                    }
+
+                    t.Elapsed += this.timer_Elapsed;
+
+                    start:
+                    t.Start(1000);
+                    n.RegisterPresenter(this);
+                },
                 "LoginTimer");
         }
 

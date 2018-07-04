@@ -276,10 +276,7 @@
         public static List<T> ToList<T>(
             IEnumerable<T> source)
         {
-            var l = new List<T>();
-            l.AddRange(source);
-
-            return l;
+            return new List<T>(source);
         }
 
         public static List<T> OrderBy<T, TKey>(
@@ -448,7 +445,10 @@
             var sum = 0;
             foreach (var item in source)
             {
-                sum += valueComputer(item);
+                checked
+                {
+                    sum += valueComputer(item);
+                }
             }
 
             return sum;
