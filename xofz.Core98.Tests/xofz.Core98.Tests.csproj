@@ -32,25 +32,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FakeItEasy">
-      <HintPath>..\..\..\Dropbox\Libraries\FakeItEasy\FakeItEasy.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\FakeItEasy\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.AutoFixture">
-      <HintPath>..\..\..\Dropbox\Libraries\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\AutoFixture\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="xunit.abstractions">
-      <HintPath>..\..\..\Dropbox\Libraries\xUnit\xunit.abstractions.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\xUnit\xunit.abstractions.dll</HintPath>
     </Reference>
     <Reference Include="xunit.assert">
-      <HintPath>..\..\..\Dropbox\Libraries\xUnit\xunit.assert.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\xUnit\xunit.assert.dll</HintPath>
     </Reference>
     <Reference Include="xunit.core">
-      <HintPath>..\..\..\Dropbox\Libraries\xUnit\xunit.core.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\xUnit\xunit.core.dll</HintPath>
     </Reference>
     <Reference Include="xunit.execution.desktop">
-      <HintPath>..\..\..\Dropbox\Libraries\xUnit\xunit.execution.desktop.dll</HintPath>
+      <HintPath>C:\Dropbox\Libraries\xUnit\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
