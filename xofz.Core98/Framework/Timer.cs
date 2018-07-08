@@ -60,6 +60,7 @@ namespace xofz.Framework
                 }
 
                 this.innerTimer.Stop();
+                this.started = false;
             }
         }
 
