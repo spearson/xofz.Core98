@@ -5,7 +5,22 @@
 
     public class EnumerableSplicer
     {
-        public virtual MaterializedEnumerable<T> Splice<T>(IEnumerable<T>[] sources)
+        public virtual MaterializedEnumerable<T> Splice<T>(
+            MaterializedEnumerable<T>[] collections)
+        {
+            var sources = new IEnumerable<T>[collections.Length];
+            var indexCounter = 0;
+            foreach (var collection in collections)
+            {
+                sources[indexCounter] = collection;
+                ++indexCounter;
+            }
+
+            return this.Splice(sources);
+        }
+
+        public virtual MaterializedEnumerable<T> Splice<T>(
+            IEnumerable<T>[] sources)
         {
             var lists = new List<T>[sources.Length];
 
