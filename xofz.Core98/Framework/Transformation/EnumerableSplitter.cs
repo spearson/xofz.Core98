@@ -14,8 +14,11 @@
             }
 
             var enumerator = source.GetEnumerator();
-            enumerator.MoveNext();
-            array[0].AddLast(enumerator.Current);
+            if (enumerator.MoveNext())
+            {
+                array[0].AddLast(enumerator.Current);
+            }
+            
             var zeroFilled = true;
             while (enumerator.MoveNext())
             {
