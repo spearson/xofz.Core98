@@ -24,8 +24,14 @@
 
         IEnumerable<LogEntry> Log.ReadEntries()
         {
-            foreach (EventLogEntry entry in this.eventLog.Entries)
+            var el = this.eventLog;
+            foreach (EventLogEntry entry in el.Entries)
             {
+                if (entry.Source != el.Source)
+                {
+                    continue;
+                }
+
                 yield return new LogEntry(
                     entry.TimeWritten,
                     getEntryType(entry),

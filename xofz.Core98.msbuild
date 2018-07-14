@@ -5,9 +5,11 @@
 
 
   <PropertyGroup>
+    <!-- TeamCity environment variable name -->
     <Version>$(BUILD_NUMBER)</Version>
     <ProjectName>xofz.Core98</ProjectName>
     <BuildDir>$(ProjectName)\bin\Release</BuildDir>
+    <!-- This folder has all of its files deleted before copying the build output to it -->
     <DeployFolder>C:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
   </PropertyGroup>
 
@@ -44,7 +46,7 @@
 
   <Target Name="Deploy" DependsOnTargets="Test">
     <ItemGroup>
-      <FilesToDelete Include="C:\Dropbox\Libraries\$(ProjectName)\*.*" />
+      <FilesToDelete Include="$(DeployFolder)\*.*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
     <Move SourceFiles="$(BuildDir)\version.txt" DestinationFiles="$(BuildDir)\version-$(Version).txt" />

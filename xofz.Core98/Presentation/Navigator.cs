@@ -40,7 +40,6 @@
                 EnumerableHelpers.OfType<T>(
                     this.presenters),
                 p => p.Name == name);
-
         }
 
         public virtual void Present<T>() where T : Presenter

@@ -6,16 +6,16 @@
     {
         public CommandExecutor()
         {
-            this.executedCommands = new List<Command>(0x1000);
+            this.executedCommands = new LinkedList<Command>();
         }
 
         public virtual T Get<T>() where T : Command
         {
             foreach (var command in this.executedCommands)
             {
-                if (command is T)
+                if (command is T t)
                 {
-                    return (T)command;
+                    return t;
                 }
             }
 
@@ -29,6 +29,6 @@
             return this;
         }
 
-        private readonly IList<Command> executedCommands;
+        private readonly ICollection<Command> executedCommands;
     }
 }

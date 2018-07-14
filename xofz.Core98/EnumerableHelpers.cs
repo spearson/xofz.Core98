@@ -454,6 +454,27 @@
             return sum;
         }
 
+        public static long Sum<T>(
+            IEnumerable<T> source,
+            Func<T, long> valueComputer)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            long sum = 0;
+            foreach (var item in source)
+            {
+                checked
+                {
+                    sum += valueComputer(item);
+                }
+            }
+
+            return sum;
+        }
+
         public static int Min(
             IEnumerable<int> source)
         {
