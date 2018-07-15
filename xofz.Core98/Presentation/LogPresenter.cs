@@ -36,7 +36,6 @@
                 return;
             }
 
-            this.resetDatesAndFilters();
             var w = this.web;
             this.editLevel = editLevel;
             this.clearLevel = clearLevel;
@@ -44,11 +43,17 @@
             this.resetOnStart = resetOnStart;
             var addKeyVisible = editLevel == AccessLevel.None;
             var clearKeyVisible = clearLevel == AccessLevel.None;
+            var today = DateTime.Today;
+            var lastWeek = today.Subtract(TimeSpan.FromDays(6));
             UiHelpers.Write(this.ui, () =>
             {
                 this.ui.AddKeyVisible = addKeyVisible;
                 this.ui.StatisticsKeyVisible = statisticsEnabled;
                 this.ui.ClearKeyVisible = clearKeyVisible;
+                this.ui.StartDate = lastWeek;
+                this.ui.EndDate = today;
+                this.ui.FilterType = string.Empty;
+                this.ui.FilterContent = string.Empty;
             });
             this.ui.WriteFinished.WaitOne();
 
