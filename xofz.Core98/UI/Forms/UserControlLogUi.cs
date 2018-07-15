@@ -136,26 +136,46 @@
 
         private void addKey_Click(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.AddKeyTapped?.Invoke());
+            var akt = this.AddKeyTapped;
+            if (akt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => akt.Invoke());
         }
 
         private void clearKey_Click(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.ClearKeyTapped?.Invoke());
+            var ckt = this.ClearKeyTapped;
+            if (ckt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => ckt.Invoke());
         }
 
         private void startDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.StartDateChanged?.Invoke());
+            var sdc = this.StartDateChanged;
+            if (sdc == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
         }
 
         private void endDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.EndDateChanged?.Invoke());
+            var edc = this.EndDateChanged;
+            if (edc == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => edc.Invoke());
         }
 
         private void downKey_Click(object sender, EventArgs e)
@@ -174,24 +194,37 @@
 
         private void statisticsKey_Click(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.StatisticsKeyTapped?.Invoke());
+            var skt = this.StatisticsKeyTapped;
+            if (skt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => skt.Invoke());
         }
 
         private void filterContentTextBox_TextChanged(object sender, EventArgs e)
         {
             this.activeFilterTextBox = this.filterContentTextBox;
+            var ftc = this.FilterTextChanged;
+            if (ftc == null)
+            {
+                return;
+            }
 
-            ThreadPool.QueueUserWorkItem(
-                o => this.FilterTextChanged?.Invoke());
+            ThreadPool.QueueUserWorkItem(o => ftc.Invoke());
         }
 
         private void filterTypeTextBox_TextChanged(object sender, EventArgs e)
         {
             this.activeFilterTextBox = this.filterTypeTextBox;
+            var ftc = this.FilterTextChanged;
+            if (ftc == null)
+            {
+                return;
+            }
 
-            ThreadPool.QueueUserWorkItem(
-                o => this.FilterTextChanged?.Invoke());
+            ThreadPool.QueueUserWorkItem(o => ftc.Invoke());
         }
 
         private void resetContentKey_Click(object sender, EventArgs e)

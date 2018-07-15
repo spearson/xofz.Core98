@@ -128,32 +128,35 @@
                 return;
             }
 
-            if (this.resetOnStart)
-            {
-                this.resetDatesAndFilters();
-                goto finish;
-            }
-
             if (Interlocked.CompareExchange(
                     ref this.refreshOnStartIf1, 0, 1) == 1)
             {
                 this.reloadEntries();
-                this.entriesToAddOnRefresh.Clear();
                 return;
             }
 
-            finish:
+            if (this.resetOnStart)
+            {
+                this.resetDatesAndFilters();
+            }
+
             this.insertNewEntries();
             this.entriesToAddOnRefresh.Clear();
         }
 
         public override void Stop()
         {
-            Interlocked.CompareExchange(ref this.startedIf1, 0, 1);
+            Interlocked.CompareExchange(
+                ref this.startedIf1, 0, 1);
         }
 
         private void resetDatesAndFilters()
         {
+            while (Interlocked.CompareExchange(ref this.resettingIf1, 1, 0) == 1)
+            {
+                Thread.Sleep(0);
+            }
+
             var w = this.web;
             var today = DateTime.Today;
             var lastWeek = today.Subtract(TimeSpan.FromDays(6));
@@ -177,21 +180,50 @@
 
             Interlocked.CompareExchange(
                 ref this.refreshOnStartIf1, 0, 1);
-            UiHelpers.Write(this.ui, () =>
-            {
-                this.ui.StartDate = lastWeek;
-                this.ui.EndDate = today;
-                this.ui.FilterType = string.Empty;
-                this.ui.FilterContent = string.Empty;
-            });
-            this.ui.WriteFinished.WaitOne();
-
             if (started && needsReload)
             {
-                w.Run<EventRaiser>(er => er.Raise(
-                    this.ui,
-                    nameof(this.ui.StartDateChanged)));
+                w.Run<EventSubscriber>(subscriber =>
+                {
+                    subscriber.Unsubscribe(
+                        this.ui,
+                        nameof(this.ui.StartDateChanged),
+                        this.ui_DateChanged);
+                    subscriber.Unsubscribe(
+                        this.ui,
+                        nameof(this.ui.EndDateChanged),
+                        this.ui_DateChanged);
+                    subscriber.Unsubscribe(
+                        this.ui,
+                        nameof(this.ui.FilterTextChanged),
+                        this.ui_FilterTextChanged);
+                });
+                UiHelpers.Write(this.ui, () =>
+                {
+                    this.ui.StartDate = lastWeek;
+                    this.ui.EndDate = today;
+                    this.ui.FilterType = string.Empty;
+                    this.ui.FilterContent = string.Empty;
+                });
+                this.ui.WriteFinished.WaitOne();
+                this.reloadEntries();
+                w.Run<EventSubscriber>(subscriber =>
+                {
+                    subscriber.Subscribe(
+                        this.ui,
+                        nameof(this.ui.StartDateChanged),
+                        this.ui_DateChanged);
+                    subscriber.Subscribe(
+                        this.ui,
+                        nameof(this.ui.EndDateChanged),
+                        this.ui_DateChanged);
+                    subscriber.Subscribe(
+                        this.ui,
+                        nameof(this.ui.FilterTextChanged),
+                        this.ui_FilterTextChanged);
+                });
             }
+
+            Interlocked.CompareExchange(ref this.resettingIf1, 0, 1);
         }
 
         private void ui_DateChanged()
@@ -279,6 +311,7 @@
                         this.ui,
                         () => this.ui.Entries = uiEntries);
                     this.ui.WriteFinished.WaitOne();
+                    this.entriesToAddOnRefresh.Clear();
                 },
                 this.Name);
         }
@@ -483,7 +516,8 @@
             setupIf1,
             startedIf1,
             refreshOnStartIf1,
-            startedFirstTimeIf1;
+            startedFirstTimeIf1,
+            resettingIf1;
         private bool resetOnStart;
         private AccessLevel editLevel, clearLevel;
         private Func<string> computeBackupLocation;
