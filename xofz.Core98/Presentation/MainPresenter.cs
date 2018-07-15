@@ -22,8 +22,22 @@
                 return;
             }
 
-            this.ui.ShutdownRequested += this.ui_ShutdownRequested;
             var w = this.web;
+            var subscriberRegistered = false;
+            w.Run<EventSubscriber>(subscriber =>
+            {
+                subscriberRegistered = true;
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.ShutdownRequested),
+                    this.ui_ShutdownRequested);
+            });
+
+            if (!subscriberRegistered)
+            {
+                this.ui.ShutdownRequested += this.ui_ShutdownRequested;
+            }
+            
             w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
@@ -36,10 +50,12 @@
             var w = this.web;
             var cal = AccessLevel.None;
             var shutdownLevel = AccessLevel.None;
-            w.Run<AccessController>(
-                ac => cal = ac.CurrentAccessLevel);
-            w.Run<MainUiSettings>(
-                s => shutdownLevel = s.ShutdownLevel);
+            w.Run<AccessController, MainUiSettings>(
+                (ac, s) =>
+                {
+                    cal = ac.CurrentAccessLevel;
+                    shutdownLevel = s.ShutdownLevel;
+                });
 
             if (cal >= shutdownLevel)
             {
@@ -60,7 +76,7 @@
             });
         }
 
-        private int setupIf1;
+        private long setupIf1;
         private readonly MainUi ui;
         private readonly MethodWeb web;
     }

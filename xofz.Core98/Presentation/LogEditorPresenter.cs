@@ -45,23 +45,33 @@
 
         public override void Start()
         {
-            UiHelpers.Write(this.ui, this.ui.Display);
+            UiHelpers.Write(
+                this.ui, 
+                this.ui.Display);
         }
 
         public override void Stop()
         {
-            UiHelpers.Write(this.ui, this.ui.Hide);
+            UiHelpers.Write(
+                this.ui, 
+                this.ui.Hide);
         }
 
         private void ui_TypeChanged()
         {
-            var customSelected = UiHelpers.Read(this.ui, () => this.ui.SelectedType) == "Custom";
-            UiHelpers.Write(this.ui, () => this.ui.CustomTypeVisible = customSelected);
+            var customSelected = UiHelpers.Read(
+                this.ui, 
+                () => this.ui.SelectedType) == "Custom";
+            UiHelpers.Write(
+                this.ui, 
+                () => this.ui.CustomTypeVisible = customSelected);
         }
 
         private void ui_AddKeyTapped()
         {
-            var customSelected = UiHelpers.Read(this.ui, () => this.ui.SelectedType) == "Custom";
+            var customSelected = UiHelpers.Read(
+                this.ui, 
+                () => this.ui.SelectedType) == "Custom";
             var type = customSelected
                 ? UiHelpers.Read(this.ui, () => this.ui.CustomType)
                 : UiHelpers.Read(this.ui, () => this.ui.SelectedType);
@@ -79,7 +89,7 @@
             });
         }
 
-        private int setupIf1;
+        private long setupIf1;
         private readonly LogEditorUi ui;
         private readonly MethodWeb web;
     }

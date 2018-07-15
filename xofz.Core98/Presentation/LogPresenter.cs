@@ -19,7 +19,7 @@
         {
             this.ui = ui;
             this.web = web;
-            this.entriesToAddOnRefresh = new List<LogEntry>(0x100);
+            this.entriesToAddOnRefresh = new LinkedList<LogEntry>();
         }
 
         public override string Name { get; set; }
@@ -138,6 +138,7 @@
                     ref this.refreshOnStartIf1, 0, 1) == 1)
             {
                 this.reloadEntries();
+                this.entriesToAddOnRefresh.Clear();
                 return;
             }
 
@@ -488,6 +489,6 @@
         private Func<string> computeBackupLocation;
         private readonly LogUi ui;
         private readonly MethodWeb web;
-        private readonly List<LogEntry> entriesToAddOnRefresh;
+        private readonly ICollection<LogEntry> entriesToAddOnRefresh;
     }
 }
