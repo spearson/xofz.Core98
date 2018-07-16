@@ -45,6 +45,7 @@
                             content.AddLast(contentLine);
                         }
 
+                        // support up to two blank lines in entries
                         if (contentLine == string.Empty)
                         {
                             if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
@@ -52,6 +53,17 @@
                                 content.AddLast(string.Empty);
                                 content.AddLast(contentLine);
                                 goto readContent;
+                            }
+
+                            if (contentLine == string.Empty)
+                            {
+                                if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
+                                {
+                                    content.AddLast(string.Empty);
+                                    content.AddLast(string.Empty);
+                                    content.AddLast(contentLine);
+                                    goto readContent;
+                                }
                             }
                         }
 

@@ -33,6 +33,7 @@
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
             this.computeBackupLocation = computeBackupLocation;
+            this.statisticsEnabled = false;
         }
 
         public SetupLogCommand(
@@ -60,6 +61,7 @@
             this.resetOnStart = resetOnStart;
             this.computeBackupLocation = default(
                 Func<string>);
+            this.statisticsEnabled = true;
         }
 
         public SetupLogCommand(
@@ -87,6 +89,7 @@
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
             this.computeBackupLocation = computeBackupLocation;
+            this.statisticsEnabled = true;
         }
 
         public SetupLogCommand(

@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using xofz.Framework.Materialization;
 
     public class LogStatistics
     {
@@ -32,23 +31,12 @@
         public virtual void ComputeOverall()
         {
             var w = this.web;
-            w.Run<Log>(l =>
+            w.Run<Log, Materializer>((l, m) =>
                 {
-                    var ll = new LinkedList<LogEntry>();
-                    foreach (var entry in l.ReadEntries())
-                    {
-                        if (this.passesFilters(entry))
-                        {
-                            ll.AddLast(entry);
-                        }
-                    }
-
-                    MaterializedEnumerable<LogEntry> matches
-                        = new LinkedListMaterializedEnumerable<LogEntry>(ll);
-
+                    var allEntries = m.Materialize(l.ReadEntries());
                     var start = DateTime.MaxValue;
                     var end = DateTime.MinValue;
-                    foreach (var entry in ll)
+                    foreach (var entry in allEntries)
                     {
                         if (entry.Timestamp < start)
                         {
@@ -61,6 +49,11 @@
                         }
                     }
 
+                    var matches = m.Materialize(
+                            EnumerableHelpers.Where(
+                                allEntries,
+                                entry => this.passesFilters(entry)));
+
                     this.computeTotal(matches);
                     this.computeAvgPerDay(
                         matches.Count,
@@ -71,7 +64,8 @@
                     this.computeEarliestTimestamp(matches);
                     this.computeLatestTimestamp(matches);
                 },
-                this.LogName);
+                this.LogName,
+                "LogMaterializer");
         }
 
         public virtual void ComputeRange(
@@ -79,21 +73,15 @@
             DateTime endDate)
         {
             var w = this.web;
-            w.Run<Log>(l =>
+            w.Run<Log, Materializer>((l, m) =>
                 {
-                    var ll = new LinkedList<LogEntry>();
-                    foreach (var entry in l.ReadEntries())
-                    {
-                        if (this.passesFilters(entry)
-                            && entry.Timestamp >= startDate
-                            && entry.Timestamp < endDate.AddDays(1))
-                        {
-                            ll.AddLast(entry);
-                        }
-                    }
-
-                    MaterializedEnumerable<LogEntry> matches
-                        = new LinkedListMaterializedEnumerable<LogEntry>(ll);
+                    var matches = m.Materialize(
+                        EnumerableHelpers.Where(
+                            EnumerableHelpers.Where(
+                                l.ReadEntries(),
+                                e => e.Timestamp >= startDate
+                                && e.Timestamp < endDate.AddDays(1)),
+                            e => this.passesFilters(e)));
 
                     this.computeTotal(matches);
                     this.computeAvgPerDay(
@@ -105,7 +93,8 @@
                     this.computeEarliestTimestamp(matches);
                     this.computeLatestTimestamp(matches);
                 },
-                this.LogName);
+                this.LogName,
+                "LogMaterializer");
         }
 
         public virtual void Reset()
@@ -124,18 +113,18 @@
             var fc = this.FilterContent;
             if (!string.IsNullOrEmpty(fc))
             {
-                var found = false;
+                var foundContent = false;
                 foreach (var line in e.Content)
                 {
                     if (line.ToLowerInvariant()
-                        .Contains(
-                            fc.ToLowerInvariant()))
+                        .Contains(fc.ToLowerInvariant()))
                     {
-                        found = true;
+                        foundContent = true;
+                        break;
                     }
                 }
 
-                if (!found)
+                if (!foundContent)
                 {
                     return false;
                 }
@@ -170,7 +159,7 @@
                 return;
             }
 
-            var totalDays = (end - start).TotalDays + 1;
+            double totalDays = (long)(end.Date - start.Date).TotalDays + 1;
             this.AvgEntriesPerDay = entryCount / totalDays;
         }
 

@@ -501,5 +501,72 @@
 
             return min;
         }
+
+        public static long Min(
+            IEnumerable<long> source)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            var min = long.MaxValue;
+            var minChanged = false;
+            foreach (var item in source)
+            {
+                minChanged = true;
+                if (item < min)
+                {
+                    min = item;
+                }
+            }
+
+            if (!minChanged)
+            {
+                return 0;
+            }
+
+            return min;
+        }
+
+        public static int Max(
+            IEnumerable<int> source)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            var max = 0;
+            foreach (var item in source)
+            {
+                if (item > max)
+                {
+                    max = item;
+                }
+            }
+
+            return max;
+        }
+
+        public static long Max(
+            IEnumerable<long> source)
+        {
+            if (source == null)
+            {
+                return 0;
+            }
+
+            long max = 0;
+            foreach (var item in source)
+            {
+                if (item > max)
+                {
+                    max = item;
+                }
+            }
+
+            return max;
+        }
     }
 }
