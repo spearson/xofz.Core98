@@ -69,6 +69,7 @@
     <Compile Include="Framework\Materialization\StackMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\StackMaterializer.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
+    <Compile Include="Framework\MethodWebManager.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />
     <Compile Include="Framework\Timers\OneOffTimer.cs" />

@@ -183,6 +183,32 @@
             return true;
         }
 
+        public static bool Contains<T>(
+            IEnumerable<T> source,
+            T item)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                return false;
+            }
+
+            var itemIsNull = item == null;
+            foreach (var itemInSource in source)
+            {
+                if (itemInSource == null && itemIsNull)
+                {
+                    return true;
+                }
+
+                if (item?.Equals(itemInSource) ?? false)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static IEnumerable<T> Cast<T>(
             IEnumerable source)
         {
