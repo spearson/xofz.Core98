@@ -22,7 +22,7 @@
                     nameof(presenter));
             }
 
-            this.presenters.AddLast(presenter);
+            this.presenters.Add(presenter);
         }
 
         public virtual bool IsRegistered<T>()
@@ -180,7 +180,7 @@
                 ?.GetValue(presenter);
         }
 
-        private readonly LinkedList<Presenter> presenters;
+        private readonly ICollection<Presenter> presenters;
         private readonly MethodWeb web;
     }
 }

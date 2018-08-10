@@ -1,6 +1,7 @@
 ﻿namespace xofz.UI.Forms
 {
     using System;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Threading;
     using System.Windows.Forms;
@@ -22,7 +23,7 @@
 
         public event Action<ToggleUi> Released;
 
-        public string Label
+        public virtual string Label
         {
             get => this.key.Text;
 
@@ -31,6 +32,14 @@
                 this.key.Text = value;
                 this.Visible = true;
             }
+        }
+
+        [Browsable(true)]
+        public virtual Font KeyFont
+        {
+            get => this.key.Font;
+
+            set => this.key.Font = value;
         }
 
         bool ToggleUi.Visible
@@ -49,20 +58,35 @@
 
         private void key_Click(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.Tapped?.Invoke(this));
+            var t = this.Tapped;
+            if (t == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => t.Invoke(this));
         }
 
         private void key_MouseDown(object sender, MouseEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.Pressed?.Invoke(this));
+            var p = this.Pressed;
+            if (p == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => p.Invoke(this));
         }
 
         private void key_MouseUp(object sender, MouseEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(
-                o => this.Released?.Invoke(this));
+            var r = this.Released;
+            if (r == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o => r.Invoke(this));
         }
     }
 }

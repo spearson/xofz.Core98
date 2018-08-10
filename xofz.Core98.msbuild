@@ -10,7 +10,7 @@
     <ProjectName>xofz.Core98</ProjectName>
     <BuildDir>$(ProjectName)\bin\Release</BuildDir>
     <!-- This folder has all of its files deleted before copying the build output to it -->
-    <DeployFolder>C:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
+    <DeployFolder>H:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
   </PropertyGroup>
 
 
