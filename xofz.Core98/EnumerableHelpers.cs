@@ -27,6 +27,29 @@
             }
         }
 
+        public static IEnumerable<TResult> SelectMany<T, TResult>(
+            IEnumerable<T> source,
+            Func<T, IEnumerable<TResult>> selector)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                yield break;
+            }
+
+            if (selector == default(Func<T, IEnumerable<TResult>>))
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                foreach (var selectee in selector(item))
+                {
+                    yield return selectee;
+                }
+            }
+        }
+
         public static IEnumerable<T> Where<T>(
             IEnumerable<T> source,
             Func<T, bool> predicate)
@@ -127,6 +150,42 @@
                 + "which matched the predicate.");
         }
 
+        public static T FirstOrDefault<T>(
+            IEnumerable<T> source)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                return default(T);
+            }
+
+            foreach (var item in source)
+            {
+                return item;
+            }
+
+            return default(T);
+        }
+
+        public static T FirstOrDefault<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                return default(T);
+            }
+
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    return item;
+                }
+            }
+
+            return default(T);
+        }
+
         public static bool Any<T>(
             IEnumerable<T> source)
         {
@@ -223,40 +282,21 @@
             }
         }
 
-        public static T FirstOrDefault<T>(
+        public static int Count<T>(
             IEnumerable<T> source)
         {
             if (source == default(IEnumerable<T>))
             {
-                return default(T);
+                return default(int);
             }
 
+            var totalCount = 0;
             foreach (var item in source)
             {
-                return item;
+                ++totalCount;
             }
 
-            return default(T);
-        }
-
-        public static T FirstOrDefault<T>(
-            IEnumerable<T> source,
-            Func<T, bool> predicate)
-        {
-            if (source == default(IEnumerable<T>))
-            {
-                return default(T);
-            }
-
-            foreach (var item in source)
-            {
-                if (predicate(item))
-                {
-                    return item;
-                }
-            }
-
-            return default(T);
+            return totalCount;
         }
 
         public static int Count<T>(
@@ -269,6 +309,44 @@
             }
 
             var totalCount = 0;
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    ++totalCount;
+                }
+            }
+
+            return totalCount;
+        }
+
+        public static long LongCount<T>(
+            IEnumerable<T> source)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                return default(int);
+            }
+
+            long totalCount = 0;
+            foreach (var item in source)
+            {
+                ++totalCount;
+            }
+
+            return totalCount;
+        }
+
+        public static long LongCount<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == default(IEnumerable<T>))
+            {
+                return default(int);
+            }
+
+            long totalCount = 0;
             foreach (var item in source)
             {
                 if (predicate(item))
@@ -305,7 +383,7 @@
             return new List<T>(source);
         }
 
-        public static List<T> OrderBy<T, TKey>(
+        public static IList<T> OrderBy<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
@@ -315,7 +393,7 @@
                 false);
         }
 
-        public static List<T> OrderByDescending<T, TKey>(
+        public static IList<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
@@ -593,6 +671,18 @@
             }
 
             return max;
+        }
+
+        public static IEnumerable<T> Reverse<T>(
+            IEnumerable<T> source)
+        {
+            var ll = new LinkedList<T>();
+            foreach (var item in source)
+            {
+                ll.AddFirst(item);
+            }
+
+            return ll;
         }
     }
 }
