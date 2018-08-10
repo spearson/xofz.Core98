@@ -79,7 +79,7 @@
             base.innerTimer_Elapsed(sender, e);
         }
 
-        private void setCurrentInterval(TimeSpan currentInterval)
+        protected virtual void setCurrentInterval(TimeSpan currentInterval)
         {
             this.currentInterval = currentInterval;
         }

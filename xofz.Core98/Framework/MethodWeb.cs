@@ -19,7 +19,7 @@
                     nameof(dependency));
             }
 
-            this.dependencies.AddLast(
+            this.dependencies.Add(
                 new Dependency
                 {
                     Content = dependency,
@@ -184,9 +184,9 @@
             return Tuple.Create(t, u, v, w);
         }
 
-        private readonly LinkedList<Dependency> dependencies;
+        protected readonly ICollection<Dependency> dependencies;
 
-        private class Dependency
+        protected class Dependency
         {
             public virtual string Name { get; set; }
 

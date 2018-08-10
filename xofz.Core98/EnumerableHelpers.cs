@@ -703,6 +703,11 @@
             IEnumerable<T> source)
         {
             var ll = new LinkedList<T>();
+            if (source == null)
+            {
+                return ll;
+            }
+
             foreach (var item in source)
             {
                 ll.AddFirst(item);

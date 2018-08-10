@@ -10,6 +10,16 @@
             this.stack = new Stack<T>();
         }
 
+        public StackMaterializedEnumerable(int capacity)
+        {
+            this.stack = new Stack<T>(capacity);
+        }
+
+        public StackMaterializedEnumerable(IEnumerable<T> source)
+        {
+            this.stack = new Stack<T>(source);
+        }
+
         public StackMaterializedEnumerable(Stack<T> stack)
         {
             this.stack = stack;

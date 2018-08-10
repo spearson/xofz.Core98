@@ -54,7 +54,7 @@
                     "Name \"" + name + "\" is already taken.");
             }
 
-            ws.AddLast(
+            ws.Add(
                 new NamedMethodWebHolder
                 {
                     Web = web,
@@ -168,9 +168,9 @@
                 dependency4Name);
         }
 
-        private readonly LinkedList<NamedMethodWebHolder> webs;
+        protected readonly ICollection<NamedMethodWebHolder> webs;
 
-        private class NamedMethodWebHolder
+        protected class NamedMethodWebHolder
         {
             public virtual MethodWeb Web { get; set; }
 

@@ -51,6 +51,11 @@
 
         private AccessLevel getLevel(int levelNumber)
         {
+            if (levelNumber < 1)
+            {
+                return AccessLevel.None;
+            }
+
             switch (levelNumber)
             {
                 case 1:
@@ -74,7 +79,7 @@
                 case 10:
                     return AccessLevel.Level10;
                 default:
-                    return AccessLevel.None;
+                    return AccessLevel.Level10;
             }
         }
 
@@ -172,12 +177,19 @@
         {
             var previousLevel = this.currentAccessLevel;
             this.currentAccessLevel = currentAccessLevel;
-            if (previousLevel != currentAccessLevel)
+            if (previousLevel == currentAccessLevel)
             {
-                ThreadPool.QueueUserWorkItem(
-                    o => this.AccessLevelChanged?.Invoke(
-                        currentAccessLevel));
+                return;
             }
+
+            var alc = this.AccessLevelChanged;
+            if (alc == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(
+                o => alc.Invoke(currentAccessLevel));
         }
 
         private void setLoginTime(DateTime loginTime)
