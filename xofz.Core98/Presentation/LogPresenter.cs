@@ -22,14 +22,7 @@
             this.entriesToAddOnRefresh = new LinkedList<LogEntry>();
         }
 
-        public override string Name { get; set; }
-
-        public void Setup(
-            AccessLevel editLevel,
-            AccessLevel clearLevel,
-            Func<string> computeBackupLocation = default(Func<string>),
-            bool resetOnStart = false,
-            bool statisticsEnabled = false)
+        public void Setup()
         {
             if (Interlocked.CompareExchange(ref this.setupIf1, 1, 0) == 1)
             {
@@ -37,19 +30,23 @@
             }
 
             var w = this.web;
-            this.editLevel = editLevel;
-            this.clearLevel = clearLevel;
-            this.computeBackupLocation = computeBackupLocation;
-            this.resetOnStart = resetOnStart;
-            var addKeyVisible = editLevel == AccessLevel.None;
-            var clearKeyVisible = clearLevel == AccessLevel.None;
+            var addKeyVisible = true;
+            var clearKeyVisible = true;
+            var statisticsKeyVisible = true;
+            w.Run<LogSettings>(settings =>
+                {
+                    addKeyVisible = settings.EditLevel == AccessLevel.None;
+                    clearKeyVisible = settings.ClearLevel == AccessLevel.None;
+                    statisticsKeyVisible = settings.StatisticsEnabled;
+                },
+                this.Name);
             var today = DateTime.Today;
             var lastWeek = today.Subtract(TimeSpan.FromDays(6));
             UiHelpers.Write(this.ui, () =>
             {
                 this.ui.AddKeyVisible = addKeyVisible;
-                this.ui.StatisticsKeyVisible = statisticsEnabled;
                 this.ui.ClearKeyVisible = clearKeyVisible;
+                this.ui.StatisticsKeyVisible = statisticsKeyVisible;
                 this.ui.StartDate = lastWeek;
                 this.ui.EndDate = today;
                 this.ui.FilterType = string.Empty;
@@ -140,10 +137,15 @@
                 return;
             }
 
-            if (this.resetOnStart)
-            {
-                this.resetDatesAndFilters();
-            }
+            var w = this.web;
+            w.Run<LogSettings>(settings =>
+                {
+                    if (settings.ResetOnStart)
+                    {
+                        this.resetDatesAndFilters();
+                    }
+                },
+                this.Name);
 
             this.insertNewEntries();
             this.entriesToAddOnRefresh.Clear();
@@ -374,39 +376,61 @@
         {
             var w = this.web;
             var response = Response.No;
-            var cbl = this.computeBackupLocation;
-            w.Run<Messenger>(m =>
-            {
-                if (cbl == default(Func<string>))
+            w.Run<LogSettings, Messenger>((settings, m) =>
                 {
+                    if (settings.ComputeBackupLocation ==
+                        default(Func<string>))
+                    {
+                        response = UiHelpers.Read(
+                            m.Subscriber,
+                            () => m.Question(
+                                "Really clear the log? "
+                                + "A backup will not be created."));
+                        return;
+                    }
+
                     response = UiHelpers.Read(
                         m.Subscriber,
                         () => m.Question(
-                            "Really clear the log? "
-                            + "A backup will not be created."));
-                    return;
-                }
-
-                response = UiHelpers.Read(
-                    m.Subscriber,
-                    () => m.Question(
-                        "Clear log? "
-                        + "A backup will be created."));
-            });
+                            "Clear log? "
+                            + "A backup will be created."));
+                },
+                this.Name);
 
             if (response != Response.Yes)
             {
                 return;
             }
 
-            w.Run<LogEditor>(le =>
-            {
-                if (cbl != default(Func<string>))
+            w.Run<LogSettings, LogEditor>((settings, le) =>
                 {
-                    var bl = cbl();
+                    var cbl = settings.ComputeBackupLocation;
+                    if (cbl != default(Func<string>))
+                    {
+                        var bl = cbl();
+                        try
+                        {
+                            le.Clear(bl);
+                        }
+                        catch
+                        {
+                            return;
+                        }
+
+                        this.reloadEntries();
+                        le.AddEntry(
+                            "Information",
+                            new[]
+                            {
+                                    "The log was cleared.  A backup "
+                                    + "was created at " + bl + "."
+                            });
+                        return;
+                    }
+
                     try
                     {
-                        le.Clear(bl);
+                        le.Clear();
                     }
                     catch
                     {
@@ -418,29 +442,10 @@
                         "Information",
                         new[]
                         {
-                                "The log was cleared.  A backup "
-                                + "was created at " + bl + "."
+                                "The log was cleared."
                         });
-                    return;
-                }
-
-                try
-                {
-                    le.Clear();
-                }
-                catch
-                {
-                    return;
-                }
-
-                this.reloadEntries();
-                le.AddEntry(
-                    "Information",
-                    new[]
-                    {
-                            "The log was cleared."
-                    });
-            },
+                },
+                this.Name,
                 this.Name);
         }
 
@@ -506,14 +511,21 @@
 
         private void accessLevelChanged(AccessLevel newAccessLevel)
         {
-            var addVisible = newAccessLevel >= this.editLevel;
-            var clearVisible = newAccessLevel >= this.clearLevel;
+            var w = this.web;
+            var addKeyVisible = false;
+            var clearKeyVisible = false;
+            w.Run<LogSettings>(settings =>
+                {
+                    addKeyVisible = newAccessLevel >= settings.EditLevel;
+                    clearKeyVisible = newAccessLevel >= settings.ClearLevel;
+                },
+                this.Name);
             UiHelpers.Write(
                 this.ui,
                 () =>
                 {
-                    this.ui.AddKeyVisible = addVisible;
-                    this.ui.ClearKeyVisible = clearVisible;
+                    this.ui.AddKeyVisible = addKeyVisible;
+                    this.ui.ClearKeyVisible = clearKeyVisible;
                 });
         }
 
@@ -523,9 +535,6 @@
             refreshOnStartIf1,
             startedFirstTimeIf1,
             resettingIf1;
-        private bool resetOnStart;
-        private AccessLevel editLevel, clearLevel;
-        private Func<string> computeBackupLocation;
         private readonly LogUi ui;
         private readonly MethodWeb web;
         private readonly ICollection<LogEntry> entriesToAddOnRefresh;

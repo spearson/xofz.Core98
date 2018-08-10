@@ -17,6 +17,7 @@
             MethodWeb web,
             string logName,
             string sourceName,
+            string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
@@ -26,9 +27,10 @@
             this.shell = shell;
             this.editorUi = editorUi;
             this.web = web;
-            this.logName = logName;
-            this.sourceName = sourceName;
-            this.filePath = null;
+            this.eventLogLogName = logName;
+            this.eventLogSourceName = sourceName;
+            this.logDependencyName = logDependencyName;
+            this.textFileLogPath = null;
             this.clearLevel = clearLevel;
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
@@ -44,6 +46,7 @@
             MethodWeb web,
             string logName,
             string sourceName,
+            string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false)
@@ -53,9 +56,10 @@
             this.editorUi = editorUi;
             this.statisticsUi = statisticsUi;
             this.web = web;
-            this.logName = logName;
-            this.sourceName = sourceName;
-            this.filePath = null;
+            this.eventLogLogName = logName;
+            this.eventLogSourceName = sourceName;
+            this.logDependencyName = logDependencyName;
+            this.textFileLogPath = null;
             this.clearLevel = clearLevel;
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
@@ -70,8 +74,9 @@
             LogEditorUi editorUi,
             LogStatisticsUi statisticsUi,
             MethodWeb web,
-            string logName,
-            string sourceName,
+            string eventLogLogName,
+            string eventLogSourceName,
+            string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
@@ -82,9 +87,10 @@
             this.editorUi = editorUi;
             this.statisticsUi = statisticsUi;
             this.web = web;
-            this.logName = logName;
-            this.sourceName = sourceName;
-            this.filePath = null;
+            this.eventLogLogName = eventLogLogName;
+            this.eventLogSourceName = eventLogSourceName;
+            this.textFileLogPath = null;
+            this.logDependencyName = logDependencyName;
             this.clearLevel = clearLevel;
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
@@ -97,7 +103,8 @@
             ShellUi shell,
             LogEditorUi editorUi,
             MethodWeb web,
-            string filePath = @"Log.log",
+            string textFileLogPath = @"Log.log",
+            string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
@@ -107,7 +114,8 @@
             this.shell = shell;
             this.editorUi = editorUi;
             this.web = web;
-            this.filePath = filePath;
+            this.textFileLogPath = textFileLogPath;
+            this.logDependencyName = logDependencyName;
             this.clearLevel = clearLevel;
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
@@ -121,7 +129,8 @@
             LogEditorUi editorUi,
             LogStatisticsUi statisticsUi,
             MethodWeb web,
-            string filePath = @"Log.log",
+            string textFileLogPath = @"Log.log",
+            string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
@@ -132,7 +141,8 @@
             this.editorUi = editorUi;
             this.statisticsUi = statisticsUi;
             this.web = web;
-            this.filePath = filePath;
+            this.textFileLogPath = textFileLogPath;
+            this.logDependencyName = logDependencyName;
             this.editLevel = editLevel;
             this.clearLevel = clearLevel;
             this.resetOnStart = resetOnStart;
@@ -150,16 +160,17 @@
                     this.ui,
                     this.shell,
                     w)
-                .Setup(
-                    this.editLevel,
-                    this.clearLevel,
-                    this.computeBackupLocation,
-                    ros,
-                    se);
+                {
+                    Name = this.logDependencyName
+                }
+                .Setup();
 
             new LogEditorPresenter(
                     this.editorUi,
                     w)
+                {
+                    Name = this.logDependencyName
+                }
                 .Setup();
 
             if (se)
@@ -167,35 +178,51 @@
                 new LogStatisticsPresenter(
                         this.statisticsUi,
                         w)
-                    .Setup(ros);
+                    {
+                        Name = this.logDependencyName
+                    }
+                    .Setup();
             }
         }
 
         private void registerDependencies()
         {
             var w = this.web;
-            var ln = this.logName;
-            if (ln == null)
+            var path = this.textFileLogPath;
+            if (path != null)
             {
                 w.RegisterDependency(
-                    new TextFileLog(
-                        this.filePath));
+                    new TextFileLog(path),
+                    this.logDependencyName);
                 goto finish;
             }
 
             w.RegisterDependency(
                 new EventLogLog(
-                    ln,
-                    this.sourceName));
+                    this.eventLogLogName,
+                    this.eventLogSourceName),
+                this.logDependencyName);
 
             finish:
             w.RegisterDependency(
                 new LinkedListMaterializer(),
                 "LogMaterializer");
-            if (this.statisticsEnabled)
+            var se = this.statisticsEnabled;
+            w.RegisterDependency(
+                new LogSettings()
+                {
+                    EditLevel = this.editLevel,
+                    ClearLevel = this.clearLevel,
+                    ComputeBackupLocation = this.computeBackupLocation,
+                    ResetOnStart = this.resetOnStart,
+                    StatisticsEnabled = se
+                },
+                this.logDependencyName);
+            if (se)
             {
                 w.RegisterDependency(
-                    new LogStatistics(w));
+                    new LogStatistics(w),
+                    this.logDependencyName);
             }
         }
 
@@ -204,13 +231,14 @@
         private readonly LogEditorUi editorUi;
         private readonly LogStatisticsUi statisticsUi;
         private readonly MethodWeb web;
-        private readonly string filePath;
-        private readonly string logName;
-        private readonly string sourceName;
+        private readonly string textFileLogPath;
+        private readonly string eventLogLogName;
+        private readonly string eventLogSourceName;
         private readonly AccessLevel editLevel;
         private readonly AccessLevel clearLevel;
         private readonly bool resetOnStart;
         private readonly Func<string> computeBackupLocation;
         private readonly bool statisticsEnabled;
+        private readonly string logDependencyName;
     }
 }

@@ -23,17 +23,24 @@
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
                 }
+
+                goto handleResult;
             }
-            else
-            {
-                result = MessageBox.Show(
+
+            result = MessageBox.Show(
                     question,
                     @"?",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
-            }
 
-            return result == DialogResult.Yes ? Response.Yes : Response.No;
+            handleResult:
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    return Response.Yes;
+                default:
+                    return Response.No;
+            }
         }
 
         Response Messenger.QuestionWithCancel(string question)
@@ -52,16 +59,17 @@
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Question);
                 }
+
+                goto handleResult;
             }
-            else
-            {
-                result = MessageBox.Show(
+
+            result = MessageBox.Show(
                     question,
                     @"?",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
-            }
 
+            handleResult:
             switch (result)
             {
                 case DialogResult.Yes:
@@ -92,7 +100,7 @@
 
         private void sendMessage(string message, MessageBoxIcon icon)
         {
-            var caption = string.Empty;
+            string caption;
             switch (icon)
             {
                 case MessageBoxIcon.Warning:
@@ -100,6 +108,9 @@
                     break;
                 case MessageBoxIcon.Error:
                     caption = "Error";
+                    break;
+                default:
+                    caption = string.Empty;
                     break;
             }
 

@@ -57,6 +57,8 @@
     <Compile Include="Framework\Logging\LogEntry.cs" />
     <Compile Include="Framework\Logging\LogHelpers.cs" />
     <Compile Include="Framework\Logging\LogStatistics.cs" />
+    <Compile Include="Framework\LoginSettings.cs" />
+    <Compile Include="Framework\LogSettings.cs" />
     <Compile Include="Framework\MainUiSettings.cs" />
     <Compile Include="Framework\Materialization\ArrayMaterializedEnumerable.cs" />
     <Compile Include="Framework\Materialization\ArrayMaterializer.cs" />

@@ -25,22 +25,43 @@
                 return;
             }
 
-            this.ui.TypeChanged += this.ui_TypeChanged;
-            this.ui.AddKeyTapped += this.ui_AddKeyTapped;
-            UiHelpers.Write(this.ui, () =>
+            var w = this.web;
+            var subscriberRegistered = false;
+            w.Run<EventSubscriber>(subscriber =>
             {
-                this.ui.Types = new ListMaterializedEnumerable<string>(
-                    new List<string>
+                subscriberRegistered = true;
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.TypeChanged),
+                    this.ui_TypeChanged);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.AddKeyTapped),
+                    this.ui_AddKeyTapped);
+            });
+
+            if (!subscriberRegistered)
+            {
+                this.ui.TypeChanged += this.ui_TypeChanged;
+                this.ui.AddKeyTapped += this.ui_AddKeyTapped;
+            }
+
+            MaterializedEnumerable<string> types =
+                new LinkedListMaterializedEnumerable<string>(
+                    new[]
                     {
                         "Information",
                         "Warning",
                         "Error",
                         "Custom"
                     });
+            UiHelpers.Write(this.ui, () =>
+            {
+                this.ui.Types = types;
                 this.ui.SelectedType = "Information";
             });
 
-            this.web.Run<Navigator>(n => n.RegisterPresenter(this));
+            w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
         public override void Start()

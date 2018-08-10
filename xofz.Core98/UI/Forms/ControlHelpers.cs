@@ -16,8 +16,8 @@
                 return;
             }
 
-            if (container.Controls.Count == 1 && control.Equals(
-                container.Controls[0]))
+            if (container.Controls.Count == 1 &&
+                ReferenceEquals(control, container.Controls[0]))
             {
                 return;
             }

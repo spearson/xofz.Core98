@@ -383,29 +383,56 @@
             return new List<T>(source);
         }
 
-        public static IList<T> OrderBy<T, TKey>(
+        public static ICollection<T> OrderBy<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
             return orderBy(
                 source,
                 keySelector,
+                Comparer<TKey>.Default,
                 false);
         }
 
-        public static IList<T> OrderByDescending<T, TKey>(
+        public static ICollection<T> OrderBy<T, TKey>(
+            IEnumerable<T> source,
+            Func<T, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            return orderBy(
+                source,
+                keySelector,
+                comparer,
+                false);
+        }
+
+        public static ICollection<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector)
         {
             return orderBy(
                 source,
                 keySelector,
+                Comparer<TKey>.Default,
                 true);
         }
 
-        private static List<T> orderBy<T, TKey>(
+        public static ICollection<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
             Func<T, TKey> keySelector,
+            IComparer<TKey> comparer)
+        {
+            return orderBy(
+                source,
+                keySelector,
+                comparer,
+                true);
+        }
+
+        private static ICollection<T> orderBy<T, TKey>(
+            IEnumerable<T> source,
+            Func<T, TKey> keySelector,
+            IComparer<TKey> comparer,
             bool descending)
         {
             if (source == default(IEnumerable<T>))
@@ -439,7 +466,6 @@
             }
 
             var keyList = new List<TKey>(d.Keys);
-            var comparer = Comparer<TKey>.Default;
             keyList.Sort(comparer);
 
             if (descending)
@@ -673,7 +699,7 @@
             return max;
         }
 
-        public static IEnumerable<T> Reverse<T>(
+        public static ICollection<T> Reverse<T>(
             IEnumerable<T> source)
         {
             var ll = new LinkedList<T>();

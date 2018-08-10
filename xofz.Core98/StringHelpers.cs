@@ -44,22 +44,20 @@
 
         public static bool NullOrWhiteSpace(string s)
         {
-            if (string.IsNullOrEmpty(s))
+            if (s == null)
             {
                 return true;
             }
 
-            var allWhiteSpace = true;
             foreach (var c in s)
             {
                 if (!char.IsWhiteSpace(c))
                 {
-                    allWhiteSpace = false;
-                    break;
+                    return false;
                 }
             }
 
-            return allWhiteSpace;
+            return true;
         }
     }
 }

@@ -5,9 +5,11 @@
         public static void Write(Ui ui, Action writer)
         {
             ui.WriteFinished.Reset();
-            if (ui.Root.InvokeRequired)
+
+            var r = ui.Root;
+            if (r.InvokeRequired)
             {
-                ui.Root.BeginInvoke((Action)(() =>
+                r.BeginInvoke((Action)(() =>
                 {
                     writer();
                     ui.WriteFinished.Set();
@@ -22,9 +24,10 @@
         public static T Read<T>(Ui ui, Func<T> valueReader)
         {
             var value = default(T);
-            if (ui.Root.InvokeRequired)
+            var r = ui.Root;
+            if (r.InvokeRequired)
             {
-                ui.Root.Invoke((Action)(() => value = valueReader()), new object[0]);
+                r.Invoke((Action)(() => value = valueReader()), new object[0]);
                 return value;
             }
 

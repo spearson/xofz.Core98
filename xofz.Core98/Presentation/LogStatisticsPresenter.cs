@@ -18,23 +18,51 @@
             this.web = web;
         }
 
-        public void Setup(
-            bool resetOnStart = false)
+        public void Setup()
         {
             if (Interlocked.CompareExchange(ref this.setupIf1, 1, 0) == 1)
             {
                 return;
             }
 
-            this.resetOnStart = resetOnStart;
-            this.ui.RangeKeyTapped += this.ui_RangeKeyTapped;
-            this.ui.OverallKeyTapped += this.ui_OverallKeyTapped;
-            this.ui.HideKeyTapped += this.Stop;
-            this.ui.ResetContentKeyTapped += this.ui_ResetContentKeyTapped;
-            this.ui.ResetTypeKeyTapped += this.ui_ResetTypeKeyTapped;
-            this.resetDates();
-
             var w = this.web;
+            var subscriberRegistered = false;
+            w.Run<EventSubscriber>(subscriber =>
+            {
+                subscriberRegistered = true;
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.RangeKeyTapped),
+                    this.ui_RangeKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.OverallKeyTapped),
+                    this.ui_OverallKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.HideKeyTapped),
+                    this.Stop);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.ResetContentKeyTapped),
+                    this.ui_ResetContentKeyTapped);
+                subscriber.Subscribe(
+                    this.ui,
+                    nameof(this.ui.ResetTypeKeyTapped),
+                    this.ui_ResetTypeKeyTapped);
+            });
+
+            if (!subscriberRegistered)
+            {
+                this.ui.RangeKeyTapped += this.ui_RangeKeyTapped;
+                this.ui.OverallKeyTapped += this.ui_OverallKeyTapped;
+                this.ui.HideKeyTapped += this.Stop;
+                this.ui.ResetContentKeyTapped += this.ui_ResetContentKeyTapped;
+                this.ui.ResetTypeKeyTapped += this.ui_ResetTypeKeyTapped;
+            }
+            
+            this.resetDates();
+            
             w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
@@ -46,12 +74,16 @@
             }
 
             base.Start();
-            if (this.resetOnStart)
-            {
-                this.resetDates();
-            }
-
             var w = this.web;
+            w.Run<LogSettings>(settings =>
+                {
+                    if (settings.ResetOnStart)
+                    {
+                        this.resetDates();
+                    }
+                },
+                this.Name);
+            
             var fc = UiHelpers.Read(this.ui, () => this.ui.FilterContent);
             if (string.IsNullOrEmpty(fc))
             {
@@ -221,7 +253,6 @@
         }
 
         private long setupIf1;
-        private bool resetOnStart;
         private readonly LogStatisticsUi ui;
         private readonly MethodWeb web;
     }

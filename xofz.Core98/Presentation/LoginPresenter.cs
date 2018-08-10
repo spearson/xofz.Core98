@@ -18,15 +18,13 @@
             this.timerHandlerFinished = new ManualResetEvent(true);
         }
 
-        public virtual void Setup(
-            TimeSpan loginDuration)
+        public virtual void Setup()
         {
             if (Interlocked.CompareExchange(ref this.setupIf1, 1, 0) == 1)
             {
                 return;
             }
 
-            this.loginDuration = loginDuration;
             var w = this.web;
             var subscriberRegistered = false;
             w.Run<EventSubscriber>(subscriber =>
@@ -167,13 +165,13 @@
                 this.ui, () => this.ui.CurrentPassword);
             var w = this.web;
             var newCal = AccessLevel.None;
-            w.Run<AccessController>(
-                ac =>
+            w.Run<AccessController, LoginSettings>(
+                (ac, settings) =>
                 {
                     var previousCal = ac.CurrentAccessLevel;
                     ac.InputPassword(
                         password,
-                        this.loginDuration);
+                        settings.LoginDuration);
                     newCal = ac.CurrentAccessLevel;
                     if (previousCal == newCal)
                     {
@@ -288,7 +286,6 @@
 
         private long setupIf1;
         private string currentPassword;
-        private TimeSpan loginDuration;
         private readonly LoginUi ui;
         private readonly MethodWeb web;
         private readonly ManualResetEvent timerHandlerFinished;

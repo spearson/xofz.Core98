@@ -17,11 +17,16 @@
                 this.ui = A.Fake<LoginUi>();
                 this.web = new MethodWeb();
                 this.presenter = new LoginPresenter(this.ui, this.web);
+                this.settings = new LoginSettings()
+                {
+                    LoginDuration = TimeSpan.FromMinutes(15)
+                };
             }
 
             protected readonly LoginUi ui;
             protected readonly MethodWeb web;
             protected readonly LoginPresenter presenter;
+            protected readonly LoginSettings settings;
         }
 
         public class When_Setup_is_called : Context
@@ -31,8 +36,7 @@
             {
                 this.ui.TimeRemaining = null;
 
-                this.presenter.Setup(
-                    TimeSpan.FromMinutes(15)); // default
+                this.presenter.Setup();
 
                 Assert.Equal(
                     "Not logged in",
@@ -50,8 +54,7 @@
                     .Returns(cal);
                 this.ui.CurrentAccessLevel = AccessLevel.None;
 
-                this.presenter.Setup(
-                    TimeSpan.FromMinutes(15));
+                this.presenter.Setup();
 
                 Assert.Equal(
                     cal,
@@ -66,7 +69,7 @@
                 w.RegisterDependency(t, "LoginTimer");
                 w.RegisterDependency(A.Fake<Navigator>());
                 
-                this.presenter.Setup(TimeSpan.FromMinutes(15));
+                this.presenter.Setup();
 
                 A.CallTo(() => t.Start(A<long>.Ignored))
                     .MustHaveHappened();
@@ -83,7 +86,7 @@
                 w.RegisterDependency(n);
                 var p = this.presenter;
 
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 A.CallTo(() => n.RegisterPresenter(p))
                     .MustHaveHappened();
@@ -97,7 +100,7 @@
             {
                 // to save it in a private field
                 var p = this.presenter;
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 p.Start();
 
@@ -109,7 +112,7 @@
             public void Displays_the_UI()
             {
                 var p = this.presenter;
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 p.Start();
 
@@ -122,7 +125,7 @@
             {
                 // to wait on the UI to finish displaying itself
                 var p = this.presenter;
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 p.Start();
 
@@ -137,7 +140,7 @@
             public void Hides_the_ui()
             {
                 var p = this.presenter;
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 p.Stop();
 
@@ -154,7 +157,7 @@
                 w.RegisterDependency(lh, "LoginLatch");
 
                 var p = this.presenter;
-                p.Setup(TimeSpan.FromMinutes(15));
+                p.Setup();
 
                 p.Stop();
 
@@ -168,7 +171,7 @@
             [Fact]
             public void Reads_ui_CurrentPassword()
             {
-                this.presenter.Setup(TimeSpan.FromMinutes(15));
+                this.presenter.Setup();
 
                 this.ui.BackspaceKeyTapped += Raise.FreeForm<xofz.Action>.With();
 
@@ -179,7 +182,7 @@
             [Fact]
             public void Sets_the_ui_CurrentPassword_to_result_of_removing_1_end_char()
             {
-                this.presenter.Setup(TimeSpan.FromMinutes(15));
+                this.presenter.Setup();
                 var f = new Fixture();
                 var newPw = f.Create<string>();
                 var oldPw = newPw + f.Create<char>();
@@ -193,7 +196,7 @@
             [Fact]
             public void Focuses_the_password()
             {
-                this.presenter.Setup(TimeSpan.FromMinutes(15));
+                this.presenter.Setup();
 
                 this.ui.BackspaceKeyTapped += Raise.FreeForm<xofz.Action>.With();
 

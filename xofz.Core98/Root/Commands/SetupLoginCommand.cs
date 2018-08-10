@@ -35,8 +35,7 @@
             new LoginPresenter(
                     this.ui,
                     this.web)
-                .Setup(
-                    this.loginDuration);
+                .Setup();
         }
 
         private void registerDependencies()
@@ -45,6 +44,11 @@
             w.RegisterDependency(
                 new xofz.Framework.Timer(),
                 "LoginTimer");
+            w.RegisterDependency(
+                new LoginSettings
+                {
+                    LoginDuration = this.loginDuration
+                });
             w.RegisterDependency(
                 new LatchHolder
                 {

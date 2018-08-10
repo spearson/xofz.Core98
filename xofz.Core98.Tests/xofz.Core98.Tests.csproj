@@ -58,6 +58,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLevelTests.cs" />
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
     <Compile Include="Presentation\LoginPresenterTests.cs" />
