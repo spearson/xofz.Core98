@@ -186,6 +186,99 @@
             return default(T);
         }
 
+        public static T Last<T>(
+            IEnumerable<T> source)
+        {
+            T lastItem = default(T);
+            bool lastChanged = false;
+            foreach (var item in source)
+            {
+                lastChanged = true;
+                lastItem = item;
+            }
+
+            if (!lastChanged)
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is empty and therefore does not " +
+                    "have a last item.  If this can occur, consider using " +
+                    "LastOrDefault<T>()");
+            }
+
+            return lastItem;
+        }
+
+        public static T Last<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            T lastItem = default(T);
+            bool empty = true;
+            bool lastChanged = false;
+            foreach (var item in source)
+            {
+                empty = false;
+                if (predicate(item))
+                {
+                    lastChanged = true;
+                    lastItem = item;
+                }                
+            }
+
+            if (!lastChanged && !empty)
+            {
+                throw new InvalidOperationException(
+                    "No elements in the source matched the predicate.");
+            }
+
+            if (empty)
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is empty and does not contain a last item. " +
+                    "To avoid the exception, consider using LastOrDefault<T>()");
+            }
+
+            return lastItem;
+        }
+
+        public static T LastOrDefault<T>(
+            IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return default(T);
+            }
+
+            T lastItem = default(T);
+            foreach (var item in source)
+            {
+                lastItem = item;
+            }
+
+            return lastItem;
+        }
+
+        public static T LastOrDefault<T>(
+            IEnumerable<T> source,
+            Func<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                return default(T);
+            }
+
+            T lastItem = default(T);
+            foreach (var item in source)
+            {
+                if (predicate(item))
+                {
+                    lastItem = item;
+                }                
+            }
+
+            return lastItem;
+        }
+
         public static bool Any<T>(
             IEnumerable<T> source)
         {
