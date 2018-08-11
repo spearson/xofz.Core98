@@ -8,6 +8,24 @@
 
         public virtual IEnumerable<T> Trap(IEnumerable<T> source)
         {
+            if (source == default(IEnumerable<T>))
+            {
+                ICollection<T> defaultCollection = new LinkedList<T>();
+                this.setTrapper(defaultCollection);
+                yield break;
+            }
+
+            if (source is ICollection<T> collection)
+            {
+                this.setTrapper(collection);
+                foreach (var item in collection)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
             ICollection<T> t = new LinkedList<T>();
             this.setTrapper(t);
             // we can use any type of ICollection<T> here
@@ -22,8 +40,19 @@
 
         public virtual void TrapNow(IEnumerable<T> source)
         {
+            if (source is ICollection<T> collection)
+            {
+                this.setTrapper(collection);
+                return;
+            }
+
             ICollection<T> t = new LinkedList<T>();
             this.setTrapper(t);
+            if (source == default(IEnumerable<T>))
+            {
+                return;
+            }
+
             // we can use any type of ICollection<T> here
             var fieldReference = this.trapper;
 
