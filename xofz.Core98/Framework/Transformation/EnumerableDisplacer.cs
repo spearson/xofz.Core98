@@ -4,7 +4,9 @@
 
     public class EnumerableDisplacer
     {
-        public virtual IEnumerable<T> Displace<T>(IEnumerable<T> source, int displaceCount)
+        public virtual IEnumerable<T> Displace<T>(
+            IEnumerable<T> source, 
+            int displaceCount)
         {
             var enumerator = source.GetEnumerator();
             var counter = 0;

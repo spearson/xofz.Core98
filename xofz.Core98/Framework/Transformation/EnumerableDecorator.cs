@@ -5,7 +5,9 @@
 
     public class EnumerableDecorator
     {
-        public virtual IEnumerable<T> Decorate<T>(IEnumerable<T> source, Action<T> action)
+        public virtual IEnumerable<T> Decorate<T>(
+            IEnumerable<T> source,
+            Action<T> action)
         {
             foreach (var item in source)
             {

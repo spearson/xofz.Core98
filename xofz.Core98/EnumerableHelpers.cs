@@ -418,7 +418,7 @@
         {
             if (source == default(IEnumerable<T>))
             {
-                return default(int);
+                return default(long);
             }
 
             long totalCount = 0;
@@ -436,7 +436,7 @@
         {
             if (source == default(IEnumerable<T>))
             {
-                return default(int);
+                return default(long);
             }
 
             long totalCount = 0;

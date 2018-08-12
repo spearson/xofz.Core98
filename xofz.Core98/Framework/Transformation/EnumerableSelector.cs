@@ -4,7 +4,9 @@
 
     public class EnumerableSelector
     {
-        public virtual IEnumerable<T> Select<T>(IEnumerable<T> source, IEnumerable<bool> selectors)
+        public virtual IEnumerable<T> Select<T>(
+            IEnumerable<T> source,
+            IEnumerable<bool> selectors)
         {
             var e1 = source.GetEnumerator();
             var e2 = selectors.GetEnumerator();

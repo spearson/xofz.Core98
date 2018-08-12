@@ -4,7 +4,9 @@
 
     public class EnumerableKicker
     {
-        public virtual IEnumerable<T> Kick<T>(IEnumerable<T> source, int kickPoint)
+        public virtual IEnumerable<T> Kick<T>(
+            IEnumerable<T> source, 
+            int kickPoint)
         {
             var kickCounter = 0;
             foreach (var item in source)

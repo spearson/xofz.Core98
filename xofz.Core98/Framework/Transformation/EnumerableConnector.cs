@@ -5,7 +5,8 @@
 
     public class EnumerableConnector
     {
-        public virtual MaterializedEnumerable<T> Connect<T>(IEnumerable<T>[] sources)
+        public virtual MaterializedEnumerable<T> Connect<T>(
+            IEnumerable<T>[] sources)
         {
             var result = new LinkedList<T>();
             var enumerators = new IEnumerator<T>[sources.Length];

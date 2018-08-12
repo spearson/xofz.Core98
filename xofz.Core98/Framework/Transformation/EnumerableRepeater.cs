@@ -5,7 +5,9 @@
 
     public class EnumerableRepeater
     {
-        public virtual MaterializedEnumerable<T> Repeat<T>(IEnumerable<T> source, int times)
+        public virtual MaterializedEnumerable<T> Repeat<T>(
+            IEnumerable<T> source,
+            int times)
         {
             var linkedList = new LinkedList<T>(source);
             var list = new List<T>();

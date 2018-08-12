@@ -5,7 +5,9 @@
 
     public class EnumerableSplitter
     {
-        public virtual MaterializedEnumerable<T>[] Split<T>(IEnumerable<T> source, int splits)
+        public virtual MaterializedEnumerable<T>[] Split<T>(
+            IEnumerable<T> source,
+            int splits)
         {
             var array = new LinkedListMaterializedEnumerable<T>[splits];
             for (var i = 0; i < splits; ++i)

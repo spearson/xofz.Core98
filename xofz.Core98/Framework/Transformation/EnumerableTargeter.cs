@@ -5,7 +5,9 @@
 
     public class EnumerableTargeter
     {
-        public virtual T Target<T>(IEnumerable<T> source, T target)
+        public virtual T Target<T>(
+            IEnumerable<T> source,
+            T target)
         {
             foreach (var item in source)
             {
