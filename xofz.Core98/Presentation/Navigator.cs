@@ -11,6 +11,7 @@
         public Navigator(MethodWeb web)
         {
             this.web = web;
+            // inherit from this class to override the type of collection
             this.presenters = new LinkedList<Presenter>();
         }
 
@@ -180,7 +181,7 @@
                 ?.GetValue(presenter);
         }
 
-        private readonly ICollection<Presenter> presenters;
+        protected readonly ICollection<Presenter> presenters;
         private readonly MethodWeb web;
     }
 }
