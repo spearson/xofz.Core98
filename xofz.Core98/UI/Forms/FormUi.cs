@@ -19,6 +19,13 @@
 
         MarshalByRefObject Ui.Referrer => this.Owner;
 
+        bool Ui.Disabled
+        {
+            get => !this.Enabled;
+
+            set => this.Enabled = !value;
+        }
+
         void Ui.AssertStability()
         {
             var stable = true;

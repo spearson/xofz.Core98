@@ -12,6 +12,8 @@
 
         MarshalByRefObject Referrer { get; }
 
+        bool Disabled { get; set; }
+
         void AssertStability();
     }
 }
