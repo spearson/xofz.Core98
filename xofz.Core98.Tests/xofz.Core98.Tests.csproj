@@ -59,8 +59,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessLevelTests.cs" />
+    <Compile Include="Framework\EventRaiserTests.cs" />
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableBreakerTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableConnectorTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableDecoratorTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableDisperserTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableDisplacerTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableDraggerTests.cs" />
     <Compile Include="Presentation\LoginPresenterTests.cs" />
     <Compile Include="Presentation\NavigatorTests.cs" />
     <Compile Include="Presentation\PopupPresenterTests.cs" />

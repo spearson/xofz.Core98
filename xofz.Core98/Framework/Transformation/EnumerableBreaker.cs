@@ -7,30 +7,28 @@
     {
         public virtual IEnumerable<T> AddBreak<T>(
             IEnumerable<T> source, 
-            Func<T, bool> predicate)
+            Func<T, bool> breakCondition)
         {
             foreach (var item in source)
             {
-                if (predicate(item))
-                {
-                    yield return item;
-                }
-                else
+                if (breakCondition(item))
                 {
                     yield break;
                 }
+
+                yield return item;
             }
         }
 
         public virtual IEnumerable<T> AddBreak<T>(
             IEnumerable<T> source, 
-            params Func<T, bool>[] predicates)
+            params Func<T, bool>[] breakConditions)
         {
             foreach (var item in source)
             {
-                foreach (var predicate in predicates)
+                foreach (var breakCondition in breakConditions)
                 {
-                    if (!predicate(item))
+                    if (breakCondition(item))
                     {
                         yield break;
                     }

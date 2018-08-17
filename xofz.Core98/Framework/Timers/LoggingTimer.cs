@@ -73,7 +73,10 @@
             System.Timers.ElapsedEventArgs e)
         {
             var w = this.web;
-            w.Run<LogEditor>(le => { this.log(this, le); },
+            w.Run<LogEditor>(le =>
+                {
+                    this.log(this, le);
+                },
                 this.LogName);
 
             base.innerTimer_Elapsed(sender, e);

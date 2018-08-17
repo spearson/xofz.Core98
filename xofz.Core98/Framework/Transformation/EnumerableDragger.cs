@@ -6,24 +6,39 @@
     {
         public virtual IEnumerable<T> Drag<T>(
             IEnumerable<T> source,
-            MaterializedEnumerable<int> dragLengths)
+            ICollection<int> dragLengths)
         {
-            var e = source.GetEnumerator();
-            foreach (var length in dragLengths)
+            if (source == null)
             {
-                e.MoveNext();
-                for (var i = 0; i < length; ++i)
+                yield break;
+            }
+
+            if (dragLengths == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            using (var e = source.GetEnumerator())
+            {
+                foreach (var length in dragLengths)
+                {
+                    e.MoveNext();
+                    for (var i = 0; i < length; ++i)
+                    {
+                        yield return e.Current;
+                    }
+                }
+
+                while (e.MoveNext())
                 {
                     yield return e.Current;
                 }
-            }
-
-            while (e.MoveNext())
-            {
-                yield return e.Current;
-            }
-
-            e.Dispose();
+            }            
         }
     }
 }

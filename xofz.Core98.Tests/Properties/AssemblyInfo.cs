@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("xofz.Core98.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Unit test assembly for Core 98")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("xofz.Core98.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("x(z)")]
+[assembly: AssemblyProduct("Core98 Tests")]
+[assembly: AssemblyCopyright("Copyright (c)  x(z)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

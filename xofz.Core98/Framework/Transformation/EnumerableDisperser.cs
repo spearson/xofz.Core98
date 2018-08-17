@@ -7,25 +7,61 @@
         public virtual IEnumerable<T> Disperse<T>(
             IEnumerable<T> source,
             IEnumerable<T> dispersion,
-            MaterializedEnumerable<int> dispersionPoints)
+            ICollection<long> dispersionPoints)
         {
-            var e = dispersion.GetEnumerator();
-            var counter = 0;
-            foreach (var item in source)
+            if (source == null)
             {
-                yield return item;
-                ++counter;
-                e.MoveNext();
-                foreach (var dp in dispersionPoints)
-                {
-                    if (dp == counter)
-                    {
-                        yield return e.Current;
-                    }
-                }
+                yield break;
             }
 
-            e.Dispose();
+            if (dispersion == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            if (dispersionPoints == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            long counter = 0;
+            using (var e = dispersion.GetEnumerator())
+            {
+                if (e == null)
+                {
+                    foreach (var item in source)
+                    {
+                        yield return item;
+                    }
+
+                    yield break;
+                }
+
+                foreach (var item in source)
+                {
+                    foreach (var dp in dispersionPoints)
+                    {
+                        if (dp == counter)
+                        {
+                            e.MoveNext();
+                            yield return e.Current;
+                        }
+                    }
+
+                    ++counter;
+                    yield return item;
+                }
+            }
         }
     }
 }

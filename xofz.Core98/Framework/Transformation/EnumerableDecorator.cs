@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableDecorator
@@ -9,9 +8,14 @@
             IEnumerable<T> source,
             Action<T> action)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
             foreach (var item in source)
             {
-                action(item);
+                action?.Invoke(item);
                 yield return item;
             }
         }

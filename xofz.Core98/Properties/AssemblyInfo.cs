@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("xofz.Core98")]
-[assembly: AssemblyDescription("This class library runs on Windows 98, if it has .NET 2.0!")]
+[assembly: AssemblyDescription("Use this class library to build apps targeting .NET Framework 2.0 and above!")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("X of Z")]
+[assembly: AssemblyCompany("x(z)")]
 [assembly: AssemblyProduct("Core 98")]
-[assembly: AssemblyCopyright("Copyright (c) Sam Pearson")]
+[assembly: AssemblyCopyright("Copyright (c) x(z)")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

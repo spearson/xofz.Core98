@@ -6,39 +6,54 @@
     {
         public virtual IEnumerable<T> Displace<T>(
             IEnumerable<T> source, 
-            int displaceCount)
+            long displaceCount)
         {
-            var enumerator = source.GetEnumerator();
-            var counter = 0;
-            var displacedItems = new LinkedList<T>();
-            while (counter < displaceCount)
+            if (source == null)
             {
-                enumerator.MoveNext();
-                ++counter;
-
-                displacedItems.AddLast(enumerator.Current);
+                yield break;
             }
 
-            counter = 0;
-            while (counter < displaceCount)
+            if (displaceCount < 1)
             {
-                enumerator.MoveNext();
-                ++counter;
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
 
-                yield return enumerator.Current;
+                yield break;
             }
 
-            foreach (var di in displacedItems)
+            using (var e = source.GetEnumerator())
             {
-                yield return di;
-            }
+                ICollection<T> displacedItems = new LinkedList<T>();
+                long counter = 0;
+                while (counter < displaceCount)
+                {
+                    ++counter;
 
-            while (enumerator.MoveNext())
-            {
-                yield return enumerator.Current;
-            }
+                    e.MoveNext();
+                    displacedItems.Add(e.Current);
+                }
 
-            enumerator.Dispose();
+                counter = 0;
+                while (counter < displaceCount)
+                {
+                    e.MoveNext();
+                    ++counter;
+
+                    yield return e.Current;
+                }
+
+                foreach (var displacedItem in displacedItems)
+                {
+                    yield return displacedItem;
+                }
+
+                while (e.MoveNext())
+                {
+                    yield return e.Current;
+                }
+            }
         }
     }
 }
