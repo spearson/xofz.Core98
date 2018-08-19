@@ -35,6 +35,16 @@
                 yield break;
             }
 
+            if (injectionPoints == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
             long counter = 0;
             long index = 0;
             foreach (var item in source)

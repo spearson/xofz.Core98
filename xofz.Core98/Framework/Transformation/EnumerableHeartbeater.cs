@@ -9,13 +9,14 @@
             T heartbeat, 
             int interval)
         {
+            var nullSource = source == null;
+            if (nullSource)
+            {
+                yield break;
+            }
+
             if (interval < 1)
             {
-                if (source == null)
-                {
-                    yield break;
-                }
-
                 foreach (var item in source)
                 {
                     yield return item;
