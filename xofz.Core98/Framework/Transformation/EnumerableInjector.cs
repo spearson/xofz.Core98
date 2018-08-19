@@ -47,11 +47,12 @@
 
             long counter = 0;
             long index = 0;
+            var il = injections.Length;
             foreach (var item in source)
             {                
                 foreach (var ip in injectionPoints)
                 {
-                    if (ip == counter)
+                    if (ip == counter && index < il)
                     {
                         yield return injections[index];
                         ++index;

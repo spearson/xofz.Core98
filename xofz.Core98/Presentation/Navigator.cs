@@ -17,7 +17,7 @@
 
         public virtual void RegisterPresenter(Presenter presenter)
         {
-            if (presenter == default(Presenter))
+            if (presenter == null)
             {
                 throw new ArgumentNullException(
                     nameof(presenter));
@@ -66,10 +66,7 @@
             where T : NamedPresenter
         {
             var ps = this.presenters;
-            var matchingPresenters = EnumerableHelpers.Cast<T>(
-                EnumerableHelpers.Where(
-                    ps,
-                    p => p is T));
+            var matchingPresenters = EnumerableHelpers.OfType<T>(ps);
             foreach (var presenter in matchingPresenters)
             {
                 if (presenter.Name != name)
@@ -104,11 +101,8 @@
         public virtual void PresentFluidly<T>(string name)
             where T : NamedPresenter
         {
-            var matchingPresenters =
-                EnumerableHelpers.Cast<T>(
-                    EnumerableHelpers.Where(
-                        this.presenters,
-                        p => p is T));
+            var matchingPresenters = EnumerableHelpers.OfType<T>(
+                this.presenters);
             foreach (var presenter in matchingPresenters)
             {
                 if (presenter.Name != name)
@@ -131,6 +125,29 @@
             w.Run<LatchHolder>(
                 latch => latch.Latch.WaitOne(),
                 "LoginLatch");
+        }
+
+        public virtual void StopPresenter<T>()
+            where T : Presenter
+        {
+            foreach (var presenter in EnumerableHelpers
+                .OfType<T>(this.presenters))
+            {
+                presenter.Stop();
+                break;
+            }
+        }
+
+        public virtual void StopPresenter<T>(string name)
+            where T : NamedPresenter
+        {
+            foreach (var presenter in EnumerableHelpers.Where(
+                EnumerableHelpers.OfType<T>(this.presenters),
+                p => p.Name == name))
+            {
+                presenter.Stop();
+                break;
+            }
         }
 
         public virtual TUi GetUi<TPresenter, TUi>(
