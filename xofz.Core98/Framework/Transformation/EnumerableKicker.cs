@@ -6,9 +6,19 @@
     {
         public virtual IEnumerable<T> Kick<T>(
             IEnumerable<T> source, 
-            int kickPoint)
+            long kickPoint)
         {
-            var kickCounter = 0;
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (kickPoint < 1)
+            {
+                yield break;
+            }
+
+            long kickCounter = 0;
             foreach (var item in source)
             {
                 ++kickCounter;
@@ -24,9 +34,24 @@
 
         public virtual IEnumerable<T> Kick<T>(
             IEnumerable<T> source, 
-            MaterializedEnumerable<int> kickPoints)
+            ICollection<long> kickPoints)
         {
-            var kickCounter = 0;
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (kickPoints == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            long kickCounter = 0;
             foreach (var item in source)
             {
                 ++kickCounter;

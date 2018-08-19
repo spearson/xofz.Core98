@@ -1,22 +1,36 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using Materialization;
 
     public class EnumerableRepeater
     {
-        public virtual MaterializedEnumerable<T> Repeat<T>(
+        public virtual ICollection<T> Repeat<T>(
             IEnumerable<T> source,
             int times)
         {
-            var linkedList = new LinkedList<T>(source);
-            var list = new List<T>();
-            for (var i = 0; i < times; ++i)
+            ICollection<T> collection = new LinkedList<T>();
+            if (source == null)
             {
-                list.AddRange(linkedList);
+                return collection;
             }
 
-            return new ListMaterializedEnumerable<T>(list);
+            if (times < 1)
+            {
+                return collection;
+            }
+
+            foreach (var item in source)
+            {
+                collection.Add(item);
+            }
+
+            var result = new List<T>();
+            for (var i = 0; i < times; ++i)
+            {
+                result.AddRange(collection);
+            }
+
+            return result;
         }
     }
 }

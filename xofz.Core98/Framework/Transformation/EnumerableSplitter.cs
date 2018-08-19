@@ -5,20 +5,38 @@
 
     public class EnumerableSplitter
     {
-        public virtual MaterializedEnumerable<T>[] Split<T>(
+        public virtual ICollection<T>[] Split<T>(
             IEnumerable<T> source,
             int splits)
         {
-            var array = new LinkedListMaterializedEnumerable<T>[splits];
+            if (source == null)
+            {
+                return new ICollection<T>[0];
+            }
+
+            if (splits < 2)
+            {
+                return new ICollection<T>[]
+                {
+                    new LinkedList<T>(source)
+                };
+            }
+
+            var array = new ICollection<T>[splits];
             for (var i = 0; i < splits; ++i)
             {
-                array[i] = new LinkedListMaterializedEnumerable<T>();
+                array[i] = new LinkedList<T>();
             }
 
             var enumerator = source.GetEnumerator();
+            if (enumerator == null)
+            {
+                return new ICollection<T>[0];
+            }
+
             if (enumerator.MoveNext())
             {
-                array[0].AddLast(enumerator.Current);
+                array[0].Add(enumerator.Current);
             }
             
             var zeroFilled = true;
@@ -33,7 +51,7 @@
                     }
 
                     zeroFilled = false;
-                    array[i].AddLast(enumerator.Current);
+                    array[i].Add(enumerator.Current);
                     if (i < splits - 1)
                     {
                         if (!enumerator.MoveNext())
@@ -50,14 +68,9 @@
                 }
             }
 
-            var generalArray = new MaterializedEnumerable<T>[splits];
-            for (var i = 0; i < splits; ++i)
-            {
-                generalArray[i] = array[i];
-            }
-
             enumerator.Dispose();
-            return generalArray;
+
+            return array;
         }
     }
 }

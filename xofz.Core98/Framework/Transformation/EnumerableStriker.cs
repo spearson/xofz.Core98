@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableStriker
@@ -10,8 +9,18 @@
             IEnumerable<K> kSource,
             Func<T, K, T> strike)
         {
-            var te = tSource.GetEnumerator();
-            var ke = kSource.GetEnumerator();
+            var te = tSource?.GetEnumerator();
+            var ke = kSource?.GetEnumerator();
+            if (te == null || ke == null)
+            {
+                yield break;
+            }
+
+            if (strike == null)
+            {
+                yield break;
+            }
+
             while (te.MoveNext() || ke.MoveNext())
             {
                 yield return strike(te.Current, ke.Current);
@@ -26,8 +35,18 @@
             IEnumerable<K> kSource,
             Func<T, K, K> strike)
         {
-            var te = tSource.GetEnumerator();
-            var ke = kSource.GetEnumerator();
+            var te = tSource?.GetEnumerator();
+            var ke = kSource?.GetEnumerator();
+            if (te == null || ke == null)
+            {
+                yield break;
+            }
+
+            if (strike == null)
+            {
+                yield break;
+            }
+
             while (te.MoveNext() || ke.MoveNext())
             {
                 yield return strike(te.Current, ke.Current);

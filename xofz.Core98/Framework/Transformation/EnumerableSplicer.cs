@@ -1,12 +1,11 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using Materialization;
 
     public class EnumerableSplicer
     {
-        public virtual MaterializedEnumerable<T> Splice<T>(
-            MaterializedEnumerable<T>[] collections)
+        public virtual ICollection<T> Splice<T>(
+            ICollection<T>[] collections)
         {
             var sources = new IEnumerable<T>[collections.Length];
             var indexCounter = 0;
@@ -19,19 +18,29 @@
             return this.Splice(sources);
         }
 
-        public virtual MaterializedEnumerable<T> Splice<T>(
+        public virtual ICollection<T> Splice<T>(
             IEnumerable<T>[] sources)
         {
-            var lists = new List<T>[sources.Length];
+            var result = new List<T>();
+            if (sources == null)
+            {
+                return result;
+            }
 
+            if (sources.Length < 1)
+            {
+                return result;
+            }
+
+            var lists = new List<T>[sources.Length];
             // first, enumerate all the items into separate lists
             for (var i = 0; i < sources.Length; ++i)
             {
-                lists[i] = new List<T>(new LinkedList<T>(sources[i]));
+                lists[i] = new List<T>(sources[i]);
             }
 
             // then, splice the lists together
-            var list = new List<T>(
+            result = new List<T>(
                 EnumerableHelpers.Sum(
                     lists,
                     l => l.Count));
@@ -42,7 +51,7 @@
 
             for (var i = 0; i < smallestCount; ++i)
             {
-                list.AddRange(
+                result.AddRange(
                     EnumerableHelpers.Select(
                         lists,
                         l => l[i]));
@@ -60,16 +69,16 @@
 
             if (remainingLists.Count == 0)
             {
-                return new ListMaterializedEnumerable<T>(list);
+                return result;
             }
 
-            list.AddRange(
+            result.AddRange(
                 this.Splice(
                     // ReSharper disable once CoVariantArrayConversion
                     EnumerableHelpers.ToArray(
                         remainingLists)));
 
-            return new ListMaterializedEnumerable<T>(list);
+            return result;
         }
     }
 }

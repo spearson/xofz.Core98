@@ -8,6 +8,16 @@
             IEnumerable<T> source,
             int spread)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (spread < 1)
+            {
+                yield break;
+            }
+
             var counter = 0;
             foreach (var item in source)
             {

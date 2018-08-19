@@ -8,19 +8,29 @@
             IEnumerable<T> source,
             IEnumerable<bool> selectors)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (selectors == null)
+            {
+                yield break;
+            }
+
             var e1 = source.GetEnumerator();
             var e2 = selectors.GetEnumerator();
-            while (e1.MoveNext())
+            while (e1?.MoveNext() ?? false)
             {
-                e2.MoveNext();
-                if (e2.Current)
+                e2?.MoveNext();
+                if (e2?.Current ?? false)
                 {
                     yield return e1.Current;
                 }
             }
 
-            e1.Dispose();
-            e2.Dispose();
+            e1?.Dispose();
+            e2?.Dispose();
         }
     }
 }

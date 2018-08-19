@@ -6,13 +6,23 @@
     {
         public virtual IEnumerable<T> Rake<T>(
             IEnumerable<T> source,
-            IEnumerable<int> rakePoints)
+            IEnumerable<long> rakePoints)
         {
-            var e = source.GetEnumerator();
-            var counter = 0;
-            foreach (var rp in rakePoints)
+            if (source == null)
             {
-                while (counter < rp)
+                yield break;
+            }
+
+            var e = source.GetEnumerator();
+            if (e == null)
+            {
+                yield break;
+            }
+
+            long counter = 0;
+            foreach (var rakePoint in rakePoints)
+            {
+                while (counter < rakePoint)
                 {
                     e.MoveNext();
                     ++counter;

@@ -6,14 +6,39 @@
     {
         public virtual IEnumerable<T> Inject<T>(
             IEnumerable<T> source,
-            MaterializedEnumerable<int> injectionPoints,
+            ICollection<long> injectionPoints,
             params T[] injections)
         {
-            var counter = 0;
-            var index = 0;
-            foreach (var item in source)
+            var nullInjections = injections == null;
+            if (source == null)
             {
-                ++counter;
+                if (nullInjections)
+                {
+                    yield break;
+                }
+
+                foreach (var injection in injections)
+                {
+                    yield return injection;
+                }
+
+                yield break;
+            }
+
+            if (nullInjections)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            long counter = 0;
+            long index = 0;
+            foreach (var item in source)
+            {                
                 foreach (var ip in injectionPoints)
                 {
                     if (ip == counter)
@@ -23,6 +48,7 @@
                     }
                 }
 
+                ++counter;
                 yield return item;
             }
         }

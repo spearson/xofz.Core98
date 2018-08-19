@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableJoiner
@@ -9,16 +8,23 @@
             IEnumerable<T> source1, 
             IEnumerable<Y> source2)
         {
+            if (source1 == null || source2 == null)
+            {
+                yield break;
+            }
+
             var e1 = source1.GetEnumerator();
             var e2 = source2.GetEnumerator();
 
-            while (e1.MoveNext() && e2.MoveNext())
+            while ((e1?.MoveNext() ?? false) && (e2?.MoveNext() ?? false))
             {
-                yield return Tuple.Create(e1.Current, e2.Current);
+                yield return Tuple.Create(
+                    e1.Current, 
+                    e2.Current);
             }
 
-            e1.Dispose();
-            e2.Dispose();
+            e1?.Dispose();
+            e2?.Dispose();
         }
 
         public virtual IEnumerable<Tuple<T, Y, X>> Join3<T, Y, X>(
@@ -26,18 +32,29 @@
             IEnumerable<Y> source2,
             IEnumerable<X> source3)
         {
+            if (source1 == null || source2 == null || source3 == null)
+            {
+                yield break;
+            }
+
             var e1 = source1.GetEnumerator();
             var e2 = source2.GetEnumerator();
             var e3 = source3.GetEnumerator();
 
-            while (e1.MoveNext() && e2.MoveNext() && e3.MoveNext())
+            while (
+                (e1?.MoveNext() ?? false) && 
+                (e2?.MoveNext() ?? false) && 
+                (e3?.MoveNext() ?? false))
             {
-                yield return Tuple.Create(e1.Current, e2.Current, e3.Current);
+                yield return Tuple.Create(
+                    e1.Current, 
+                    e2.Current, 
+                    e3.Current);
             }
 
-            e1.Dispose();
-            e2.Dispose();
-            e3.Dispose();
+            e1?.Dispose();
+            e2?.Dispose();
+            e3?.Dispose();
         }
 
         public virtual IEnumerable<Tuple<T, Y, X, Z>> Join4<T, Y, X, Z>(
@@ -46,24 +63,36 @@
             IEnumerable<X> source3,
             IEnumerable<Z> source4)
         {
+            if (source1 == null ||
+                source2 == null ||
+                source3 == null ||
+                source4 == null)
+            {
+                yield break;
+            }
+
             var e1 = source1.GetEnumerator();
             var e2 = source2.GetEnumerator();
             var e3 = source3.GetEnumerator();
             var e4 = source4.GetEnumerator();
 
-            while (e1.MoveNext() && e2.MoveNext() && e3.MoveNext() && e4.MoveNext())
+            while (
+                (e1?.MoveNext() ?? false) &&
+                (e2?.MoveNext() ?? false) &&
+                (e3?.MoveNext() ?? false) &&
+                (e4?.MoveNext() ?? false))
             {
                 yield return Tuple.Create(
-                    e1.Current, 
-                    e2.Current, 
+                    e1.Current,
+                    e2.Current,
                     e3.Current,
                     e4.Current);
             }
 
-            e1.Dispose();
-            e2.Dispose();
-            e3.Dispose();
-            e4.Dispose();
+            e1?.Dispose();
+            e2?.Dispose();
+            e3?.Dispose();
+            e4?.Dispose();
         }
     }
 }

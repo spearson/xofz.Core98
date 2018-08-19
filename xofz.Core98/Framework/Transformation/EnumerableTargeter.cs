@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using xofz.Framework.Materialization;
 
     public class EnumerableTargeter
     {
@@ -9,9 +8,20 @@
             IEnumerable<T> source,
             T target)
         {
+            if (source == null)
+            {
+                return default(T);
+            }
+
+            var nullTarget = target == null;
             foreach (var item in source)
             {
-                if (item.Equals(target))
+                if (item == null && nullTarget)
+                {
+                    return item;
+                }
+
+                if (item?.Equals(target) ?? false)
                 {
                     return item;
                 }
@@ -20,17 +30,24 @@
             return default(T);
         }
 
-        public virtual MaterializedEnumerable<T> Target<T>(
+        public virtual ICollection<T> Target<T>(
             IEnumerable<T> source, 
             T target, 
             int radius)
         {
             var ll = new LinkedList<T>();
-            var e = source.GetEnumerator();
-            while (e.MoveNext())
+            if (source == null)
             {
-                ll.AddLast(e.Current);
-                if (e.Current.Equals(target))
+                return ll;
+            }
+
+            var nullTarget = target == null;
+            var e = source.GetEnumerator();
+            while (e?.MoveNext() ?? false)
+            {
+                var item = e.Current;
+                ll.AddLast(item);
+                if (item?.Equals(target) ?? nullTarget ? true : false)
                 {
                     for (var i = 0; i < radius; ++i)
                     {
@@ -40,7 +57,7 @@
                         }
                     }
 
-                    return new LinkedListMaterializedEnumerable<T>(ll);
+                    return ll;
                 }
 
                 while (ll.Count > radius)
@@ -49,10 +66,10 @@
                 }
             }
 
-            e.Dispose();
+            e?.Dispose();
 
             // if target not found, return the last radius number of items
-            return new LinkedListMaterializedEnumerable<T>(ll);
+            return ll;
         }
     }
 }

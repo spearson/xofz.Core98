@@ -5,41 +5,80 @@
     public class EnumerableInterceptor
     {
         public virtual IEnumerable<T> Intercept<T>(
-            IEnumerable<T> source, 
-            T interception, 
-            int interceptionPoint)
+            IEnumerable<T> source,
+            T interception,
+            long interceptionPoint)
         {
-            var counter = 0;
+            if (source == null)
+            {
+                if (interceptionPoint == 0)
+                {
+                    yield return interception;
+                }
+
+                yield break;
+            }
+
+            long counter = 0;
             foreach (var item in source)
             {
-                yield return item;
-                ++counter;
                 if (counter == interceptionPoint)
                 {
                     yield return interception;
                 }
+
+                ++counter;
+                yield return item;
             }
         }
 
         public virtual IEnumerable<T> Intercept<T>(
             IEnumerable<T> source,
-            MaterializedEnumerable<T> interception,
-            int interceptionPoint)
+            IEnumerable<T> interception,
+            long interceptionPoint)
         {
-            var counter = 0;
-            foreach (var item in source)
+            long counter = 0;
+            var nullInterception = interception == null;
+            if (source == null)
             {
-                yield return item;
-                ++counter;
-                if (counter != interceptionPoint)
+                if (interceptionPoint == 0)
                 {
-                    continue;
+                    if (nullInterception)
+                    {
+                        yield break;
+                    }
+
+                    foreach (var intercept in interception)
+                    {
+                        yield return intercept;
+                    }
                 }
 
-                foreach (var intercept in interception)
+                yield break;
+            }
+
+            if (nullInterception)
+            {
+                foreach (var item in source)
                 {
-                    yield return intercept;
+                    yield return item;
                 }
+
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                if (counter == interceptionPoint)
+                {
+                    foreach (var intercept in interception)
+                    {
+                        yield return intercept;
+                    }
+                }
+
+                ++counter;
+                yield return item;
             }
         }
     }

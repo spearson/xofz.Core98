@@ -1,31 +1,35 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using xofz.Framework.Materialization;
 
     public class EnumerableSkipper
     {
         public virtual IEnumerable<T> Skip<T>(
             IEnumerable<T> source, 
-            int skipPoint)
+            long skipInterval)
         {
-            var enumerator = source.GetEnumerator();
-            var counter = 0;
-            while (enumerator.MoveNext())
+            if (source == null)
             {
-                if (counter == skipPoint)
+                yield break;
+            }
+
+            var e = source.GetEnumerator();
+            long counter = 0;
+            while (e?.MoveNext() ?? false)
+            {
+                if (counter == skipInterval)
                 {
                     counter = 0;
-                    yield return enumerator.Current;
+                    yield return e.Current;
                 }
 
                 ++counter;
             }
 
-            enumerator.Dispose();
+            e?.Dispose();
         }
 
-        public virtual MaterializedEnumerable<T> SkipThrough<T>(
+        public virtual ICollection<T> SkipThrough<T>(
             IEnumerable<T> finiteSource, 
             int skipPoint)
         {
@@ -37,7 +41,7 @@
                 ll.RemoveFirst();
             }
 
-            return new ListMaterializedEnumerable<T>(result);
+            return result;
         }
     }
 }

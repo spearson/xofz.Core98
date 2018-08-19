@@ -1,36 +1,40 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using Materialization;
 
     public class EnumerableRotator
     {
-        public virtual MaterializedEnumerable<T> Rotate<T>(
+        public virtual ICollection<T> Rotate<T>(
             IEnumerable<T> source, 
             int cycles, 
             bool goRight = true)
         {
-            var linkedList = new LinkedList<T>(source);
+            var ll = new LinkedList<T>();
+            if (source == null)
+            {
+                return ll;
+            }
+            
             if (goRight)
             {
                 for (var i = 0; i < cycles; ++i)
                 {
-                    var node = linkedList.Last;
-                    linkedList.RemoveLast();
-                    linkedList.AddFirst(node);
+                    var node = ll.Last;
+                    ll.RemoveLast();
+                    ll.AddFirst(node);
                 }
 
-                return new LinkedListMaterializedEnumerable<T>(linkedList);
+                return ll;
             }
 
             for (var i = 0; i < cycles; ++i)
             {
-                var node = linkedList.First;
-                linkedList.RemoveFirst();
-                linkedList.AddLast(node);
+                var node = ll.First;
+                ll.RemoveFirst();
+                ll.AddLast(node);
             }
 
-            return new LinkedListMaterializedEnumerable<T>(linkedList);
+            return ll;
         }
     }
 }

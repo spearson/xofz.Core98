@@ -7,6 +7,11 @@
     {
         public virtual T[][] Project2<T>(IEnumerable<T> source)
         {
+            if (source == null)
+            {
+                return new T[0][];
+            }
+
             var queue = new Queue<T>(source);
             var magnitude = (int)(Math.Sqrt(queue.Count) + 1);
             var jagged2 = new T[magnitude][];
@@ -36,6 +41,11 @@
 
         public virtual T[][][] Project3<T>(IEnumerable<T> source)
         {
+            if (source == null)
+            {
+                return new T[0][][];
+            }
+
             var queue = new Queue<T>(source);
             var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)3) + 1);
             var jagged3 = new T[magnitude][][];
@@ -77,6 +87,11 @@
 
         public virtual T[][][][] Project4<T>(IEnumerable<T> source)
         {
+            if (source == null)
+            {
+                return new T[0][][][];
+            }
+
             var queue = new Queue<T>(source);
             var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)4) + 1);
             var jagged4 = new T[magnitude][][][];
