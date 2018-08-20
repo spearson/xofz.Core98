@@ -9,6 +9,6 @@
 
         IEnumerable<LogEntry> ReadEntries();
 
-        MaterializedEnumerable<LogEntry> ReadEntries(DateTime oldestTimestamp);
+        ICollection<LogEntry> ReadEntries(DateTime oldestTimestamp);
     }
 }

@@ -5,17 +5,23 @@
     using System.Threading;
     using System.Windows.Forms;
 
-    public partial class FormLogEditorUi : FormUi, LogEditorUi
+    public partial class FormLogEditorUi 
+        : FormUi, LogEditorUi
     {
         public FormLogEditorUi(
-            Form shell,
-            Materializer materializer)
+            Form shell)
         {
             this.shell = shell;
-            this.materializer = materializer;
 
             this.InitializeComponent();
             this.FormClosing += this.this_FormClosing;
+
+            var h = this.Handle;
+        }
+
+        private FormLogEditorUi()
+        {
+            this.InitializeComponent();
 
             var h = this.Handle;
         }
@@ -31,25 +37,26 @@
 
         public event Action TypeChanged;
 
-        MaterializedEnumerable<string> LogEditorUi.Types
+        ICollection<string> LogEditorUi.Types
         {
             get
             {
-                var ll = new LinkedList<string>();
+                ICollection<string> typesCollection = new LinkedList<string>();
                 foreach (string item in this.entryTypeComboBox.Items)
                 {
-                    ll.AddLast(item);
+                    typesCollection.Add(item);
                 }
 
-                return this.materializer.Materialize(ll);
+                return typesCollection;
             }
 
             set
             {
-                this.entryTypeComboBox.Items.Clear();
+                var etcbi = this.entryTypeComboBox.Items;
+                etcbi.Clear();
                 foreach (var type in value)
                 {
-                    this.entryTypeComboBox.Items.Add(type);
+                    etcbi.Add(type);
                 }
             }
         }
@@ -75,29 +82,29 @@
             set => this.customTypeTextBox.Visible = value;
         }
 
-        public MaterializedEnumerable<string> Content
+        public ICollection<string> Content
         {
             get
             {
-                var ctb = this.contentTextBox;
-                if (ctb.Lines == null)
+                ICollection<string> contentCollection = new LinkedList<string>();
+                var lines = this.contentTextBox.Lines;
+                if (lines == null)
                 {
-                    return this.materializer.Materialize(
-                        new LinkedList<string>());
+                    return contentCollection;
                 }
 
-                var ll = new LinkedList<string>();
-                foreach (var line in ctb.Lines)
+                foreach (var line in lines)
                 {
-                    ll.AddLast(line);
+                    contentCollection.Add(line);
                 }
 
-                return this.materializer.Materialize(ll);
+                return contentCollection;
             }
 
             set
             {
-                this.contentTextBox.Clear();
+                var ctb = this.contentTextBox;
+                ctb.Clear();
                 if (value == null)
                 {
                     return;
@@ -105,6 +112,11 @@
 
                 var array = new string[value.Count];
                 var e = value.GetEnumerator();
+                if (e == null)
+                {
+                    return;
+                }
+
                 for (var i = 0; i < value.Count; ++i)
                 {
                     e.MoveNext();
@@ -112,30 +124,45 @@
                 }
 
                 e.Dispose();
-
-                this.contentTextBox.Lines = array;
+                ctb.Lines = array;
             }
         }
 
         private void this_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
             e.Cancel = true;
+
+            this.Hide();            
         }
 
-        private void entryTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void entryTypeComboBox_SelectedIndexChanged(
+            object sender, 
+            EventArgs e)
         {
+            var tc = this.TypeChanged;
+            if (tc == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.TypeChanged?.Invoke());
+                o => tc.Invoke());
         }
 
-        private void addKey_Click(object sender, EventArgs e)
+        private void addKey_Click(
+            object sender, 
+            EventArgs e)
         {
+            var akt = this.AddKeyTapped;
+            if (akt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.AddKeyTapped?.Invoke());
+                o => akt.Invoke());
         }
 
         private readonly Form shell;
-        private readonly Materializer materializer;
     }
 }

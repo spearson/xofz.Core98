@@ -46,8 +46,7 @@
                 this.ui.AddKeyTapped += this.ui_AddKeyTapped;
             }
 
-            MaterializedEnumerable<string> types =
-                new LinkedListMaterializedEnumerable<string>(
+            ICollection<string> types = new LinkedList<string>(
                     new[]
                     {
                         "Information",

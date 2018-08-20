@@ -7,6 +7,11 @@
 
     public static class EnumerableHelpers
     {
+        public static IEnumerable<T> Empty<T>()
+        {
+            yield break;
+        }
+
         public static IEnumerable<TResult> Select<T, TResult>(
             IEnumerable<T> source,
             Func<T, TResult> selector)

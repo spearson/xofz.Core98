@@ -8,10 +8,8 @@
     public partial class UserControlLogUi 
         : UserControlUi, LogUi
     {
-        public UserControlLogUi(Materializer materializer)
+        public UserControlLogUi()
         {
-            this.materializer = materializer;
-
             this.InitializeComponent();
             this.activeFilterTextBox = this.filterContentTextBox;
 
@@ -30,11 +28,12 @@
 
         public event Action FilterTextChanged;
 
-        MaterializedEnumerable<Tuple<string, string, string>> LogUi.Entries
+        ICollection<Tuple<string, string, string>> LogUi.Entries
         {
             get
             {
-                var ll = new LinkedList<Tuple<string, string, string>>();
+                ICollection<Tuple<string, string, string>>
+                    entriesCollection = new LinkedList<Tuple<string, string, string>>();
                 foreach (DataGridViewRow row in this.entriesGrid.Rows)
                 {
                     var timestamp = row.Cells[0].Value?.ToString();
@@ -42,7 +41,7 @@
                     var content = row.Cells[2].Value?.ToString();
                     if (timestamp != null && type != null)
                     {
-                        ll.AddLast(
+                        entriesCollection.Add(
                         Tuple.Create(
                             timestamp,
                             type,
@@ -50,7 +49,7 @@
                     }
                 }
 
-                return this.materializer.Materialize(ll);
+                return entriesCollection;
             }
 
             set
@@ -244,6 +243,5 @@
         }
 
         private TextBox activeFilterTextBox;
-        private readonly Materializer materializer;
     }
 }

@@ -308,11 +308,11 @@
                         matchingEntries,
                         e => e.Timestamp);
 
-                    var uiEntries = new LinkedListMaterializedEnumerable<
-                        Tuple<string, string, string>>(
-                        EnumerableHelpers.Select(
-                            matchingEntries,
-                            this.createTuple));
+                    ICollection<Tuple<string, string, string>> uiEntries
+                        = new LinkedList<Tuple<string, string, string>>(
+                            EnumerableHelpers.Select(
+                                matchingEntries,
+                                this.createTuple));
 
                     UiHelpers.Write(
                         this.ui,

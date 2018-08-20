@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using xofz.Framework.Materialization;
 
     public sealed class EventLogLog 
         : Log, LogEditor
@@ -35,7 +34,7 @@
                 yield return new LogEntry(
                     entry.TimeWritten,
                     getEntryType(entry),
-                    new LinkedListMaterializedEnumerable<string>(
+                    new LinkedList<string>(
                         new[]
                         {
                             entry.Message
@@ -62,11 +61,11 @@
             return "Information";
         }
 
-        MaterializedEnumerable<LogEntry> Log.ReadEntries(
+        ICollection<LogEntry> Log.ReadEntries(
             DateTime oldestTimestamp)
         {
             Log log = this;
-            var ll = new LinkedList<LogEntry>();
+            ICollection<LogEntry> collection = new LinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
                 log.ReadEntries(),
                 e => e.Timestamp))
@@ -76,18 +75,19 @@
                     break;
                 }
 
-                ll.AddLast(entry);
+                collection.Add(entry);
             }
 
-            return new LinkedListMaterializedEnumerable<LogEntry>(ll);
+            return collection;
         }
 
-        void LogEditor.AddEntry(string type, IEnumerable<string> content)
+        void LogEditor.AddEntry(
+            string type, 
+            IEnumerable<string> content)
         {
             var entry = new LogEntry(
                 type,
-                new LinkedListMaterializedEnumerable<string>(
-                    content));
+                new LinkedList<string>(content));
             LogEditor editor = this;
             editor.AddEntry(entry);
         }
@@ -137,7 +137,7 @@
                     new LogEntry(
                         entry.TimeWritten,
                         getEntryType(entry),
-                        new LinkedListMaterializedEnumerable<string>(
+                        new LinkedList<string>(
                             new[]
                             {
                                 entry.Message

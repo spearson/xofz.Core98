@@ -16,20 +16,39 @@
         }
 
         public PrimeGenerator(
-            LinkedList<long> currentSet)
+            IEnumerable<long> currentSet)
             : this(new PrimeTester(), currentSet)
         {
         }
 
         public PrimeGenerator(
-            PrimeTester tester,
-            LinkedList<long> currentSet)
+            PrimeTester tester)
+            : this(
+                tester,
+                new LinkedList<long>(new long[]
+                {
+                    2,
+                    3
+                }))
         {
-            this.tester = tester;
-            this.currentSet = currentSet;
         }
 
-        public LinkedList<long> CurrentSet => this.currentSet;
+        public PrimeGenerator(
+            PrimeTester tester,
+            IEnumerable<long> currentSet)
+        {
+            this.tester = tester;
+
+            if (currentSet is LinkedList<long> set)
+            {
+                this.currentSet = set;
+                return;
+            }
+
+            this.currentSet = new LinkedList<long>(currentSet);
+        }
+
+        public ICollection<long> CurrentSet => this.currentSet;
 
         public virtual long NextPrime()
         {
@@ -38,7 +57,8 @@
 
         public virtual IEnumerable<long> Generate()
         {
-            foreach (var prime in this.currentSet)
+            IEnumerable<long> cs = this.currentSet;
+            foreach (var prime in cs)
             {
                 yield return prime;
             }

@@ -1,12 +1,14 @@
 ﻿namespace xofz.UI
 {
+    using System.Collections.Generic;
+
     public interface LogEditorUi : PopupUi
     {
         event Action AddKeyTapped;
 
         event Action TypeChanged;
 
-        MaterializedEnumerable<string> Types { get; set; }
+        ICollection<string> Types { get; set; }
 
         string SelectedType { get; set; }
 
@@ -14,6 +16,6 @@
 
         bool CustomTypeVisible { get; set; }
 
-        MaterializedEnumerable<string> Content { get; set; }
+        ICollection<string> Content { get; set; }
     }
 }

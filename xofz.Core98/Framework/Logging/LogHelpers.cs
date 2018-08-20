@@ -49,7 +49,7 @@
                 content.AddRange(trimmedStackTraceFor(e.InnerException));
             }
 
-            logEditor.AddEntry("Error: Exception Occurred!", content.ToArray());
+            logEditor.AddEntry("Error", content.ToArray());
         }
 
         private static IEnumerable<string> trimmedStackTraceFor(Exception e)

@@ -1,12 +1,13 @@
 ﻿namespace xofz.Framework.Logging
 {
     using System;
+    using System.Collections.Generic;
 
     public class LogEntry
     {
         public LogEntry(
             string type, 
-            MaterializedEnumerable<string> content)
+            ICollection<string> content)
             : this(DateTime.Now, type, content)
         {
         }
@@ -14,7 +15,7 @@
         public LogEntry(
             DateTime timestamp, 
             string type, 
-            MaterializedEnumerable<string> content)
+            ICollection<string> content)
         {
             this.Timestamp = timestamp;
             this.Type = type;
@@ -25,6 +26,6 @@
 
         public virtual string Type { get; }
 
-        public virtual MaterializedEnumerable<string> Content { get; }
+        public virtual ICollection<string> Content { get; }
     }
 }

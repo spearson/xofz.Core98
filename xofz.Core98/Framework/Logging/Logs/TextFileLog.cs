@@ -5,7 +5,6 @@
     using System.Globalization;
     using System.IO;
     using System.Text;
-    using xofz.Framework.Materialization;
 
     public sealed class TextFileLog 
         : Log, LogEditor
@@ -78,7 +77,7 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedListMaterializedEnumerable<string>(content));
+                                new LinkedList<string>(content));
                             continue;
                         }
 
@@ -92,18 +91,18 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedListMaterializedEnumerable<string>(content));
+                                new LinkedList<string>(content));
                         }
                     }
                 }
             }
         }
 
-        MaterializedEnumerable<LogEntry> Log.ReadEntries(
+        ICollection<LogEntry> Log.ReadEntries(
             DateTime oldestTimestamp)
         {
             Log log = this;
-            var ll = new LinkedList<LogEntry>();
+            ICollection<LogEntry> collection = new LinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
                 log.ReadEntries(),
                 e => e.Timestamp))
@@ -113,10 +112,10 @@
                     break;
                 }
 
-                ll.AddLast(entry);
+                collection.Add(entry);
             }
 
-            return new LinkedListMaterializedEnumerable<LogEntry>(ll);
+            return collection;
         }
 
         public event Action Cleared;
@@ -127,8 +126,7 @@
             editor.AddEntry(
                 new LogEntry(
                     type,
-                    new LinkedListMaterializedEnumerable<string>(
-                        content)));
+                    new LinkedList<string>(content)));
         }
 
         void LogEditor.AddEntry(LogEntry entry)

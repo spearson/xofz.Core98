@@ -37,9 +37,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessLevel.cs" />
+    <Compile Include="EncodingHelpers.cs" />
     <Compile Include="EnumerableHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
+    <Compile Include="Framework\Computation\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\Shifter.cs" />
@@ -47,6 +49,7 @@
     <Compile Include="Delegates.cs" />
     <Compile Include="Framework\EventRaiser.cs" />
     <Compile Include="Framework\EventSubscriber.cs" />
+    <Compile Include="Framework\IniReaderWriter.cs" />
     <Compile Include="Framework\KeyboardLoader.cs" />
     <Compile Include="Framework\Logging\LogFactory.cs" />
     <Compile Include="Framework\Logging\Logs\EventLogLog.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Framework\Transformation\EnumerableStriker.cs" />
     <Compile Include="Framework\Transformation\EnumerableTargeter.cs" />
     <Compile Include="Framework\Transformation\EnumerableTrapper.cs" />
+    <Compile Include="Framework\Transformation\EnumerableTriggerer.cs" />
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
     <Compile Include="Framework\VersionReader.cs" />
@@ -147,6 +151,7 @@
       <DependentUpon>FormLogStatisticsUi.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\FormsMessenger.cs" />
+    <Compile Include="UI\Forms\FormsUiMessagePumper.cs" />
     <Compile Include="UI\Forms\FormUi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +187,7 @@
     <Compile Include="UI\ToggleUi.cs" />
     <Compile Include="UI\Ui.cs" />
     <Compile Include="UI\UiHelpers.cs" />
+    <Compile Include="UI\UiMessagePumper.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\Forms\FormLogEditorUi.resx">
