@@ -155,10 +155,11 @@
             string fieldName = "ui")
             where TPresenter : Presenter
         {
-            var matchingPresenters = new LinkedList<Presenter>(
-                EnumerableHelpers.Where(
-                    this.presenters,
-                    p => p is TPresenter));
+            ICollection<Presenter> matchingPresenters
+                = new LinkedList<Presenter>(
+                    EnumerableHelpers.Where(
+                        this.presenters,
+                        p => p is TPresenter));
             if (matchingPresenters.Count == 0)
             {
                 return default(TUi);
@@ -167,7 +168,8 @@
             if (presenterName == null)
             {
                 return this.getUi<TUi>(
-                    matchingPresenters.First.Value,
+                    EnumerableHelpers.First(
+                        matchingPresenters),
                     fieldName);
             }
 

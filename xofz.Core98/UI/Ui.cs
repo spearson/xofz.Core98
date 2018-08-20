@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI
 {
-    using System;
     using System.ComponentModel;
     using System.Threading;
 
@@ -10,10 +9,6 @@
 
         AutoResetEvent WriteFinished { get; }
 
-        MarshalByRefObject Referrer { get; }
-
         bool Disabled { get; set; }
-
-        void AssertStability();
     }
 }

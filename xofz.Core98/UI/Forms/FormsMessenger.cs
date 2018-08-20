@@ -1,7 +1,6 @@
 ﻿namespace xofz.UI.Forms
 {
     using System.Windows.Forms;
-    using xofz.UI.Forms.Internal;
 
     public sealed class FormsMessenger : Messenger
     {
@@ -14,7 +13,7 @@
             DialogResult result;
             if (subscriber != null)
             {
-                using (new CenterWinDialog(subscriber))
+                using (new DialogCenterer(subscriber))
                 {
                     result = MessageBox.Show(
                         subscriber,
@@ -50,7 +49,7 @@
             DialogResult result;
             if (subscriber != null)
             {
-                using (new CenterWinDialog(subscriber))
+                using (new DialogCenterer(subscriber))
                 {
                     result = MessageBox.Show(
                         subscriber,
@@ -118,7 +117,7 @@
             var subscriber = messenger.Subscriber as Form;
             if (subscriber != null)
             {
-                using (new CenterWinDialog(subscriber))
+                using (new DialogCenterer(subscriber))
                 {
                     MessageBox.Show(
                         subscriber,

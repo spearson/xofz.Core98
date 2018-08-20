@@ -1,7 +1,7 @@
 ﻿// graciously taken from a StackOverflow answer by Hans Passant
 // https://stackoverflow.com/questions/2576156/winforms-how-can-i-make-messagebox-appear-centered-on-mainform
 
-namespace xofz.UI.Forms.Internal
+namespace xofz.UI.Forms
 {
     using System;
     using System.Drawing;
@@ -9,35 +9,44 @@ namespace xofz.UI.Forms.Internal
     using System.Text;
     using System.Windows.Forms;
 
-    internal sealed class CenterWinDialog : IDisposable
+    public class DialogCenterer : IDisposable
     {
-        public CenterWinDialog(Form owner)
+        public DialogCenterer(Form owner)
         {
             this.owner = owner;
-            owner.BeginInvoke(new MethodInvoker(this.findDialog));
+            owner.BeginInvoke(
+                new MethodInvoker(this.findDialog));
         }
 
         private void findDialog()
         {
-            if (this.numberOfTries < 0)
+            var tryCount = this.numberOfTries;
+            if (tryCount < 0)
             {
                 return;
             }
 
             EnumThreadWndProc callback = this.checkWindow;
-            if (!EnumThreadWindows(GetCurrentThreadId(), callback, IntPtr.Zero))
+            if (!EnumThreadWindows(
+                GetCurrentThreadId(), 
+                callback, 
+                IntPtr.Zero))
             {
                 return;
             }
 
-            ++this.numberOfTries;
-            if (this.numberOfTries < 10)
+            ++tryCount;
+            this.setNumberOfTries(tryCount);
+            if (tryCount < 10)
             {
-                this.owner.BeginInvoke(new MethodInvoker(this.findDialog));
+                this.owner.BeginInvoke(
+                    (Action)(() => this.findDialog()));
             }
         }
 
-        private bool checkWindow(IntPtr windowHandle, IntPtr lp)
+        private bool checkWindow(
+            IntPtr windowHandle,
+            IntPtr lp)
         {
             // Check if <windowHandle> is a dialog
             var sb = new StringBuilder(260);
@@ -62,11 +71,16 @@ namespace xofz.UI.Forms.Internal
 
         public void Dispose()
         {
-            this.numberOfTries = -1;
+            this.setNumberOfTries(-1);
+        }
+
+        private void setNumberOfTries(short numberOfTries)
+        {
+            this.numberOfTries = numberOfTries;
         }
 
         private delegate bool EnumThreadWndProc(IntPtr hWnd, IntPtr lp);
-        private int numberOfTries;
+        private short numberOfTries;
         private readonly Form owner;
 
         [DllImport("user32.dll")]

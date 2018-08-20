@@ -150,12 +150,7 @@
     <Compile Include="UI\Forms\FormUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\Internal\CenterWinDialog.cs" />
-    <Compile Include="UI\Forms\Internal\ColumnDefinition.cs" />
-    <Compile Include="UI\Forms\Internal\ColumnSorter.cs" />
-    <Compile Include="UI\Forms\MultiColumnSortDataGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="UI\Forms\DialogCenterer.cs" />
     <Compile Include="UI\Forms\UserControlLogUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
