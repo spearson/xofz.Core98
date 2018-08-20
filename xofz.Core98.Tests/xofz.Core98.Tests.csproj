@@ -70,6 +70,7 @@
     <Compile Include="Framework\Transformation\EnumerableDraggerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableFrontBackLoaderTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableHeartbeaterTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableInjectorTests.cs" />
     <Compile Include="Presentation\LoginPresenterTests.cs" />
     <Compile Include="Presentation\NavigatorTests.cs" />
     <Compile Include="Presentation\PopupPresenterTests.cs" />

@@ -20,8 +20,8 @@ namespace xofz.UI.Forms
 
         private void findDialog()
         {
-            var tryCount = this.numberOfTries;
-            if (tryCount < 0)
+            var tc = this.tryCount;
+            if (tc < 0)
             {
                 return;
             }
@@ -35,9 +35,9 @@ namespace xofz.UI.Forms
                 return;
             }
 
-            ++tryCount;
-            this.setNumberOfTries(tryCount);
-            if (tryCount < 10)
+            ++tc;
+            this.setTryCount(tc);
+            if (tc < 10)
             {
                 this.owner.BeginInvoke(
                     (Action)(() => this.findDialog()));
@@ -71,16 +71,16 @@ namespace xofz.UI.Forms
 
         public void Dispose()
         {
-            this.setNumberOfTries(-1);
+            this.setTryCount(-1);
         }
 
-        private void setNumberOfTries(short numberOfTries)
+        private void setTryCount(short tryCount)
         {
-            this.numberOfTries = numberOfTries;
+            this.tryCount = tryCount;
         }
 
         private delegate bool EnumThreadWndProc(IntPtr hWnd, IntPtr lp);
-        private short numberOfTries;
+        private short tryCount;
         private readonly Form owner;
 
         [DllImport("user32.dll")]
