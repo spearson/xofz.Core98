@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI.Forms
 {
-    using System;
     using System.ComponentModel;
     using System.Drawing;
     using System.Threading;
@@ -56,7 +55,7 @@
             set => this.key.BackColor = value ? Color.Lime : Color.DimGray;
         }
 
-        private void key_Click(object sender, EventArgs e)
+        private void key_Click(object sender, System.EventArgs e)
         {
             var t = this.Tapped;
             if (t == null)
