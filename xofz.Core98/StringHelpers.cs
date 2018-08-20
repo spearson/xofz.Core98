@@ -1,10 +1,12 @@
 ﻿namespace xofz
 {
     using System;
+    using System.Collections.Generic;
 
     public static class StringHelpers
     {
-        public static T ToEnum<T>(string s)
+        public static T ToEnum<T>(
+            string s)
             where T : struct
         {
             if (s == null)
@@ -23,7 +25,9 @@
             
         }
 
-        public static string RemoveEndChars(string s, int count)
+        public static string RemoveEndChars(
+            string s,
+            int count)
         {
             if (s == null)
             {
@@ -42,7 +46,8 @@
                     s.Length - count);
         }
 
-        public static bool NullOrWhiteSpace(string s)
+        public static bool NullOrWhiteSpace(
+            string s)
         {
             if (s == null)
             {
@@ -58,6 +63,33 @@
             }
 
             return true;
+        }
+
+        public static IEnumerable<string> Chunks(
+            string s, 
+            int chunkSize)
+        {
+            if (s == null)
+            {
+                yield break;
+            }
+
+            if (chunkSize < 1)
+            {
+                yield return s;
+            }
+
+            var l = s.Length;
+            int i;
+            for (i = 0; i < l - chunkSize; i += chunkSize)
+            {
+                yield return s.Substring(i, chunkSize);
+            }
+
+            if (i < l)
+            {
+                yield return s.Substring(i, l - i);
+            }
         }
     }
 }
