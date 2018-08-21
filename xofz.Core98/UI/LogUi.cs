@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI
 {
-    using System;
     using System.Collections.Generic;
 
     public interface LogUi : Ui
@@ -19,9 +18,9 @@
 
         ICollection<Tuple<string, string, string>> Entries { get; set; }
 
-        DateTime StartDate { get; set; }
+        System.DateTime StartDate { get; set; }
 
-        DateTime EndDate { get; set; }
+        System.DateTime EndDate { get; set; }
 
         string FilterContent { get; set; }
 

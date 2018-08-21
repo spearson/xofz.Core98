@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
 
+    // note: this class requires Windows 2000 or above
     public sealed class EventLogLog 
         : Log, LogEditor
     {

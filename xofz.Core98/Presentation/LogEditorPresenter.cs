@@ -4,7 +4,6 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Logging;
-    using xofz.Framework.Materialization;
     using xofz.UI;
 
     public sealed class LogEditorPresenter : NamedPresenter

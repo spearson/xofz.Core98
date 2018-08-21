@@ -54,7 +54,7 @@
             Process.GetCurrentProcess().Kill();
         }
 
-        private int setupIf1;
+        private long setupIf1;
         private readonly Ui mainUi;
         private readonly Action cleanup;
         private readonly MethodWeb web;

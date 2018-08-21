@@ -5,24 +5,23 @@
 
     public class PrimeTester
     {
-        public virtual bool RelativelyPrime(IEnumerable<long> numbers, bool onlyCheckLast)
+        public virtual bool RelativelyPrime(
+            IEnumerable<long> numbers, 
+            bool onlyCheckLast)
         {
-            LinkedList<long> orderedLinkedList;
+            var ll = new LinkedList<long>(numbers);
+            if (ll.Count == 0)
+            {
+                return true;
+            }
+
             if (onlyCheckLast)
             {
-                orderedLinkedList = new LinkedList<long>(numbers);
-                var numberToCheck = orderedLinkedList.Last.Value;
+                var numberToCheck = ll.Last.Value;
                 var squareRoot = (long)Math.Sqrt(numberToCheck);
-                var smallLL = new LinkedList<long>();
-                foreach (var number in orderedLinkedList)
-                {
-                    if (number <= squareRoot)
-                    {
-                        smallLL.AddLast(number);
-                    }
-                }
-
-                foreach (var number in smallLL)
+                foreach (var number in EnumerableHelpers.Where(
+                    ll,
+                    n => n <= squareRoot))
                 {
                     if (numberToCheck % number == 0)
                     {
@@ -33,17 +32,16 @@
                 return true;
             }
 
-            orderedLinkedList = new LinkedList<long>(numbers);
             while (true)
             {
-                var lowestNumber = orderedLinkedList.First.Value;
-                orderedLinkedList.RemoveFirst();
-                if (orderedLinkedList.Count == 0)
+                var lowestNumber = ll.First.Value;
+                ll.RemoveFirst();
+                if (ll.Count == 0)
                 {
                     return true;
                 }
 
-                foreach (var number in orderedLinkedList)
+                foreach (var number in ll)
                 {
                     if (number % lowestNumber == 0)
                     {
