@@ -1,13 +1,11 @@
 ﻿namespace xofz.Framework
 {
-    using System;
-
     public class EventSubscriber
     {
         public virtual void Subscribe(
             object publisher,
             string eventName,
-            Delegate handler)
+            System.Delegate handler)
         {
             publisher
                 ?.GetType()
@@ -20,7 +18,7 @@
         public virtual void Subscribe(
             object publisher,
             string eventName,
-            EventHandler handler)
+            System.EventHandler handler)
         {
             publisher
                 ?.GetType()
@@ -33,8 +31,8 @@
         public virtual void Subscribe<TEventArgs>(
             object publisher,
             string eventName,
-            EventHandler<TEventArgs> handler)
-            where TEventArgs : EventArgs
+            System.EventHandler<TEventArgs> handler)
+            where TEventArgs : System.EventArgs
         {
             publisher
                 ?.GetType()
@@ -99,7 +97,7 @@
         public virtual void Unsubscribe(
             object publisher,
             string eventName,
-            Delegate handler)
+            System.Delegate handler)
         {
             publisher
                 ?.GetType()
@@ -112,7 +110,7 @@
         public virtual void Unsubscribe(
             object publisher,
             string eventName,
-            EventHandler handler)
+            System.EventHandler handler)
         {
             publisher
                 ?.GetType()
@@ -125,8 +123,8 @@
         public virtual void Unsubscribe<TEventArgs>(
             object publisher,
             string eventName,
-            EventHandler<TEventArgs> handler)
-            where TEventArgs : EventArgs
+            System.EventHandler<TEventArgs> handler)
+            where TEventArgs : System.EventArgs
         {
             publisher
                 ?.GetType()
