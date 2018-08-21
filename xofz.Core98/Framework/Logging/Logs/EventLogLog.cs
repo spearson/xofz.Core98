@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Logging.Logs
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -62,7 +61,7 @@
         }
 
         ICollection<LogEntry> Log.ReadEntries(
-            DateTime oldestTimestamp)
+            System.DateTime oldestTimestamp)
         {
             Log log = this;
             ICollection<LogEntry> collection = new LinkedList<LogEntry>();
@@ -96,7 +95,7 @@
         {
             this.eventLog.WriteEntry(
                 string.Join(
-                    Environment.NewLine,
+                    System.Environment.NewLine,
                     EnumerableHelpers.ToArray(entry.Content)),
                 getEventLogEntryType(entry.Type));
             this.EntryWritten?.Invoke(entry);

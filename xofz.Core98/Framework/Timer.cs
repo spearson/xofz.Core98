@@ -7,6 +7,7 @@
 namespace xofz.Framework
 {
     using System;
+    using Action = xofz.Action;
 
     public class Timer : IDisposable
     {

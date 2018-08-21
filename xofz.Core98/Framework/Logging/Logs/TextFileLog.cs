@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Logging.Logs
 {
-    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -66,8 +65,8 @@
                             }
                         }
 
-                        DateTime timestamp;
-                        if (DateTime.TryParseExact(
+                        System.DateTime timestamp;
+                        if (System.DateTime.TryParseExact(
                             timestampString,
                             timestampFormatV2,
                             CultureInfo.CurrentCulture,
@@ -81,7 +80,7 @@
                             continue;
                         }
 
-                        if (DateTime.TryParseExact(
+                        if (System.DateTime.TryParseExact(
                             timestampString,
                             timestampFormat,
                             CultureInfo.CurrentCulture,
@@ -99,7 +98,7 @@
         }
 
         ICollection<LogEntry> Log.ReadEntries(
-            DateTime oldestTimestamp)
+            System.DateTime oldestTimestamp)
         {
             Log log = this;
             ICollection<LogEntry> collection = new LinkedList<LogEntry>();
@@ -147,7 +146,7 @@
             foreach (var line in lines)
             {
                 sb.Append(line);
-                sb.Append(Environment.NewLine);
+                sb.Append(System.Environment.NewLine);
             }
 
             lock (this.locker)

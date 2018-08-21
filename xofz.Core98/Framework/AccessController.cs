@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
 
@@ -88,18 +87,18 @@
         public virtual AccessLevel CurrentAccessLevel
             => this.currentAccessLevel;
 
-        public virtual TimeSpan TimeRemaining
+        public virtual System.TimeSpan TimeRemaining
         {
             get
             {
                 var cal = this.currentAccessLevel;
                 if (cal == AccessLevel.None)
                 {
-                    return TimeSpan.Zero;
+                    return System.TimeSpan.Zero;
                 }
 
                 var lt = this.loginTime;
-                return this.loginDuration - (DateTime.Now - lt);
+                return this.loginDuration - (System.DateTime.Now - lt);
             }
         }
 
@@ -108,12 +107,12 @@
         {
             this.InputPassword(
                 password,
-                TimeSpan.FromMinutes(15));
+                System.TimeSpan.FromMinutes(15));
         }
 
         public virtual void InputPassword(
             string password,
-            TimeSpan loginDuration)
+            System.TimeSpan loginDuration)
         {
             var milliseconds = (long)loginDuration.TotalMilliseconds;
             this.InputPassword(
@@ -127,7 +126,7 @@
         {
             if (loginDurationMilliseconds < 0)
             {
-                throw new ArgumentOutOfRangeException(
+                throw new System.ArgumentOutOfRangeException(
                     nameof(loginDurationMilliseconds),
                     loginDurationMilliseconds,
                     @"The login duration milliseconds value must be positive.");
@@ -135,14 +134,14 @@
 
             if (loginDurationMilliseconds > uint.MaxValue)
             {
-                throw new ArgumentOutOfRangeException(
+                throw new System.ArgumentOutOfRangeException(
                     nameof(loginDurationMilliseconds),
                     loginDurationMilliseconds,
                     @"The maximum value for login duration milliseconds "
                     + @"is uint.MaxValue, or the maximum value "
                     + @"of an unsigned 32-bit integer.  That value is "
                     + uint.MaxValue + @", or "
-                    + TimeSpan.FromMilliseconds(uint.MaxValue));
+                    + System.TimeSpan.FromMilliseconds(uint.MaxValue));
             }
 
             var p = this.passwords;
@@ -166,10 +165,10 @@
             this.timerHandlerFinished.WaitOne();
             this.setCurrentAccessLevel(p[password]);
             this.setLoginDuration(
-                TimeSpan.FromMilliseconds(
+                System.TimeSpan.FromMilliseconds(
                     loginDurationMilliseconds));
             this.setLoginTime(
-                DateTime.Now);
+                System.DateTime.Now);
             t.Start(loginDurationMilliseconds);
         }
 
@@ -192,12 +191,12 @@
                 o => alc.Invoke(currentAccessLevel));
         }
 
-        private void setLoginTime(DateTime loginTime)
+        private void setLoginTime(System.DateTime loginTime)
         {
             this.loginTime = loginTime;
         }
 
-        private void setLoginDuration(TimeSpan loginDuration)
+        private void setLoginDuration(System.TimeSpan loginDuration)
         {
             this.loginDuration = loginDuration;
         }
@@ -211,8 +210,8 @@
         }
 
         private AccessLevel currentAccessLevel;
-        private DateTime loginTime;
-        private TimeSpan loginDuration;
+        private System.DateTime loginTime;
+        private System.TimeSpan loginDuration;
         private readonly IDictionary<string, AccessLevel> passwords;
         private readonly Timer timer;
         private readonly ManualResetEvent timerHandlerFinished;

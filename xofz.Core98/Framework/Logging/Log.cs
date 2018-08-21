@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Logging
 {
-    using System;
     using System.Collections.Generic;
 
     public interface Log
@@ -9,6 +8,6 @@
 
         IEnumerable<LogEntry> ReadEntries();
 
-        ICollection<LogEntry> ReadEntries(DateTime oldestTimestamp);
+        ICollection<LogEntry> ReadEntries(System.DateTime oldestTimestamp);
     }
 }
