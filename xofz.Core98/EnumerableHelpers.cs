@@ -16,12 +16,12 @@
             IEnumerable<T> source,
             Func<T, TResult> selector)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 yield break;
             }
 
-            if (selector == default(Func<T, TResult>))
+            if (selector == null)
             {
                 yield break;
             }
@@ -36,12 +36,12 @@
             IEnumerable<T> source,
             Func<T, IEnumerable<TResult>> selector)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 yield break;
             }
 
-            if (selector == default(Func<T, IEnumerable<TResult>>))
+            if (selector == null)
             {
                 yield break;
             }
@@ -59,12 +59,12 @@
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 yield break;
             }
 
-            if (predicate == default(Func<T, bool>))
+            if (predicate == null)
             {
                 yield break;
             }
@@ -82,7 +82,7 @@
             IEnumerable<T> source,
             int numberToSkip)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 yield break;
             }
@@ -101,7 +101,7 @@
         public static T First<T>(
             IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 throw new InvalidOperationException(
                     "The enumerable is null and therefore "
@@ -124,7 +124,7 @@
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 throw new InvalidOperationException(
                     "The enumerable is null and therefore "
@@ -158,7 +158,7 @@
         public static T FirstOrDefault<T>(
             IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 return default(T);
             }
@@ -175,7 +175,7 @@
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 return default(T);
             }
@@ -344,7 +344,7 @@
             IEnumerable<T> source,
             T item)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 return false;
             }
@@ -383,82 +383,82 @@
         public static int Count<T>(
             IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            var count = 0;
+            if (source == null)
             {
-                return default(int);
+                return count;
             }
-
-            var totalCount = 0;
+            
             foreach (var item in source)
             {
-                ++totalCount;
+                ++count;
             }
 
-            return totalCount;
+            return count;
         }
 
         public static int Count<T>(
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
-            if (source == default(IEnumerable<T>))
+            var count = 0;
+            if (source == null)
             {
-                return default(int);
+                return count;
             }
-
-            var totalCount = 0;
+            
             foreach (var item in source)
             {
                 if (predicate(item))
                 {
-                    ++totalCount;
+                    ++count;
                 }
             }
 
-            return totalCount;
+            return count;
         }
 
         public static long LongCount<T>(
             IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            long count = 0;
+            if (source == null)
             {
-                return default(long);
+                return count;
             }
-
-            long totalCount = 0;
+            
             foreach (var item in source)
             {
-                ++totalCount;
+                ++count;
             }
 
-            return totalCount;
+            return count;
         }
 
         public static long LongCount<T>(
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
-            if (source == default(IEnumerable<T>))
+            long count = 0;
+            if (source == null)
             {
-                return default(long);
+                return count;
             }
-
-            long totalCount = 0;
+            
             foreach (var item in source)
             {
                 if (predicate(item))
                 {
-                    ++totalCount;
+                    ++count;
                 }
             }
 
-            return totalCount;
+            return count;
         }
 
         public static T[] ToArray<T>(IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 return new T[0];
             }
@@ -533,25 +533,25 @@
             IComparer<TKey> comparer,
             bool descending)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
-                return new List<T>();
+                return new T[0];
             }
 
-            if (keySelector == default(Func<T, TKey>))
+            if (keySelector == null)
             {
-                return new List<T>();
+                return new T[0];
             }
 
             var d = new Dictionary<TKey, IList<T>>();
-            var itemsWithNullKeys = new LinkedList<T>();
+            ICollection<T> itemsWithNullKeys = new LinkedList<T>();
 
             foreach (var item in source)
             {
                 var key = keySelector(item);
                 if (key == null)
                 {
-                    itemsWithNullKeys.AddLast(item);
+                    itemsWithNullKeys.Add(item);
                     continue;
                 }
 
@@ -586,12 +586,12 @@
             TEnd seed,
             Func<TEnd, T, TEnd> accumulator)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 return default(TEnd);
             }
 
-            if (accumulator == default(Func<TEnd, T, TEnd>))
+            if (accumulator == null)
             {
                 return default(TEnd);
             }
@@ -623,7 +623,7 @@
 
         public static IEnumerable<T> SafeForEach<T>(IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 yield break;
             }
