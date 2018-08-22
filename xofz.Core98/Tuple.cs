@@ -1,4 +1,5 @@
-﻿namespace xofz
+﻿#pragma warning disable 659
+namespace xofz
 {
     using System.Threading;
 
@@ -40,6 +41,31 @@
             this.Item2 = item2;
             Interlocked.CompareExchange(
                 ref this.settingOrGettingIf1, 0, 1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var otherTuple = obj as Tuple<T, U>;
+            if (otherTuple == null)
+            {
+                return false;
+            }
+
+            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
+                              ?? otherTuple.Item1 == null;
+            if (!item1Equals)
+            {
+                return false;
+            }
+
+            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
+                              ?? otherTuple.Item2 == null;
+            if (!item2Equals)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private int settingOrGettingIf1;
@@ -175,6 +201,38 @@
             this.Item3 = item3;
             Interlocked.CompareExchange(
                 ref this.settingOrGettingIf1, 0, 1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var otherTuple = obj as Tuple<T, U, V>;
+            if (otherTuple == null)
+            {
+                return false;
+            }
+
+            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
+                              ?? otherTuple.Item1 == null;
+            if (!item1Equals)
+            {
+                return false;
+            }
+
+            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
+                              ?? otherTuple.Item2 == null;
+            if (!item2Equals)
+            {
+                return false;
+            }
+            
+            var item3Equals = this.Item3?.Equals(otherTuple.Item3)
+                              ?? otherTuple.Item3 == null;
+            if (!item3Equals)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private int settingOrGettingIf1;
@@ -528,6 +586,45 @@
             this.Item4 = item4;
             Interlocked.CompareExchange(
                 ref this.settingOrGettingIf1, 0, 1);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var otherTuple = obj as Tuple<T, U, V, W>;
+            if (otherTuple == null)
+            {
+                return false;
+            }
+
+            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
+                              ?? otherTuple.Item1 == null;
+            if (!item1Equals)
+            {
+                return false;
+            }
+
+            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
+                              ?? otherTuple.Item2 == null;
+            if (!item2Equals)
+            {
+                return false;
+            }
+
+            var item3Equals = this.Item3?.Equals(otherTuple.Item3)
+                              ?? otherTuple.Item3 == null;
+            if (!item3Equals)
+            {
+                return false;
+            }
+
+            var item4Equals = this.Item4?.Equals(otherTuple.Item4)
+                              ?? otherTuple.Item4 == null;
+            if (!item4Equals)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private int settingOrGettingIf1;
