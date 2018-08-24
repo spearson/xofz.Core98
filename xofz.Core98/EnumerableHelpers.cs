@@ -543,7 +543,7 @@
                 return new T[0];
             }
 
-            var d = new Dictionary<TKey, IList<T>>();
+            var d = new Dictionary<TKey, ICollection<T>>();
             ICollection<T> itemsWithNullKeys = new LinkedList<T>();
 
             foreach (var item in source)
@@ -557,7 +557,7 @@
 
                 if (!d.ContainsKey(key))
                 {
-                    d.Add(key, new List<T>());
+                    d.Add(key, new LinkedList<T>());
                 }
 
                 d[key].Add(item);
