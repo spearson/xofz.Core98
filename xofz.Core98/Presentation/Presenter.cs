@@ -13,8 +13,9 @@
         public virtual void Start()
         {
             var s = this.shell;
-            UiHelpers.Write(s, () => s.SwitchUi(this.ui));
-            s.WriteFinished.WaitOne();
+            UiHelpers.WriteSync(
+                s,
+                () => s.SwitchUi(this.ui));
         }
 
         public virtual void Stop()

@@ -117,8 +117,7 @@
             this.currentPassword = UiHelpers.Read(
                 this.ui,
                 () => this.ui.CurrentPassword);
-            UiHelpers.Write(this.ui, this.ui.Display);
-            this.ui.WriteFinished.WaitOne();
+            UiHelpers.WriteSync(this.ui, this.ui.Display);
         }
 
         public override void Stop()
@@ -130,12 +129,11 @@
 
             var w = this.web;
             var cp = this.currentPassword;
-            UiHelpers.Write(this.ui, () =>
+            UiHelpers.WriteSync(this.ui, () =>
             {
                 this.ui.CurrentPassword = cp;
                 this.ui.Hide();
             });
-            this.ui.WriteFinished.WaitOne();
 
             w.Run<LatchHolder>(
                 latch => latch.Latch.Set(),

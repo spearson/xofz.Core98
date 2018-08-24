@@ -29,15 +29,6 @@
                 A.CallTo(() => this.ui.Display())
                     .MustHaveHappened();
             }
-
-            [Fact]
-            public void Waits_on_the_ui_to_display_itself()
-            {
-                this.presenter.Start();
-
-                A.CallTo(() => this.ui.WriteFinished)
-                    .MustHaveHappened();
-            }
         }
 
         public class When_Stop_is_called : Context
@@ -48,15 +39,6 @@
                 this.presenter.Stop();
 
                 A.CallTo(() => this.ui.Hide())
-                    .MustHaveHappened();
-            }
-
-            [Fact]
-            public void Waits_on_the_ui_to_hide_itself()
-            {
-                this.presenter.Stop();
-
-                A.CallTo(() => this.ui.WriteFinished)
                     .MustHaveHappened();
             }
         }

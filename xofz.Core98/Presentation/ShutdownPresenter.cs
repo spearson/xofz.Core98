@@ -44,8 +44,7 @@
             var c = this.cleanup;
             if (mUi != default(Ui))
             {
-                UiHelpers.Write(mUi, c);
-                mUi.WriteFinished.WaitOne();
+                UiHelpers.WriteSync(mUi, c);
                 Process.GetCurrentProcess().Kill();
                 return;
             }

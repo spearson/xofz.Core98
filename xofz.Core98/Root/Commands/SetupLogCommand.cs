@@ -16,7 +16,7 @@
             LogEditorUi editorUi,
             MethodWeb web,
             string eventLogLogName,
-            string eventLogSouceName,
+            string eventLogSourceName,
             string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
@@ -28,7 +28,7 @@
             this.editorUi = editorUi;
             this.web = web;
             this.eventLogLogName = eventLogLogName;
-            this.eventLogSourceName = eventLogSouceName;
+            this.eventLogSourceName = eventLogSourceName;
             this.logDependencyName = logDependencyName;
             this.textFileLogPath = null;
             this.clearLevel = clearLevel;
@@ -45,7 +45,7 @@
             LogStatisticsUi statisticsUi,
             MethodWeb web,
             string eventLogLogName,
-            string eventLogSouceName,
+            string eventLogSourceName,
             string logDependencyName = null,
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
@@ -57,7 +57,7 @@
             this.statisticsUi = statisticsUi;
             this.web = web;
             this.eventLogLogName = eventLogLogName;
-            this.eventLogSourceName = eventLogSouceName;
+            this.eventLogSourceName = eventLogSourceName;
             this.logDependencyName = logDependencyName;
             this.textFileLogPath = null;
             this.clearLevel = clearLevel;

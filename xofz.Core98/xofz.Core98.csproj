@@ -105,6 +105,7 @@
     <Compile Include="Framework\Transformation\EnumerableTriggerer.cs" />
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
+    <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />
     <Compile Include="MaterializedEnumerable.cs" />
     <Compile Include="Materializer.cs" />

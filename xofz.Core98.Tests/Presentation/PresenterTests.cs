@@ -33,15 +33,6 @@
                 A.CallTo(() => this.shell.SwitchUi(this.ui))
                     .MustHaveHappened();
             }
-
-            [Fact]
-            public void Waits_on_the_shell_to_finish_injecting_the_ui()
-            {
-                this.presenter.Start();
-
-                A.CallTo(() => this.shell.WriteFinished)
-                    .MustHaveHappened();
-            }
         }
     }
 }

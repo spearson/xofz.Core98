@@ -1,8 +1,8 @@
 ﻿namespace xofz.UI
 {
-    public static class UiHelpers
+    public class UiReaderWriter
     {
-        public static T Read<T>(
+        public virtual T Read<T>(
             Ui ui,
             Func<T> read)
         {
@@ -22,7 +22,7 @@
             return read();
         }
 
-        public static void Write(
+        public virtual void Write(
             Ui ui,
             Action write)
         {
@@ -41,7 +41,7 @@
             write();
         }
 
-        public static void WriteSync(
+        public virtual void WriteSync(
             Ui ui,
             Action write)
         {

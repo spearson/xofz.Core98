@@ -41,7 +41,7 @@
                 this.Name);
             var today = DateTime.Today;
             var lastWeek = today.Subtract(TimeSpan.FromDays(6));
-            UiHelpers.Write(this.ui, () =>
+            UiHelpers.WriteSync(this.ui, () =>
             {
                 this.ui.AddKeyVisible = addKeyVisible;
                 this.ui.ClearKeyVisible = clearKeyVisible;
@@ -51,7 +51,6 @@
                 this.ui.FilterType = string.Empty;
                 this.ui.FilterContent = string.Empty;
             });
-            this.ui.WriteFinished.WaitOne();
 
             var subscriberRegistered = false;
             w.Run<EventSubscriber>(subscriber =>
@@ -203,14 +202,13 @@
                         nameof(this.ui.FilterTextChanged),
                         this.ui_FilterTextChanged);
                 });
-                UiHelpers.Write(this.ui, () =>
+                UiHelpers.WriteSync(this.ui, () =>
                 {
                     this.ui.StartDate = lastWeek;
                     this.ui.EndDate = today;
                     this.ui.FilterType = string.Empty;
                     this.ui.FilterContent = string.Empty;
                 });
-                this.ui.WriteFinished.WaitOne();
                 this.reloadEntries();
                 w.Run<EventSubscriber>(subscriber =>
                 {
@@ -250,11 +248,10 @@
             foreach (var entry in etaor)
             {
                 var tuple = this.createTuple(entry);
-                UiHelpers.Write(
+                UiHelpers.WriteSync(
                     this.ui,
                     () => this.ui.AddToTop(
                         tuple));
-                this.ui.WriteFinished.WaitOne();
             }
         }
 
@@ -313,10 +310,9 @@
                                 matchingEntries,
                                 this.createTuple));
 
-                    UiHelpers.Write(
+                    UiHelpers.WriteSync(
                         this.ui,
                         () => this.ui.Entries = uiEntries);
-                    this.ui.WriteFinished.WaitOne();
                     this.entriesToAddOnRefresh.Clear();
                 },
                 this.Name);

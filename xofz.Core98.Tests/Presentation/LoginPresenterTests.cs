@@ -119,19 +119,6 @@
                 A.CallTo(() => this.ui.Display())
                     .MustHaveHappened();
             }
-
-            [Fact]
-            public void Accesses_the_WriteFinished_latch()
-            {
-                // to wait on the UI to finish displaying itself
-                var p = this.presenter;
-                p.Setup();
-
-                p.Start();
-
-                A.CallTo(() => this.ui.WriteFinished)
-                    .MustHaveHappened();
-            }
         }
 
         public class When_Stop_is_called : Context

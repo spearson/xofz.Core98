@@ -99,10 +99,9 @@
                     fc = UiHelpers.Read(
                         logUi,
                         () => logUi.FilterContent);
-                    UiHelpers.Write(
+                    UiHelpers.WriteSync(
                         this.ui,
                         () => this.ui.FilterContent = fc);
-                    this.ui.WriteFinished.WaitOne();
                 });
             }
         }
@@ -112,12 +111,11 @@
             var w = this.web;
             var today = DateTime.Today;
             var lastWeek = today.Subtract(TimeSpan.FromDays(6));
-            UiHelpers.Write(this.ui, () =>
+            UiHelpers.WriteSync(this.ui, () =>
             {
                 this.ui.StartDate = lastWeek;
                 this.ui.EndDate = today;
             });
-            this.ui.WriteFinished.WaitOne();
 
             w.Run<LogStatistics>(
                 stats =>
@@ -149,10 +147,9 @@
                         + this.formatDate(startDate)
                         + " to "
                         + this.formatDate(endDate);
-                    UiHelpers.Write(
+                    UiHelpers.WriteSync(
                         this.ui,
                         () => this.ui.Header = typeInfo);
-                    this.ui.WriteFinished.WaitOne();
                     this.showStatistics(stats, false);
                 },
                 this.Name);
@@ -166,10 +163,9 @@
                 {
                     this.setFilters(stats);
                     stats.ComputeOverall();
-                    UiHelpers.Write(
+                    UiHelpers.WriteSync(
                         this.ui,
                         () => this.ui.Header = "Overall");
-                    this.ui.WriteFinished.WaitOne();
                     this.showStatistics(stats, false);
                 },
                 this.Name);
@@ -212,7 +208,7 @@
                 ? string.Empty
                 : Math.Round(statistics.AvgEntriesPerDay, 4)
                     .ToString(CultureInfo.CurrentUICulture);
-            UiHelpers.Write(
+            UiHelpers.WriteSync(
                 this.ui,
                 () =>
                 {
@@ -223,7 +219,6 @@
                     this.ui.LatestTimestamp = latest;
                     this.ui.AvgEntriesPerDay = avgPerDay;
                 });
-            this.ui.WriteFinished.WaitOne();
         }
 
         private string formatDate(DateTime date)

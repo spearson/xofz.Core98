@@ -22,13 +22,25 @@
             return default(T);
         }
 
+        public virtual IEnumerable<T> GetAll<T>() where T : Command
+        {
+            foreach (var command in this.executedCommands)
+            {
+                if (command is T t)
+                {
+                    yield return t;
+                }
+            }
+        }
+
         public virtual CommandExecutor Execute(Command command)
         {
             command.Execute();
             this.executedCommands.Add(command);
+
             return this;
         }
 
-        private readonly ICollection<Command> executedCommands;
+        protected readonly ICollection<Command> executedCommands;
     }
 }

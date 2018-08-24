@@ -13,14 +13,16 @@
 
         public override void Start()
         {
-            UiHelpers.Write(this.ui, this.ui.Display);
-            this.ui.WriteFinished.WaitOne();
+            UiHelpers.WriteSync(
+                this.ui, 
+                this.ui.Display);
         }
 
         public override void Stop()
         {
-            UiHelpers.Write(this.ui, this.ui.Hide);
-            this.ui.WriteFinished.WaitOne();
+            UiHelpers.WriteSync(
+                this.ui, 
+                this.ui.Hide);
         }
 
         private readonly PopupUi ui;
