@@ -13,5 +13,16 @@
 
             set => this.Enabled = !value;
         }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // UserControlUi
+            // 
+            this.Name = "UserControlUi";
+            this.ResumeLayout(false);
+
+        }
     }
 }

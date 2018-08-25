@@ -200,11 +200,17 @@
     <EmbeddedResource Include="UI\Forms\FormLogStatisticsUi.resx">
       <DependentUpon>FormLogStatisticsUi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\FormUi.resx">
+      <DependentUpon>FormUi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\UserControlLogUi.resx">
       <DependentUpon>UserControlLogUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\UserControlToggleUi.resx">
       <DependentUpon>UserControlToggleUi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\UserControlUi.resx">
+      <DependentUpon>UserControlUi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
