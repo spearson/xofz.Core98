@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public sealed class ListMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class ListMaterializedEnumerable<T> : MaterializedEnumerable<T>
     {
         public ListMaterializedEnumerable()
             : this(new List<T>())
@@ -13,7 +13,7 @@
         }
 
         public ListMaterializedEnumerable(IEnumerable<T> source)
-            : this(new List<T>(source))
+            : this(new List<T>(new LinkedList<T>(source)))
         {
         }
 

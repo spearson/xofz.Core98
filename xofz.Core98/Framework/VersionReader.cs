@@ -21,16 +21,16 @@
         public virtual string Read()
         {
             var ea = this.executingAssembly;
-            return this.readInternal(ea);
+            return this.readProtected(ea);
         }
 
         public virtual string ReadCoreVersion()
         {
             var ea = Assembly.GetExecutingAssembly();
-            return this.readInternal(ea);
+            return this.readProtected(ea);
         }
 
-        private string readInternal(Assembly assembly)
+        protected virtual string readProtected(Assembly assembly)
         {
             var an = new AssemblyName(assembly.FullName);
             var v = an.Version;

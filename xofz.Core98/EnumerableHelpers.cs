@@ -194,6 +194,14 @@
         public static T Last<T>(
             IEnumerable<T> source)
         {
+            if (source == null)
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is null and therefore does not " +
+                    "have a last item.  If this can occur, consider using " +
+                    "LastOrDefault<T>()");
+            }
+
             T lastItem = default(T);
             bool lastChanged = false;
             foreach (var item in source)
@@ -217,6 +225,14 @@
             IEnumerable<T> source,
             Func<T, bool> predicate)
         {
+            if (source == null)
+            {
+                throw new InvalidOperationException(
+                    "The enumerable is null and therefore does not " +
+                    "have a last item.  If this can occur, consider using " +
+                    "LastOrDefault<T>()");
+            }
+
             T lastItem = default(T);
             bool empty = true;
             bool lastChanged = false;
@@ -636,6 +652,11 @@
 
         public static IEnumerable<T> Iterate<T>(params T[] items)
         {
+            if (items == null)
+            {
+                yield break;
+            }
+
             foreach (var item in items)
             {
                 yield return item;

@@ -58,14 +58,9 @@
             IEnumerable<bool> bits, 
             Encoding encoding)
         {
-            if (encoding == null)
-            {
-                return null;
-            }
-
-            return encoding.GetString(
+            return encoding?.GetString(
                 EnumerableHelpers.ToArray(
-                this.GetBytes(bits)));
+                    this.GetBytes(bits)));
         }
 
         public virtual IEnumerable<byte> GetBytes(
