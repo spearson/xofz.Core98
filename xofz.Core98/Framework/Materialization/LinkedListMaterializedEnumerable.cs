@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    public sealed class LinkedListMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class LinkedListMaterializedEnumerable<T> : MaterializedEnumerable<T>
     {
         public LinkedListMaterializedEnumerable()
         {
@@ -132,6 +132,6 @@
             this.linkedList.RemoveLast();
         }
 
-        private readonly LinkedList<T> linkedList;
+        protected readonly LinkedList<T> linkedList;
     }
 }

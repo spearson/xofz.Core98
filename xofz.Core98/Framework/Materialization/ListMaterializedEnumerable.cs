@@ -273,6 +273,6 @@
             return this.list.TrueForAll(match);
         }
 
-        private readonly List<T> list;
+        protected readonly List<T> list;
     }
 }

@@ -77,6 +77,6 @@
             this.stack.TrimExcess();
         }
 
-        private readonly Stack<T> stack;
+        protected readonly Stack<T> stack;
     }
 }

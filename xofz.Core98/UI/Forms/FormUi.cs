@@ -13,17 +13,5 @@
 
             set => this.Enabled = !value;
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // FormUi
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "FormUi";
-            this.ResumeLayout(false);
-
-        }
     }
 }

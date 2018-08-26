@@ -64,8 +64,9 @@
                 this.currentAccessLevel = value;
                 this.Text = @"Log In [Current Access Level: "
                             + value + @"]";
-                this.levelLabel.Text = value.ToString();
-                this.levelLabel.BackColor = this.determineColorForLevel(value);
+                var ll = this.levelLabel;
+                ll.Text = value.ToString();
+                ll.BackColor = this.determineColorForLevel(value);
             }
         }
 
@@ -108,8 +109,14 @@
 
         private void loginKey_Click(object sender, EventArgs e)
         {
+            var lkt = this.LoginKeyTapped;
+            if (lkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.LoginKeyTapped?.Invoke());
+                o => lkt.Invoke());
         }
 
         private void numKey_Click(object sender, EventArgs e)
@@ -133,27 +140,46 @@
         private void clearKey_Click(object sender, EventArgs e)
         {
             this.passwordTextBox.Text = null;
+
             LoginUi ui = this;
             ui.FocusPassword();
         }
 
         private void backspaceKey_Click(object sender, EventArgs e)
         {
+            var bkt = this.BackspaceKeyTapped;
+            if (bkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.BackspaceKeyTapped?.Invoke());
+                o => bkt.Invoke());
         }
 
         private void cancelKey_Click(object sender, EventArgs e)
         {
+            var ckt = this.CancelKeyTapped;
+            if (ckt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.CancelKeyTapped?.Invoke());
+                o => ckt.Invoke());
         }
 
         private void this_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
+            var ckt = this.CancelKeyTapped;
+            if (ckt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.CancelKeyTapped?.Invoke());
+                o => ckt.Invoke());
         }
 
         private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -163,8 +189,14 @@
 
         private void keyboardKey_Click(object sender, EventArgs e)
         {
+            var kkt = this.KeyboardKeyTapped;
+            if (kkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.KeyboardKeyTapped?.Invoke());
+                o => kkt.Invoke());
         }
 
         private bool firstInputKeyPressed;

@@ -5,10 +5,6 @@
 
     public class ControlUi : Control, Ui
     {
-        public ControlUi()
-        {
-        }
-
         ISynchronizeInvoke Ui.Root => this;
 
         bool Ui.Disabled

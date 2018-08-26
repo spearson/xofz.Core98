@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public sealed class QueueMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class QueueMaterializedEnumerable<T> : MaterializedEnumerable<T>
     {
         public QueueMaterializedEnumerable()
         {
@@ -67,6 +67,6 @@
             this.queue.TrimExcess();
         }
 
-        private readonly Queue<T> queue;
+        protected readonly Queue<T> queue;
     }
 }

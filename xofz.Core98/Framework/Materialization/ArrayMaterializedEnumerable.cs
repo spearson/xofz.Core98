@@ -3,9 +3,8 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
 
-    public sealed class ArrayMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class ArrayMaterializedEnumerable<T> : MaterializedEnumerable<T>
     {
         public ArrayMaterializedEnumerable(T[] array)
         {
@@ -31,9 +30,11 @@
             return this.array.GetEnumerator();
         }
 
-        public bool Contains(T item)
+        public virtual bool Contains(T item)
         {
-            return new Collection<T>(this.array).Contains(item);
+            return EnumerableHelpers.Contains(
+                this.array,
+                item);
         }
 
         public void CopyTo(T[] array)
@@ -41,6 +42,6 @@
             Array.Copy(this.array, array, array.Length);
         }
 
-        private readonly T[] array;
+        protected readonly T[] array;
     }
 }

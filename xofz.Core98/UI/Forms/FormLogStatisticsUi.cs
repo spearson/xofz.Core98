@@ -32,8 +32,9 @@
 
             set
             {
-                this.startDatePicker.SelectionStart = value;
-                this.startDatePicker.SelectionEnd = value;
+                var sdp = this.startDatePicker;
+                sdp.SelectionStart = value;
+                sdp.SelectionEnd = value;
             }
         }
 
@@ -43,8 +44,9 @@
 
             set
             {
-                this.endDatePicker.SelectionStart = value;
-                this.endDatePicker.SelectionEnd = value;
+                var edp = this.endDatePicker;
+                edp.SelectionStart = value;
+                edp.SelectionEnd = value;
             }
         }
 
@@ -54,8 +56,9 @@
 
             set
             {
-                this.filterContentTextBox.Text = value;
-                this.filterContentTextBox.Focus();
+                var fctb = this.filterContentTextBox;
+                fctb.Text = value;
+                fctb.Focus();
             }
         }
 
@@ -65,8 +68,9 @@
 
             set
             {
-                this.filterTypeTextBox.Text = value;
-                this.filterTypeTextBox.Focus();
+                var fttb = this.filterTypeTextBox;
+                fttb.Text = value;
+                fttb.Focus();
             }
         }
 
@@ -101,6 +105,7 @@
         string LogStatisticsUi.NewestTimestamp
         {
             get => this.newestTimestampLabel.Text;
+
             set => this.newestTimestampLabel.Text = value;
         }
 
@@ -123,8 +128,14 @@
             FormClosingEventArgs e)
         {
             e.Cancel = true;
+            var hkt = this.HideKeyTapped;
+            if (hkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.HideKeyTapped?.Invoke());
+                o => hkt.Invoke());
         }
 
         void PopupUi.Display()
@@ -137,32 +148,62 @@
 
         private void overallKey_Click(object sender, EventArgs e)
         {
+            var okt = this.OverallKeyTapped;
+            if (okt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.OverallKeyTapped?.Invoke());
+                o => okt.Invoke());
         }
 
         private void rangeKey_Click(object sender, EventArgs e)
         {
+            var rkt = this.RangeKeyTapped;
+            if (rkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.RangeKeyTapped?.Invoke());
+                o => rkt.Invoke());
         }
 
         private void hideKey_Click(object sender, EventArgs e)
         {
+            var hkt = this.HideKeyTapped;
+            if (hkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.HideKeyTapped?.Invoke());
+                o => hkt.Invoke());
         }
 
         private void resetContentKey_Click(object sender, EventArgs e)
         {
+            var rckt = this.ResetContentKeyTapped;
+            if (rckt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.ResetContentKeyTapped?.Invoke());
+                o => rckt.Invoke());
         }
 
         private void resetTypeKey_Click(object sender, EventArgs e)
         {
+            var rtkt = this.ResetTypeKeyTapped;
+            if (rtkt == null)
+            {
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(
-                o => this.ResetTypeKeyTapped?.Invoke());
+                o => rtkt.Invoke());
         }
 
         private readonly Form shell;

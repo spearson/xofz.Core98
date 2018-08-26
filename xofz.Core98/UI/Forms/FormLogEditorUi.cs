@@ -22,8 +22,6 @@
         private FormLogEditorUi()
         {
             this.InitializeComponent();
-
-            var h = this.Handle;
         }
 
         void PopupUi.Display()
@@ -54,6 +52,11 @@
             {
                 var etcbi = this.entryTypeComboBox.Items;
                 etcbi.Clear();
+                if (value == null)
+                {
+                    return;
+                }
+
                 foreach (var type in value)
                 {
                     etcbi.Add(type);
@@ -112,6 +115,7 @@
 
                 var array = new string[value.Count];
                 var e = value.GetEnumerator();
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 if (e == null)
                 {
                     return;

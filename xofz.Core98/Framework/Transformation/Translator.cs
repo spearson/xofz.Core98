@@ -3,35 +3,36 @@
     using System;
     using System.Collections.Generic;
 
-    public class Translator<T, Y>
+    public class Translator<T, Y> : IDisposable
     {
         public Translator(Func<Y> yFactory)
         {
             this.yFactory = yFactory;
         }
 
-        public virtual Y Translate(T source, Action<T, Y> transform)
+        public virtual Y Translate(
+            T item, 
+            Action<T, Y> transform)
         {
             Y y;
             var s = this.source;
             if (s == null)
             {
                 y = this.yFactory();
-            }
-            else
-            {
-                if (!s.MoveNext())
-                {
-                    this.setSource(null);
-                    y = this.yFactory();
-                }
-                else
-                {
-                    y = s.Current;
-                }
+                goto translate;
             }
 
-            transform(source, y);
+            if (!s.MoveNext())
+            {
+                this.setSource(null);
+                y = this.yFactory();
+                goto translate;
+            }
+
+            y = s.Current;
+
+            translate:
+            transform(item, y);
             return y;
         }
 
@@ -39,6 +40,11 @@
         {
             this.setSource(
                 source.GetEnumerator());
+        }
+
+        public void Dispose()
+        {
+            this.source?.Dispose();
         }
 
         private void setSource(IEnumerator<Y> source)
