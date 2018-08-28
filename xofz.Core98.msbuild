@@ -31,7 +31,7 @@
   </Target>
 
 
-  <Target Name="Build" DependsOnTargets="ChangeVersion">
+  <Target Name="Build" DependsOnTargets="WriteAssemblyInfo">
     <RemoveDir Directories="$(BuildDir)" />
     <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=Release;Platform=Any CPU" />
   </Target>
