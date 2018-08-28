@@ -1,4 +1,4 @@
-﻿namespace xofz.Framework.Computation
+﻿namespace xofz.Framework
 {
     using System;
     using System.Collections.Generic;
@@ -66,12 +66,12 @@
         public virtual IEnumerable<byte> GetBytes(
             IEnumerable<bool> bits)
         {
-            if (bits == null)
+            var e = bits?.GetEnumerator();
+            if (e == null)
             {
                 yield break;
             }
 
-            var e = bits.GetEnumerator();
             while (true)
             {
                 if (!e.MoveNext())
@@ -195,7 +195,7 @@
         private byte getByte(bool[] bits)
         {
             byte result = 0;
-            for (var i = 0; i < bits.Length; ++i)
+            for (var i = 0; i < bits.Length || i < 8; ++i)
             {
                 result += bits[i] ? (byte)(1 << (7 - i)) : (byte)0;
             }

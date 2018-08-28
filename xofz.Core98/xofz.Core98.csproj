@@ -41,7 +41,7 @@
     <Compile Include="EnumerableHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
-    <Compile Include="Framework\Computation\BinaryTranslator.cs" />
+    <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\Shifter.cs" />

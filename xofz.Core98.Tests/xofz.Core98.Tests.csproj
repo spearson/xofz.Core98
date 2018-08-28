@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessLevelTests.cs" />
+    <Compile Include="Framework\BinaryTranslatorTests.cs" />
     <Compile Include="Framework\EventRaiserTests.cs" />
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />

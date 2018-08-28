@@ -24,7 +24,7 @@
                 Func<int, bool> predicate = n => n == 14;
                 var expectedCountWithBreak = 3;
                 var currentCount = 0;
-                foreach (var item in breaker.AddBreak(
+                foreach (var item in this.breaker.AddBreak(
                     items, predicate))
                 {
                     ++currentCount;

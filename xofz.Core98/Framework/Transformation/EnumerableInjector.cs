@@ -24,7 +24,7 @@
 
                 yield break;
             }
-
+            
             if (nullInjections)
             {
                 foreach (var item in source)
@@ -34,6 +34,18 @@
 
                 yield break;
             }
+
+            var numberOfInjections = injections.Length;
+            if (numberOfInjections == 0)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
 
             if (injectionPoints == null)
             {
@@ -47,12 +59,11 @@
 
             long counter = 0;
             long index = 0;
-            var il = injections.Length;
             foreach (var item in source)
             {                
                 foreach (var ip in injectionPoints)
                 {
-                    if (ip == counter && index < il)
+                    if (ip == counter && index < numberOfInjections)
                     {
                         yield return injections[index];
                         ++index;

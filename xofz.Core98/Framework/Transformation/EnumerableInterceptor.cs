@@ -34,7 +34,7 @@
 
         public virtual IEnumerable<T> Intercept<T>(
             IEnumerable<T> source,
-            IEnumerable<T> interception,
+            ICollection<T> interception,
             long interceptionPoint)
         {
             long counter = 0;

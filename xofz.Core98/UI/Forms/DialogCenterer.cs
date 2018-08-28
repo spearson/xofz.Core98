@@ -40,7 +40,7 @@ namespace xofz.UI.Forms
             if (tc < 10)
             {
                 this.owner.BeginInvoke(
-                    (Action)(() => this.findDialog()));
+                    (Action)this.findDialog);
             }
         }
 

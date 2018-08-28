@@ -67,6 +67,6 @@
             this.trapper = trapper;
         }
 
-        protected volatile ICollection<T> trapper;
+        protected ICollection<T> trapper;
     }
 }

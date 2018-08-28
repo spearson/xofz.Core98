@@ -4,12 +4,12 @@
     {
         public OneOffTimer()
         {
-            this.autoReset = false;
+            this.shouldReset = false;
         }
 
         public override bool AutoReset
         {
-            get => this.autoReset;
+            get => this.shouldReset;
 
             set { }
         }

@@ -42,9 +42,9 @@
 
         public virtual TimeSpan CurrentInterval
         {
-            get => this.currentInterval;
+            get => this.interval;
 
-            set => this.currentInterval = value;
+            set => this.interval = value;
         }
 
         public override void Start(TimeSpan interval)
@@ -84,10 +84,10 @@
 
         protected virtual void setCurrentInterval(TimeSpan currentInterval)
         {
-            this.currentInterval = currentInterval;
+            this.interval = currentInterval;
         }
 
-        protected TimeSpan currentInterval;
+        protected TimeSpan interval;
         protected Action<LoggingTimer, LogEditor> log;
         private string logName;
         private readonly MethodWeb web;

@@ -13,7 +13,7 @@ namespace xofz.Framework
     {
         public Timer()
         {
-            this.autoReset = true;
+            this.shouldReset = true;
 
             this.innerTimer = new System.Timers.Timer();
             this.innerTimer.Elapsed += this.innerTimer_Elapsed;
@@ -25,9 +25,9 @@ namespace xofz.Framework
 
         public virtual bool AutoReset
         {
-            get => this.autoReset;
+            get => this.shouldReset;
 
-            set => this.autoReset = value;
+            set => this.shouldReset = value;
         }
 
         public virtual void Start(TimeSpan interval)
@@ -82,7 +82,7 @@ namespace xofz.Framework
             this.Elapsed?.Invoke();
         }
 
-        protected volatile bool autoReset;
+        protected bool shouldReset;
         protected bool started;
         private readonly System.Timers.Timer innerTimer;
         private readonly object locker;

@@ -125,18 +125,19 @@
             {
                 var backItems = new long[] { 0xA, 0xD, 0xDEADBEEF, 0xD34DB33F };
                 var source = new long[] { 0, 0xF, 0xFF, 0xFFF, 0xFFFF, 0xFFFFF, 0xFFFFFF };
+                var sl = source.Length;
                 byte counter = 0;
                 foreach (var item in this.frontBackLoader.BackLoad(
                     source, backItems))
                 {
-                    if (counter < source.Length)
+                    if (counter < sl)
                     {
                         Assert.Equal(item, source[counter]);
                         ++counter;
                         continue;
                     }
 
-                    var sl = source.Length;
+                    
                     Assert.Equal(item, backItems[counter - sl]);
                     ++counter;
                 }
