@@ -97,13 +97,17 @@
             if (indexOfSemicolon > -1)
             {
                 valueLength = indexOfSemicolon - startIndexOfValue;
-            }
-            else
-            {
-                valueLength = targetLine.Length - startIndexOfValue;
+                goto finish;
             }
 
-            return targetLine.Substring(startIndexOfValue, valueLength);
+            valueLength = targetLine.Length - startIndexOfValue;
+
+            finish:
+            return targetLine
+                .Substring(
+                    startIndexOfValue, 
+                    valueLength)
+                .TrimEnd();
         }
 
         public virtual void ChangeValue(

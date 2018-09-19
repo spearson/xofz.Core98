@@ -48,7 +48,13 @@
 
             foreach (var item in source)
             {
-                foreach (var selectee in selector(item))
+                var subItems = selector(item);
+                if (subItems == null)
+                {
+                    continue;
+                }
+
+                foreach (var selectee in subItems)
                 {
                     yield return selectee;
                 }
@@ -833,6 +839,21 @@
             }
 
             return ll;
+        }
+
+        public static TKey KeyLookup<TValue, TKey>(
+            IEnumerable<KeyValuePair<TKey, TValue>> dictionary,
+            TValue value)
+        {
+            foreach (var kvp in dictionary)
+            {
+                if (kvp.Value?.Equals(value) ?? value == null)
+                {
+                    return kvp.Key;
+                }
+            }
+
+            return default(TKey);
         }
     }
 }
