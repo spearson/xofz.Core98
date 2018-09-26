@@ -7,7 +7,6 @@
 namespace xofz.Framework
 {
     using System;
-    using Action = xofz.Action;
 
     public class Timer : IDisposable
     {
@@ -21,7 +20,7 @@ namespace xofz.Framework
             this.locker = new object();
         }
 
-        public virtual event Action Elapsed;
+        public virtual event Do Elapsed;
 
         public virtual bool AutoReset
         {

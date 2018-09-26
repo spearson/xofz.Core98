@@ -16,15 +16,15 @@
             var h = this.Handle;
         }
 
-        public event Action OverallKeyTapped;
+        public event Do OverallKeyTapped;
 
-        public event Action RangeKeyTapped;
+        public event Do RangeKeyTapped;
 
-        public event Action HideKeyTapped;
+        public event Do HideKeyTapped;
 
-        public event Action ResetContentKeyTapped;
+        public event Do ResetContentKeyTapped;
 
-        public event Action ResetTypeKeyTapped;
+        public event Do ResetTypeKeyTapped;
 
         DateTime LogStatisticsUi.StartDate
         {

@@ -4,7 +4,7 @@
     {
         public virtual T Read<T>(
             Ui ui,
-            Func<T> read)
+            Gen<T> read)
         {
             var value = default(T);
             var r = ui.Root;
@@ -15,7 +15,7 @@
 
             if (r.InvokeRequired)
             {
-                r.Invoke((Action)(() => value = read()), new object[0]);
+                r.Invoke((Do)(() => value = read()), new object[0]);
                 return value;
             }
 
@@ -24,7 +24,7 @@
 
         public virtual void Write(
             Ui ui,
-            Action write)
+            Do write)
         {
             var r = ui.Root;
             if (r == null)
@@ -43,7 +43,7 @@
 
         public virtual void WriteSync(
             Ui ui,
-            Action write)
+            Do write)
         {
             var r = ui.Root;
             if (r == null)

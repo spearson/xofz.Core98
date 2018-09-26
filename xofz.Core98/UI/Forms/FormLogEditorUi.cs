@@ -31,9 +31,9 @@
             this.contentTextBox.Focus();
         }
 
-        public event Action AddKeyTapped;
+        public event Do AddKeyTapped;
 
-        public event Action TypeChanged;
+        public event Do TypeChanged;
 
         ICollection<string> LogEditorUi.Types
         {

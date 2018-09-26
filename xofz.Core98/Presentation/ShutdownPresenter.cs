@@ -9,7 +9,7 @@
     {
         public ShutdownPresenter(
             Ui mainUi,
-            Action cleanup,
+            Do cleanup,
             MethodWeb web)
             : base(mainUi, null)
         {
@@ -19,7 +19,7 @@
         }
 
         public ShutdownPresenter(
-            Action cleanup,
+            Do cleanup,
             MethodWeb web)
             : base(null, null)
         {
@@ -55,7 +55,7 @@
 
         private long setupIf1;
         private readonly Ui mainUi;
-        private readonly Action cleanup;
+        private readonly Do cleanup;
         private readonly MethodWeb web;
     }
 }

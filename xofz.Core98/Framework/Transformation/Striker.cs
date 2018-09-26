@@ -6,7 +6,7 @@
     {
         public Striker(
             Translator<T, Y> translator,
-            Func<T> tFactory)
+            Gen<T> tFactory)
         {
             this.translator = translator;
             this.tFactory = tFactory;
@@ -14,7 +14,7 @@
 
         public Y Strike(
             Action<T> tAction, 
-            Action<T, Y> transform,
+            Do<T, Y> transform,
             Action<Y> yAction)
         {
             var t = this.tFactory();
@@ -27,6 +27,6 @@
         }
 
         private readonly Translator<T, Y> translator;
-        private readonly Func<T> tFactory;
+        private readonly Gen<T> tFactory;
     }
 }

@@ -42,7 +42,7 @@
 
             private class TestEventer
             {
-                public event xofz.Action Pinged;
+                public event xofz.Do Pinged;
 
                 public event EventHandler StandardEvent;
 

@@ -6,7 +6,7 @@
 
         public virtual AccessLevel ClearLevel { get; set; }
 
-        public virtual Func<string> ComputeBackupLocation { get; set; }
+        public virtual Gen<string> ComputeBackupLocation { get; set; }
 
         public virtual bool ResetOnStart { get; set; }
 

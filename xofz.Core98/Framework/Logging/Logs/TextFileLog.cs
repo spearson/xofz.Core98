@@ -13,7 +13,7 @@
             this.filePath = filePath;
         }
 
-        public event Action<LogEntry> EntryWritten;
+        public event Do<LogEntry> EntryWritten;
 
         IEnumerable<LogEntry> Log.ReadEntries()
         {
@@ -117,7 +117,7 @@
             return collection;
         }
 
-        public event Action Cleared;
+        public event Do Cleared;
 
         void LogEditor.AddEntry(string type, IEnumerable<string> content)
         {

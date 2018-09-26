@@ -19,13 +19,13 @@
             var h = this.Handle;
         }
 
-        public event Action BackspaceKeyTapped;
+        public event Do BackspaceKeyTapped;
 
-        public event Action LoginKeyTapped;
+        public event Do LoginKeyTapped;
 
-        public event Action CancelKeyTapped;
+        public event Do CancelKeyTapped;
 
-        public event Action KeyboardKeyTapped;
+        public event Do KeyboardKeyTapped;
 
         string LoginUi.CurrentPassword
         {

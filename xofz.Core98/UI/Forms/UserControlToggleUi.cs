@@ -16,11 +16,11 @@
             var h = this.Handle;
         }
 
-        public event Action<ToggleUi> Tapped;
+        public event Do<ToggleUi> Tapped;
 
-        public event Action<ToggleUi> Pressed;
+        public event Do<ToggleUi> Pressed;
 
-        public event Action<ToggleUi> Released;
+        public event Do<ToggleUi> Released;
 
         public virtual string Label
         {

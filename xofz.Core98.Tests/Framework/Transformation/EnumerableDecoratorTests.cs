@@ -69,7 +69,7 @@
                     Assert.Equal(0, item.Value);
                 }
 
-                Action<ToBeDecorated> decoration
+                Do<ToBeDecorated> decoration
                     = d => d.Value = f.Create<int>();
                 foreach (var item in this.decorator.Decorate(
                     source,

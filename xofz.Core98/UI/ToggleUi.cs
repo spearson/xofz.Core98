@@ -2,11 +2,11 @@
 {
     public interface ToggleUi : LabeledUi
     {
-        event Action<ToggleUi> Tapped;
+        event Do<ToggleUi> Tapped;
 
-        event Action<ToggleUi> Pressed;
+        event Do<ToggleUi> Pressed;
 
-        event Action<ToggleUi> Released;
+        event Do<ToggleUi> Released;
 
         bool Toggled { get; set; }
 

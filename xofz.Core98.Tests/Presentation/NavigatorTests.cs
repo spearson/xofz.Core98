@@ -224,7 +224,7 @@
                 n.LoginFluidly();
 
                 A.CallTo(() => w.Run(
-                        A<xofz.Action<LatchHolder>>.Ignored,
+                        A<xofz.Do<LatchHolder>>.Ignored,
                         "LoginLatch"))
                     .MustHaveHappened(Repeated.Exactly.Twice);
             }

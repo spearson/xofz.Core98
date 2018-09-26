@@ -63,7 +63,7 @@
         }
 
         public virtual void AccessWeb(
-            Action<MethodWeb> accessor,
+            Do<MethodWeb> accessor,
             string webName = nameof(MethodWebNameConsts.Default))
         {
             var targetWeb = EH.FirstOrDefault(
@@ -78,7 +78,7 @@
         }
 
         public virtual T RunWeb<T>(
-            xofz.Action<T> engine,
+            xofz.Do<T> engine,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependencyName = null)
         {
@@ -93,8 +93,8 @@
             return targetWeb.Web.Run(engine, dependencyName);
         }
 
-        public virtual Tuple<T, U> RunWeb<T, U>(
-            Action<T, U> engine,
+        public virtual XTuple<T, U> RunWeb<T, U>(
+            Do<T, U> engine,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null)
@@ -104,7 +104,7 @@
                 nwmh => nwmh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U));
             }
@@ -115,8 +115,8 @@
                 dependency2Name);
         }
 
-        public virtual Tuple<T, U, V> RunWeb<T, U, V>(
-            Action<T, U, V> engine,
+        public virtual XTuple<T, U, V> RunWeb<T, U, V>(
+            Do<T, U, V> engine,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null,
@@ -127,7 +127,7 @@
                 nwmh => nwmh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U),
                     default(V));
@@ -140,8 +140,8 @@
                 dependency3Name);
         }
 
-        public virtual Tuple<T, U, V, W> RunWeb<T, U, V, W>(
-            Action<T, U, V, W> engine,
+        public virtual XTuple<T, U, V, W> RunWeb<T, U, V, W>(
+            Do<T, U, V, W> engine,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null,
@@ -153,7 +153,7 @@
                 nwmh => nwmh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U),
                     default(V),

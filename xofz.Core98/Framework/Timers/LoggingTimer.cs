@@ -23,7 +23,7 @@
         }
 
         public LoggingTimer(
-            Action<LoggingTimer, LogEditor> log,
+            Do<LoggingTimer, LogEditor> log,
             MethodWeb web)
         {
             this.log = log;
@@ -88,7 +88,7 @@
         }
 
         protected TimeSpan interval;
-        protected Action<LoggingTimer, LogEditor> log;
+        protected Do<LoggingTimer, LogEditor> log;
         private string logName;
         private readonly MethodWeb web;
     }

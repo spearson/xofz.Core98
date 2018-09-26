@@ -6,7 +6,7 @@
     {
         public virtual IEnumerable<T> Decorate<T>(
             IEnumerable<T> source,
-            Action<T> action)
+            Do<T> action)
         {
             if (source == null)
             {

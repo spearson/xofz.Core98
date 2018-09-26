@@ -17,7 +17,7 @@
 
         public class TestEventer
         {
-            public event Action AnEvent;
+            public event Do AnEvent;
         }
 
         public class When_Raise_is_called : Context

@@ -4,19 +4,19 @@
 
     public class LogFactory
     {
-        public virtual Tuple<Log, LogEditor> CreateTextFileLog(
+        public virtual XTuple<Log, LogEditor> CreateTextFileLog(
             string filePath)
         {
             var log = new TextFileLog(filePath);
-            return Tuple.Create<Log, LogEditor>(log, log);
+            return XTuple.Create<Log, LogEditor>(log, log);
         }
 
-        public virtual Tuple<Log, LogEditor> CreateEventLogLog(
+        public virtual XTuple<Log, LogEditor> CreateEventLogLog(
             string logName,
             string sourceName)
         {
             var log = new EventLogLog(logName, sourceName);
-            return Tuple.Create<Log, LogEditor>(log, log);
+            return XTuple.Create<Log, LogEditor>(log, log);
         }
     }
 }

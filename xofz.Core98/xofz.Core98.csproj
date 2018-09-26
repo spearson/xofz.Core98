@@ -128,7 +128,7 @@
     <Compile Include="Root\Commands\SetupMainCommand.cs" />
     <Compile Include="Root\Commands\SetupShutdownCommand.cs" />
     <Compile Include="StringHelpers.cs" />
-    <Compile Include="Tuple.cs" />
+    <Compile Include="XTuple.cs" />
     <Compile Include="UI\Forms\ControlHelpers.cs" />
     <Compile Include="UI\Forms\ControlUi.cs">
       <SubType>Component</SubType>

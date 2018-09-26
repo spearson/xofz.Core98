@@ -4,15 +4,15 @@
 
     public interface LogStatisticsUi : PopupUi
     {
-        event Action OverallKeyTapped;
+        event Do OverallKeyTapped;
 
-        event Action RangeKeyTapped;
+        event Do RangeKeyTapped;
 
-        event Action HideKeyTapped;
+        event Do HideKeyTapped;
 
-        event Action ResetContentKeyTapped;
+        event Do ResetContentKeyTapped;
 
-        event Action ResetTypeKeyTapped;
+        event Do ResetTypeKeyTapped;
 
         DateTime StartDate { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
@@ -19,8 +18,8 @@
         }
 
         public IniReaderWriter(
-            Func<string[]> readLines,
-            Action<IEnumerable<string>> writeLines)
+            Gen<string[]> readLines,
+            Do<IEnumerable<string>> writeLines)
         {
             this.readLines = readLines;
             this.writeLines = writeLines;
@@ -303,8 +302,8 @@
             return keys;
         }
 
-        private readonly Func<string[]> readLines;
-        private readonly Action<IEnumerable<string>> writeLines;
+        private readonly Gen<string[]> readLines;
+        private readonly Do<IEnumerable<string>> writeLines;
 
         protected class SectionHeader
         {

@@ -17,9 +17,9 @@
             };
         }
 
-        public event Action<LogEntry> EntryWritten;
+        public event Do<LogEntry> EntryWritten;
 
-        public event Action Cleared;
+        public event Do Cleared;
 
         IEnumerable<LogEntry> Log.ReadEntries()
         {

@@ -28,7 +28,7 @@
         }
 
         public virtual T Run<T>(
-            Action<T> method = null,
+            Do<T> method = null,
             string dependencyName = null)
         {
             var ds = this.dependencies;
@@ -52,8 +52,8 @@
             return t;
         }
 
-        public virtual Tuple<T, U> Run<T, U>(
-            Action<T, U> method = null,
+        public virtual XTuple<T, U> Run<T, U>(
+            Do<T, U> method = null,
             string dependency1Name = null,
             string dependency2Name = null)
         {
@@ -75,7 +75,7 @@
             }
             catch
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U));
             }
@@ -84,11 +84,11 @@
             var u = (U)dep2.Content;
             method?.Invoke(t, u);
 
-            return Tuple.Create(t, u);
+            return XTuple.Create(t, u);
         }
 
-        public virtual Tuple<T, U, V> Run<T, U, V>(
-            Action<T, U, V> method = null,
+        public virtual XTuple<T, U, V> Run<T, U, V>(
+            Do<T, U, V> method = null,
             string dependency1Name = null,
             string dependency2Name = null,
             string dependency3Name = null)
@@ -117,7 +117,7 @@
             }
             catch
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U),
                     default(V));
@@ -128,11 +128,11 @@
             var v = (V)dep3.Content;
             method?.Invoke(t, u, v);
 
-            return Tuple.Create(t, u, v);
+            return XTuple.Create(t, u, v);
         }
 
-        public virtual Tuple<T, U, V, W> Run<T, U, V, W>(
-            Action<T, U, V, W> method = null,
+        public virtual XTuple<T, U, V, W> Run<T, U, V, W>(
+            Do<T, U, V, W> method = null,
             string dependency1Name = null,
             string dependency2Name = null,
             string dependency3Name = null,
@@ -168,7 +168,7 @@
             }
             catch
             {
-                return Tuple.Create(
+                return XTuple.Create(
                     default(T),
                     default(U),
                     default(V),
@@ -181,7 +181,7 @@
             var w = (W)dep4.Content;
             method?.Invoke(t, u, v, w);
 
-            return Tuple.Create(t, u, v, w);
+            return XTuple.Create(t, u, v, w);
         }
 
         protected readonly ICollection<Dependency> dependencies;

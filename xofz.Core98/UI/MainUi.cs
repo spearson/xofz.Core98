@@ -2,6 +2,6 @@
 {
     public interface MainUi : Ui
     {
-        event Action ShutdownRequested;
+        event Do ShutdownRequested;
     }
 }

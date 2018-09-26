@@ -4,19 +4,19 @@
 
     public interface LogUi : Ui
     {
-        event Action StartDateChanged;
+        event Do StartDateChanged;
 
-        event Action EndDateChanged;
+        event Do EndDateChanged;
 
-        event Action AddKeyTapped;
+        event Do AddKeyTapped;
 
-        event Action ClearKeyTapped;
+        event Do ClearKeyTapped;
 
-        event Action StatisticsKeyTapped;
+        event Do StatisticsKeyTapped;
 
-        event Action FilterTextChanged;
+        event Do FilterTextChanged;
 
-        ICollection<Tuple<string, string, string>> Entries { get; set; }
+        ICollection<XTuple<string, string, string>> Entries { get; set; }
 
         System.DateTime StartDate { get; set; }
 
@@ -32,6 +32,6 @@
 
         bool StatisticsKeyVisible { get; set; }
 
-        void AddToTop(Tuple<string, string, string> entry);
+        void AddToTop(XTuple<string, string, string> entry);
     }
 }

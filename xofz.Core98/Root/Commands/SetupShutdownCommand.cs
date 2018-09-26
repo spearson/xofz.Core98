@@ -20,7 +20,7 @@
         }
 
         public SetupShutdownCommand(
-            Action cleanup,
+            Do cleanup,
             MethodWeb web)
             : this(default(Ui), cleanup, web)
         {
@@ -28,7 +28,7 @@
 
         public SetupShutdownCommand(
             Ui mainUi,
-            Action cleanup,
+            Do cleanup,
             MethodWeb web)
         {
             this.mainUi = mainUi;
@@ -46,7 +46,7 @@
         }
 
         private readonly Ui mainUi;
-        private readonly Action cleanup;
+        private readonly Do cleanup;
         private readonly MethodWeb web;
     }
 }

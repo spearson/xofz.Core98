@@ -4,7 +4,7 @@
 
     public interface LogEditor
     {
-        event Action Cleared;
+        event Do Cleared;
 
         void AddEntry(string type, IEnumerable<string> content);
 

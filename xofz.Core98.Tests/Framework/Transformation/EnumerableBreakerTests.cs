@@ -21,7 +21,7 @@
             public void Puts_a_break_when_the_condition_is_true()
             {
                 var items = new[] { 5, 7, 8, 14, 1, 12, 888 };
-                Func<int, bool> predicate = n => n == 14;
+                Gen<int, bool> predicate = n => n == 14;
                 var expectedCountWithBreak = 3;
                 var currentCount = 0;
                 foreach (var item in this.breaker.AddBreak(

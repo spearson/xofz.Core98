@@ -2,6 +2,6 @@
 {
     public interface ShowableUi : Ui
     {
-        event Action FirstShown;
+        event Do FirstShown;
     }
 }

@@ -14,7 +14,7 @@
 
         public static IEnumerable<TResult> Select<T, TResult>(
             IEnumerable<T> source,
-            Func<T, TResult> selector)
+            Gen<T, TResult> selector)
         {
             if (source == null)
             {
@@ -34,7 +34,7 @@
 
         public static IEnumerable<TResult> SelectMany<T, TResult>(
             IEnumerable<T> source,
-            Func<T, IEnumerable<TResult>> selector)
+            Gen<T, IEnumerable<TResult>> selector)
         {
             if (source == null)
             {
@@ -63,7 +63,7 @@
 
         public static IEnumerable<T> Where<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -128,7 +128,7 @@
 
         public static T First<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -179,7 +179,7 @@
 
         public static T FirstOrDefault<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -229,7 +229,7 @@
 
         public static T Last<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -287,7 +287,7 @@
 
         public static T LastOrDefault<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -324,7 +324,7 @@
 
         public static bool Any<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -344,7 +344,7 @@
 
         public static bool All<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             if (source == null)
             {
@@ -421,7 +421,7 @@
 
         public static int Count<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             var count = 0;
             if (source == null)
@@ -459,7 +459,7 @@
 
         public static long LongCount<T>(
             IEnumerable<T> source,
-            Func<T, bool> predicate)
+            Gen<T, bool> predicate)
         {
             long count = 0;
             if (source == null)
@@ -505,7 +505,7 @@
 
         public static ICollection<T> OrderBy<T, TKey>(
             IEnumerable<T> source,
-            Func<T, TKey> keySelector)
+            Gen<T, TKey> keySelector)
         {
             return orderBy(
                 source,
@@ -516,7 +516,7 @@
 
         public static ICollection<T> OrderBy<T, TKey>(
             IEnumerable<T> source,
-            Func<T, TKey> keySelector,
+            Gen<T, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             return orderBy(
@@ -528,7 +528,7 @@
 
         public static ICollection<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
-            Func<T, TKey> keySelector)
+            Gen<T, TKey> keySelector)
         {
             return orderBy(
                 source,
@@ -539,7 +539,7 @@
 
         public static ICollection<T> OrderByDescending<T, TKey>(
             IEnumerable<T> source,
-            Func<T, TKey> keySelector,
+            Gen<T, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             return orderBy(
@@ -551,7 +551,7 @@
 
         private static ICollection<T> orderBy<T, TKey>(
             IEnumerable<T> source,
-            Func<T, TKey> keySelector,
+            Gen<T, TKey> keySelector,
             IComparer<TKey> comparer,
             bool descending)
         {
@@ -606,16 +606,16 @@
         public static TEnd Aggregate<T, TEnd>(
             IEnumerable<T> source,
             TEnd seed,
-            Func<TEnd, T, TEnd> accumulator)
+            Gen<TEnd, T, TEnd> accumulator)
         {
             if (source == null)
             {
-                return default(TEnd);
+                return seed;
             }
 
             if (accumulator == null)
             {
-                return default(TEnd);
+                return seed;
             }
 
             var end = seed;
@@ -690,7 +690,7 @@
 
         public static int Sum<T>(
             IEnumerable<T> source,
-            Func<T, int> valueComputer)
+            Gen<T, int> valueComputer)
         {
             if (source == null)
             {
@@ -711,7 +711,7 @@
 
         public static long Sum<T>(
             IEnumerable<T> source,
-            Func<T, long> valueComputer)
+            Gen<T, long> valueComputer)
         {
             if (source == null)
             {

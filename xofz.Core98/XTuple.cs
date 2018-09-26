@@ -3,9 +3,9 @@ namespace xofz
 {
     using System.Threading;
 
-    public class Tuple<T, U>
+    public class XTuple<T, U>
     {
-        public Tuple(T item1, U item2)
+        public XTuple(T item1, U item2)
         {
             this.Item1 = item1;
             this.Item2 = item2;
@@ -45,7 +45,7 @@ namespace xofz
 
         public override bool Equals(object obj)
         {
-            var otherTuple = obj as Tuple<T, U>;
+            var otherTuple = obj as XTuple<T, U>;
             if (otherTuple == null)
             {
                 return false;
@@ -71,9 +71,9 @@ namespace xofz
         private int settingOrGettingIf1;
     }
 
-    public class Tuple<T, U, V>
+    public class XTuple<T, U, V>
     {
-        public Tuple(
+        public XTuple(
             T item1,
             U item2,
             V item3)
@@ -205,7 +205,7 @@ namespace xofz
 
         public override bool Equals(object obj)
         {
-            var otherTuple = obj as Tuple<T, U, V>;
+            var otherTuple = obj as XTuple<T, U, V>;
             if (otherTuple == null)
             {
                 return false;
@@ -238,9 +238,9 @@ namespace xofz
         private int settingOrGettingIf1;
     }
 
-    public class Tuple<T, U, V, W>
+    public class XTuple<T, U, V, W>
     {
-        public Tuple(
+        public XTuple(
             T item1,
             U item2,
             V item3,
@@ -590,7 +590,7 @@ namespace xofz
 
         public override bool Equals(object obj)
         {
-            var otherTuple = obj as Tuple<T, U, V, W>;
+            var otherTuple = obj as XTuple<T, U, V, W>;
             if (otherTuple == null)
             {
                 return false;
@@ -630,36 +630,35 @@ namespace xofz
         private int settingOrGettingIf1;
     }
 
-    public static class Tuple
+    public static class XTuple
     {
-        public static Tuple<T, U> Create<T, U>(
+        public static XTuple<T, U> Create<T, U>(
             T item1,
             U item2)
         {
-            return new Tuple<T, U>(
+            return new XTuple<T, U>(
                 item1,
                 item2);
         }
 
-
-        public static Tuple<T, U, V> Create<T, U, V>(
+        public static XTuple<T, U, V> Create<T, U, V>(
             T item1,
             U item2,
             V item3)
         {
-            return new Tuple<T, U, V>(
+            return new XTuple<T, U, V>(
                 item1,
                 item2,
                 item3);
         }
 
-        public static Tuple<T, U, V, W> Create<T, U, V, W>(
+        public static XTuple<T, U, V, W> Create<T, U, V, W>(
             T item1,
             U item2,
             V item3,
             W item4)
         {
-            return new Tuple<T, U, V, W>(
+            return new XTuple<T, U, V, W>(
                 item1,
                 item2,
                 item3,

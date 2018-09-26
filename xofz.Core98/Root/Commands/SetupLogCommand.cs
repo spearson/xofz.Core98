@@ -21,7 +21,7 @@
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
-            Func<string> computeBackupLocation = default(Func<string>))
+            Gen<string> computeBackupLocation = default(Gen<string>))
         {
             this.ui = ui;
             this.shell = shell;
@@ -64,7 +64,7 @@
             this.editLevel = editLevel;
             this.resetOnStart = resetOnStart;
             this.computeBackupLocation = default(
-                Func<string>);
+                Gen<string>);
             this.statisticsEnabled = true;
         }
 
@@ -80,7 +80,7 @@
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
-            Func<string> computeBackupLocation = default(Func<string>))
+            Gen<string> computeBackupLocation = default(Gen<string>))
         {
             this.ui = ui;
             this.shell = shell;
@@ -108,7 +108,7 @@
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
-            Func<string> computeBackupLocation = default(Func<string>))
+            Gen<string> computeBackupLocation = default(Gen<string>))
         {
             this.ui = ui;
             this.shell = shell;
@@ -134,7 +134,7 @@
             AccessLevel clearLevel = AccessLevel.None,
             AccessLevel editLevel = AccessLevel.None,
             bool resetOnStart = false,
-            Func<string> computeBackupLocation = default(Func<string>))
+            Gen<string> computeBackupLocation = default(Gen<string>))
         {
             this.ui = ui;
             this.shell = shell;
@@ -237,7 +237,7 @@
         private readonly AccessLevel editLevel;
         private readonly AccessLevel clearLevel;
         private readonly bool resetOnStart;
-        private readonly Func<string> computeBackupLocation;
+        private readonly Gen<string> computeBackupLocation;
         private readonly bool statisticsEnabled;
         private readonly string logDependencyName;
     }

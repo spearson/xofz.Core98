@@ -5,14 +5,14 @@
 
     public class Translator<T, Y> : IDisposable
     {
-        public Translator(Func<Y> yFactory)
+        public Translator(Gen<Y> yFactory)
         {
             this.yFactory = yFactory;
         }
 
         public virtual Y Translate(
             T item, 
-            Action<T, Y> transform)
+            Do<T, Y> transform)
         {
             Y y;
             var s = this.source;
@@ -53,6 +53,6 @@
         }
 
         private IEnumerator<Y> source;
-        private readonly Func<Y> yFactory;
+        private readonly Gen<Y> yFactory;
     }
 }

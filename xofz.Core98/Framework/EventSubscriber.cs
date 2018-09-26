@@ -45,7 +45,7 @@
         public virtual void Subscribe(
             object publisher,
             string eventName,
-            Action handler)
+            Do handler)
         {
             publisher
                 ?.GetType()
@@ -58,7 +58,7 @@
         public virtual void Subscribe<T>(
             object publisher,
             string eventName,
-            Action<T> handler)
+            Do<T> handler)
         {
             publisher
                 ?.GetType()
@@ -71,7 +71,7 @@
         public virtual void Subscribe<T, U>(
             object publisher,
             string eventName,
-            Action<T, U> handler)
+            Do<T, U> handler)
         {
             publisher
                 ?.GetType()
@@ -84,7 +84,7 @@
         public virtual void Subscribe<T, U, V>(
             object publisher,
             string eventName,
-            Action<T, U, V> handler)
+            Do<T, U, V> handler)
         {
             publisher
                 ?.GetType()
@@ -137,7 +137,7 @@
         public virtual void Unsubscribe(
             object publisher,
             string eventName,
-            Action handler)
+            Do handler)
         {
             publisher
                 ?.GetType()
@@ -150,7 +150,7 @@
         public virtual void Unsubscribe<T>(
             object publisher,
             string eventName,
-            Action<T> handler)
+            Do<T> handler)
         {
             publisher
                 ?.GetType()
@@ -163,7 +163,7 @@
         public virtual void Unsubscribe<T, U>(
             object publisher,
             string eventName,
-            Action<T, U> handler)
+            Do<T, U> handler)
         {
             publisher
                 ?.GetType()
@@ -176,7 +176,7 @@
         public virtual void Unsubscribe<T, U, V>(
             object publisher,
             string eventName,
-            Action<T, U, V> handler)
+            Do<T, U, V> handler)
         {
             publisher
                 ?.GetType()

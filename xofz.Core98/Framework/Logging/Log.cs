@@ -4,7 +4,7 @@
 
     public interface Log
     {
-        event Action<LogEntry> EntryWritten;
+        event Do<LogEntry> EntryWritten;
 
         IEnumerable<LogEntry> ReadEntries();
 

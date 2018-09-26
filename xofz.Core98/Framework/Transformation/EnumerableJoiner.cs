@@ -4,7 +4,7 @@
 
     public class EnumerableJoiner
     {
-        public virtual IEnumerable<Tuple<T, Y>> Join2<T, Y>(
+        public virtual IEnumerable<XTuple<T, Y>> Join2<T, Y>(
             IEnumerable<T> source1, 
             IEnumerable<Y> source2)
         {
@@ -18,7 +18,7 @@
 
             while ((e1?.MoveNext() ?? false) && (e2?.MoveNext() ?? false))
             {
-                yield return Tuple.Create(
+                yield return XTuple.Create(
                     e1.Current, 
                     e2.Current);
             }
@@ -27,7 +27,7 @@
             e2?.Dispose();
         }
 
-        public virtual IEnumerable<Tuple<T, Y, X>> Join3<T, Y, X>(
+        public virtual IEnumerable<XTuple<T, Y, X>> Join3<T, Y, X>(
             IEnumerable<T> source1,
             IEnumerable<Y> source2,
             IEnumerable<X> source3)
@@ -46,7 +46,7 @@
                 (e2?.MoveNext() ?? false) && 
                 (e3?.MoveNext() ?? false))
             {
-                yield return Tuple.Create(
+                yield return XTuple.Create(
                     e1.Current, 
                     e2.Current, 
                     e3.Current);
@@ -57,7 +57,7 @@
             e3?.Dispose();
         }
 
-        public virtual IEnumerable<Tuple<T, Y, X, Z>> Join4<T, Y, X, Z>(
+        public virtual IEnumerable<XTuple<T, Y, X, Z>> Join4<T, Y, X, Z>(
             IEnumerable<T> source1,
             IEnumerable<Y> source2,
             IEnumerable<X> source3,
@@ -82,7 +82,7 @@
                 (e3?.MoveNext() ?? false) &&
                 (e4?.MoveNext() ?? false))
             {
-                yield return Tuple.Create(
+                yield return XTuple.Create(
                     e1.Current,
                     e2.Current,
                     e3.Current,

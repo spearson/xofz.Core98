@@ -4,9 +4,9 @@
 
     public interface LogEditorUi : PopupUi
     {
-        event Action AddKeyTapped;
+        event Do AddKeyTapped;
 
-        event Action TypeChanged;
+        event Do TypeChanged;
 
         ICollection<string> Types { get; set; }
 

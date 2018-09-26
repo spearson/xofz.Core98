@@ -7,7 +7,7 @@
         public virtual IEnumerable<T> Strike<T, K>(
             IEnumerable<T> tSource,
             IEnumerable<K> kSource,
-            Func<T, K, T> strike)
+            Gen<T, K, T> strike)
         {
             var te = tSource?.GetEnumerator();
             var ke = kSource?.GetEnumerator();
@@ -33,7 +33,7 @@
         public virtual IEnumerable<K> Strike<T, K>(
             IEnumerable<T> tSource,
             IEnumerable<K> kSource,
-            Func<T, K, K> strike)
+            Gen<T, K, K> strike)
         {
             var te = tSource?.GetEnumerator();
             var ke = kSource?.GetEnumerator();

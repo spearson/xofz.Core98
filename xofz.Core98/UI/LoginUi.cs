@@ -2,13 +2,13 @@
 {
     public interface LoginUi : PopupUi
     {
-        event Action BackspaceKeyTapped;
+        event Do BackspaceKeyTapped;
 
-        event Action LoginKeyTapped;
+        event Do LoginKeyTapped;
 
-        event Action CancelKeyTapped;
+        event Do CancelKeyTapped;
 
-        event Action KeyboardKeyTapped;
+        event Do KeyboardKeyTapped;
 
         AccessLevel CurrentAccessLevel { get; set; }
 

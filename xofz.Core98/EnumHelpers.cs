@@ -8,8 +8,17 @@
         public static IEnumerable<T> Iterate<T>()
             where T : struct
         {
-            return EnumerableHelpers.Cast<T>(
-                Enum.GetValues(typeof(T)));
+            Array values;
+            try
+            {
+                values = Enum.GetValues(typeof(T));
+            }
+            catch
+            {
+                return EnumerableHelpers.Empty<T>();
+            }
+
+            return EnumerableHelpers.Cast<T>(values);
         }
     }
 }

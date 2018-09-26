@@ -2,9 +2,9 @@
 {
     public interface MinimizableUi : Ui
     {
-        event Action Minimized;
+        event Do Minimized;
 
-        event Action Restored;
+        event Do Restored;
 
         void Minimize();
 

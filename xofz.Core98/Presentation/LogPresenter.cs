@@ -304,8 +304,8 @@
                         matchingEntries,
                         e => e.Timestamp);
 
-                    ICollection<Tuple<string, string, string>> uiEntries
-                        = new LinkedList<Tuple<string, string, string>>(
+                    ICollection<XTuple<string, string, string>> uiEntries
+                        = new LinkedList<XTuple<string, string, string>>(
                             EnumerableHelpers.Select(
                                 matchingEntries,
                                 this.createTuple));
@@ -374,7 +374,7 @@
             w.Run<LogSettings, Messenger>((settings, m) =>
                 {
                     if (settings.ComputeBackupLocation ==
-                        default(Func<string>))
+                        default(Gen<string>))
                     {
                         response = UiHelpers.Read(
                             m.Subscriber,
@@ -400,7 +400,7 @@
             w.Run<LogSettings, LogEditor>((settings, le) =>
                 {
                     var cbl = settings.ComputeBackupLocation;
-                    if (cbl != default(Func<string>))
+                    if (cbl != default(Gen<string>))
                     {
                         var bl = cbl();
                         try
@@ -492,9 +492,9 @@
             }
         }
 
-        private Tuple<string, string, string> createTuple(LogEntry e)
+        private XTuple<string, string, string> createTuple(LogEntry e)
         {
-            return Tuple.Create(
+            return XTuple.Create(
                 e.Timestamp.ToString(
                     "yyyy/MM/dd HH:mm.ss.fffffff",
                     CultureInfo.CurrentCulture),

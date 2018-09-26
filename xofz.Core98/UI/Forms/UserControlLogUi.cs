@@ -16,24 +16,24 @@
             var h = this.Handle;
         }
 
-        public event Action StartDateChanged;
+        public event Do StartDateChanged;
 
-        public event Action EndDateChanged;
+        public event Do EndDateChanged;
 
-        public event Action AddKeyTapped;
+        public event Do AddKeyTapped;
 
-        public event Action ClearKeyTapped;
+        public event Do ClearKeyTapped;
 
-        public event Action StatisticsKeyTapped;
+        public event Do StatisticsKeyTapped;
 
-        public event Action FilterTextChanged;
+        public event Do FilterTextChanged;
 
-        ICollection<Tuple<string, string, string>> LogUi.Entries
+        ICollection<XTuple<string, string, string>> LogUi.Entries
         {
             get
             {
-                ICollection<Tuple<string, string, string>>
-                    entriesCollection = new LinkedList<Tuple<string, string, string>>();
+                ICollection<XTuple<string, string, string>>
+                    entriesCollection = new LinkedList<XTuple<string, string, string>>();
                 foreach (DataGridViewRow row in this.entriesGrid.Rows)
                 {
                     var timestamp = row.Cells[0].Value?.ToString();
@@ -42,7 +42,7 @@
                     if (timestamp != null && type != null)
                     {
                         entriesCollection.Add(
-                        Tuple.Create(
+                        XTuple.Create(
                             timestamp,
                             type,
                             content));
@@ -125,7 +125,7 @@
         }
 
         void LogUi.AddToTop(
-            Tuple<string, string, string> entry)
+            XTuple<string, string, string> entry)
         {
             this.entriesGrid.Rows.Insert(0,
                 entry.Item1,

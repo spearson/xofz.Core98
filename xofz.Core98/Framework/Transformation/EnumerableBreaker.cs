@@ -7,7 +7,7 @@
     {
         public virtual IEnumerable<T> AddBreak<T>(
             IEnumerable<T> source, 
-            Func<T, bool> breakCondition)
+            Gen<T, bool> breakCondition)
         {
             foreach (var item in source)
             {
@@ -22,7 +22,7 @@
 
         public virtual IEnumerable<T> AddBreak<T>(
             IEnumerable<T> source, 
-            params Func<T, bool>[] breakConditions)
+            params Gen<T, bool>[] breakConditions)
         {
             foreach (var item in source)
             {

@@ -82,7 +82,7 @@
             }
         }
 
-        public event Action<AccessLevel> AccessLevelChanged;
+        public event Do<AccessLevel> AccessLevelChanged;
 
         public virtual AccessLevel CurrentAccessLevel
             => this.currentAccessLevel;
