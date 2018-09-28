@@ -68,7 +68,7 @@
         {
             var targetWeb = EH.FirstOrDefault(
                 this.webs,
-                nwmh => nwmh.Name == webName);
+                nmwh => nmwh.Name == webName);
             if (targetWeb == default(NamedMethodWebHolder))
             {
                 return;
@@ -84,7 +84,7 @@
         {
             var targetWeb = EH.FirstOrDefault(
                 this.webs,
-                nwmh => nwmh.Name == webName);
+                nmwh => nmwh.Name == webName);
             if (targetWeb == default(NamedMethodWebHolder))
             {
                 return default(T);
@@ -101,7 +101,7 @@
         {
             var w = EH.FirstOrDefault(
                 this.webs,
-                nwmh => nwmh.Name == webName);
+                nmwh => nmwh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
                 return XTuple.Create(
@@ -124,7 +124,7 @@
         {
             var w = EH.FirstOrDefault(
                 this.webs,
-                nwmh => nwmh.Name == webName);
+                nmwh => nmwh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
                 return XTuple.Create(
@@ -150,7 +150,7 @@
         {
             var w = EH.FirstOrDefault(
                 this.webs,
-                nwmh => nwmh.Name == webName);
+                nmwh => nmwh.Name == webName);
             if (w == default(NamedMethodWebHolder))
             {
                 return XTuple.Create(

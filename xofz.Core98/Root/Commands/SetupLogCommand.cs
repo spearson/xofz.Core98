@@ -1,6 +1,5 @@
 ﻿namespace xofz.Root.Commands
 {
-    using System;
     using xofz.Framework;
     using xofz.Framework.Logging;
     using xofz.Framework.Logging.Logs;

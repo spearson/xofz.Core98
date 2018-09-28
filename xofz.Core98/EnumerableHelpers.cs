@@ -84,6 +84,58 @@
             }
         }
 
+        public static IEnumerable<T> Where<T>(
+            IEnumerable<T> source,
+            Gen<T, int, bool> predicateWithIndex)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (predicateWithIndex == null)
+            {
+                yield break;
+            }
+
+            var index = 0;
+            foreach (var item in source)
+            {
+                if (predicateWithIndex(item, index))
+                {
+                    yield return item;
+                }
+
+                ++index;
+            }
+        }
+
+        public static IEnumerable<T> LongWhere<T>(
+            IEnumerable<T> source,
+            Gen<T, long, bool> predicateWithIndex)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (predicateWithIndex == null)
+            {
+                yield break;
+            }
+
+            long index = 0;
+            foreach (var item in source)
+            {
+                if (predicateWithIndex(item, index))
+                {
+                    yield return item;
+                }
+
+                ++index;
+            }
+        }
+
         public static IEnumerable<T> Skip<T>(
             IEnumerable<T> source,
             int numberToSkip)
