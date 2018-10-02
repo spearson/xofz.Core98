@@ -208,7 +208,7 @@
                 "LogMaterializer");
             var se = this.statisticsEnabled;
             w.RegisterDependency(
-                new LogSettings()
+                new LogSettings
                 {
                     EditLevel = this.editLevel,
                     ClearLevel = this.clearLevel,

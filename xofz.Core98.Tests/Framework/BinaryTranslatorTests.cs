@@ -60,6 +60,12 @@
                     t.ReadString(
                         t.GetBits(s, e),
                         e));
+                // just gotta check ReadNumber() too
+                var n = this.fixture.Create<long>();
+                Assert.Equal(
+                    n,
+                    t.ReadNumber(
+                        t.GetBits(n)));
             }
         }
     }

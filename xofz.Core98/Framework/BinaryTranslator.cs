@@ -187,15 +187,16 @@
             }
         }
 
-        private bool getBit(byte b, byte shift)
+        protected virtual bool getBit(byte b, byte shift)
         {
             return (b >> shift) % 2 == 1;
         }
 
-        private byte getByte(bool[] bits)
+        protected virtual byte getByte(bool[] bits)
         {
             byte result = 0;
-            for (var i = 0; i < bits.Length || i < 8; ++i)
+            var l = bits.Length;
+            for (var i = 0; i < 8 && i < l; ++i)
             {
                 result += bits[i] ? (byte)(1 << (7 - i)) : (byte)0;
             }

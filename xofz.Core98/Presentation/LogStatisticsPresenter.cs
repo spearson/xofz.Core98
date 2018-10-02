@@ -87,7 +87,7 @@
             var fc = UiHelpers.Read(this.ui, () => this.ui.FilterContent);
             if (string.IsNullOrEmpty(fc))
             {
-                w.Run<Navigator, Messenger>((n, m) =>
+                w.Run<Navigator>(n =>
                 {
                     var logUi = n.GetUi<LogPresenter, LogUi>(
                         this.Name);

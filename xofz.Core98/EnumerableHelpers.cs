@@ -138,7 +138,7 @@
 
         public static IEnumerable<T> Skip<T>(
             IEnumerable<T> source,
-            int numberToSkip)
+            int skipCount)
         {
             if (source == null)
             {
@@ -149,7 +149,7 @@
             foreach (var item in source)
             {
                 ++currentIndex;
-                if (currentIndex > numberToSkip)
+                if (currentIndex > skipCount)
                 {
                     yield return item;
                 }
