@@ -270,6 +270,31 @@
             }
         }
 
+        public static IEnumerable<T> Concat<T>(
+            IEnumerable<T> firstSource,
+            IEnumerable<T> secondSource)
+        {
+            if (firstSource == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in firstSource)
+            {
+                yield return item;
+            }
+
+            if (secondSource == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in secondSource)
+            {
+                yield return item;
+            }
+        }
+
         public static T First<T>(
             IEnumerable<T> source)
         {
