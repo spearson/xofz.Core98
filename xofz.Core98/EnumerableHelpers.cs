@@ -276,7 +276,7 @@
         {
             if (firstSource == null)
             {
-                yield break;
+                goto checkSecond;
             }
 
             foreach (var item in firstSource)
@@ -284,6 +284,7 @@
                 yield return item;
             }
 
+            checkSecond:
             if (secondSource == null)
             {
                 yield break;
