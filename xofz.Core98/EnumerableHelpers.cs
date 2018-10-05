@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
+    using System.Runtime.InteropServices;
 
     public static class EnumerableHelpers
     {
@@ -106,7 +107,10 @@
                     yield return item;
                 }
 
-                ++index;
+                checked
+                {
+                    ++index;
+                }
             }
         }
 
@@ -132,7 +136,10 @@
                     yield return item;
                 }
 
-                ++index;
+                checked
+                {
+                    ++index;
+                }
             }
         }
 
@@ -153,6 +160,113 @@
                 {
                     yield return item;
                 }
+            }
+        }
+
+        public static IEnumerable<T> Take<T>(
+            IEnumerable<T> source,
+            int takeCount)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (takeCount < 1)
+            {
+                yield break;
+            }
+
+            var takeCounter = 0;
+            foreach (var item in source)
+            {
+                ++takeCounter;
+                if (takeCounter > takeCount)
+                {
+                    yield break;
+                }
+
+                yield return item;
+            }
+        }
+
+        public static IEnumerable<T> TakeWhile<T>(
+            IEnumerable<T> source,
+            Gen<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (predicate == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                if (!predicate(item))
+                {
+                    yield break;
+                }
+
+                yield return item;
+            }
+        }
+
+        public static IEnumerable<T> TakeWhile<T>(
+            IEnumerable<T> source,
+            Gen<T, int, bool> predicateWithIndex)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (predicateWithIndex == null)
+            {
+                yield break;
+            }
+
+            var index = 0;
+            foreach (var item in source)
+            {
+                if (!predicateWithIndex(item, index))
+                {
+                    yield break;
+                }
+
+                yield return item;
+                checked
+                {
+                    ++index;
+                }
+            }
+        }
+
+        public static IEnumerable<T> TakeLast<T>(
+            IEnumerable<T> source,
+            int takeCount)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (takeCount < 1)
+            {
+                yield break;
+            }
+
+            foreach (var item in
+                EnumerableHelpers.Reverse(
+                    EnumerableHelpers.Take(
+                        EnumerableHelpers.Reverse(
+                            source),
+                        takeCount)))
+            {
+                yield return item;
             }
         }
 
