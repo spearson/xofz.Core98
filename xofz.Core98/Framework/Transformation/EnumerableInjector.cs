@@ -6,7 +6,7 @@
     {
         public virtual IEnumerable<T> Inject<T>(
             IEnumerable<T> source,
-            ICollection<long> injectionPoints,
+            Lot<long> injectionPoints,
             params T[] injections)
         {
             var nullInjections = injections == null;

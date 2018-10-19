@@ -6,7 +6,7 @@
     {
         public virtual IEnumerable<T> Drag<T>(
             IEnumerable<T> source,
-            ICollection<int> dragLengths)
+            Lot<int> dragLengths)
         {
             if (source == null)
             {

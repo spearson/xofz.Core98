@@ -1,31 +1,31 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lots
 {
     using System.Collections;
     using System.Collections.Generic;
 
-    public class StackMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class StackLot<T> : Lot<T>
     {
-        public StackMaterializedEnumerable()
+        public StackLot()
         {
             this.stack = new Stack<T>();
         }
 
-        public StackMaterializedEnumerable(int capacity)
+        public StackLot(int capacity)
         {
             this.stack = new Stack<T>(capacity);
         }
 
-        public StackMaterializedEnumerable(IEnumerable<T> source)
+        public StackLot(IEnumerable<T> source)
         {
             this.stack = new Stack<T>(source);
         }
 
-        public StackMaterializedEnumerable(Stack<T> stack)
+        public StackLot(Stack<T> stack)
         {
             this.stack = stack;
         }
 
-        long MaterializedEnumerable<T>.Count => this.stack.Count;
+        long Lot<T>.Count => this.stack.Count;
 
         public IEnumerator<T> GetEnumerator()
         {

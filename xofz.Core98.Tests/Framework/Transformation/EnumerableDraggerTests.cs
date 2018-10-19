@@ -1,6 +1,7 @@
 ﻿namespace xofz.Tests.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
     using xofz.Framework.Transformation;
     using Ploeh.AutoFixture;
     using Xunit;
@@ -26,7 +27,8 @@
             {
                 var noItems = true;
                 foreach (var item in this.dragger.Drag<object>(
-                    null, new[] { 3, 2, 1 }))
+                    null, new ArrayLot<int>(
+                        new[] { 3, 2, 1 })))
                 {
                     noItems = false;
                 }
@@ -79,7 +81,7 @@
                 ICollection<LabeledObject> collection = new LinkedList<LabeledObject>(
                     this.dragger.Drag(
                         items,
-                        new[] { 5, 4, 6 }));
+                        new ArrayLot<int>(new[] { 5, 4, 6 })));
                 ICollection<LabeledObject> itemOnes = new LinkedList<LabeledObject>(
                     EnumerableHelpers.Where(
                         collection,

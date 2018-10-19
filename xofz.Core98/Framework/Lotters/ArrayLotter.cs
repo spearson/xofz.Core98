@@ -1,10 +1,11 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lotters
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
-    public sealed class ArrayMaterializer : Materializer
+    public sealed class ArrayLotter : Lotter
     {
-        public MaterializedEnumerable<T> Materialize<T>(
+        Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> source)
         {
             var ll = new LinkedList<T>(source);
@@ -12,7 +13,7 @@
 
             ll.CopyTo(array, 0);
 
-            return new ArrayMaterializedEnumerable<T>(
+            return new ArrayLot<T>(
                 array);
         }
     }

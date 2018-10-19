@@ -1,21 +1,21 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lots
 {
     using System.Collections;
     using System.Collections.Generic;
 
-    public class QueueMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class QueueLot<T> : Lot<T>
     {
-        public QueueMaterializedEnumerable()
+        public QueueLot()
         {
             this.queue = new Queue<T>();
         }
 
-        public QueueMaterializedEnumerable(Queue<T> queue)
+        public QueueLot(Queue<T> queue)
         {
             this.queue = queue;
         }
 
-        long MaterializedEnumerable<T>.Count => this.queue.Count;
+        long Lot<T>.Count => this.queue.Count;
 
         public IEnumerator<T> GetEnumerator()
         {

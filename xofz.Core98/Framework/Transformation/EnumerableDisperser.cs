@@ -7,7 +7,7 @@
         public virtual IEnumerable<T> Disperse<T>(
             IEnumerable<T> source,
             IEnumerable<T> dispersion,
-            ICollection<long> dispersionPoints)
+            Lot<long> dispersionPoints)
         {
             if (source == null)
             {

@@ -1,6 +1,7 @@
 ﻿namespace xofz.Tests.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
     using xofz.Framework.Transformation;
     using Xunit;
 
@@ -73,7 +74,8 @@
             {
                 var source = new[] { -125, 512, -512, 0, 46, 733 };
                 var dispersion = new[] { 0, 0xFF };
-                ICollection<long> dispersionPoints = new long[] { 1, 4 };
+                Lot<long> dispersionPoints = new ArrayLot<long>(
+                    new long[] { 1, 4 });
                 long currentCount = 0;
                 foreach (var item in this.disperser.Disperse(
                     source,

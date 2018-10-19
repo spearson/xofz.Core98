@@ -1,42 +1,42 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
-    using Materialization;
+    using xofz.Framework.Lots;
 
     public class EnumerableSplitter
     {
-        public virtual ICollection<T>[] Split<T>(
+        public virtual Lot<T>[] Split<T>(
             IEnumerable<T> source,
             int splits)
         {
             if (source == null)
             {
-                return new ICollection<T>[0];
+                return new Lot<T>[0];
             }
 
             if (splits < 2)
             {
-                return new ICollection<T>[]
+                return new Lot<T>[]
                 {
-                    new LinkedList<T>(source)
+                    new LinkedListLot<T>(source)
                 };
             }
 
-            var array = new ICollection<T>[splits];
+            var array = new LinkedListLot<T>[splits];
             for (var i = 0; i < splits; ++i)
             {
-                array[i] = new LinkedList<T>();
+                array[i] = new LinkedListLot<T>();
             }
 
             var enumerator = source.GetEnumerator();
             if (enumerator == null)
             {
-                return new ICollection<T>[0];
+                return new Lot<T>[0];
             }
 
             if (enumerator.MoveNext())
             {
-                array[0].Add(enumerator.Current);
+                array[0].AddLast(enumerator.Current);
             }
             
             var zeroFilled = true;
@@ -51,7 +51,7 @@
                     }
 
                     zeroFilled = false;
-                    array[i].Add(enumerator.Current);
+                    array[i].AddLast(enumerator.Current);
                     if (i < splits - 1)
                     {
                         if (!enumerator.MoveNext())

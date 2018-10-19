@@ -1,17 +1,17 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lots
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ArrayMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class ArrayLot<T> : Lot<T>
     {
-        public ArrayMaterializedEnumerable(T[] array)
+        public ArrayLot(T[] array)
         {
             this.array = array;
         }
 
-        long MaterializedEnumerable<T>.Count => this.array.Length;
+        long Lot<T>.Count => this.array.Length;
 
         public T this[int index]
         {

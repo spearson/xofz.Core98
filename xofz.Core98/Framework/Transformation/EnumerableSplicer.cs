@@ -1,10 +1,11 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class EnumerableSplicer
     {
-        public virtual ICollection<T> Splice<T>(
+        public virtual Lot<T> Splice<T>(
             ICollection<T>[] collections)
         {
             var sources = new IEnumerable<T>[collections.Length];
@@ -18,10 +19,24 @@
             return this.Splice(sources);
         }
 
-        public virtual ICollection<T> Splice<T>(
+        public virtual Lot<T> Splice<T>(
+            Lot<T>[] lots)
+        {
+            var sources = new IEnumerable<T>[lots.Length];
+            var indexCounter = 0;
+            foreach (var lot in lots)
+            {
+                sources[indexCounter] = lot;
+                ++indexCounter;
+            }
+
+            return this.Splice(sources);
+        }
+
+        public virtual Lot<T> Splice<T>(
             IEnumerable<T>[] sources)
         {
-            var result = new List<T>();
+            var result = new ListLot<T>();
             if (sources == null)
             {
                 return result;
@@ -40,7 +55,7 @@
             }
 
             // then, splice the lists together
-            result = new List<T>(
+            result = new ListLot<T>(
                 EnumerableHelpers.Sum(
                     lists,
                     l => l.Count));

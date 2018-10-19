@@ -1,14 +1,15 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class EnumerableRepeater
     {
-        public virtual ICollection<T> Repeat<T>(
+        public virtual Lot<T> Repeat<T>(
             IEnumerable<T> source,
             int times)
         {
-            ICollection<T> collection = new LinkedList<T>();
+            var collection = new LinkedListLot<T>();
             if (source == null)
             {
                 return collection;
@@ -21,10 +22,10 @@
 
             foreach (var item in source)
             {
-                collection.Add(item);
+                collection.AddLast(item);
             }
 
-            var result = new List<T>();
+            var result = new ListLot<T>();
             for (var i = 0; i < times; ++i)
             {
                 result.AddRange(collection);

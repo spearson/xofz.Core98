@@ -1,13 +1,14 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class EnumerableConnector
     {
-        public virtual ICollection<T> Connect<T>(
+        public virtual Lot<T> Connect<T>(
             params IEnumerable<T>[] sources)
         {
-            ICollection<T> connection = new LinkedList<T>();
+            var connection = new LinkedListLot<T>();
 
             if (sources == null)
             {
@@ -26,7 +27,7 @@
                 {
                     while (e?.MoveNext() ?? false)
                     {
-                        connection.Add(e.Current);
+                        connection.AddLast(e.Current);
                     }
                 }
             }

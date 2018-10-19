@@ -1,27 +1,27 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lots
 {
     using System.Collections;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    public class LinkedListMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class LinkedListLot<T> : Lot<T>
     {
-        public LinkedListMaterializedEnumerable()
+        public LinkedListLot()
         {
             this.linkedList = new LinkedList<T>();
         }
 
-        public LinkedListMaterializedEnumerable(IEnumerable<T> source)
+        public LinkedListLot(IEnumerable<T> source)
         {
             this.linkedList = new LinkedList<T>(source);
         }
 
-        public LinkedListMaterializedEnumerable(LinkedList<T> linkedList)
+        public LinkedListLot(LinkedList<T> linkedList)
         {
             this.linkedList = linkedList;
         }
 
-        long MaterializedEnumerable<T>.Count => this.linkedList.Count;
+        long Lot<T>.Count => this.linkedList.Count;
 
         public LinkedListNode<T> First => this.linkedList.First;
 

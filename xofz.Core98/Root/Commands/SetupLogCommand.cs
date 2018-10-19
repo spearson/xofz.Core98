@@ -3,7 +3,7 @@
     using xofz.Framework;
     using xofz.Framework.Logging;
     using xofz.Framework.Logging.Logs;
-    using xofz.Framework.Materialization;
+    using xofz.Framework.Lotters;
     using xofz.Presentation;
     using xofz.UI;
 
@@ -204,8 +204,8 @@
 
             finish:
             w.RegisterDependency(
-                new LinkedListMaterializer(),
-                "LogMaterializer");
+                new LinkedListLotter(),
+                "LogLotter");
             var se = this.statisticsEnabled;
             w.RegisterDependency(
                 new LogSettings

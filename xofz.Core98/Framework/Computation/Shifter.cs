@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class Shifter<T> : MaterializedEnumerable<T>
+    public class Shifter<T> : Lot<T>
     {
         public Shifter(int capacity)
         {
@@ -15,7 +15,7 @@
 
         public virtual int CurrentSize => this.linkedList.Count;
 
-        long MaterializedEnumerable<T>.Count => this.CurrentSize;
+        long Lot<T>.Count => this.CurrentSize;
 
         public IEnumerator<T> GetEnumerator()
         {

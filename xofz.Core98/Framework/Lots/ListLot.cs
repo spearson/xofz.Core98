@@ -1,28 +1,33 @@
-﻿namespace xofz.Framework.Materialization
+﻿namespace xofz.Framework.Lots
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ListMaterializedEnumerable<T> : MaterializedEnumerable<T>
+    public class ListLot<T> : Lot<T>
     {
-        public ListMaterializedEnumerable()
+        public ListLot()
             : this(new List<T>())
         {
         }
 
-        public ListMaterializedEnumerable(IEnumerable<T> source)
-            : this(new List<T>(new LinkedList<T>(source)))
+        public ListLot(int capacity)
+            : this(new List<T>(capacity))
         {
         }
 
-        public ListMaterializedEnumerable(List<T> list)
+        public ListLot(IEnumerable<T> source)
+            : this(new List<T>(source))
+        {
+        }
+
+        public ListLot(List<T> list)
         {
             this.list = list ?? throw new ArgumentNullException(nameof(list));
         }
 
-        long MaterializedEnumerable<T>.Count => this.list.Count;
+        long Lot<T>.Count => this.list.Count;
 
         public long Capacity => this.list.Capacity;
 

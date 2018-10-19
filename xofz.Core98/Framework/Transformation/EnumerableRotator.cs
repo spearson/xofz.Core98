@@ -1,15 +1,16 @@
 ﻿namespace xofz.Framework.Transformation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class EnumerableRotator
     {
-        public virtual ICollection<T> Rotate<T>(
+        public virtual Lot<T> Rotate<T>(
             IEnumerable<T> source, 
             int cycles, 
             bool goRight = true)
         {
-            var ll = new LinkedList<T>();
+            var ll = new LinkedListLot<T>();
             if (source == null)
             {
                 return ll;

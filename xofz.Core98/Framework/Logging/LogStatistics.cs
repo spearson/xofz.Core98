@@ -31,7 +31,7 @@
         public virtual void ComputeOverall()
         {
             var w = this.web;
-            w.Run<Log, Materializer>((l, m) =>
+            w.Run<Log, Lotter>((l, m) =>
                 {
                     var allEntries = m.Materialize(l.ReadEntries());
                     var start = DateTime.MaxValue;
@@ -65,7 +65,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                "LogMaterializer");
+                "LogLotter");
         }
 
         public virtual void ComputeRange(
@@ -73,7 +73,7 @@
             DateTime endDate)
         {
             var w = this.web;
-            w.Run<Log, Materializer>((l, m) =>
+            w.Run<Log, Lotter>((l, m) =>
                 {
                     var matches = m.Materialize(
                         EnumerableHelpers.Where(
@@ -94,7 +94,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                "LogMaterializer");
+                "LogLotter");
         }
 
         public virtual void Reset()
@@ -143,7 +143,7 @@
             return true;
         }
 
-        private void computeTotal(MaterializedEnumerable<LogEntry> entries)
+        private void computeTotal(Lot<LogEntry> entries)
         {
             this.TotalEntryCount = entries.Count;
         }
@@ -163,7 +163,7 @@
             this.AvgEntriesPerDay = entryCount / totalDays;
         }
 
-        private void computeOldestTimestamp(MaterializedEnumerable<LogEntry> entries)
+        private void computeOldestTimestamp(Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
@@ -184,7 +184,7 @@
             this.OldestTimestamp = oldest;
         }
 
-        private void computeNewestTimestamp(MaterializedEnumerable<LogEntry> entries)
+        private void computeNewestTimestamp(Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
@@ -205,7 +205,7 @@
             this.NewestTimestamp = newest;
         }
 
-        private void computeEarliestTimestamp(MaterializedEnumerable<LogEntry> entries)
+        private void computeEarliestTimestamp(Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
@@ -226,7 +226,7 @@
             this.EarliestTimestamp = earliest;
         }
 
-        private void computeLatestTimestamp(MaterializedEnumerable<LogEntry> entries)
+        private void computeLatestTimestamp(Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
