@@ -8,9 +8,22 @@
 
     public class Navigator
     {
-        public Navigator(MethodWeb web)
+        public Navigator(
+            MethodWeb web)
+            : this(
+                  web,
+                  p => ThreadPool.QueueUserWorkItem(
+                      o => p.Start()))
+        {
+        }
+
+        public Navigator(
+            MethodWeb web,
+            Do<Presenter> startPresenter)
         {
             this.web = web;
+            this.startPresenter = startPresenter;
+
             // inherit from this class to override the type of collection
             this.presenters = new LinkedList<Presenter>();
         }
@@ -59,7 +72,7 @@
                 p.Stop();
             }
 
-            ThreadPool.QueueUserWorkItem(o => presenter.Start());
+            this.startPresenter(presenter);
         }
 
         public virtual void Present<T>(string name)
@@ -79,7 +92,7 @@
                     p.Stop();
                 }
 
-                ThreadPool.QueueUserWorkItem(o => presenter.Start());
+                this.startPresenter(presenter);
                 break;
             }
         }
@@ -95,7 +108,7 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => presenter.Start());
+            this.startPresenter(presenter);
         }
 
         public virtual void PresentFluidly<T>(string name)
@@ -110,7 +123,7 @@
                     continue;
                 }
 
-                ThreadPool.QueueUserWorkItem(o => presenter.Start());
+                this.startPresenter(presenter);
                 break;
             }
         }
@@ -201,6 +214,7 @@
         }
 
         protected readonly ICollection<Presenter> presenters;
-        private readonly MethodWeb web;
+        protected readonly MethodWeb web;
+        protected readonly Do<Presenter> startPresenter;
     }
 }

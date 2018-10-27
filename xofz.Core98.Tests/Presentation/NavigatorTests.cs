@@ -252,7 +252,6 @@
             public TestNavigator(MethodWeb web)
                 : base(web)
             {
-                this.web = web;
             }
 
             public virtual byte FluidlyPresentedCount { get; set; }
@@ -265,8 +264,6 @@
                 ++this.FluidlyPresentedCount;
                 this.LastFluidlyPresentedType = typeof(T);
             }
-
-            private readonly MethodWeb web;
         }
     }
 }
