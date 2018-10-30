@@ -21,7 +21,7 @@
             this.linkedList = linkedList;
         }
 
-        long Lot<T>.Count => this.linkedList.Count;
+        public long Count => this.linkedList.Count;
 
         public LinkedListNode<T> First => this.linkedList.First;
 

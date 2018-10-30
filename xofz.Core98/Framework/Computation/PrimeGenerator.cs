@@ -1,13 +1,14 @@
 ﻿namespace xofz.Framework.Computation
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class PrimeGenerator
     {
         public PrimeGenerator()
             : this(
                 new PrimeTester(),
-                new LinkedList<long>(new long[]
+                new LinkedListLot<long>(new long[]
                 {
                     2,
                     3
@@ -16,8 +17,10 @@
         }
 
         public PrimeGenerator(
-            IEnumerable<long> currentSet)
-            : this(new PrimeTester(), currentSet)
+            IEnumerable<long> finiteSet)
+            : this(
+                new PrimeTester(), 
+                finiteSet)
         {
         }
 
@@ -25,7 +28,7 @@
             PrimeTester tester)
             : this(
                 tester,
-                new LinkedList<long>(new long[]
+                new LinkedListLot<long>(new long[]
                 {
                     2,
                     3
@@ -35,20 +38,29 @@
 
         public PrimeGenerator(
             PrimeTester tester,
-            IEnumerable<long> currentSet)
+            IEnumerable<long> finiteSet)
         {
             this.tester = tester;
 
-            if (currentSet is LinkedList<long> set)
+            if (finiteSet is LinkedListLot<long> set)
             {
                 this.currentSet = set;
                 return;
             }
 
-            this.currentSet = new LinkedList<long>(currentSet);
+            this.currentSet = new LinkedListLot<long>(
+                finiteSet);
         }
 
-        public ICollection<long> CurrentSet => this.currentSet;
+        public PrimeGenerator(
+            PrimeTester tester,
+            LinkedListLot<long> currentSet)
+        {
+            this.tester = tester;
+            this.currentSet = currentSet;
+        }
+
+        public Lot<long> CurrentSet => this.currentSet;
 
         public virtual long NextPrime()
         {
@@ -57,8 +69,8 @@
 
         public virtual IEnumerable<long> Generate()
         {
-            IEnumerable<long> cs = this.currentSet;
-            foreach (var prime in cs)
+            IEnumerable<long> source = this.currentSet;
+            foreach (var prime in source)
             {
                 yield return prime;
             }
@@ -71,19 +83,19 @@
 
         private long collectPrime()
         {
-            var cs = this.currentSet;
-            cs.AddLast(cs.Last.Value + 2);
-            while (!this.tester.RelativelyPrime(cs, true))
+            var ll = this.currentSet;
+            ll.AddLast(ll.Last.Value + 2);
+            while (!this.tester.RelativelyPrime(ll, true))
             {
-                var node = cs.Last;
-                cs.RemoveLast();
-                cs.AddLast(node.Value + 2);
+                var node = ll.Last;
+                ll.RemoveLast();
+                ll.AddLast(node.Value + 2);
             }
 
-            return cs.Last.Value;
+            return ll.Last.Value;
         }
 
-        private readonly LinkedList<long> currentSet;
+        private readonly LinkedListLot<long> currentSet;
         private readonly PrimeTester tester;
     }
 }

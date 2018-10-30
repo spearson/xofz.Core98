@@ -15,7 +15,7 @@
             this.queue = queue;
         }
 
-        long Lot<T>.Count => this.queue.Count;
+        public long Count => this.queue.Count;
 
         public IEnumerator<T> GetEnumerator()
         {

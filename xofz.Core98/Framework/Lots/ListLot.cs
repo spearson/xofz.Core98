@@ -27,7 +27,7 @@
             this.list = list ?? throw new ArgumentNullException(nameof(list));
         }
 
-        long Lot<T>.Count => this.list.Count;
+        public long Count => this.list.Count;
 
         public long Capacity => this.list.Capacity;
 

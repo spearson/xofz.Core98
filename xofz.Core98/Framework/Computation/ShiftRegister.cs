@@ -16,46 +16,46 @@
 
         public void ShiftLeft(bool input)
         {
-            var linkedList = this.shiftList;
-            linkedList.AddLast(input);
+            var ll = this.shiftList;
+            ll.AddLast(input);
 
-            if (linkedList.Count > this.capacity)
+            while (ll.Count > this.capacity)
             {
-                linkedList.RemoveFirst();
+                ll.RemoveFirst();
             }
 
-            var array = new bool[linkedList.Count];
-            var e = linkedList.GetEnumerator();
+            var array = new bool[ll.Count];
+            var e = ll.GetEnumerator();
             for (var i = 0; i < array.Length; ++i)
             {
                 e.MoveNext();
                 array[i] = e.Current;
             }
 
-            this.setCurrentArray(array);
             e.Dispose();
+            this.setCurrentArray(array);
         }
 
         public void ShiftRight(bool input)
         {
-            var linkedList = this.shiftList;
-            linkedList.AddFirst(input);
+            var ll = this.shiftList;
+            ll.AddFirst(input);
 
-            if (linkedList.Count > this.capacity)
+            while (ll.Count > this.capacity)
             {
-                linkedList.RemoveLast();
+                ll.RemoveLast();
             }
 
-            var array = new bool[linkedList.Count];
-            var e = linkedList.GetEnumerator();
+            var array = new bool[ll.Count];
+            var e = ll.GetEnumerator();
             for (var i = 0; i < array.Length; ++i)
             {
                 e.MoveNext();
                 array[i] = e.Current;
             }
 
-            this.setCurrentArray(array);
             e.Dispose();
+            this.setCurrentArray(array);
         }
 
         private void setCurrentArray(bool[] currentArray)

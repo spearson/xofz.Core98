@@ -1,11 +1,11 @@
-﻿namespace xofz.Framework.Computation
+﻿namespace xofz.Framework.Lots
 {
     using System.Collections;
     using System.Collections.Generic;
 
-    public class Shifter<T> : Lot<T>
+    public class ShiftingLot<T> : Lot<T>
     {
-        public Shifter(int capacity)
+        public ShiftingLot(int capacity)
         {
             this.capacity = capacity;
             this.linkedList = new LinkedList<T>();
@@ -15,7 +15,7 @@
 
         public virtual int CurrentSize => this.linkedList.Count;
 
-        long Lot<T>.Count => this.CurrentSize;
+        public long Count => this.CurrentSize;
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -31,8 +31,9 @@
         {
             var ll = this.linkedList;
             ll.AddFirst(input);
+            var c = this.capacity;
 
-            if (ll.Count > this.capacity)
+            while (ll.Count > c)
             {
                 ll.RemoveLast();
             }
@@ -46,8 +47,9 @@
         {
             var ll = this.linkedList;
             ll.AddLast(input);
+            var c = this.capacity;
 
-            if (ll.Count > this.capacity)
+            while (ll.Count > c)
             {
                 ll.RemoveFirst();
             }

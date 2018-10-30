@@ -80,9 +80,22 @@
                 UiHelpers.Write(
                     this.ui,
                     () => this.ui.CurrentAccessLevel = cal);
+                if (subscriberRegistered)
+                {
+                    w.Run<EventSubscriber>(sub =>
+                    {
+                        sub.Subscribe<AccessLevel>(
+                            ac,
+                            nameof(ac.AccessLevelChanged),
+                            this.accessLevelChanged);
+                    });
+                    return;
+                }
+
                 ac.AccessLevelChanged += this.accessLevelChanged;
             });
-            w.Run<xofz.Framework.Timer, Navigator>((t, n) =>
+
+            w.Run<xofz.Framework.Timer>(t =>
                 {
                     if (subscriberRegistered)
                     {
@@ -101,9 +114,10 @@
 
                     start:
                     t.Start(1000);
-                    n.RegisterPresenter(this);
                 },
                 "LoginTimer");
+
+            w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
 
         public override void Start()

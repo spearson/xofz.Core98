@@ -44,7 +44,7 @@
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
-    <Compile Include="Framework\Computation\Shifter.cs" />
+    <Compile Include="Framework\Lots\ShiftingLot.cs" />
     <Compile Include="Framework\Computation\ShiftRegister.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="Framework\EventRaiser.cs" />

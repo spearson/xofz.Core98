@@ -15,9 +15,9 @@
             this.stack = new Stack<T>(capacity);
         }
 
-        public StackLot(IEnumerable<T> source)
+        public StackLot(IEnumerable<T> finiteSource)
         {
-            this.stack = new Stack<T>(source);
+            this.stack = new Stack<T>(finiteSource);
         }
 
         public StackLot(Stack<T> stack)
@@ -25,7 +25,7 @@
             this.stack = stack;
         }
 
-        long Lot<T>.Count => this.stack.Count;
+        public long Count => this.stack.Count;
 
         public IEnumerator<T> GetEnumerator()
         {

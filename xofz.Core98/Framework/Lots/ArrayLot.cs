@@ -11,7 +11,7 @@
             this.array = array;
         }
 
-        long Lot<T>.Count => this.array.Length;
+        public long Count => this.array.Length;
 
         public T this[int index]
         {

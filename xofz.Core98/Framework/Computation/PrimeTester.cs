@@ -2,18 +2,40 @@
 {
     using System;
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class PrimeTester
     {
         public virtual bool RelativelyPrime(
-            IEnumerable<long> numbers, 
+            IEnumerable<long> finiteSource,
             bool onlyCheckLast)
         {
-            var ll = new LinkedList<long>(numbers);
-            if (ll.Count == 0)
+            return this.RelativelyPrime(
+                new LinkedListLot<long>(
+                    finiteSource),
+                onlyCheckLast);
+        }
+
+        public virtual bool RelativelyPrime(
+            LinkedList<long> ll,
+            bool onlyCheckLast)
+        {
+            return this.RelativelyPrime(
+                new LinkedListLot<long>(ll),
+                onlyCheckLast);
+        }
+
+        public virtual bool RelativelyPrime(
+            Lot<long> lot, 
+            bool onlyCheckLast)
+        {
+            if (lot.Count == 0)
             {
                 return true;
             }
+
+            var ll = lot as LinkedListLot<long>
+                     ?? new LinkedListLot<long>(lot);
 
             if (onlyCheckLast)
             {
