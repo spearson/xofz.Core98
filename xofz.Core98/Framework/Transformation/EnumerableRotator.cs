@@ -15,7 +15,18 @@
             {
                 return ll;
             }
-            
+
+            foreach (var item in source)
+            {
+                ll.AddLast(item);
+            }
+
+            Lot<T> lot = ll;
+            if (lot.Count < 1)
+            {
+                return lot;
+            }
+
             if (goRight)
             {
                 for (var i = 0; i < cycles; ++i)
@@ -25,7 +36,7 @@
                     ll.AddFirst(node);
                 }
 
-                return ll;
+                return lot;
             }
 
             for (var i = 0; i < cycles; ++i)
@@ -35,7 +46,7 @@
                 ll.AddLast(node);
             }
 
-            return ll;
+            return lot;
         }
     }
 }
