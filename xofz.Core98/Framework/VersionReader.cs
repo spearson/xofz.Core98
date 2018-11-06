@@ -18,10 +18,23 @@
             this.executingAssembly = executingAssembly;
         }
 
+        public virtual Version ReadAsVersion(
+            Assembly assembly)
+        {
+            var an = new AssemblyName(assembly.FullName);
+            return an.Version;
+        }
+        
         public virtual string Read()
         {
             var ea = this.executingAssembly;
             return this.readProtected(ea);
+        }
+
+        public virtual Version ReadAsVersion()
+        {
+            var ea = this.executingAssembly;
+            return this.ReadAsVersion(ea);
         }
 
         public virtual string ReadCoreVersion()
@@ -30,10 +43,16 @@
             return this.readProtected(ea);
         }
 
+        public virtual Version ReadCoreVersionAsVersion()
+        {
+            var ea = Assembly.GetExecutingAssembly();
+            return this.ReadAsVersion(ea);
+        }
+
         protected virtual string readProtected(Assembly assembly)
         {
-            var an = new AssemblyName(assembly.FullName);
-            var v = an.Version;
+            var v = this.ReadAsVersion(assembly);
+
             var versionBuilder = new StringBuilder();
             versionBuilder.Append(v.Major);
             versionBuilder.Append('.');
@@ -46,6 +65,6 @@
             return versionBuilder.ToString();
         }
 
-        private readonly Assembly executingAssembly;
+        protected readonly Assembly executingAssembly;
     }
 }

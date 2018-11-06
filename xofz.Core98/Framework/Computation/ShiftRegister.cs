@@ -7,16 +7,16 @@
         public ShiftRegister(int capacity)
         {
             this.capacity = capacity;
-            this.shiftList = new LinkedList<bool>();
+            this.bitLinkedList = new LinkedList<bool>();
         }
 
-        public bool this[int index] => this.currentArray[index];
+        public virtual bool this[int index] => this.currentArray[index];
 
-        public int CurrentSize => this.shiftList.Count;
+        public virtual int CurrentSize => this.bitLinkedList.Count;
 
-        public void ShiftLeft(bool input)
+        public virtual void ShiftLeft(bool input)
         {
-            var ll = this.shiftList;
+            var ll = this.bitLinkedList;
             ll.AddLast(input);
 
             while (ll.Count > this.capacity)
@@ -36,9 +36,9 @@
             this.setCurrentArray(array);
         }
 
-        public void ShiftRight(bool input)
+        public virtual void ShiftRight(bool input)
         {
-            var ll = this.shiftList;
+            var ll = this.bitLinkedList;
             ll.AddFirst(input);
 
             while (ll.Count > this.capacity)
@@ -58,13 +58,13 @@
             this.setCurrentArray(array);
         }
 
-        private void setCurrentArray(bool[] currentArray)
+        protected virtual void setCurrentArray(bool[] currentArray)
         {
             this.currentArray = currentArray;
         }
 
         private bool[] currentArray;
         private readonly int capacity;
-        private readonly LinkedList<bool> shiftList;
+        private readonly LinkedList<bool> bitLinkedList;
     }
 }

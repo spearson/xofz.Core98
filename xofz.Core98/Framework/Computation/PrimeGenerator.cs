@@ -42,13 +42,13 @@
         {
             this.tester = tester;
 
-            if (finiteSet is LinkedListLot<long> set)
+            if (finiteSet is LinkedListLot<long> ll)
             {
-                this.currentSet = set;
+                this.currentLinkedList = ll;
                 return;
             }
 
-            this.currentSet = new LinkedListLot<long>(
+            this.currentLinkedList = new LinkedListLot<long>(
                 finiteSet);
         }
 
@@ -57,10 +57,10 @@
             LinkedListLot<long> currentSet)
         {
             this.tester = tester;
-            this.currentSet = currentSet;
+            this.currentLinkedList = currentSet;
         }
 
-        public Lot<long> CurrentSet => this.currentSet;
+        public virtual Lot<long> CurrentSet => this.currentLinkedList;
 
         public virtual long NextPrime()
         {
@@ -69,7 +69,7 @@
 
         public virtual IEnumerable<long> Generate()
         {
-            IEnumerable<long> source = this.currentSet;
+            IEnumerable<long> source = this.currentLinkedList;
             foreach (var prime in source)
             {
                 yield return prime;
@@ -81,9 +81,9 @@
             }
         }
 
-        private long collectPrime()
+        protected virtual long collectPrime()
         {
-            var ll = this.currentSet;
+            var ll = this.currentLinkedList;
             ll.AddLast(ll.Last.Value + 2);
             while (!this.tester.RelativelyPrime(ll, true))
             {
@@ -95,7 +95,7 @@
             return ll.Last.Value;
         }
 
-        private readonly LinkedListLot<long> currentSet;
-        private readonly PrimeTester tester;
+        protected readonly LinkedListLot<long> currentLinkedList;
+        protected readonly PrimeTester tester;
     }
 }
