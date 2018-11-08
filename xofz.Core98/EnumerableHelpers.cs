@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
-    using System.Runtime.InteropServices;
 
     public static class EnumerableHelpers
     {
@@ -152,10 +151,14 @@
                 yield break;
             }
 
-            var currentIndex = 0;
+            long currentIndex = 0;
             foreach (var item in source)
             {
-                ++currentIndex;
+                checked
+                {
+                    ++currentIndex;
+                }
+                
                 if (currentIndex > skipCount)
                 {
                     yield return item;
@@ -177,7 +180,7 @@
                 yield break;
             }
 
-            var takeCounter = 0;
+            long takeCounter = 0;
             foreach (var item in source)
             {
                 ++takeCounter;
@@ -217,7 +220,7 @@
 
         public static IEnumerable<T> TakeWhile<T>(
             IEnumerable<T> source,
-            Gen<T, int, bool> predicateWithIndex)
+            Gen<T, long, bool> predicateWithIndex)
         {
             if (source == null)
             {
@@ -229,7 +232,7 @@
                 yield break;
             }
 
-            var index = 0;
+            long index = 0;
             foreach (var item in source)
             {
                 if (!predicateWithIndex(item, index))
@@ -605,7 +608,10 @@
             
             foreach (var item in source)
             {
-                ++count;
+                checked
+                {
+                    ++count;
+                }                
             }
 
             return count;
@@ -625,7 +631,10 @@
             {
                 if (predicate(item))
                 {
-                    ++count;
+                    checked
+                    {
+                        ++count;
+                    }                    
                 }
             }
 
@@ -643,7 +652,10 @@
             
             foreach (var item in source)
             {
-                ++count;
+                checked
+                {
+                    ++count;
+                }                
             }
 
             return count;
@@ -663,7 +675,10 @@
             {
                 if (predicate(item))
                 {
-                    ++count;
+                    checked
+                    {
+                        ++count;
+                    }                    
                 }
             }
 
