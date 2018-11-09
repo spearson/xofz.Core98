@@ -56,6 +56,11 @@
             {
                 var eg = this.entriesGrid;
                 eg.Rows.Clear();
+                if (value == null)
+                {
+                    return;
+                }
+
                 foreach (var entry in value)
                 {
                     eg.Rows.Add(entry.Item1, entry.Item2, entry.Item3);
