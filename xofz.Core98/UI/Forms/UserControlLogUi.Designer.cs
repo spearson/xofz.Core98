@@ -328,7 +328,6 @@
             // 
             // previousWeekKey
             // 
-            this.previousWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.previousWeekKey.AutoSize = true;
             this.previousWeekKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.previousWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
@@ -364,7 +363,8 @@
             // 
             // currentWeekKey
             // 
-            this.currentWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.currentWeekKey.AutoSize = true;
             this.currentWeekKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.currentWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
