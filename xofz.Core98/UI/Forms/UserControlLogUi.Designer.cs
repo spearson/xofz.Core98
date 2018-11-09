@@ -50,6 +50,9 @@
             this.resetContentKey = new System.Windows.Forms.Button();
             this.resetTypeKey = new System.Windows.Forms.Button();
             this.clearKey = new System.Windows.Forms.Button();
+            this.previousWeekKey = new System.Windows.Forms.Button();
+            this.nextWeekKey = new System.Windows.Forms.Button();
+            this.currentWeekKey = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.entriesGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,13 +122,13 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.entriesGrid.DefaultCellStyle = dataGridViewCellStyle3;
-            this.entriesGrid.Location = new System.Drawing.Point(0, 246);
+            this.entriesGrid.Location = new System.Drawing.Point(0, 278);
             this.entriesGrid.Margin = new System.Windows.Forms.Padding(0);
             this.entriesGrid.Name = "entriesGrid";
             this.entriesGrid.ReadOnly = true;
             this.entriesGrid.RowHeadersVisible = false;
             this.entriesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.entriesGrid.Size = new System.Drawing.Size(600, 254);
+            this.entriesGrid.Size = new System.Drawing.Size(600, 222);
             this.entriesGrid.TabIndex = 4;
             // 
             // timestampColumn
@@ -162,11 +165,11 @@
             this.addKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.addKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.addKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addKey.Location = new System.Drawing.Point(228, 150);
             this.addKey.Margin = new System.Windows.Forms.Padding(0);
             this.addKey.Name = "addKey";
-            this.addKey.Size = new System.Drawing.Size(100, 32);
+            this.addKey.Size = new System.Drawing.Size(102, 31);
             this.addKey.TabIndex = 5;
             this.addKey.Text = "Add Entry";
             this.addKey.UseVisualStyleBackColor = true;
@@ -181,13 +184,13 @@
             this.downKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.downKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.downKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.downKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downKey.Location = new System.Drawing.Point(321, 20);
+            this.downKey.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downKey.Location = new System.Drawing.Point(322, 21);
             this.downKey.Margin = new System.Windows.Forms.Padding(0);
             this.downKey.Name = "downKey";
-            this.downKey.Size = new System.Drawing.Size(52, 54);
+            this.downKey.Size = new System.Drawing.Size(51, 55);
             this.downKey.TabIndex = 6;
-            this.downKey.Text = "\\/";
+            this.downKey.Text = "_";
             this.downKey.UseVisualStyleBackColor = true;
             this.downKey.Click += new System.EventHandler(this.downKey_Click);
             // 
@@ -200,11 +203,11 @@
             this.upKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.upKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.upKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.upKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.upKey.Font = new System.Drawing.Font("Consolas", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.upKey.Location = new System.Drawing.Point(228, 20);
             this.upKey.Margin = new System.Windows.Forms.Padding(0);
             this.upKey.Name = "upKey";
-            this.upKey.Size = new System.Drawing.Size(48, 54);
+            this.upKey.Size = new System.Drawing.Size(51, 55);
             this.upKey.TabIndex = 7;
             this.upKey.Text = "^";
             this.upKey.UseVisualStyleBackColor = true;
@@ -219,11 +222,11 @@
             this.statisticsKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.statisticsKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.statisticsKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.statisticsKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statisticsKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statisticsKey.Location = new System.Drawing.Point(228, 112);
             this.statisticsKey.Margin = new System.Windows.Forms.Padding(0);
             this.statisticsKey.Name = "statisticsKey";
-            this.statisticsKey.Size = new System.Drawing.Size(96, 32);
+            this.statisticsKey.Size = new System.Drawing.Size(111, 31);
             this.statisticsKey.TabIndex = 8;
             this.statisticsKey.Text = "Statistics";
             this.statisticsKey.UseVisualStyleBackColor = true;
@@ -233,7 +236,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 188);
+            this.label3.Location = new System.Drawing.Point(3, 220);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 20);
             this.label3.TabIndex = 9;
@@ -243,7 +246,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(29, 220);
+            this.label4.Location = new System.Drawing.Point(29, 252);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 20);
             this.label4.TabIndex = 10;
@@ -252,7 +255,7 @@
             // filterTypeTextBox
             // 
             this.filterTypeTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterTypeTextBox.Location = new System.Drawing.Point(158, 217);
+            this.filterTypeTextBox.Location = new System.Drawing.Point(158, 249);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
             this.filterTypeTextBox.Size = new System.Drawing.Size(204, 26);
             this.filterTypeTextBox.TabIndex = 1;
@@ -263,9 +266,9 @@
             this.filterContentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filterContentTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterContentTextBox.Location = new System.Drawing.Point(158, 185);
+            this.filterContentTextBox.Location = new System.Drawing.Point(158, 217);
             this.filterContentTextBox.Name = "filterContentTextBox";
-            this.filterContentTextBox.Size = new System.Drawing.Size(370, 26);
+            this.filterContentTextBox.Size = new System.Drawing.Size(373, 26);
             this.filterContentTextBox.TabIndex = 0;
             this.filterContentTextBox.TextChanged += new System.EventHandler(this.filterContentTextBox_TextChanged);
             // 
@@ -277,11 +280,11 @@
             this.resetContentKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.resetContentKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.resetContentKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resetContentKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetContentKey.Location = new System.Drawing.Point(531, 182);
+            this.resetContentKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetContentKey.Location = new System.Drawing.Point(534, 214);
             this.resetContentKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetContentKey.Name = "resetContentKey";
-            this.resetContentKey.Size = new System.Drawing.Size(69, 32);
+            this.resetContentKey.Size = new System.Drawing.Size(66, 31);
             this.resetContentKey.TabIndex = 13;
             this.resetContentKey.Text = "Reset";
             this.resetContentKey.UseVisualStyleBackColor = true;
@@ -294,11 +297,11 @@
             this.resetTypeKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.resetTypeKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.resetTypeKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.resetTypeKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetTypeKey.Location = new System.Drawing.Point(365, 214);
+            this.resetTypeKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.resetTypeKey.Location = new System.Drawing.Point(365, 246);
             this.resetTypeKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetTypeKey.Name = "resetTypeKey";
-            this.resetTypeKey.Size = new System.Drawing.Size(69, 32);
+            this.resetTypeKey.Size = new System.Drawing.Size(66, 31);
             this.resetTypeKey.TabIndex = 14;
             this.resetTypeKey.Text = "Reset";
             this.resetTypeKey.UseVisualStyleBackColor = true;
@@ -313,19 +316,76 @@
             this.clearKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.clearKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.clearKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clearKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clearKey.Location = new System.Drawing.Point(228, 76);
             this.clearKey.Margin = new System.Windows.Forms.Padding(0);
             this.clearKey.Name = "clearKey";
-            this.clearKey.Size = new System.Drawing.Size(98, 32);
+            this.clearKey.Size = new System.Drawing.Size(102, 31);
             this.clearKey.TabIndex = 17;
             this.clearKey.Text = "Clear Log";
             this.clearKey.UseVisualStyleBackColor = true;
             this.clearKey.Click += new System.EventHandler(this.clearKey_Click);
             // 
+            // previousWeekKey
+            // 
+            this.previousWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.previousWeekKey.AutoSize = true;
+            this.previousWeekKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.previousWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.previousWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.previousWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.previousWeekKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.previousWeekKey.Location = new System.Drawing.Point(63, 183);
+            this.previousWeekKey.Margin = new System.Windows.Forms.Padding(0);
+            this.previousWeekKey.Name = "previousWeekKey";
+            this.previousWeekKey.Size = new System.Drawing.Size(165, 31);
+            this.previousWeekKey.TabIndex = 18;
+            this.previousWeekKey.Text = "<< Previous Week";
+            this.previousWeekKey.UseVisualStyleBackColor = true;
+            this.previousWeekKey.Click += new System.EventHandler(this.previousWeekKey_Click);
+            // 
+            // nextWeekKey
+            // 
+            this.nextWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nextWeekKey.AutoSize = true;
+            this.nextWeekKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.nextWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.nextWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.nextWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.nextWeekKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextWeekKey.Location = new System.Drawing.Point(373, 183);
+            this.nextWeekKey.Margin = new System.Windows.Forms.Padding(0);
+            this.nextWeekKey.Name = "nextWeekKey";
+            this.nextWeekKey.Size = new System.Drawing.Size(129, 31);
+            this.nextWeekKey.TabIndex = 19;
+            this.nextWeekKey.Text = "Next Week >>";
+            this.nextWeekKey.UseVisualStyleBackColor = true;
+            this.nextWeekKey.Click += new System.EventHandler(this.nextWeekKey_Click);
+            // 
+            // currentWeekKey
+            // 
+            this.currentWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentWeekKey.AutoSize = true;
+            this.currentWeekKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.currentWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.currentWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.currentWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.currentWeekKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentWeekKey.Location = new System.Drawing.Point(255, 183);
+            this.currentWeekKey.Margin = new System.Windows.Forms.Padding(0);
+            this.currentWeekKey.Name = "currentWeekKey";
+            this.currentWeekKey.Size = new System.Drawing.Size(84, 31);
+            this.currentWeekKey.TabIndex = 20;
+            this.currentWeekKey.Text = "Current";
+            this.currentWeekKey.UseVisualStyleBackColor = true;
+            this.currentWeekKey.Click += new System.EventHandler(this.currentWeekKey_Click);
+            // 
             // UserControlLogUi
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.currentWeekKey);
+            this.Controls.Add(this.nextWeekKey);
+            this.Controls.Add(this.previousWeekKey);
             this.Controls.Add(this.clearKey);
             this.Controls.Add(this.resetTypeKey);
             this.Controls.Add(this.resetContentKey);
@@ -371,5 +431,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn timestampColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
+        private System.Windows.Forms.Button previousWeekKey;
+        private System.Windows.Forms.Button nextWeekKey;
+        private System.Windows.Forms.Button currentWeekKey;
     }
 }

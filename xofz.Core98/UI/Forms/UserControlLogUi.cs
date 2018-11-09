@@ -242,6 +242,106 @@
             fttb.Focus();
         }
 
+        private void nextWeekKey_Click(
+            object sender, 
+            EventArgs e)
+        {
+            var sdp = this.startDatePicker;
+            var newStartDate = sdp.SelectionStart.AddDays(7);
+
+            sdp.DateSelected -= this.startDatePicker_DateSelected;            
+            sdp.SelectionStart = newStartDate;
+            sdp.SelectionEnd = newStartDate;
+            sdp.DateSelected += this.startDatePicker_DateSelected;
+
+
+            var edp = this.endDatePicker;
+            var newEndDate = edp.SelectionStart.AddDays(7);
+
+            edp.DateSelected -= this.endDatePicker_DateSelected;            
+            edp.SelectionStart = newEndDate;
+            edp.SelectionEnd = newEndDate;
+            edp.DateSelected += this.endDatePicker_DateSelected;
+
+            var sdc = this.StartDateChanged;
+            if (sdc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
+                return;
+            }
+
+            var edc = this.EndDateChanged;
+            if (edc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
+            }
+        }
+
+        private void previousWeekKey_Click(
+            object sender, 
+            EventArgs e)
+        {
+            var sdp = this.startDatePicker;
+            var newStartDate = sdp.SelectionStart.AddDays(-7);
+
+            sdp.DateSelected -= this.startDatePicker_DateSelected;
+            sdp.SelectionStart = newStartDate;
+            sdp.SelectionEnd = newStartDate;
+            sdp.DateSelected += this.startDatePicker_DateSelected;
+
+
+            var edp = this.endDatePicker;
+            var newEndDate = edp.SelectionStart.AddDays(-7);
+
+            edp.DateSelected -= this.endDatePicker_DateSelected;
+            edp.SelectionStart = newEndDate;
+            edp.SelectionEnd = newEndDate;
+            edp.DateSelected += this.endDatePicker_DateSelected;
+
+            var sdc = this.StartDateChanged;
+            if (sdc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
+                return;
+            }
+
+            var edc = this.EndDateChanged;
+            if (edc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
+            }
+        }
+
+        private void currentWeekKey_Click(object sender, EventArgs e)
+        {
+            var edp = this.endDatePicker;
+            var newEndDate = DateTime.Today;
+            edp.DateSelected -= this.endDatePicker_DateSelected;
+            edp.SelectionStart = newEndDate;
+            edp.SelectionEnd = newEndDate;
+            edp.DateSelected += this.endDatePicker_DateSelected;
+
+            var sdp = this.startDatePicker;
+            var newStartDate = newEndDate.AddDays(-7);
+            sdp.DateSelected -= this.startDatePicker_DateSelected;
+            sdp.SelectionStart = newStartDate;
+            sdp.SelectionEnd = newStartDate;
+            sdp.DateSelected += this.startDatePicker_DateSelected;            
+
+            var sdc = this.StartDateChanged;
+            if (sdc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
+                return;
+            }
+
+            var edc = this.EndDateChanged;
+            if (edc != null)
+            {
+                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
+            }
+        }
+
         private TextBox activeFilterTextBox;
     }
 }
