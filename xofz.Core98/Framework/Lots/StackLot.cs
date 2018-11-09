@@ -17,62 +17,74 @@
 
         public StackLot(IEnumerable<T> finiteSource)
         {
+            if (finiteSource == null)
+            {
+                this.stack = new Stack<T>();
+                return;
+            }
+
+            var s = finiteSource as Stack<T>;
+            if (s != null)
+            {
+                this.stack = s;
+                return;
+            }
+
             this.stack = new Stack<T>(finiteSource);
         }
 
-        public StackLot(Stack<T> stack)
-        {
-            this.stack = stack;
-        }
+        public virtual long Count => this.stack.Count;
 
-        public long Count => this.stack.Count;
-
-        public IEnumerator<T> GetEnumerator()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return this.stack.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            IEnumerable<T> source = this;
+
+            return source.GetEnumerator();
         }
 
-        public T[] ToArray()
+        public virtual T[] ToArray()
         {
             return this.stack.ToArray();
         }
 
-        public T Peek()
+        public virtual T Peek()
         {
             return this.stack.Peek();
         }
 
-        public T Pop()
+        public virtual T Pop()
         {
             return this.stack.Pop();
         }
 
-        public bool Contains(T item)
+        public virtual bool Contains(T item)
         {
-            return this.stack.Contains(item);
+            return EnumerableHelpers.Contains(
+                this.stack,
+                item);
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             this.stack.Clear();
         }
 
-        public void CopyTo(T[] array)
+        public virtual void CopyTo(T[] array)
         {
             this.stack.CopyTo(array, 0);
         }
 
-        public void Push(T item)
+        public virtual void Push(T item)
         {
             this.stack.Push(item);
         }
 
-        public void TrimExcess()
+        public virtual void TrimExcess()
         {
             this.stack.TrimExcess();
         }

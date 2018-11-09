@@ -8,12 +8,18 @@
     {
         public ArrayLot(T[] array)
         {
+            if (array == null)
+            {
+                this.array = new T[0];
+                return;
+            }
+
             this.array = array;
         }
 
-        public long Count => this.array.Length;
+        public virtual long Count => this.array.Length;
 
-        public T this[int index]
+        public virtual T this[int index]
         {
             get => this.array[index];
 
@@ -37,7 +43,7 @@
                 item);
         }
 
-        public void CopyTo(T[] array)
+        public virtual void CopyTo(T[] array)
         {
             Array.Copy(this.array, array, array.Length);
         }

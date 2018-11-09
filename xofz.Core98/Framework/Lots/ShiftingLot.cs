@@ -7,7 +7,15 @@
     {
         public ShiftingLot(int capacity)
         {
+            if (capacity < 0)
+            {
+                this.capacity = 0;
+                goto setLinkedList;
+            }
+
             this.capacity = capacity;
+
+            setLinkedList:
             this.linkedList = new LinkedList<T>();
         }
 
@@ -15,16 +23,17 @@
 
         public virtual int CurrentSize => this.linkedList.Count;
 
-        public long Count => this.CurrentSize;
+        public virtual long Count => this.CurrentSize;
 
-        public IEnumerator<T> GetEnumerator()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return this.linkedList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            IEnumerable<T> source = this;
+            return source.GetEnumerator();
         }
 
         public virtual void ShiftRight(T input)
@@ -59,12 +68,12 @@
             this.setCurrentArray(array);
         }
 
-        private void setCurrentArray(T[] currentArray)
+        protected virtual void setCurrentArray(T[] currentArray)
         {
             this.currentArray = currentArray;
         }
 
-        private T[] currentArray;
+        protected T[] currentArray;
         private readonly int capacity;
         private readonly LinkedList<T> linkedList;
     }

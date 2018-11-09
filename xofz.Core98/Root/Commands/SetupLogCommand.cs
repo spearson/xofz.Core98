@@ -202,10 +202,20 @@
                     this.eventLogSourceName),
                 this.logDependencyName);
 
-            finish:
-            w.RegisterDependency(
-                new LinkedListLotter(),
+        finish:
+            var lotterRegistered = false;
+            w.Run<Lotter>(lotter =>
+                {
+                    lotterRegistered = true;
+                },
                 "LogLotter");
+            if (!lotterRegistered)
+            {
+                w.RegisterDependency(
+                    new LinkedListLotter(),
+                    "LogLotter");
+            }
+            
             var se = this.statisticsEnabled;
             w.RegisterDependency(
                 new LogSettings

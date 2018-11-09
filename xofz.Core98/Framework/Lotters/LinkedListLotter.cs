@@ -8,8 +8,7 @@
         Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> source)
         {
-            return new LinkedListLot<T>(
-                new LinkedList<T>(source));
+            return new LinkedListLot<T>(source);
         }
     }
 }

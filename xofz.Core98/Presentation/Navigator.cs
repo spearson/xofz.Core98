@@ -188,12 +188,11 @@
 
             foreach (var p in matchingPresenters)
             {
-                if (!(p is NamedPresenter))
+                if (!(p is NamedPresenter np))
                 {
                     continue;
                 }
 
-                var np = (NamedPresenter)p;
                 if (np.Name == presenterName)
                 {
                     return this.getUi<TUi>(

@@ -42,6 +42,15 @@
         {
             this.tester = tester;
 
+            if (finiteSet == null)
+            {
+                finiteSet = new LinkedListLot<long>(
+                    new long[]
+                    {
+                        2, 3
+                    });
+            }
+
             if (finiteSet is LinkedListLot<long> ll)
             {
                 this.currentLinkedList = ll;
@@ -50,14 +59,6 @@
 
             this.currentLinkedList = new LinkedListLot<long>(
                 finiteSet);
-        }
-
-        public PrimeGenerator(
-            PrimeTester tester,
-            LinkedListLot<long> currentSet)
-        {
-            this.tester = tester;
-            this.currentLinkedList = currentSet;
         }
 
         public virtual Lot<long> CurrentSet => this.currentLinkedList;

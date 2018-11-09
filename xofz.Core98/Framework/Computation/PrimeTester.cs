@@ -10,36 +10,20 @@
             IEnumerable<long> finiteSource,
             bool onlyCheckLast)
         {
-            return this.RelativelyPrime(
-                new LinkedListLot<long>(
-                    finiteSource),
-                onlyCheckLast);
-        }
+            if (finiteSource == null)
+            {
+                return true;
+            }
 
-        public virtual bool RelativelyPrime(
-            ICollection<long> collection,
-            bool onlyCheckLast)
-        {
-            var ll = collection as LinkedList<long>;
-            if (ll != null)
+            if (finiteSource is Lot<long> lot)
             {
                 return this.RelativelyPrime(
-                    ll, 
-                    onlyCheckLast);
+                    lot, onlyCheckLast);
             }
 
             return this.RelativelyPrime(
                 new LinkedListLot<long>(
-                    collection),
-                onlyCheckLast);
-        }
-
-        public virtual bool RelativelyPrime(
-            LinkedList<long> ll,
-            bool onlyCheckLast)
-        {
-            return this.RelativelyPrime(
-                new LinkedListLot<long>(ll),
+                    finiteSource),
                 onlyCheckLast);
         }
 

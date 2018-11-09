@@ -12,83 +12,94 @@
         {
         }
 
-        public ListLot(int capacity)
-            : this(new List<T>(capacity))
+        public ListLot(
+            int capacity)
         {
+            this.list = new List<T>(capacity);
         }
 
-        public ListLot(IEnumerable<T> source)
-            : this(new List<T>(source))
+        public ListLot(
+            IEnumerable<T> finiteSource)
         {
+            if (finiteSource == null)
+            {
+                this.list = new List<T>();
+                return;
+            }
+
+            var l = finiteSource as List<T>;
+            if (l != null)
+            {
+                this.list = l;
+                return;
+            }
+
+            this.list = new List<T>(finiteSource);
         }
 
-        public ListLot(List<T> list)
-        {
-            this.list = list ?? throw new ArgumentNullException(nameof(list));
-        }
+        public virtual long Count => this.list.Count;
 
-        public long Count => this.list.Count;
+        public virtual long Capacity => this.list.Capacity;
 
-        public long Capacity => this.list.Capacity;
-
-        public T this[int index]
+        public virtual T this[int index]
         {
             get => this.list[index];
 
             set => this.list[index] = value;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return this.list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            IEnumerable<T> source = this;
+            return source.GetEnumerator();
         }
 
-        public void CopyTo(T[] array)
+        public virtual void CopyTo(T[] array)
         {
             this.list.CopyTo(array);
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public virtual void CopyTo(T[] array, int arrayIndex)
         {
             this.list.CopyTo(array, arrayIndex);
         }
 
-        public void CopyTo(int index, T[] array, int arrayIndex, int count)
+        public virtual void CopyTo(int index, T[] array, int arrayIndex, int count)
         {
             this.list.CopyTo(index, array, arrayIndex, count);
         }
 
-        public void Add(T item)
+        public virtual void Add(T item)
         {
             this.list.Add(item);
         }
 
-        public void AddRange(IEnumerable<T> collection)
+        public virtual void AddRange(IEnumerable<T> collection)
         {
             this.list.AddRange(collection);
         }
 
-        public ReadOnlyCollection<T> AsReadOnly()
+        public virtual ReadOnlyCollection<T> AsReadOnly()
         {
             return this.list.AsReadOnly();
         }
 
-        public int BinarySearch(T item)
+        public virtual int BinarySearch(T item)
         {
             return this.list.BinarySearch(item);
         }
 
-        public int BinarySearch(T item, IComparer<T> comparer)
+        public virtual int BinarySearch(T item, IComparer<T> comparer)
         {
             return this.list.BinarySearch(item, comparer);
         }
 
-        public int BinarySearch(
+        public virtual int BinarySearch(
             int index,
             int count,
             T item,
@@ -97,183 +108,183 @@
             return this.list.BinarySearch(index, count, item, comparer);
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             this.list.Clear();
         }
 
-        public bool Contains(T item)
+        public virtual bool Contains(T item)
         {
             return this.list.Contains(item);
         }
 
-        public List<TOutput> ConvertAll<TOutput>(
+        public virtual List<TOutput> ConvertAll<TOutput>(
             Converter<T, TOutput> converter)
         {
             return this.list.ConvertAll(converter);
         }
 
-        public bool Exists(Predicate<T> match)
+        public virtual bool Exists(Predicate<T> match)
         {
             return this.list.Exists(match);
         }
 
-        public T Find(Predicate<T> match)
+        public virtual T Find(Predicate<T> match)
         {
             return this.list.Find(match);
         }
 
-        public List<T> FindAll(Predicate<T> match)
+        public virtual List<T> FindAll(Predicate<T> match)
         {
             return this.list.FindAll(match);
         }
 
-        public int FindIndex(Predicate<T> match)
+        public virtual int FindIndex(Predicate<T> match)
         {
             return this.list.FindIndex(match);
         }
 
-        public int FindIndex(int startIndex, Predicate<T> match)
+        public virtual int FindIndex(int startIndex, Predicate<T> match)
         {
             return this.list.FindIndex(startIndex, match);
         }
 
-        public int FindIndex(int startIndex, int count, Predicate<T> match)
+        public virtual int FindIndex(int startIndex, int count, Predicate<T> match)
         {
             return this.list.FindIndex(startIndex, count, match);
         }
 
-        public T FindLast(Predicate<T> match)
+        public virtual T FindLast(Predicate<T> match)
         {
             return this.list.FindLast(match);
         }
 
-        public int FindLastIndex(Predicate<T> match)
+        public virtual int FindLastIndex(Predicate<T> match)
         {
             return this.list.FindLastIndex(match);
         }
 
-        public int FindLastIndex(int startIndex, Predicate<T> match)
+        public virtual int FindLastIndex(int startIndex, Predicate<T> match)
         {
             return this.list.FindLastIndex(startIndex, match);
         }
 
-        public int FindLastIndex(int startIndex, int count, Predicate<T> match)
+        public virtual int FindLastIndex(int startIndex, int count, Predicate<T> match)
         {
             return this.list.FindLastIndex(startIndex, count, match);
         }
 
-        public void ForEach(Action<T> action)
+        public virtual void ForEach(Action<T> action)
         {
             this.list.ForEach(action);
         }
 
-        public List<T> GetRange(int index, int count)
+        public virtual List<T> GetRange(int index, int count)
         {
             return this.list.GetRange(index, count);
         }
 
-        public int IndexOf(T item)
+        public virtual int IndexOf(T item)
         {
             return this.list.IndexOf(item);
         }
 
-        public int IndexOf(T item, int index)
+        public virtual int IndexOf(T item, int index)
         {
             return this.list.IndexOf(item, index);
         }
 
-        public int IndexOf(T item, int index, int count)
+        public virtual int IndexOf(T item, int index, int count)
         {
             return this.list.IndexOf(item, index, count);
         }
 
-        public void Insert(int index, T item)
+        public virtual void Insert(int index, T item)
         {
             this.list.Insert(index, item);
         }
 
-        public void InsertRange(int index, IEnumerable<T> collection)
+        public virtual void InsertRange(int index, IEnumerable<T> collection)
         {
             this.list.InsertRange(index, collection);
         }
 
-        public bool Remove(T item)
+        public virtual bool Remove(T item)
         {
             return this.list.Remove(item);
         }
 
-        public int RemoveAll(Predicate<T> match)
+        public virtual int RemoveAll(Predicate<T> match)
         {
             return this.list.RemoveAll(match);
         }
 
-        public void RemoveAt(int index)
+        public virtual void RemoveAt(int index)
         {
             this.list.RemoveAt(index);
         }
 
-        public void RemoveRange(int index, int count)
+        public virtual void RemoveRange(int index, int count)
         {
             this.list.RemoveRange(index, count);
         }
 
-        public void Reverse()
+        public virtual void Reverse()
         {
             this.list.Reverse();
         }
 
-        public void Reverse(int index, int count)
+        public virtual void Reverse(int index, int count)
         {
             this.list.Reverse(index, count);
         }
 
-        public void Sort()
+        public virtual void Sort()
         {
             this.list.Sort();
         }
 
-        public void Sort(IComparer<T> comparer)
+        public virtual void Sort(IComparer<T> comparer)
         {
             this.list.Sort(comparer);
         }
 
-        public void Sort(Comparison<T> comparison)
+        public virtual void Sort(Comparison<T> comparison)
         {
             this.list.Sort(comparison);
         }
 
-        public void Sort(int index, int count, IComparer<T> comparer)
+        public virtual void Sort(int index, int count, IComparer<T> comparer)
         {
             this.list.Sort(index, count, comparer);
         }
 
-        public T[] ToArray()
+        public virtual T[] ToArray()
         {
             return this.list.ToArray();
         }
 
-        public void TrimExcess()
+        public virtual void TrimExcess()
         {
             this.list.TrimExcess();
         }
 
-        public int LastIndexOf(T item)
+        public virtual int LastIndexOf(T item)
         {
             return this.list.LastIndexOf(item);
         }
 
-        public int LastIndexOf(T item, int index)
+        public virtual int LastIndexOf(T item, int index)
         {
             return this.list.LastIndexOf(item, index);
         }
 
-        public int LastIndexOf(T item, int index, int count)
+        public virtual int LastIndexOf(T item, int index, int count)
         {
             return this.list.LastIndexOf(item, index, count);
         }
 
-        public bool TrueForAll(Predicate<T> match)
+        public virtual bool TrueForAll(Predicate<T> match)
         {
             return this.list.TrueForAll(match);
         }
