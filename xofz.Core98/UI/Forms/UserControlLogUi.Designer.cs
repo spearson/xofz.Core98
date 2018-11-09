@@ -254,6 +254,8 @@
             // 
             // filterTypeTextBox
             // 
+            this.filterTypeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.filterTypeTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filterTypeTextBox.Location = new System.Drawing.Point(158, 249);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
@@ -292,6 +294,7 @@
             // 
             // resetTypeKey
             // 
+            this.resetTypeKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.resetTypeKey.AutoSize = true;
             this.resetTypeKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.resetTypeKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
