@@ -6,10 +6,10 @@
     public class EnumerableSplitter
     {
         public virtual Lot<T>[] Split<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             int splits)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new Lot<T>[0];
             }
@@ -18,7 +18,7 @@
             {
                 return new Lot<T>[]
                 {
-                    new LinkedListLot<T>(source)
+                    new LinkedListLot<T>(finiteSource)
                 };
             }
 
@@ -28,7 +28,7 @@
                 array[i] = new LinkedListLot<T>();
             }
 
-            var enumerator = source.GetEnumerator();
+            var enumerator = finiteSource.GetEnumerator();
             if (enumerator == null)
             {
                 return new Lot<T>[0];

@@ -194,7 +194,7 @@
             }
 
             [Fact]
-            public void Returns_a_Tuple_of_defaults_if_either_dependency_is_missing()
+            public void Returns_a_tuple_containing_found_dependencies_if_one_is_missing()
             {
                 var dep1 = A.Fake<SampleDependencyContract>();
                 var w = this.web;
@@ -202,12 +202,12 @@
 
                 var result = w.Run<SampleDependencyContract, AnotherDependency>();
 
+                Assert.Same(
+                    dep1,
+                    result.Item1);
                 Assert.Equal(
-                    result.Item1,
-                    default(SampleDependencyContract));
-                Assert.Equal(
-                    result.Item2,
-                    default(AnotherDependency));
+                    default(AnotherDependency),
+                    result.Item2);
             }
 
             [Fact]

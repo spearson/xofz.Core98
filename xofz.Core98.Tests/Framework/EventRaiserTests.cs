@@ -66,24 +66,21 @@
             public void Supports_multiple_levels_of_inheritance()
             {
                 var er = this.eventRaiser;
+
                 var raised = false;
                 var te3 = new TE3();
                 te3.AnEvent += () => raised = true;
-
                 er.Raise(
                     te3,
                     nameof(te3.AnEvent));
-
                 Assert.True(raised);
 
                 raised = false;
                 var te4 = new TE4();
                 te4.AnEvent += () => raised = true;
-
                 er.Raise(
                     te4,
                     nameof(te4.AnEvent));
-
                 Assert.True(raised);
 
             }

@@ -195,6 +195,11 @@
         protected virtual byte getByte(bool[] bits)
         {
             byte result = 0;
+            if (bits == null)
+            {
+                return result;
+            }
+
             var l = bits.Length;
             for (var i = 0; i < 8 && i < l; ++i)
             {

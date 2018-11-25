@@ -29,6 +29,7 @@
             ICollection<T> t = new LinkedList<T>();
             this.setTrapper(t);
             // we can use any type of ICollection<T> here
+            // (that supports adding items)
             var fieldReference = this.trapper;
 
             foreach (var item in source)
@@ -54,6 +55,7 @@
             }
 
             // we can use any type of ICollection<T> here
+            // (that supports adding items)
             var fieldReference = this.trapper;
 
             foreach (var item in source)

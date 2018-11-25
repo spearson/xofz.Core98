@@ -8,9 +8,15 @@
             IEnumerable<T> source, 
             Gen<T, bool> breakCondition)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            var bcIsNull = breakCondition == null;
             foreach (var item in source)
             {
-                if (breakCondition(item))
+                if (!bcIsNull && breakCondition(item))
                 {
                     yield break;
                 }
@@ -23,8 +29,20 @@
             IEnumerable<T> source, 
             params Gen<T, bool>[] breakConditions)
         {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            var bcsAreNull = breakConditions == null;
             foreach (var item in source)
             {
+                if (bcsAreNull)
+                {
+                    yield return item;
+                    continue;
+                }
+
                 foreach (var breakCondition in breakConditions)
                 {
                     if (breakCondition(item))

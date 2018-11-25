@@ -17,14 +17,7 @@
 
             this.executingAssembly = executingAssembly;
         }
-
-        public virtual Version ReadAsVersion(
-            Assembly assembly)
-        {
-            var an = new AssemblyName(assembly.FullName);
-            return an.Version;
-        }
-        
+       
         public virtual string Read()
         {
             var ea = this.executingAssembly;
@@ -47,6 +40,19 @@
         {
             var ea = Assembly.GetExecutingAssembly();
             return this.ReadAsVersion(ea);
+        }
+
+        public virtual string Read(
+            Assembly assembly)
+        {
+            return this.readProtected(assembly);
+        }
+
+        public virtual Version ReadAsVersion(
+            Assembly assembly)
+        {
+            var an = new AssemblyName(assembly.FullName);
+            return an.Version;
         }
 
         protected virtual string readProtected(Assembly assembly)

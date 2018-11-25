@@ -70,7 +70,7 @@
                 }
 
                 Do<ToBeDecorated> decoration
-                    = d => d.Value = f.Create<int>();
+                    = tbd => tbd.Value = f.Create<int>();
                 foreach (var item in this.decorator.Decorate(
                     source,
                     decoration))

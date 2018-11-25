@@ -29,7 +29,8 @@
         {
             return new LinkedList<string>(
                 EnumerableHelpers.Select(
-                    this.readSectionHeaders(this.readLines()),
+                    this.readSectionHeaders(
+                        this.readLines()),
                     header => header.Name));
         }
 
@@ -188,10 +189,20 @@
         {
             ICollection<SectionHeader> sectionHeaders
                 = new LinkedList<SectionHeader>();
+            if (lines == null)
+            {
+                return sectionHeaders;
+            }
+
             var lineNumber = 0;
             foreach (var line in lines)
             {
                 ++lineNumber;
+                if (line == null)
+                {
+                    continue;
+                }
+
                 if (!line.StartsWith("["))
                 {
                     continue;

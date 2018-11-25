@@ -5,14 +5,14 @@
 
     public class EnumerableProjector
     {
-        public virtual T[][] Project2<T>(IEnumerable<T> source)
+        public virtual T[][] Project2<T>(IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new T[0][];
             }
 
-            var queue = new Queue<T>(source);
+            var queue = new Queue<T>(finiteSource);
             var magnitude = (int)(Math.Sqrt(queue.Count) + 1);
             var jagged2 = new T[magnitude][];
             for (var i = 0; i < magnitude; ++i)
@@ -39,14 +39,14 @@
             return jagged2;
         }
 
-        public virtual T[][][] Project3<T>(IEnumerable<T> source)
+        public virtual T[][][] Project3<T>(IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new T[0][][];
             }
 
-            var queue = new Queue<T>(source);
+            var queue = new Queue<T>(finiteSource);
             var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)3) + 1);
             var jagged3 = new T[magnitude][][];
             for (var i = 0; i < magnitude; ++i)
@@ -85,14 +85,14 @@
             return jagged3;
         }
 
-        public virtual T[][][][] Project4<T>(IEnumerable<T> source)
+        public virtual T[][][][] Project4<T>(IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new T[0][][][];
             }
 
-            var queue = new Queue<T>(source);
+            var queue = new Queue<T>(finiteSource);
             var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)4) + 1);
             var jagged4 = new T[magnitude][][][];
             for (var i = 0; i < magnitude; ++i)
