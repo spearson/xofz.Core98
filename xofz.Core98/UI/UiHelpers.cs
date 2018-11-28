@@ -6,17 +6,29 @@
             Ui ui,
             Gen<T> read)
         {
-            var value = default(T);
-            var r = ui.Root;
-            if (r == null)
+            if (read == null)
             {
-                return value;
+                return default(T);
             }
 
-            if (r.InvokeRequired)
+            var root = ui?.Root;
+            if (root == null)
             {
-                r.Invoke((Do)(() => value = read()), new object[0]);
-                return value;
+                try
+                {
+                    return read();
+                }
+                catch
+                {
+                    return default(T);
+                }
+            }
+
+            if (root.InvokeRequired)
+            {
+                T t = default(T);
+                root.Invoke((Do)(() => t = read()), null);
+                return t;
             }
 
             return read();
@@ -26,15 +38,29 @@
             Ui ui,
             Do write)
         {
-            var r = ui.Root;
-            if (r == null)
+            if (write == null)
             {
                 return;
             }
 
-            if (r.InvokeRequired)
+            var root = ui?.Root;
+            if (root == null)
             {
-                r.BeginInvoke(write, new object[0]);
+                try
+                {
+                    write();
+                }
+                catch
+                {
+                    // swallow
+                }
+
+                return;
+            }
+
+            if (root.InvokeRequired)
+            {
+                root.BeginInvoke(write, null);
                 return;
             }
 
@@ -45,15 +71,29 @@
             Ui ui,
             Do write)
         {
-            var r = ui.Root;
-            if (r == null)
+            if (write == null)
             {
                 return;
             }
 
-            if (r.InvokeRequired)
+            var root = ui?.Root;
+            if (root == null)
             {
-                r.Invoke(write, new object[0]);
+                try
+                {
+                    write();
+                }
+                catch
+                {
+                    // swallow
+                }
+
+                return;
+            }
+
+            if (root.InvokeRequired)
+            {
+                root.Invoke(write, null);
                 return;
             }
 

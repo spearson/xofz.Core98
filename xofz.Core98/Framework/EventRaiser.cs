@@ -10,56 +10,45 @@
             string eventName,
             params object[] args)
         {
-            var d = (Delegate)eventHolder
-                        ?.GetType()
-                        .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
-                        ?.GetValue(eventHolder);
-            if (d != default(Delegate))
-            {
-                d.DynamicInvoke(args);
-                return;
-            }
-            
-            this.internalRaiseBase(
-                eventHolder,
-                eventName,
-                0xFF,
-                args);
-        }
-
-        private void internalRaiseBase(
-            object eventHolder,
-            string eventName,
-            int depth,
-            params object[] args)
-        {
-            if (depth < 1)
-            {
-                return;
-            }
-
             if (eventHolder == null)
             {
                 return;
             }
 
-            Type baseType = null;
             var holderType = eventHolder.GetType();
-            for (var i = 0; i < depth; ++i)
+            if (holderType == null)
             {
-                baseType = baseType?.BaseType ?? holderType.BaseType;
-                var d = (Delegate)baseType
-                    ?.GetField(
-                        eventName,
-                        BindingFlags.Instance |
-                        BindingFlags.NonPublic)
-                    ?.GetValue(eventHolder);
-                if (d != default(Delegate))
-                {
-                    d.DynamicInvoke(args);
-                    return;
-                }
+                return;
             }
+
+            var @event = (Delegate)holderType
+                .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetValue(eventHolder);
+            if (@event == null)
+            {
+                Type baseType = null;
+                for (byte i = 0; i < 0xFF; ++i)
+                {
+                    baseType = baseType?.BaseType ?? holderType.BaseType;
+                    if (baseType == null)
+                    {
+                        break;
+                    }
+
+                    @event = (Delegate)baseType
+                        .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
+                        ?.GetValue(eventHolder);
+                    if (@event != null)
+                    {
+                        goto raise;
+                    }
+                }
+
+                return;
+            }
+
+        raise:
+            @event.DynamicInvoke(args);
         }
     }
 }
