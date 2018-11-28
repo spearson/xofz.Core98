@@ -11,9 +11,9 @@ namespace xofz
             this.Item2 = item2;
         }
 
-        public virtual T Item1 { get; private set; }
+        public virtual T Item1 { get; protected set; }
 
-        public virtual U Item2 { get; private set; }
+        public virtual U Item2 { get; protected set; }
 
         public virtual void AtomicGet(out T item1, out U item2)
         {
@@ -68,7 +68,7 @@ namespace xofz
             return true;
         }
 
-        private int settingOrGettingIf1;
+        protected long settingOrGettingIf1;
     }
 
     public class XTuple<T, U, V>
@@ -83,11 +83,11 @@ namespace xofz
             this.Item3 = item3;
         }
 
-        public virtual T Item1 { get; private set; }
+        public virtual T Item1 { get; protected set; }
 
-        public virtual U Item2 { get; private set; }
+        public virtual U Item2 { get; protected set; }
 
-        public virtual V Item3 { get; private set; }
+        public virtual V Item3 { get; protected set; }
 
         public virtual void AtomicGet(out T item1, out U item2)
         {
@@ -235,7 +235,7 @@ namespace xofz
             return true;
         }
 
-        private int settingOrGettingIf1;
+        protected long settingOrGettingIf1;
     }
 
     public class XTuple<T, U, V, W>
@@ -252,13 +252,13 @@ namespace xofz
             this.Item4 = item4;
         }
 
-        public virtual T Item1 { get; private set; }
+        public virtual T Item1 { get; protected set; }
 
-        public virtual U Item2 { get; private set; }
+        public virtual U Item2 { get; protected set; }
 
-        public virtual V Item3 { get; private set; }
+        public virtual V Item3 { get; protected set; }
 
-        public virtual W Item4 { get; private set; }
+        public virtual W Item4 { get; protected set; }
 
         public virtual void AtomicGet(out T item1, out U item2)
         {
@@ -627,7 +627,7 @@ namespace xofz
             return true;
         }
 
-        private int settingOrGettingIf1;
+        protected long settingOrGettingIf1;
     }
 
     public static class XTuple
