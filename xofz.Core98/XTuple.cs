@@ -51,21 +51,24 @@ namespace xofz
                 return false;
             }
 
-            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
-                              ?? otherTuple.Item1 == null;
-            if (!item1Equals)
+            var ti1 = this.Item1;
+            var oi1 = otherTuple.Item1;
+            if (ti1?.Equals(oi1) ?? oi1 == null)
             {
-                return false;
+                goto checkItem2;
             }
 
-            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
-                              ?? otherTuple.Item2 == null;
-            if (!item2Equals)
+            return false;
+
+            checkItem2:
+            var ti2 = this.Item2;
+            var oi2 = otherTuple.Item2;
+            if (ti2?.Equals(oi2) ?? oi2 == null)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         protected long settingOrGettingIf1;
@@ -211,28 +214,34 @@ namespace xofz
                 return false;
             }
 
-            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
-                              ?? otherTuple.Item1 == null;
-            if (!item1Equals)
+            var ti1 = this.Item1;
+            var oi1 = otherTuple.Item1;
+            if (ti1?.Equals(oi1) ?? oi1 == null)
             {
-                return false;
+                goto checkItem2;
             }
 
-            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
-                              ?? otherTuple.Item2 == null;
-            if (!item2Equals)
+            return false;
+
+            checkItem2:
+            var ti2 = this.Item2;
+            var oi2 = otherTuple.Item2;
+            if (ti2?.Equals(oi2) ?? oi2 == null)
             {
-                return false;
-            }
-            
-            var item3Equals = this.Item3?.Equals(otherTuple.Item3)
-                              ?? otherTuple.Item3 == null;
-            if (!item3Equals)
-            {
-                return false;
+                goto checkItem3;
             }
 
-            return true;
+            return false;
+
+            checkItem3:
+            var ti3 = this.Item3;
+            var oi3 = otherTuple.Item3;
+            if (ti3?.Equals(oi3) ?? oi3 == null)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         protected long settingOrGettingIf1;
@@ -596,35 +605,44 @@ namespace xofz
                 return false;
             }
 
-            var item1Equals = this.Item1?.Equals(otherTuple.Item1)
-                              ?? otherTuple.Item1 == null;
-            if (!item1Equals)
+            var ti1 = this.Item1;
+            var oi1 = otherTuple.Item1;
+            if (ti1?.Equals(oi1) ?? oi1 == null)
             {
-                return false;
+                goto checkItem2;
             }
 
-            var item2Equals = this.Item2?.Equals(otherTuple.Item2)
-                              ?? otherTuple.Item2 == null;
-            if (!item2Equals)
+            return false;
+
+            checkItem2:
+            var ti2 = this.Item2;
+            var oi2 = otherTuple.Item2;
+            if (ti2?.Equals(oi2) ?? oi2 == null)
             {
-                return false;
+                goto checkItem3;
             }
 
-            var item3Equals = this.Item3?.Equals(otherTuple.Item3)
-                              ?? otherTuple.Item3 == null;
-            if (!item3Equals)
+            return false;
+
+            checkItem3:
+            var ti3 = this.Item3;
+            var oi3 = otherTuple.Item3;
+            if (ti3?.Equals(oi3) ?? oi3 == null)
             {
-                return false;
+                goto checkItem4;
             }
 
-            var item4Equals = this.Item4?.Equals(otherTuple.Item4)
-                              ?? otherTuple.Item4 == null;
-            if (!item4Equals)
+            return false;
+
+            checkItem4:
+            var ti4 = this.Item4;
+            var oi4 = otherTuple.Item4;
+            if (ti4?.Equals(oi4) ?? oi4 == null)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         protected long settingOrGettingIf1;
