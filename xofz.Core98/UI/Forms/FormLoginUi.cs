@@ -72,10 +72,15 @@
 
         void PopupUi.Display()
         {
+            var s = this.shell;
             this.Location = new Point(
-                this.shell.Location.X, 
-                this.shell.Location.Y);
-            this.Visible = true;
+                s.Location.X, 
+                s.Location.Y);
+            if (!this.Visible)
+            {
+                this.Show(s);
+            }
+
             var ptb = this.passwordTextBox;
             ptb.Focus();
             ptb.SelectAll();
@@ -153,6 +158,7 @@
                 return;
             }
 
+            this.firstInputKeyPressed = true;
             ThreadPool.QueueUserWorkItem(
                 o => bkt.Invoke());
         }

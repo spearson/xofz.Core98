@@ -1,6 +1,7 @@
 ﻿namespace xofz.Root.Commands
 {
     using xofz.Framework;
+    using xofz.Framework.LogEditor;
     using xofz.Framework.Logging;
     using xofz.Framework.Logging.Logs;
     using xofz.Framework.Lotters;
@@ -232,6 +233,39 @@
                 w.RegisterDependency(
                     new LogStatistics(w),
                     this.logDependencyName);
+            }
+
+            var handlerRegistered = false;
+            w.Run<SetupHandler>(handler =>
+            {
+                handlerRegistered = true;
+            });
+            if (!handlerRegistered)
+            {
+                w.RegisterDependency(
+                    new SetupHandler(w));
+            }
+
+            handlerRegistered = false;
+            w.Run<TypeChangedHandler>(handler =>
+            {
+                handlerRegistered = true;
+            });
+            if (!handlerRegistered)
+            {
+                w.RegisterDependency(
+                    new TypeChangedHandler(w));
+            }
+
+            handlerRegistered = false;
+            w.Run<AddKeyTappedHandler>(handler =>
+            {
+                handlerRegistered = true;
+            });
+            if (!handlerRegistered)
+            {
+                w.RegisterDependency(
+                    new AddKeyTappedHandler(w));
             }
         }
 

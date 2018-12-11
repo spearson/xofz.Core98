@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using xofz.Framework;
+    using xofz.Framework.Login;
     using xofz.Presentation;
     using xofz.UI;
 
@@ -38,16 +39,16 @@
                 .Setup();
         }
 
-        private void registerDependencies()
+        protected virtual void registerDependencies()
         {
             var w = this.web;
             w.RegisterDependency(
                 new xofz.Framework.Timer(),
                 "LoginTimer");
             w.RegisterDependency(
-                new LoginSettings
+                new SettingsHolder
                 {
-                    LoginDuration = this.loginDuration
+                    Duration = this.loginDuration
                 });
             w.RegisterDependency(
                 new LatchHolder
@@ -57,6 +58,22 @@
                 "LoginLatch");
             w.RegisterDependency(
                 new KeyboardLoader());
+            w.RegisterDependency(
+                new SetupHandler(w));
+            w.RegisterDependency(
+                new StartHandler(w));
+            w.RegisterDependency(
+                new StopHandler(w));
+            w.RegisterDependency(
+                new BackspaceKeyTappedHandler(w));
+            w.RegisterDependency(
+                new LoginKeyTappedHandler(w));
+            w.RegisterDependency(
+                new TimerHandler(w));
+            w.RegisterDependency(
+                new AccessLevelChangedHandler(w));
+            w.RegisterDependency(
+                new KeyboardKeyTappedHandler(w));
         }
 
         private readonly LoginUi ui;

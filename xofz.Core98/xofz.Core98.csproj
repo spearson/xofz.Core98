@@ -45,6 +45,18 @@
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
+    <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
+    <Compile Include="Framework\LogEditor\SetupHandler.cs" />
+    <Compile Include="Framework\LogEditor\TypeChangedHandler.cs" />
+    <Compile Include="Framework\Login\AccessLevelChangedHandler.cs" />
+    <Compile Include="Framework\Login\BackspaceKeyTappedHandler.cs" />
+    <Compile Include="Framework\Login\KeyboardKeyTappedHandler.cs" />
+    <Compile Include="Framework\Login\LoginKeyTappedHandler.cs" />
+    <Compile Include="Framework\Login\SettingsHolder.cs" />
+    <Compile Include="Framework\Login\SetupHandler.cs" />
+    <Compile Include="Framework\Login\StartHandler.cs" />
+    <Compile Include="Framework\Login\StopHandler.cs" />
+    <Compile Include="Framework\Login\TimerHandler.cs" />
     <Compile Include="Framework\Lots\ShiftingLot.cs" />
     <Compile Include="Framework\Computation\ShiftRegister.cs" />
     <Compile Include="Delegates.cs" />
@@ -61,7 +73,6 @@
     <Compile Include="Framework\Logging\LogEntry.cs" />
     <Compile Include="Framework\Logging\LogHelpers.cs" />
     <Compile Include="Framework\Logging\LogStatistics.cs" />
-    <Compile Include="Framework\LoginSettings.cs" />
     <Compile Include="Framework\LogSettings.cs" />
     <Compile Include="Framework\MainUiSettings.cs" />
     <Compile Include="Framework\Lots\ArrayLot.cs" />

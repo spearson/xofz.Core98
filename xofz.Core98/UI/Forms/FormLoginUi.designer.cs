@@ -359,7 +359,6 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Log In";
-            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 

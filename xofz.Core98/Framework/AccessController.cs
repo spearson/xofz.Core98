@@ -5,17 +5,20 @@
 
     public class AccessController
     {
-        public AccessController(IDictionary<string, AccessLevel> passwords)
+        public AccessController(
+            IDictionary<string, AccessLevel> passwords)
             : this(passwords, new Timer())
         {
         }
 
-        public AccessController(IEnumerable<string> passwords)
+        public AccessController(
+            IEnumerable<string> passwords)
             : this(passwords, new Timer())
         {
         }
 
-        public AccessController(params string[] passwords)
+        public AccessController(
+            params string[] passwords)
             : this(passwords, new Timer())
         {
         }
@@ -34,7 +37,7 @@
             IEnumerable<string> passwords,
             Timer timer)
         {
-            var levelCounter = 1;
+            byte levelCounter = 1;
             var dictionary = new Dictionary<string, AccessLevel>(10);
             foreach (var password in passwords)
             {
@@ -48,7 +51,7 @@
             this.timerHandlerFinished = new ManualResetEvent(true);
         }
 
-        private AccessLevel getLevel(int levelNumber)
+        protected AccessLevel getLevel(byte levelNumber)
         {
             if (levelNumber < 1)
             {
@@ -82,16 +85,16 @@
             }
         }
 
-        public event Do<AccessLevel> AccessLevelChanged;
+        public virtual event Do<AccessLevel> AccessLevelChanged;
 
         public virtual AccessLevel CurrentAccessLevel
-            => this.currentAccessLevel;
+            => this.currentLevel;
 
         public virtual System.TimeSpan TimeRemaining
         {
             get
             {
-                var cal = this.currentAccessLevel;
+                var cal = this.currentLevel;
                 if (cal == AccessLevel.None)
                 {
                     return System.TimeSpan.Zero;
@@ -172,10 +175,11 @@
             t.Start(loginDurationMilliseconds);
         }
 
-        private void setCurrentAccessLevel(AccessLevel currentAccessLevel)
+        protected virtual void setCurrentAccessLevel(
+            AccessLevel currentAccessLevel)
         {
-            var previousLevel = this.currentAccessLevel;
-            this.currentAccessLevel = currentAccessLevel;
+            var previousLevel = this.currentLevel;
+            this.currentLevel = currentAccessLevel;
             if (previousLevel == currentAccessLevel)
             {
                 return;
@@ -191,17 +195,17 @@
                 o => alc.Invoke(currentAccessLevel));
         }
 
-        private void setLoginTime(System.DateTime loginTime)
+        protected virtual void setLoginTime(System.DateTime loginTime)
         {
             this.loginTime = loginTime;
         }
 
-        private void setLoginDuration(System.TimeSpan loginDuration)
+        protected virtual void setLoginDuration(System.TimeSpan loginDuration)
         {
             this.loginDuration = loginDuration;
         }
 
-        private void timer_Elapsed()
+        protected virtual void timer_Elapsed()
         {
             var h = this.timerHandlerFinished;
             h.Reset();
@@ -209,11 +213,11 @@
             h.Set();
         }
 
-        private AccessLevel currentAccessLevel;
-        private System.DateTime loginTime;
-        private System.TimeSpan loginDuration;
-        private readonly IDictionary<string, AccessLevel> passwords;
-        private readonly Timer timer;
-        private readonly ManualResetEvent timerHandlerFinished;
+        protected AccessLevel currentLevel;
+        protected System.DateTime loginTime;
+        protected System.TimeSpan loginDuration;
+        protected readonly IDictionary<string, AccessLevel> passwords;
+        protected readonly Timer timer;
+        protected readonly ManualResetEvent timerHandlerFinished;
     }
 }

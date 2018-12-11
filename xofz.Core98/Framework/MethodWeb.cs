@@ -63,53 +63,62 @@
             string uName = null)
         {
             var ds = this.dependencies;
-            T t;
-            var missing = false;
+            var t = default(T);
+            var u = default(U);
+            bool
+                tMissing = true,
+                uMissing = true;
             foreach (var d in ds)
             {
-                if (d.Name != tName)
+                if (!tMissing && !uMissing)
                 {
+                    goto invoke;
+                }
+
+                if (tMissing)
+                {
+                    if (d.Name != tName)
+                    {
+                        goto checkU;
+                    }
+
+                    if (!(d.Content is T))
+                    {
+                        goto checkU;
+                    }
+
+                    t = (T)d.Content;
+                    tMissing = false;
                     continue;
                 }
 
-                if (!(d.Content is T))
+                checkU:
+                if (uMissing)
                 {
-                    continue;
-                }
+                    if (d.Name != uName)
+                    {
+                        continue;
+                    }
 
-                t = (T)d.Content;
-                goto checkU;
+                    if (!(d.Content is U))
+                    {
+                        continue;
+                    }
+
+                    u = (U)d.Content;
+                    uMissing = false;
+                }
             }
 
-            t = default(T);
-            missing = true;
-
-        checkU:
-            U u;
-            foreach (var d in ds)
+            if (!tMissing && !uMissing)
             {
-                if (d.Name != uName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is U))
-                {
-                    continue;
-                }
-
-                u = (U)d.Content;
                 goto invoke;
             }
 
-            u = default(U);
-            missing = true;
+            return XTuple.Create(t, u);
 
         invoke:
-            if (!missing)
-            {
-                method?.Invoke(t, u);
-            }
+            method?.Invoke(t, u);
 
             return XTuple.Create(t, u);
         }
@@ -121,74 +130,82 @@
             string vName = null)
         {
             var ds = this.dependencies;
-            T t;
-            var missing = false;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            bool
+                tMissing = true,
+                uMissing = true,
+                vMissing = true;
             foreach (var d in ds)
             {
-                if (d.Name != tName)
+                if (!tMissing && !uMissing && !vMissing)
                 {
+                    goto invoke;
+                }
+
+                if (tMissing)
+                {
+                    if (d.Name != tName)
+                    {
+                        goto checkU;
+                    }
+
+                    if (!(d.Content is T))
+                    {
+                        goto checkU;
+                    }
+
+                    t = (T)d.Content;
+                    tMissing = false;
                     continue;
                 }
 
-                if (!(d.Content is T))
+                checkU:
+                if (uMissing)
                 {
+                    if (d.Name != uName)
+                    {
+                        goto checkV;
+                    }
+
+                    if (!(d.Content is U))
+                    {
+                        goto checkV;
+                    }
+
+                    u = (U)d.Content;
+                    uMissing = false;
                     continue;
                 }
 
-                t = (T)d.Content;
-                goto checkU;
+                checkV:
+                if (vMissing)
+                {
+                    if (d.Name != vName)
+                    {
+                        continue;
+                    }
+
+                    if (!(d.Content is V))
+                    {
+                        continue;
+                    }
+
+                    v = (V)d.Content;
+                    vMissing = false;
+                }
             }
 
-            t = default(T);
-            missing = true;
-
-        checkU:
-            U u;
-            foreach (var d in ds)
+            if (!tMissing && !uMissing && !vMissing)
             {
-                if (d.Name != uName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is U))
-                {
-                    continue;
-                }
-
-                u = (U)d.Content;
-                goto checkV;
-            }
-
-            u = default(U);
-            missing = true;
-
-        checkV:
-            V v;
-            foreach (var d in ds)
-            {
-                if (d.Name != vName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is V))
-                {
-                    continue;
-                }
-
-                v = (V)d.Content;
                 goto invoke;
             }
 
-            v = default(V);
-            missing = true;
+            return XTuple.Create(t, u, v);
 
-        invoke:
-            if (!missing)
-            {
-                method?.Invoke(t, u, v);
-            }
+            invoke:
+            method?.Invoke(t, u, v);
 
             return XTuple.Create(t, u, v);
         }
@@ -201,95 +218,102 @@
             string wName = null)
         {
             var ds = this.dependencies;
-            T t;
-            var missing = false;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            var w = default(W);
+            bool
+                tMissing = true,
+                uMissing = true,
+                vMissing = true,
+                wMissing = true;
             foreach (var d in ds)
             {
-                if (d.Name != tName)
+                if (!tMissing && !uMissing && !vMissing && !wMissing)
                 {
+                    goto invoke;
+                }
+
+                if (tMissing)
+                {
+                    if (d.Name != tName)
+                    {
+                        goto checkU;
+                    }
+
+                    if (!(d.Content is T))
+                    {
+                        goto checkU;
+                    }
+
+                    t = (T)d.Content;
+                    tMissing = false;
                     continue;
                 }
 
-                if (!(d.Content is T))
+                checkU:
+                if (uMissing)
                 {
+                    if (d.Name != uName)
+                    {
+                        goto checkV;
+                    }
+
+                    if (!(d.Content is U))
+                    {
+                        goto checkV;
+                    }
+
+                    u = (U)d.Content;
+                    uMissing = false;
                     continue;
                 }
 
-                t = (T)d.Content;
-                goto checkU;
+                checkV:
+                if (vMissing)
+                {
+                    if (d.Name != vName)
+                    {
+                        goto checkW;
+                    }
+
+                    if (!(d.Content is V))
+                    {
+                        goto checkW;
+                    }
+
+                    v = (V)d.Content;
+                    vMissing = false;
+                    continue;
+                }
+
+                checkW:
+                if (wMissing)
+                {
+                    if (d.Name != wName)
+                    {
+                        continue;
+                    }
+
+                    if (!(d.Content is W))
+                    {
+                        continue;
+                    }
+
+                    w = (W)d.Content;
+                    wMissing = false;
+                }
             }
 
-            t = default(T);
-            missing = true;
-
-        checkU:
-            U u;
-            foreach (var d in ds)
+            if (!tMissing && !uMissing && !vMissing && !wMissing)
             {
-                if (d.Name != uName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is U))
-                {
-                    continue;
-                }
-
-                u = (U)d.Content;
-                goto checkV;
-            }
-
-            u = default(U);
-            missing = true;
-
-        checkV:
-            V v;
-            foreach (var d in ds)
-            {
-                if (d.Name != vName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is V))
-                {
-                    continue;
-                }
-
-                v = (V)d.Content;
-                goto checkW;
-            }
-
-            v = default(V);
-            missing = true;
-
-        checkW:
-            W w;
-            foreach (var d in ds)
-            {
-                if (d.Name != wName)
-                {
-                    continue;
-                }
-
-                if (!(d.Content is W))
-                {
-                    continue;
-                }
-
-                w = (W)d.Content;
                 goto invoke;
             }
 
-            w = default(W);
-            missing = true;
+            return XTuple.Create(t, u, v, w);
 
-        invoke:
-            if (!missing)
-            {
-                method?.Invoke(t, u, v, w);
-            }
+            invoke:
+            method?.Invoke(t, u, v, w);
 
             return XTuple.Create(t, u, v, w);
         }
