@@ -29,6 +29,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -45,6 +47,7 @@
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
+    <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
     <Compile Include="Framework\LogEditor\SetupHandler.cs" />
     <Compile Include="Framework\LogEditor\TypeChangedHandler.cs" />
