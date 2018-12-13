@@ -30,10 +30,13 @@
                 var f = this.fixture;
                 var o = this.outputter;
                 var testNumbers = new IComparable[0x1F];
-                for (var i = 0; i < testNumbers.Length; ++i)
+                long i;
+                for (i = 0; i < testNumbers.Length; ++i)
                 {
                     testNumbers[i] = f.Create<double>();
                 }
+
+                testNumbers[i - 9] = testNumbers[i - 1];
 
                 o.WriteLine("Unsorted:");
                 o.WriteLine(string.Join<IComparable>(
@@ -48,7 +51,7 @@
                     " ",
                     testNumbers));
 
-                for (var i = 0; i < testNumbers.Length - 1; ++i)
+                for (i = 0; i < testNumbers.Length - 1; ++i)
                 {
                     Assert.True(testNumbers[i]
                                     .CompareTo(testNumbers[i + 1]) <= 0);
@@ -59,6 +62,50 @@
                 ITestOutputHelper outputter) 
                 : base(outputter)
             {
+            }
+        }
+
+        public class When_Generic_Sort_is_called : Context
+        {
+            public When_Generic_Sort_is_called(
+                ITestOutputHelper outputter)
+                : base(outputter)
+            {
+            }
+
+            [Fact]
+            public void Sorts_the_input()
+            {
+                var f = this.fixture;
+                var o = this.outputter;
+                var testNumbers = new double[0x24];
+                long i;
+                for (i = 0; i < testNumbers.Length; ++i)
+                {
+                    testNumbers[i] = f.Create<double>();
+                }
+
+                testNumbers[i - 14] = double.NaN;
+                testNumbers[i - 9] = testNumbers[i - 1];
+
+                o.WriteLine("Unsorted:");
+                o.WriteLine(string.Join(
+                    " ",
+                    testNumbers));
+                o.WriteLine(string.Empty);
+
+                this.sorter.Sort(testNumbers);
+
+                o.WriteLine("Sorted");
+                o.WriteLine(string.Join(
+                    " ",
+                    testNumbers));
+
+                for (i = 0; i < testNumbers.Length - 1; ++i)
+                {
+                    Assert.True(testNumbers[i]
+                                    .CompareTo(testNumbers[i + 1]) <= 0);
+                }
             }
         }
     }
