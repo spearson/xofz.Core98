@@ -8,7 +8,7 @@
     <!-- TeamCity environment variable name -->
     <Version>$(BUILD_NUMBER)</Version>
     <ProjectName>xofz.Core98</ProjectName>
-    <BuildDir>$(ProjectName)\bin\Release</BuildDir>
+    <BuildFolder>$(ProjectName)\bin\Release</BuildFolder>
     <WorkingFolder>$(teamcity_build_workingDir)</WorkingFolder>
     <!-- This folder has all of its files deleted before copying the build output to it -->
     <DeployFolder>H:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
@@ -33,7 +33,7 @@
 
 
   <Target Name="Build" DependsOnTargets="WriteAssemblyInfo">
-    <RemoveDir Directories="$(BuildDir)" />
+    <RemoveDir Directories="$(BuildFolder)" />
     <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=Release;Platform=Any CPU" />
   </Target>
 
@@ -49,12 +49,12 @@
       <FilesToDelete Include="$(DeployFolder)\*.*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
-    <Move SourceFiles="$(BuildDir)\version.txt" DestinationFiles="$(BuildDir)\version-$(Version).txt" />
+    <Move SourceFiles="$(BuildFolder)\version.txt" DestinationFiles="$(BuildFolder)\version-$(Version).txt" />
     <ItemGroup>
-      <FilesToCopy Include="$(BuildDir)\$(ProjectName).dll" />
-      <FilesToCopy Include="$(BuildDir)\$(ProjectName).pdb" />
-      <FilesToCopy Include="$(BuildDir)\version-$(Version).txt" />
-      <FilesToCopy Include="$(WorkingDir)\ms-PL.txt" />
+      <FilesToCopy Include="$(BuildFolder)\$(ProjectName).dll" />
+      <FilesToCopy Include="$(BuildFolder)\$(ProjectName).pdb" />
+      <FilesToCopy Include="$(BuildFolder)\version-$(Version).txt" />
+      <FilesToCopy Include="$(WorkingFolder)\ms-PL.txt" />
     </ItemGroup>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder)" />
   </Target>
