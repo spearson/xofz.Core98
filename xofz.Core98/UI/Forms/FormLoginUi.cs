@@ -2,6 +2,7 @@
 {
     using System;
     using System.Drawing;
+    using System.Security;
     using System.Threading;
     using System.Windows.Forms;
     using xofz.UI;
@@ -10,13 +11,25 @@
         : FormUi, LoginUi
     {
         public FormLoginUi(Form shell)
+            : this(shell, new SecureStringToolSet())
+        {
+        }
+
+        public FormLoginUi(
+            Form shell,
+            SecureStringToolSet ssts)
         {
             this.shell = shell;
+            this.ssts = ssts;
 
             this.InitializeComponent();
 
-            this.FormClosing += this.this_FormClosing;
             var h = this.Handle;
+        }
+
+        private FormLoginUi()
+        {
+            this.InitializeComponent();
         }
 
         public event Do BackspaceKeyTapped;
@@ -27,11 +40,22 @@
 
         public event Do KeyboardKeyTapped;
 
-        string LoginUi.CurrentPassword
+        SecureString LoginUi.CurrentPassword
         {
-            get => this.passwordTextBox.Text;
+            get => this.ssts.Encode(
+                this.passwordTextBox.Text);
 
-            set => this.passwordTextBox.Text = value;
+            set
+            {
+                var ptb = this.passwordTextBox;
+                if (value == null)
+                {
+                    ptb.Text = null;
+                    return;
+                }
+
+                ptb.Text = this.ssts.Decode(value);
+            }
         }
 
         string LoginUi.TimeRemaining
@@ -57,11 +81,11 @@
 
         AccessLevel LoginUi.CurrentAccessLevel
         {
-            get => this.currentAccessLevel;
+            get => this.currentLevel;
 
             set
             {
-                this.currentAccessLevel = value;
+                this.currentLevel = value;
                 this.Text = @"Log In [Current Access Level: "
                             + value + @"]";
                 var ll = this.levelLabel;
@@ -205,8 +229,10 @@
                 o => kkt.Invoke());
         }
 
-        private bool firstInputKeyPressed;
-        private AccessLevel currentAccessLevel;
-        private readonly Form shell;
+        protected bool firstInputKeyPressed;
+        protected AccessLevel currentLevel;
+        protected readonly Form shell;
+        protected readonly SecureStringToolSet ssts;
+
     }
 }

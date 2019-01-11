@@ -25,7 +25,7 @@
                 AccessController, 
                 SettingsHolder,
                 UiReaderWriter>(
-                (ac, settings, rw) =>
+                (ac, settings, uiRW) =>
             {
                 var cal = ac.CurrentAccessLevel;
                 string timeRemaining;
@@ -62,7 +62,7 @@
                     settings.CurrentPassword = null;
                 }
 
-                rw.Write(
+                uiRW.Write(
                     ui,
                     () =>
                     {

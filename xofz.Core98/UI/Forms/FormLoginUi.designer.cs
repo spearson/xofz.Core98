@@ -359,6 +359,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Log In";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.this_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

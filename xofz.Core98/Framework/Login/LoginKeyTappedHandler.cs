@@ -24,15 +24,16 @@
             w.Run<
                 UiReaderWriter,
                 AccessController,
-                SettingsHolder>(
-                (rw, ac, settings) =>
+                SettingsHolder,
+                SecureStringToolSet>(
+                (rw, ac, settings, ssts) =>
                 {
-                    var password = rw.Read(
+                    var securePw = rw.Read(
                         ui,
                         () => ui.CurrentPassword);
                     var previousCal = ac.CurrentAccessLevel;
                     ac.InputPassword(
-                        password,
+                        ssts.Decode(securePw),
                         settings.Duration);
                     var newCal = ac.CurrentAccessLevel;
                     if (previousCal == newCal)
@@ -47,7 +48,7 @@
 
                     if (newCal > AccessLevel.None)
                     {
-                        settings.CurrentPassword = password;
+                        settings.CurrentPassword = securePw;
                         w.Run<StopHandler>(handler => handler.Handle(ui));
                         return;
                     }

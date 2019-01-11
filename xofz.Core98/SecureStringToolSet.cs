@@ -1,9 +1,9 @@
-﻿namespace xofz.Framework
+﻿namespace xofz
 {
     using System.Runtime.InteropServices;
     using System.Security;
 
-    public class SecureStringDecoder
+    public class SecureStringToolSet
     {
         public virtual string Decode(SecureString ss)
         {
@@ -16,6 +16,22 @@
             {
                 Marshal.FreeBSTR(binaryStringPointer);
             }
+        }
+
+        public virtual SecureString Encode(string s)
+        {
+            var ss = new SecureString();
+            if (s == null)
+            {
+                return ss;
+            }
+
+            foreach (var c in s)
+            {
+                ss.AppendChar(c);
+            }
+
+            return ss;
         }
     }
 }

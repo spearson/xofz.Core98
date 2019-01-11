@@ -19,8 +19,11 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<UiReaderWriter, SettingsHolder>(
-                (rw, settings) =>
+            w.Run<
+                UiReaderWriter,
+                SettingsHolder,
+                SecureStringToolSet>(
+                (rw, settings, ssd) =>
                 {
                     var cp = settings.CurrentPassword;
                     rw.WriteSync(ui,

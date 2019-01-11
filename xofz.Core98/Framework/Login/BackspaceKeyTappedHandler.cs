@@ -18,18 +18,20 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<SecureStringToolSet, UiReaderWriter>((ssts, rw) =>
             {
-                var currentPw = rw.Read(
+                var currentPw = ssts.Decode(rw.Read(
                     ui,
-                    () => ui.CurrentPassword);
+                    () => ui.CurrentPassword));
                 var newPw = StringHelpers.RemoveEndChars(
                     currentPw,
                     1);
+                var securePw = ssts.Encode(
+                    newPw);
                 rw.Write(ui,
                     () =>
                     {
-                        ui.CurrentPassword = newPw;
+                        ui.CurrentPassword = securePw;
                         ui.FocusPassword();
                     });
             });

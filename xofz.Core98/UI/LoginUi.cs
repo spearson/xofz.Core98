@@ -1,5 +1,7 @@
 ﻿namespace xofz.UI
 {
+    using System.Security;
+
     public interface LoginUi : PopupUi
     {
         event Do BackspaceKeyTapped;
@@ -12,7 +14,7 @@
 
         AccessLevel CurrentAccessLevel { get; set; }
 
-        string CurrentPassword { get; set; }
+        SecureString CurrentPassword { get; set; }
 
         string TimeRemaining { get; set; }
 

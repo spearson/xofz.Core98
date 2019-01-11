@@ -21,11 +21,12 @@
             var w = this.web;
             w.Run<UiReaderWriter>(rw =>
             {
-                w.Run<SettingsHolder>(settings =>
-                {
-                    settings.CurrentPassword = rw.Read(
-                        ui, () => ui.CurrentPassword);
-                });
+                w.Run<SettingsHolder>(
+                    settings =>
+                    {
+                        settings.CurrentPassword = rw.Read(
+                            ui, () => ui.CurrentPassword);
+                    });
 
                 rw.WriteSync(ui, () =>
                 {

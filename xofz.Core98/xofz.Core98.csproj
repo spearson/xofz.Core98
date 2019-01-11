@@ -43,6 +43,8 @@
     <Compile Include="EnumerableHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
+    <Compile Include="Framework\Access\PasswordHolder.cs" />
+    <Compile Include="Framework\Access\SettingsHolder.cs" />
     <Compile Include="Framework\AlphanumericGen.cs" />
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
@@ -115,7 +117,7 @@
     <Compile Include="Framework\Lotters\StackLotter.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\MethodWebManager.cs" />
-    <Compile Include="Framework\SecureStringDecoder.cs" />
+    <Compile Include="SecureStringToolSet.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />
     <Compile Include="Framework\Timers\OneOffTimer.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Framework\Transformation\EnumerableTriggerer.cs" />
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
+    <Compile Include="Root\Commands\SetupAccessCommand.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />
     <Compile Include="Lot.cs" />
