@@ -6,6 +6,7 @@
     using xofz.Framework.Login;
     using xofz.Presentation;
     using xofz.UI;
+    using SettingsHolder = xofz.Framework.Login.SettingsHolder;
 
     public class SetupLoginCommand : Command
     {

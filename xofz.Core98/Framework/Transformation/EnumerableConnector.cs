@@ -9,7 +9,6 @@
             params IEnumerable<T>[] sources)
         {
             var connection = new LinkedListLot<T>();
-
             if (sources == null)
             {
                 return connection;

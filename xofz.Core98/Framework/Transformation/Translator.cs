@@ -15,7 +15,7 @@
             Do<T, Y> transform)
         {
             Y y;
-            var s = this.source;
+            var s = this.sourceEnumerator;
             if (s == null)
             {
                 y = this.yFactory();
@@ -24,7 +24,7 @@
 
             if (!s.MoveNext())
             {
-                this.setSource(null);
+                this.setSourceEnumerator(null);
                 y = this.yFactory();
                 goto translate;
             }
@@ -36,23 +36,34 @@
             return y;
         }
 
-        public virtual void ApplySource(IEnumerable<Y> source)
+        public virtual void ApplySource(
+            IEnumerable<Y> source)
         {
-            this.setSource(
+            if (source == null)
+            {
+                this.setSourceEnumerator(
+                    EnumerableHelpers
+                        .Empty<Y>()
+                        .GetEnumerator());
+                return;
+            }
+
+            this.setSourceEnumerator(
                 source.GetEnumerator());
         }
 
         public void Dispose()
         {
-            this.source?.Dispose();
+            this.sourceEnumerator?.Dispose();
         }
 
-        private void setSource(IEnumerator<Y> source)
+        private void setSourceEnumerator(
+            IEnumerator<Y> sourceEnumerator)
         {
-            this.source = source;
+            this.sourceEnumerator = sourceEnumerator;
         }
 
-        private IEnumerator<Y> source;
-        private readonly Gen<Y> yFactory;
+        protected IEnumerator<Y> sourceEnumerator;
+        protected readonly Gen<Y> yFactory;
     }
 }

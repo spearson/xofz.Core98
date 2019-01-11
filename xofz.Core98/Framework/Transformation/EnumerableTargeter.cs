@@ -14,14 +14,13 @@
                 return default(T);
             }
 
-            var nullTarget = target == null;
+            if (target == null)
+            {
+                return default(T);
+            }
+
             foreach (var item in source)
             {
-                if (item == null && nullTarget)
-                {
-                    return item;
-                }
-
                 if (item?.Equals(target) ?? false)
                 {
                     return item;
@@ -45,11 +44,16 @@
             Lot<T> lot = ll;
             var nullTarget = target == null;
             var e = source.GetEnumerator();
-            while (e?.MoveNext() ?? false)
+            if (e == null)
+            {
+                return lot;
+            }
+
+            while (e.MoveNext())
             {
                 var item = e.Current;
                 ll.AddLast(item);
-                if (item?.Equals(target) ?? nullTarget ? true : false)
+                if (item?.Equals(target) ?? nullTarget)
                 {
                     for (var i = 0; i < radius; ++i)
                     {
@@ -68,7 +72,7 @@
                 }
             }
 
-            e?.Dispose();
+            e.Dispose();
 
             // if target not found, return the last radius number of items
             return lot;

@@ -10,12 +10,7 @@
             string eventName,
             params object[] args)
         {
-            if (eventHolder == null)
-            {
-                return;
-            }
-
-            var holderType = eventHolder.GetType();
+            var holderType = eventHolder?.GetType();
             if (holderType == null)
             {
                 return;

@@ -9,7 +9,20 @@
             LogEditor logEditor, 
             UnhandledExceptionEventArgs e)
         {
-            var ex = e.ExceptionObject as Exception;
+            var eo = e?.ExceptionObject;
+            if (eo == null)
+            {
+                logEditor.AddEntry(
+                    "Error",
+                    new[]
+                    {
+                        "An unhandled exception occurred, "
+                        + "but the exception object was null."
+                    });
+                return;
+            }
+            
+            var ex = eo as Exception;
             if (ex == null)
             {
                 logEditor.AddEntry(
@@ -38,15 +51,17 @@
                               };
             content.AddRange(trimmedStackTraceFor(e));
 
-            if (e.InnerException != null)
+            var ie = e.InnerException;
+
+            if (ie != null)
             {
                 content.Add(string.Empty);
                 content.Add(string.Empty);
-                content.Add("Inner exception: " + e.InnerException.GetType());
-                content.Add(e.InnerException.Message);
+                content.Add("Inner exception: " + ie.GetType());
+                content.Add(ie.Message);
                 content.Add(string.Empty);
                 content.Add("Stack trace:");
-                content.AddRange(trimmedStackTraceFor(e.InnerException));
+                content.AddRange(trimmedStackTraceFor(ie));
             }
 
             logEditor.AddEntry("Error", content.ToArray());
@@ -54,7 +69,13 @@
 
         private static IEnumerable<string> trimmedStackTraceFor(Exception e)
         {
-            var untrimmedLines = e.StackTrace.Split(
+            var st = e?.StackTrace;
+            if (st == null)
+            {
+                yield break;
+            }
+
+            var untrimmedLines = st.Split(
                 new[] { Environment.NewLine },
                 StringSplitOptions.RemoveEmptyEntries);
 

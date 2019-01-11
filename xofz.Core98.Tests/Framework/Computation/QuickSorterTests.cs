@@ -29,6 +29,8 @@
             {
                 var f = this.fixture;
                 var o = this.outputter;
+                byte numberOfTests = 0x20;
+                beginTest:
                 var testNumbers = new IComparable[0x1F];
                 long i;
                 for (i = 0; i < testNumbers.Length; ++i)
@@ -42,19 +44,25 @@
                 o.WriteLine(string.Join<IComparable>(
                     " ", 
                     testNumbers));
-                o.WriteLine(string.Empty);
 
-                this.sorter.Sort(testNumbers);
+                sorter.Sort(testNumbers);
 
                 o.WriteLine("Sorted");
                 o.WriteLine(string.Join<IComparable>(
                     " ",
                     testNumbers));
+                o.WriteLine(string.Empty);
 
                 for (i = 0; i < testNumbers.Length - 1; ++i)
                 {
                     Assert.True(testNumbers[i]
                                     .CompareTo(testNumbers[i + 1]) <= 0);
+                }
+
+                --numberOfTests;
+                if (numberOfTests > 0)
+                {
+                    goto beginTest;
                 }
             }
 

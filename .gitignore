@@ -10,3 +10,4 @@ StyleCop.Cache
 *.TeamCity.user
 *.swp
 .vs
+.idea

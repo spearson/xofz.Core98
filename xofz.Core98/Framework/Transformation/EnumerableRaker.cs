@@ -8,12 +8,7 @@
             IEnumerable<T> source,
             IEnumerable<long> rakePoints)
         {
-            if (source == null)
-            {
-                yield break;
-            }
-
-            var e = source.GetEnumerator();
+            var e = source?.GetEnumerator();
             if (e == null)
             {
                 yield break;

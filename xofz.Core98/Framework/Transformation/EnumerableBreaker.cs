@@ -45,6 +45,11 @@
 
                 foreach (var breakCondition in breakConditions)
                 {
+                    if (breakCondition == null)
+                    {
+                        continue;
+                    }
+
                     if (breakCondition(item))
                     {
                         yield break;

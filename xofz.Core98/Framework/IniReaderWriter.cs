@@ -313,8 +313,8 @@
             return keys;
         }
 
-        private readonly Gen<string[]> readLines;
-        private readonly Do<IEnumerable<string>> writeLines;
+        protected readonly Gen<string[]> readLines;
+        protected readonly Do<IEnumerable<string>> writeLines;
 
         protected class SectionHeader
         {

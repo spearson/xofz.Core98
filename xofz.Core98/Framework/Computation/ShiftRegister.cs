@@ -25,14 +25,8 @@
             }
 
             var array = new bool[ll.Count];
-            var e = ll.GetEnumerator();
-            for (var i = 0; i < array.Length; ++i)
-            {
-                e.MoveNext();
-                array[i] = e.Current;
-            }
+            ll.CopyTo(array, 0);
 
-            e.Dispose();
             this.setCurrentArray(array);
         }
 
@@ -47,14 +41,8 @@
             }
 
             var array = new bool[ll.Count];
-            var e = ll.GetEnumerator();
-            for (var i = 0; i < array.Length; ++i)
-            {
-                e.MoveNext();
-                array[i] = e.Current;
-            }
+            ll.CopyTo(array, 0);
 
-            e.Dispose();
             this.setCurrentArray(array);
         }
 

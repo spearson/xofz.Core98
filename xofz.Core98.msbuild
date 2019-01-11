@@ -9,6 +9,7 @@
     <Version>$(BUILD_NUMBER)</Version>
     <ProjectName>xofz.Core98</ProjectName>
     <BuildDir>$(ProjectName)\bin\Release</BuildDir>
+    <WorkingFolder>$(teamcity_build_workingDir)</WorkingFolder>
     <!-- This folder has all of its files deleted before copying the build output to it -->
     <DeployFolder>H:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
   </PropertyGroup>
@@ -53,6 +54,7 @@
       <FilesToCopy Include="$(BuildDir)\$(ProjectName).dll" />
       <FilesToCopy Include="$(BuildDir)\$(ProjectName).pdb" />
       <FilesToCopy Include="$(BuildDir)\version-$(Version).txt" />
+      <FilesToCopy Include="$(WorkingDir)\ms-PL.txt" />
     </ItemGroup>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder)" />
   </Target>

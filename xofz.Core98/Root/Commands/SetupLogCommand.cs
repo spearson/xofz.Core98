@@ -1,7 +1,8 @@
 ﻿namespace xofz.Root.Commands
 {
+    using System.Collections.Generic;
     using xofz.Framework;
-    using xofz.Framework.LogEditor;
+    using xofz.Framework.Log;
     using xofz.Framework.Logging;
     using xofz.Framework.Logging.Logs;
     using xofz.Framework.Lotters;
@@ -13,275 +14,462 @@
         public SetupLogCommand(
             LogUi ui,
             ShellUi shell,
-            LogEditorUi editorUi,
-            MethodWeb web,
-            string eventLogLogName,
-            string eventLogSourceName,
-            string logDependencyName = null,
-            AccessLevel clearLevel = AccessLevel.None,
-            AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false,
-            Gen<string> computeBackupLocation = default(Gen<string>))
+            SettingsHolder settings,
+            MethodWeb web)
         {
             this.ui = ui;
             this.shell = shell;
-            this.editorUi = editorUi;
+            this.settings = settings;
+            settings.StatisticsEnabled = false;
             this.web = web;
-            this.eventLogLogName = eventLogLogName;
-            this.eventLogSourceName = eventLogSourceName;
-            this.logDependencyName = logDependencyName;
-            this.textFileLogPath = null;
-            this.clearLevel = clearLevel;
-            this.editLevel = editLevel;
-            this.resetOnStart = resetOnStart;
-            this.computeBackupLocation = computeBackupLocation;
-            this.statisticsEnabled = false;
         }
 
         public SetupLogCommand(
             LogUi ui,
             ShellUi shell,
-            LogEditorUi editorUi,
-            LogStatisticsUi statisticsUi,
-            MethodWeb web,
-            string eventLogLogName,
-            string eventLogSourceName,
-            string logDependencyName = null,
-            AccessLevel clearLevel = AccessLevel.None,
-            AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false)
+            LogStatisticsUi statsUi,
+            SettingsHolder settings,
+            MethodWeb web)
         {
             this.ui = ui;
             this.shell = shell;
-            this.editorUi = editorUi;
-            this.statisticsUi = statisticsUi;
+            this.settings = settings;
+            settings.StatisticsEnabled = true;
+            this.statsUi = statsUi;
             this.web = web;
-            this.eventLogLogName = eventLogLogName;
-            this.eventLogSourceName = eventLogSourceName;
-            this.logDependencyName = logDependencyName;
-            this.textFileLogPath = null;
-            this.clearLevel = clearLevel;
-            this.editLevel = editLevel;
-            this.resetOnStart = resetOnStart;
-            this.computeBackupLocation = default(
-                Gen<string>);
-            this.statisticsEnabled = true;
         }
 
         public SetupLogCommand(
             LogUi ui,
             ShellUi shell,
-            LogEditorUi editorUi,
-            LogStatisticsUi statisticsUi,
-            MethodWeb web,
-            string eventLogLogName,
-            string eventLogSourceName,
-            string logDependencyName = null,
-            AccessLevel clearLevel = AccessLevel.None,
-            AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false,
-            Gen<string> computeBackupLocation = default(Gen<string>))
+            LogEditorUi editUi,
+            SettingsHolder settings,
+            MethodWeb web)
         {
             this.ui = ui;
             this.shell = shell;
-            this.editorUi = editorUi;
-            this.statisticsUi = statisticsUi;
+            this.editUi = editUi;
+            this.settings = settings;
+            settings.StatisticsEnabled = false;
             this.web = web;
-            this.eventLogLogName = eventLogLogName;
-            this.eventLogSourceName = eventLogSourceName;
-            this.textFileLogPath = null;
-            this.logDependencyName = logDependencyName;
-            this.clearLevel = clearLevel;
-            this.editLevel = editLevel;
-            this.resetOnStart = resetOnStart;
-            this.computeBackupLocation = computeBackupLocation;
-            this.statisticsEnabled = true;
         }
 
         public SetupLogCommand(
             LogUi ui,
             ShellUi shell,
-            LogEditorUi editorUi,
-            MethodWeb web,
-            string textFileLogPath = @"Log.log",
-            string logDependencyName = null,
-            AccessLevel clearLevel = AccessLevel.None,
-            AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false,
-            Gen<string> computeBackupLocation = default(Gen<string>))
+            LogEditorUi editUi,
+            LogStatisticsUi statsUi,
+            SettingsHolder settings,
+            MethodWeb web)
         {
             this.ui = ui;
+            this.editUi = editUi;
             this.shell = shell;
-            this.editorUi = editorUi;
+            this.statsUi = statsUi;
+            this.settings = settings;
+            settings.StatisticsEnabled = true;
             this.web = web;
-            this.textFileLogPath = textFileLogPath;
-            this.logDependencyName = logDependencyName;
-            this.clearLevel = clearLevel;
-            this.editLevel = editLevel;
-            this.resetOnStart = resetOnStart;
-            this.computeBackupLocation = computeBackupLocation;
-            this.statisticsEnabled = false;
-        }
-
-        public SetupLogCommand(
-            LogUi ui,
-            ShellUi shell,
-            LogEditorUi editorUi,
-            LogStatisticsUi statisticsUi,
-            MethodWeb web,
-            string textFileLogPath = @"Log.log",
-            string logDependencyName = null,
-            AccessLevel clearLevel = AccessLevel.None,
-            AccessLevel editLevel = AccessLevel.None,
-            bool resetOnStart = false,
-            Gen<string> computeBackupLocation = default(Gen<string>))
-        {
-            this.ui = ui;
-            this.shell = shell;
-            this.editorUi = editorUi;
-            this.statisticsUi = statisticsUi;
-            this.web = web;
-            this.textFileLogPath = textFileLogPath;
-            this.logDependencyName = logDependencyName;
-            this.editLevel = editLevel;
-            this.clearLevel = clearLevel;
-            this.resetOnStart = resetOnStart;
-            this.computeBackupLocation = computeBackupLocation;
-            this.statisticsEnabled = true;
         }
 
         public override void Execute()
         {
             this.registerDependencies();
+
             var w = this.web;
-            var se = this.statisticsEnabled;
-            var ros = this.resetOnStart;
+            var s = this.settings;
+            var enableStats = s.StatisticsEnabled;
+            var n = s.LogDependencyName;
             new LogPresenter(
                     this.ui,
                     this.shell,
                     w)
                 {
-                    Name = this.logDependencyName
+                    Name = n
                 }
                 .Setup();
 
-            new LogEditorPresenter(
-                    this.editorUi,
-                    w)
-                {
-                    Name = this.logDependencyName
-                }
-                .Setup();
-
-            if (se)
+            var eui = this.editUi;
+            if (eui != null)
             {
-                new LogStatisticsPresenter(
-                        this.statisticsUi,
+                new LogEditorPresenter(
+                        this.editUi,
                         w)
                     {
-                        Name = this.logDependencyName
+                        Name = n
+                    }
+                    .Setup();
+            }
+
+            if (enableStats)
+            {
+                new LogStatisticsPresenter(
+                        this.statsUi,
+                        w)
+                    {
+                        Name = n
                     }
                     .Setup();
             }
         }
 
-        private void registerDependencies()
+        protected virtual void registerDependencies()
         {
             var w = this.web;
-            var path = this.textFileLogPath;
-            if (path != null)
+            var s = this.settings;
+            var ldn = s.LogDependencyName;
+            var location = s.LogLocation;
+            var se = s.StatisticsEnabled;
+            var registered = false;
+            w.Run<Log>(log =>
+                {
+                    registered = true;
+                },
+                ldn);
+            if (registered)
+            {
+                goto checkLotter;
+            }
+
+            if (location == null)
+            {
+                return;
+            }
+
+            var location2 = s.SecondaryLogLocation;
+            if (location2 == null)
             {
                 w.RegisterDependency(
-                    new TextFileLog(path),
-                    this.logDependencyName);
-                goto finish;
+                    new TextFileLog(location),
+                    ldn);
+                goto checkLotter;
             }
 
             w.RegisterDependency(
-                new EventLogLog(
-                    this.eventLogLogName,
-                    this.eventLogSourceName),
-                this.logDependencyName);
+                new EventLogLog(location, location2),
+                ldn);
 
-        finish:
-            var lotterRegistered = false;
+        checkLotter:
+            registered = false;
+            var ln = SettingsHolder.LotterName;
             w.Run<Lotter>(lotter =>
                 {
-                    lotterRegistered = true;
+                    registered = true;
                 },
-                "LogLotter");
-            if (!lotterRegistered)
+                ln);
+            if (!registered)
             {
                 w.RegisterDependency(
                     new LinkedListLotter(),
-                    "LogLotter");
+                    ln);
             }
-            
-            var se = this.statisticsEnabled;
+
+            w.RegisterDependency(s, ldn);
+            w.RegisterDependency(new LinkedList<LogEntry>(), ldn);
             w.RegisterDependency(
-                new LogSettings
-                {
-                    EditLevel = this.editLevel,
-                    ClearLevel = this.clearLevel,
-                    ComputeBackupLocation = this.computeBackupLocation,
-                    ResetOnStart = this.resetOnStart,
-                    StatisticsEnabled = se
-                },
-                this.logDependencyName);
+                new Framework.Log.FieldHolder(),
+                ldn);
             if (se)
             {
                 w.RegisterDependency(
                     new LogStatistics(w),
-                    this.logDependencyName);
+                    ldn);
             }
 
-            var handlerRegistered = false;
-            w.Run<SetupHandler>(handler =>
+            registered = false;
+            w.Run<Framework.Log.EntryReloader>(reloader =>
             {
-                handlerRegistered = true;
+                registered = true;
             });
-            if (!handlerRegistered)
+            if (!registered)
             {
                 w.RegisterDependency(
-                    new SetupHandler(w));
+                    new Framework.Log.EntryReloader(w));
             }
 
-            handlerRegistered = false;
-            w.Run<TypeChangedHandler>(handler =>
+            registered = false;
+            w.Run<Framework.Log.EntryConverter>(converter =>
             {
-                handlerRegistered = true;
+                registered = true;
             });
-            if (!handlerRegistered)
+            if (!registered)
             {
                 w.RegisterDependency(
-                    new TypeChangedHandler(w));
+                    new Framework.Log.EntryConverter(w));
             }
 
-            handlerRegistered = false;
-            w.Run<AddKeyTappedHandler>(handler =>
+            registered = false;
+            w.Run<Framework.Log.FilterChecker>(converter =>
             {
-                handlerRegistered = true;
+                registered = true;
             });
-            if (!handlerRegistered)
+            if (!registered)
             {
                 w.RegisterDependency(
-                    new AddKeyTappedHandler(w));
+                    new Framework.Log.FilterChecker(w));
+            }
+
+            registered = false;
+            w.Run<Framework.Log.DateAndFilterResetter>(resetter =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new Framework.Log.DateAndFilterResetter(w));
+            }
+
+            registered = false;
+            w.Run<Framework.Log.SetupHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new Framework.Log.SetupHandler(w));
+            }
+
+            registered = false;
+            w.Run<Framework.Log.StartHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new Framework.Log.StartHandler(w));
+            }
+
+            registered = false;
+            w.Run<Framework.Log.AddKeyTappedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new Framework.Log.AddKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<AccessLevelChangedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new AccessLevelChangedHandler(w));
+            }
+
+            registered = false;
+            w.Run<DateChangedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new DateChangedHandler(w));
+            }
+
+            registered = false;
+            w.Run<FilterTextChangedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new FilterTextChangedHandler(w));
+            }
+
+            registered = false;
+            w.Run<StatisticsKeyTappedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new StatisticsKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<ClearKeyTappedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new ClearKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<EntryWrittenHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new EntryWrittenHandler(w));
+            }
+
+            registered = false;
+            w.Run<xofz.Framework.LogEditor.SetupHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new xofz.Framework.LogEditor.SetupHandler(w));
+            }
+
+            registered = false;
+            w.Run<xofz.Framework.LogEditor.TypeChangedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new xofz.Framework.LogEditor.TypeChangedHandler(w));
+            }
+
+            registered = false;
+            w.Run<xofz.Framework.LogEditor.AddKeyTappedHandler>(handler =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new xofz.Framework.LogEditor.AddKeyTappedHandler(w));
+            }
+
+            if (se)
+            {
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.SetupHandler>(
+                    handler =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            SetupHandler(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.StartHandler>(
+                    handler =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.StartHandler(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.
+                    ResetContentKeyTappedHandler>(handler =>
+                {
+                    registered = true;
+                });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            ResetContentKeyTappedHandler(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.ResetTypeKeyTappedHandler>(
+                    handler => { registered = true; });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            ResetTypeKeyTappedHandler(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.StatsDisplayer>(sd =>
+                {
+                    registered = true;
+                });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.StatsDisplayer(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.FilterSetter>(fs =>
+                {
+                    registered = true;
+                });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.FilterSetter(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.OverallKeyTappedHandler>(
+                    handler =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            OverallKeyTappedHandler(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.RangeKeyTappedHandler>(
+                    handler =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            RangeKeyTappedHandler(w));
+                }
+
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.DateResetter>(
+                    handler =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            DateResetter(w));
+                }
             }
         }
-
-        private readonly LogUi ui;
-        private readonly ShellUi shell;
-        private readonly LogEditorUi editorUi;
-        private readonly LogStatisticsUi statisticsUi;
-        private readonly MethodWeb web;
-        private readonly string textFileLogPath;
-        private readonly string eventLogLogName;
-        private readonly string eventLogSourceName;
-        private readonly AccessLevel editLevel;
-        private readonly AccessLevel clearLevel;
-        private readonly bool resetOnStart;
-        private readonly Gen<string> computeBackupLocation;
-        private readonly bool statisticsEnabled;
-        private readonly string logDependencyName;
+        
+        protected readonly LogUi ui;
+        protected readonly LogEditorUi editUi;
+        protected readonly ShellUi shell;
+        protected readonly LogStatisticsUi statsUi;
+        protected readonly SettingsHolder settings;
+        protected readonly MethodWeb web;
     }
 }
