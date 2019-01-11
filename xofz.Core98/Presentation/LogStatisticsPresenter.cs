@@ -5,7 +5,6 @@
     using xofz.Framework.Logging;
     using xofz.Framework.LogStatistics;
     using xofz.UI;
-    using SettingsHolder = xofz.Framework.Log.SettingsHolder;
 
     public sealed class LogStatisticsPresenter : PopupNamedPresenter
     {
@@ -29,15 +28,9 @@
             }
 
             var w = this.web;
-            LogStatistics stats = null;
-            w.Run<LogStatistics>(s =>
-                {
-                    stats = s;
-                },
-                this.Name);
             w.Run<SetupHandler>(handler =>
             {
-                handler.Handle(ui, stats);
+                handler.Handle(ui, this.Name);
             });
 
             w.Run<EventSubscriber>(subscriber =>
@@ -76,56 +69,38 @@
 
             base.Start();
             var w = this.web;
-            LogStatistics statistics = null;
-            SettingsHolder settings = null;
             Gen<LogUi> readLogUi = null;
-            w.Run<SettingsHolder, LogStatistics, Navigator>(
-                (s, stats, n) =>
+            var name = this.Name;
+            w.Run<Navigator>(
+                n =>
                 {
-                    statistics = stats;
-                    settings = s;
                     readLogUi = () => n.GetUi<LogPresenter, LogUi>(
-                        this.Name);
-                },
-                this.Name,
-                this.Name);
+                        name);
+                });
             w.Run<StartHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
-                    statistics,
-                    settings,
-                    readLogUi);
+                    readLogUi,
+                    name);
             });
         }
 
         private void ui_RangeKeyTapped()
         {
             var w = this.web;
-            LogStatistics stats = null;
-            w.Run<LogStatistics>(s =>
-                {
-                    stats = s;
-                },
-                this.Name);
             w.Run<RangeKeyTappedHandler>(handler =>
             {
-                handler.Handle(this.ui, stats);
+                handler.Handle(this.ui, this.Name);
             });
         }
 
         private void ui_OverallKeyTapped()
         {
             var w = this.web;
-            LogStatistics stats = null;
-            w.Run<LogStatistics>(
-                s => { stats = s; },
-                this.Name);
             w.Run<OverallKeyTappedHandler>(handler =>
             {
-                handler.Handle(
-                    this.ui,
-                    stats);
+                handler.Handle(this.ui, this.Name);
             });
         }
 

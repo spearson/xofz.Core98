@@ -13,18 +13,19 @@
 
         public virtual void Set(
             LogStatisticsUi ui,
-            LogStatistics stats)
+            string name)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
-            {
-                stats.FilterContent = uiRW.Read(
-                    ui,
-                    () => ui.FilterContent);
-                stats.FilterType = uiRW.Read(
-                    ui,
-                    () => ui.FilterType);
-            });
+            w.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
+                {
+                    stats.FilterContent = uiRW.Read(
+                        ui,
+                        () => ui.FilterContent);
+                    stats.FilterType = uiRW.Read(
+                        ui,
+                        () => ui.FilterType);
+                },
+                name);
         }
 
         protected readonly MethodWeb web;

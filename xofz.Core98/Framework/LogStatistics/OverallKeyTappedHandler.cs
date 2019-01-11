@@ -13,21 +13,28 @@
 
         public virtual void Handle(
             LogStatisticsUi ui,
-            LogStatistics stats)
+            string name)
         {
             var w = this.web;
-            w.Run<FilterSetter>(
-                setter => setter.Set(
-                    ui, stats));
-            stats.ComputeOverall();
-            w.Run<UiReaderWriter>(uiRW =>
-            {
-                uiRW.Write(ui, () => ui.Header = @"Overall");
-            });
-            w.Run<StatsDisplayer>(sd =>
-            {
-                sd.Display(ui, stats, false);
-            });
+            w.Run<LogStatistics>(stats =>
+                {
+                    w.Run<FilterSetter>(
+                        setter => setter.Set(
+                            ui, name));
+                    stats.ComputeOverall();
+                    w.Run<UiReaderWriter>(uiRW =>
+                    {
+                        uiRW.Write(ui, () =>
+                        {
+                            ui.Title = @"Overall";
+                        });
+                    });
+                    w.Run<StatsDisplayer>(sd =>
+                    {
+                        sd.Display(ui, stats, false);
+                    });
+                },
+                name);
         }
 
         protected readonly MethodWeb web;

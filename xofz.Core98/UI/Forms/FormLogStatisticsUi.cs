@@ -74,7 +74,7 @@
             }
         }
 
-        string LogStatisticsUi.Header
+        string LogStatisticsUi.Title
         {
             get => this.groupBox.Text;
 

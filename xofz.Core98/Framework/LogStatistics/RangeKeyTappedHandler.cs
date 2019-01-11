@@ -13,38 +13,43 @@
 
         public virtual void Handle(
             LogStatisticsUi ui,
-            LogStatistics stats)
+            string name)
         {
             var w = this.web;
             w.Run<UiReaderWriter>(uiRW =>
             {
-                var start = UiHelpers.Read(
+                var start = uiRW.Read(
                     ui,
                     () => ui.StartDate);
-                var end = UiHelpers.Read(
+                var end = uiRW.Read(
                     ui,
                     () => ui.EndDate);
                 w.Run<FilterSetter>(fs =>
                 {
-                    fs.Set(ui, stats);
+                    fs.Set(ui, name);
                 });
-
-                var df = SettingsHolder.DateFormat;
-
-                stats.ComputeRange(
-                    start, end);
-                var typeInfo =
-                    "Range: "
-                    + start.ToString(df)
-                    + " to "
-                    + end.ToString(df);
-                uiRW.WriteSync(
-                    ui,
-                    () => ui.Header = typeInfo);
-                w.Run<StatsDisplayer>(sd =>
-                {
-                    sd.Display(ui, stats, false);
-                });
+                w.Run<LogStatistics>(stats =>
+                    {
+                        var df = SettingsHolder.DateFormat;
+                        stats.ComputeRange(
+                            start, end);
+                        var typeInfo =
+                            "Range: "
+                            + start.ToString(df)
+                            + " to "
+                            + end.ToString(df);
+                        uiRW.WriteSync(
+                            ui,
+                            () =>
+                            {
+                                ui.Title = typeInfo;
+                            });
+                        w.Run<StatsDisplayer>(sd =>
+                        {
+                            sd.Display(ui, stats, false);
+                        });
+                    },
+                    name);
             });
         }
 

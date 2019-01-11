@@ -1,8 +1,6 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System.Collections.Generic;
     using System.Threading;
-    using xofz.Framework.Logging;
     using xofz.UI;
 
     public class DateChangedHandler

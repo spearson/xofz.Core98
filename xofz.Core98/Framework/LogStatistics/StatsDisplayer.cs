@@ -15,6 +15,19 @@
 
         public virtual void Display(
             LogStatisticsUi ui,
+            string name,
+            bool reset)
+        {
+            var w = this.web;
+            w.Run<LogStatistics>(stats =>
+                {
+                    this.Display(ui, stats, reset);
+                },
+                name);
+        }
+
+        public virtual void Display(
+            LogStatisticsUi ui,
             LogStatistics stats,
             bool reset)
         {

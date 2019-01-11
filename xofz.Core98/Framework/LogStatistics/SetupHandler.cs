@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
-    using xofz.Framework.Logging;
     using xofz.UI;
 
     public class SetupHandler
@@ -13,12 +12,12 @@
 
         public virtual void Handle(
             LogStatisticsUi ui,
-            LogStatistics stats)
+            string name)
         {
             var w = this.web;
             w.Run<DateResetter>(dr =>
             {
-                dr.Reset(ui, stats);
+                dr.Reset(ui, name);
             });
         }
 

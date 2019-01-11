@@ -14,27 +14,28 @@
 
         public virtual void Reset(
             LogStatisticsUi ui,
-            LogStatistics stats)
+            string name)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
-            {
-                var today = DateTime.Today;
-                var lastWeek = today.Subtract(TimeSpan.FromDays(6));
-                uiRW.WriteSync(ui, () =>
+            w.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
                 {
-                    ui.StartDate = lastWeek;
-                    ui.EndDate = today;
-                });
+                    var today = DateTime.Today;
+                    var lastWeek = today.Subtract(TimeSpan.FromDays(6));
+                    uiRW.WriteSync(ui, () =>
+                    {
+                        ui.StartDate = lastWeek;
+                        ui.EndDate = today;
+                    });
 
-                stats.Reset();
+                    stats.Reset();
 
-                w.Run<StatsDisplayer>(sd =>
-                {
-                    sd.Display(ui, stats, true);
-                });
-            });
-            
+                    w.Run<StatsDisplayer>(sd =>
+                    {
+                        sd.Display(ui, stats, true);
+                    });
+                },
+                name);
+
         }
 
         protected readonly MethodWeb web;

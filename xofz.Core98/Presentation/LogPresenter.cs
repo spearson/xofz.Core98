@@ -29,15 +29,9 @@
             }
 
             var w = this.web;
-            SettingsHolder settings = null;
-            w.Run<SettingsHolder>(s =>
-                {
-                    settings = s;
-                },
-                this.Name);
             w.Run<SetupHandler>(handler =>
             {
-                handler.Handle(this.ui, settings);
+                handler.Handle(this.ui, this.Name);
             });
 
             w.Run<EventSubscriber>(subscriber =>

@@ -18,7 +18,10 @@
             {
                 uiRW.Write(
                     ui,
-                    () => ui.FilterContent = null);
+                    () =>
+                    {
+                        ui.FilterContent = null;
+                    });
             });
         }
 

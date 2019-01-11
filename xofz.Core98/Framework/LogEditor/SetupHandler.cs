@@ -35,6 +35,7 @@
                     {
                         ui.Types = types;
                         ui.SelectedType = "Information";
+                        ui.CustomTypeVisible = false;
                     });
             });
         }

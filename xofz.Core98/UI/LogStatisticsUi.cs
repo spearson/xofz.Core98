@@ -22,7 +22,7 @@
 
         string FilterType { get; set; }
 
-        string Header { get; set; }
+        string Title { get; set; }
 
         string TotalEntryCount { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
-    using xofz.Framework.Logging;
     using xofz.UI;
 
     public class StartHandler
@@ -13,16 +12,20 @@
 
         public virtual void Handle(
             LogStatisticsUi ui,
-            LogStatistics stats,
-            Framework.Log.SettingsHolder settings,
-            Gen<LogUi> readLogUi)
+            Gen<LogUi> readLogUi,
+            string name)
         {
             var w = this.web;
-            if (settings.ResetOnStart)
+            w.Run<Log.SettingsHolder>(settings =>
             {
-                w.Run<DateResetter>(dr => dr.Reset(
-                    ui, stats));
-            }
+                if (settings.ResetOnStart)
+                {
+                    w.Run<DateResetter>(dr =>
+                    {
+                        dr.Reset(ui, name);
+                    });
+                }
+            });
 
             w.Run<UiReaderWriter>(uiRW =>
             {
