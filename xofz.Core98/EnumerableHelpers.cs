@@ -333,6 +333,11 @@
                     + "consider using FirstOrDefault<T>()");
             }
 
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
             var empty = true;
             foreach (var item in source)
             {
@@ -377,6 +382,11 @@
             Gen<T, bool> predicate)
         {
             if (source == null)
+            {
+                return default(T);
+            }
+
+            if (predicate == null)
             {
                 return default(T);
             }
@@ -434,6 +444,11 @@
                     "LastOrDefault<T>()");
             }
 
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
             T lastItem = default(T);
             bool empty = true;
             bool lastChanged = false;
@@ -489,6 +504,11 @@
                 return default(T);
             }
 
+            if (predicate == null)
+            {
+                return default(T);
+            }
+
             T lastItem = default(T);
             foreach (var item in source)
             {
@@ -526,6 +546,11 @@
                 return false;
             }
 
+            if (predicate == null)
+            {
+                return false;
+            }
+
             foreach (var item in source)
             {
                 if (predicate(item))
@@ -542,6 +567,11 @@
             Gen<T, bool> predicate)
         {
             if (source == null)
+            {
+                return true;
+            }
+
+            if (predicate == null)
             {
                 return true;
             }
@@ -626,6 +656,11 @@
             {
                 return count;
             }
+
+            if (predicate == null)
+            {
+                return count;
+            }
             
             foreach (var item in source)
             {
@@ -670,6 +705,11 @@
             {
                 return count;
             }
+
+            if (predicate == null)
+            {
+                return count;
+            }
             
             foreach (var item in source)
             {
@@ -707,6 +747,11 @@
         public static List<T> ToList<T>(
             IEnumerable<T> source)
         {
+            if (source == null)
+            {
+                return new List<T>();
+            }
+
             return new List<T>(source);
         }
 
@@ -764,12 +809,12 @@
         {
             if (source == null)
             {
-                return new T[0];
+                return new LinkedList<T>();
             }
 
             if (keySelector == null)
             {
-                return new T[0];
+                return new LinkedList<T>();
             }
 
             var d = new Dictionary<TKey, ICollection<T>>();
@@ -884,8 +929,11 @@
                 yield break;
             }
 
-            foreach (var fieldInfo in o.GetType().GetFields(
-                BindingFlags.Instance | BindingFlags.NonPublic))
+            foreach (var fieldInfo in o
+                .GetType()
+                .GetFields(
+                    BindingFlags.Instance |
+                    BindingFlags.NonPublic))
             {
                 var value = fieldInfo.GetValue(o);
                 if (value is T t)
@@ -900,6 +948,11 @@
             Gen<T, int> valueComputer)
         {
             if (source == null)
+            {
+                return 0;
+            }
+
+            if (valueComputer == null)
             {
                 return 0;
             }
@@ -921,6 +974,11 @@
             Gen<T, long> valueComputer)
         {
             if (source == null)
+            {
+                return 0;
+            }
+
+            if (valueComputer == null)
             {
                 return 0;
             }
