@@ -15,9 +15,9 @@
         {
             var w = this.web;
             w.Run<KeyboardLoader>(loader => loader.Load());
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<UiReaderWriter>(uiRW =>
             {
-                rw.Write(
+                uiRW.Write(
                     ui,
                     ui.FocusPassword);
             });

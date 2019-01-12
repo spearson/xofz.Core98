@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.Logging
 {
     using System;
-    using System.Collections.Generic;
 
     public class LogStatistics
     {
@@ -12,7 +11,7 @@
 
         public virtual string LogName { get; set; }
 
-        public virtual long TotalEntryCount { get; set; }
+        public virtual long TotalEntryCount { get; protected set; }
 
         public virtual double AvgEntriesPerDay { get; protected set; }
 
@@ -31,9 +30,9 @@
         public virtual void ComputeOverall()
         {
             var w = this.web;
-            w.Run<Log, Lotter>((l, m) =>
+            w.Run<Log, Lotter>((l, lotter) =>
                 {
-                    var allEntries = m.Materialize(l.ReadEntries());
+                    var allEntries = lotter.Materialize(l.ReadEntries());
                     var start = DateTime.MaxValue;
                     var end = DateTime.MinValue;
                     foreach (var entry in allEntries)
@@ -49,10 +48,10 @@
                         }
                     }
 
-                    var matches = m.Materialize(
+                    var matches = lotter.Materialize(
                             EnumerableHelpers.Where(
                                 allEntries,
-                                entry => this.passesFilters(entry)));
+                                this.passesFilters));
 
                     this.computeTotal(matches);
                     this.computeAvgPerDay(
@@ -65,7 +64,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                "LogLotter");
+                Framework.Log.SettingsHolder.LotterName);
         }
 
         public virtual void ComputeRange(
@@ -73,15 +72,19 @@
             DateTime endDate)
         {
             var w = this.web;
-            w.Run<Log, Lotter>((l, m) =>
+            w.Run<Log, Lotter>((l, lotter) =>
                 {
-                    var matches = m.Materialize(
+                    var matches = lotter.Materialize(
                         EnumerableHelpers.Where(
                             EnumerableHelpers.Where(
                                 l.ReadEntries(),
-                                e => e.Timestamp >= startDate
-                                && e.Timestamp < endDate.AddDays(1)),
-                            e => this.passesFilters(e)));
+                                e =>
+                                {
+                                    var ts = e.Timestamp;
+                                    return ts >= startDate
+                                           && ts < endDate.AddDays(1);
+                                }),
+                            this.passesFilters));
 
                     this.computeTotal(matches);
                     this.computeAvgPerDay(
@@ -94,7 +97,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                "LogLotter");
+                Framework.Log.SettingsHolder.LotterName);
         }
 
         public virtual void Reset()
@@ -108,22 +111,33 @@
             this.TotalEntryCount = 0;
         }
 
-        private bool passesFilters(LogEntry e)
+        protected virtual bool passesFilters(LogEntry e)
         {
             var fc = this.FilterContent;
             if (!string.IsNullOrEmpty(fc))
             {
-                var foundContent = false;
-                foreach (var line in e.Content)
+                bool foundContent;
+                var ec = e.Content;
+                if (ec == null)
                 {
-                    if (line.ToLowerInvariant()
-                        .Contains(fc.ToLowerInvariant()))
+                    foundContent = false;
+                    goto finishCheckingContent;
+                }
+
+                foreach (var line in ec)
+                {
+                    if (line?.ToLowerInvariant()
+                            .Contains(fc.ToLowerInvariant())
+                        ?? false)
                     {
                         foundContent = true;
-                        break;
+                        goto finishCheckingContent;
                     }
                 }
 
+                foundContent = false;
+
+                finishCheckingContent:
                 if (!foundContent)
                 {
                     return false;
@@ -133,8 +147,10 @@
             var ft = this.FilterType;
             if (!string.IsNullOrEmpty(ft))
             {
-                if (!e.Type.ToLowerInvariant()
-                    .Contains(ft.ToLowerInvariant()))
+                var et = e.Type;
+                if (!et?.ToLowerInvariant()
+                        .Contains(ft.ToLowerInvariant())
+                    ?? true)
                 {
                     return false;
                 }
@@ -143,12 +159,12 @@
             return true;
         }
 
-        private void computeTotal(Lot<LogEntry> entries)
+        protected virtual void computeTotal(Lot<LogEntry> entries)
         {
             this.TotalEntryCount = entries.Count;
         }
 
-        private void computeAvgPerDay(
+        protected virtual void computeAvgPerDay(
             long entryCount,
             DateTime start,
             DateTime end)
@@ -163,7 +179,7 @@
             this.AvgEntriesPerDay = entryCount / totalDays;
         }
 
-        private void computeOldestTimestamp(Lot<LogEntry> entries)
+        protected virtual void computeOldestTimestamp(Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
@@ -184,7 +200,8 @@
             this.OldestTimestamp = oldest;
         }
 
-        private void computeNewestTimestamp(Lot<LogEntry> entries)
+        protected virtual void computeNewestTimestamp(
+            Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {
@@ -205,48 +222,74 @@
             this.NewestTimestamp = newest;
         }
 
-        private void computeEarliestTimestamp(Lot<LogEntry> entries)
+        protected virtual void computeEarliestTimestamp(
+            Lot<LogEntry> entries)
         {
-            if (entries.Count == 0)
+            if (entries.Count < 1)
             {
                 this.EarliestTimestamp = default(DateTime);
                 return;
             }
 
             var earliest = new DateTime(1, 1, 1, 23, 59, 59);
+            var earliestChanged = false;
             foreach (var entry in entries)
             {
+                if (entry == null)
+                {
+                    continue;
+                }
+
                 var ts = entry.Timestamp;
                 if (ts.TimeOfDay < earliest.TimeOfDay)
                 {
                     earliest = ts;
+                    earliestChanged = true;
                 }
+            }
+
+            if (!earliestChanged)
+            {
+                earliest = default(DateTime);
             }
 
             this.EarliestTimestamp = earliest;
         }
 
-        private void computeLatestTimestamp(Lot<LogEntry> entries)
+        protected virtual void computeLatestTimestamp(
+            Lot<LogEntry> entries)
         {
-            if (entries.Count == 0)
+            if (entries.Count < 1)
             {
                 this.LatestTimestamp = default(DateTime);
                 return;
             }
 
             var latest = new DateTime(1, 1, 1, 0, 0, 0);
+            var latestChanged = false;
             foreach (var entry in entries)
             {
+                if (entry == null)
+                {
+                    continue;
+                }
+
                 var ts = entry.Timestamp;
                 if (ts.TimeOfDay > latest.TimeOfDay)
                 {
                     latest = ts;
+                    latestChanged = true;
                 }
+            }
+
+            if (!latestChanged)
+            {
+                latest = default(DateTime);
             }
 
             this.LatestTimestamp = latest;
         }
 
-        private readonly MethodWeb web;
+        protected readonly MethodWeb web;
     }
 }

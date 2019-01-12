@@ -7,14 +7,19 @@
     {
         public virtual string Decode(SecureString ss)
         {
-            var binaryStringPointer = Marshal.SecureStringToBSTR(ss);
+            if (ss == null)
+            {
+                return string.Empty;
+            }
+
+            var p = Marshal.SecureStringToBSTR(ss);
             try
             {
-                return Marshal.PtrToStringBSTR(binaryStringPointer);
+                return Marshal.PtrToStringBSTR(p);
             }
             finally
             {
-                Marshal.FreeBSTR(binaryStringPointer);
+                Marshal.FreeBSTR(p);
             }
         }
 

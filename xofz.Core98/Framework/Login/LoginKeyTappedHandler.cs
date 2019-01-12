@@ -26,9 +26,9 @@
                 AccessController,
                 SettingsHolder,
                 SecureStringToolSet>(
-                (rw, ac, settings, ssts) =>
+                (uiRW, ac, settings, ssts) =>
                 {
-                    var securePw = rw.Read(
+                    var securePw = uiRW.Read(
                         ui,
                         () => ui.CurrentPassword);
                     var previousCal = ac.CurrentAccessLevel;
@@ -53,7 +53,7 @@
                         return;
                     }
 
-                    rw.Write(
+                    uiRW.Write(
                         ui,
                         ui.FocusPassword);
                 });

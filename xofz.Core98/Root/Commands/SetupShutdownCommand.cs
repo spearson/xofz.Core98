@@ -7,6 +7,12 @@
     public class SetupShutdownCommand : Command
     {
         public SetupShutdownCommand(
+            MethodWeb web)
+            : this(() => { }, web)
+        {
+        }
+
+        public SetupShutdownCommand(
             Ui mainUi,
             MethodWeb web)
             : this(mainUi, () => { }, web)
@@ -14,15 +20,9 @@
         }
 
         public SetupShutdownCommand(
-            MethodWeb web)
-            : this(() => { }, web)
-        {
-        }
-
-        public SetupShutdownCommand(
             Do cleanup,
             MethodWeb web)
-            : this(default(Ui), cleanup, web)
+            : this(null, cleanup, web)
         {
         }
 
@@ -45,8 +45,8 @@
                 .Setup();
         }
 
-        private readonly Ui mainUi;
-        private readonly Do cleanup;
-        private readonly MethodWeb web;
+        protected readonly Ui mainUi;
+        protected readonly Do cleanup;
+        protected readonly MethodWeb web;
     }
 }

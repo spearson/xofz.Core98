@@ -116,6 +116,7 @@
             this.Name = "FormLogEditorUi";
             this.ShowIcon = false;
             this.Text = "Add Log Entry";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.this_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

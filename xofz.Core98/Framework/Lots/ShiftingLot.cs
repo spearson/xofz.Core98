@@ -5,7 +5,7 @@
 
     public class ShiftingLot<T> : Lot<T>
     {
-        public ShiftingLot(int capacity)
+        public ShiftingLot(long capacity)
         {
             if (capacity < 0)
             {
@@ -19,9 +19,11 @@
             this.linkedList = new LinkedList<T>();
         }
 
-        public virtual T this[int index] => this.currentArray[index];
+        public virtual T this[long index] => this.currentArray[index];
 
-        public virtual int CurrentSize => this.linkedList.Count;
+        public virtual long MaxSize => this.capacity;
+
+        public virtual long CurrentSize => this.linkedList.Count;
 
         public virtual long Count => this.CurrentSize;
 
@@ -74,7 +76,7 @@
         }
 
         protected T[] currentArray;
-        private readonly int capacity;
-        private readonly LinkedList<T> linkedList;
+        protected readonly long capacity;
+        protected readonly LinkedList<T> linkedList;
     }
 }

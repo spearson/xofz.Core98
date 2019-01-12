@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using xofz.Framework;
+    using xofz.Framework.Main;
     using xofz.UI;
 
     public sealed class MainPresenter : Presenter
@@ -23,20 +24,13 @@
             }
 
             var w = this.web;
-            var subscriberRegistered = false;
-            w.Run<EventSubscriber>(subscriber =>
+            w.Run<EventSubscriber>(sub =>
             {
-                subscriberRegistered = true;
-                subscriber.Subscribe(
+                sub.Subscribe(
                     this.ui,
                     nameof(this.ui.ShutdownRequested),
                     this.ui_ShutdownRequested);
             });
-
-            if (!subscriberRegistered)
-            {
-                this.ui.ShutdownRequested += this.ui_ShutdownRequested;
-            }
             
             w.Run<Navigator>(n => n.RegisterPresenter(this));
         }
@@ -48,31 +42,19 @@
         private void ui_ShutdownRequested()
         {
             var w = this.web;
-            var cal = AccessLevel.None;
-            var shutdownLevel = AccessLevel.None;
-            w.Run<AccessController, MainUiSettings>(
-                (ac, s) =>
-                {
-                    cal = ac.CurrentAccessLevel;
-                    shutdownLevel = s.ShutdownLevel;
-                });
-
-            if (cal >= shutdownLevel)
+            Do logIn = null, shutdown = null;
+            w.Run<Navigator>(nav =>
             {
-                w.Run<Navigator>(n => n.Present<ShutdownPresenter>());
-                return;
-            }
+                logIn = nav.LoginFluidly;
+                shutdown = nav.Present<ShutdownPresenter>;
+            });
 
-            w.Run<Navigator>(n => n.LoginFluidly());
-            w.Run<AccessController, EventRaiser>((ac, er) =>
+            w.Run<ShutdownRequestedHandler>(handler =>
             {
-                cal = ac.CurrentAccessLevel;
-                if (cal >= shutdownLevel)
-                {
-                    er.Raise(
-                        this.ui,
-                        nameof(this.ui.ShutdownRequested));
-                }
+                handler.Handle(
+                    this.ui,
+                    logIn,
+                    shutdown);
             });
         }
 

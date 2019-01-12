@@ -140,9 +140,10 @@
 
         void PopupUi.Display()
         {
+            var s = this.shell;
             this.Location = new Point(
-                this.shell.Location.X,
-                this.shell.Location.Y);
+                s.Location.X,
+                s.Location.Y);
             this.Visible = true;
         }
 
@@ -206,6 +207,6 @@
                 o => rtkt.Invoke());
         }
 
-        private readonly Form shell;
+        protected readonly Form shell;
     }
 }

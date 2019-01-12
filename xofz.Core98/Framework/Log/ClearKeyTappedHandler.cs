@@ -38,7 +38,7 @@
                         m.Subscriber,
                         () => m.Question(
                             "Clear log? "
-                            + "A backup WILL be created."));
+                            + "A backup will be created."));
                 },
                 name);
 

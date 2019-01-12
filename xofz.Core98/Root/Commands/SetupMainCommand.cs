@@ -1,6 +1,7 @@
 ﻿namespace xofz.Root.Commands
 {
     using xofz.Framework;
+    using xofz.Framework.Main;
     using xofz.Presentation;
     using xofz.UI;
 
@@ -9,11 +10,22 @@
         public SetupMainCommand(
             MainUi ui,
             MethodWeb web,
-            AccessLevel shutdownLevel = AccessLevel.None)
+            AccessLevel shutdownLevel)
+            : this(ui, web, new MainUiSettings
+            {
+                ShutdownLevel = shutdownLevel
+            })
+        {
+        }
+
+        public SetupMainCommand(
+            MainUi ui,
+            MethodWeb web,
+            MainUiSettings settings)
         {
             this.ui = ui;
             this.web = web;
-            this.shutdownLevel = shutdownLevel;
+            this.settings = settings;
         }
 
         public override void Execute()
@@ -25,18 +37,30 @@
                 .Setup();
         }
 
-        private void registerDependencies()
+        protected virtual void registerDependencies()
         {
             var w = this.web;
+            var s = this.settings;
+            if (s == null)
+            {
+                w.RegisterDependency(
+                    new MainUiSettings
+                    {
+                        ShutdownLevel = AccessLevel.None
+                    });
+                goto registerHandlers;
+            }
+
             w.RegisterDependency(
-                new MainUiSettings
-                {
-                    ShutdownLevel = this.shutdownLevel
-                });
+                s);
+
+            registerHandlers:
+            w.RegisterDependency(
+                new ShutdownRequestedHandler(w));
         }
 
-        private readonly MainUi ui;
-        private readonly MethodWeb web;
-        private readonly AccessLevel shutdownLevel;
+        protected readonly MainUi ui;
+        protected readonly MethodWeb web;
+        protected readonly MainUiSettings settings;
     }
 }

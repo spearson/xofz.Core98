@@ -27,23 +27,23 @@
         {
             var w = this.web;
             w.Run<LogEditor, UiReaderWriter>(
-                (le, rw) =>
+                (le, uiRW) =>
                 {
-                    var customIsSelected = rw
+                    var customIsSelected = uiRW
                                                .Read(ui, () => ui.SelectedType)
                                                ?.ToLowerInvariant()
                                                .Contains("custom")
                                            ?? false;
                     var type = customIsSelected
-                        ? rw.Read(ui, () => ui.CustomType)
-                        : rw.Read(ui, () => ui.SelectedType);
+                        ? uiRW.Read(ui, () => ui.CustomType)
+                        : uiRW.Read(ui, () => ui.SelectedType);
                     le.AddEntry(
                         type,
-                        rw.Read(
+                        uiRW.Read(
                             ui,
                             () => ui.Content));
 
-                    rw.Write(
+                    uiRW.Write(
                         ui, () =>
                         {
                             ui.Content = null;

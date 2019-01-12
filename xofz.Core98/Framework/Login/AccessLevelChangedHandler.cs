@@ -20,11 +20,11 @@
             AccessLevel newAccessLevel)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<UiReaderWriter>(uiRW =>
             {
                 if (newAccessLevel == AccessLevel.None)
                 {
-                    rw.Write(
+                    uiRW.Write(
                         ui,
                         () => ui.CurrentPassword = null);
                 }
@@ -37,7 +37,7 @@
                         t,
                         nameof(t.Elapsed));
                 },
-                "LoginTimer");
+                @"LoginTimer");
         }
 
         protected readonly MethodWeb web;

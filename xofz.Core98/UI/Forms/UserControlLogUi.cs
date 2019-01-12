@@ -347,6 +347,6 @@
             }
         }
 
-        private TextBox activeFilterTextBox;
+        protected TextBox activeFilterTextBox;
     }
 }

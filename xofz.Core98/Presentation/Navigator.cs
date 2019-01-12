@@ -154,9 +154,11 @@
         public virtual void StopPresenter<T>(string name)
             where T : NamedPresenter
         {
-            foreach (var presenter in EnumerableHelpers.Where(
-                EnumerableHelpers.OfType<T>(this.presenters),
-                p => p.Name == name))
+            foreach (var presenter in
+                EnumerableHelpers.Where(
+                    EnumerableHelpers.OfType<T>(
+                        this.presenters),
+                    p => p.Name == name))
             {
                 presenter.Stop();
                 break;
@@ -180,7 +182,7 @@
 
             if (presenterName == null)
             {
-                return this.getUi<TUi>(
+                return this.getUiProtected<TUi>(
                     EnumerableHelpers.First(
                         matchingPresenters),
                     fieldName);
@@ -195,7 +197,7 @@
 
                 if (np.Name == presenterName)
                 {
-                    return this.getUi<TUi>(
+                    return this.getUiProtected<TUi>(
                         np,
                         fieldName);
                 }
@@ -204,7 +206,9 @@
             return default(TUi);
         }
 
-        private TUi getUi<TUi>(object presenter, string fieldName)
+        protected virtual TUi getUiProtected<TUi>(
+            object presenter, 
+            string fieldName)
         {
             return (TUi)presenter
                 .GetType()

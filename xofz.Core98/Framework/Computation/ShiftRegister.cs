@@ -51,8 +51,8 @@
             this.currentArray = currentArray;
         }
 
-        private bool[] currentArray;
-        private readonly int capacity;
-        private readonly LinkedList<bool> bitLinkedList;
+        protected bool[] currentArray;
+        protected readonly int capacity;
+        protected readonly LinkedList<bool> bitLinkedList;
     }
 }

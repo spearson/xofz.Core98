@@ -20,9 +20,9 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<UiReaderWriter>(uiRW =>
             {
-                rw.Write(
+                uiRW.Write(
                     ui,
                     () =>
                     {
@@ -32,7 +32,7 @@
 
                 w.Run<KeyboardLoader>(loader =>
                 {
-                    rw.Write(
+                    uiRW.Write(
                         ui,
                         () => ui.KeyboardKeyVisible = true);
                 });
@@ -40,7 +40,7 @@
                 w.Run<AccessController>(ac =>
                 {
                     var cal = ac.CurrentAccessLevel;
-                    rw.Write(
+                    uiRW.Write(
                         ui,
                         () => ui.CurrentAccessLevel = cal);
                 });

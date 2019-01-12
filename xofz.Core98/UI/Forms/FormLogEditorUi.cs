@@ -14,7 +14,6 @@
             this.shell = shell;
 
             this.InitializeComponent();
-            this.FormClosing += this.this_FormClosing;
 
             var h = this.Handle;
         }
@@ -90,7 +89,8 @@
         {
             get
             {
-                ICollection<string> contentCollection = new LinkedList<string>();
+                ICollection<string> contentCollection =
+                    new LinkedList<string>();
                 var lines = this.contentTextBox.Lines;
                 if (lines == null)
                 {
@@ -114,7 +114,8 @@
                     return;
                 }
 
-                var array = new string[value.Count];
+                var c = value.Count;
+                var array = new string[c];
                 var e = value.GetEnumerator();
                 // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                 if (e == null)
@@ -122,7 +123,7 @@
                     return;
                 }
 
-                for (var i = 0; i < value.Count; ++i)
+                for (var i = 0; i < c; ++i)
                 {
                     e.MoveNext();
                     array[i] = e.Current;
@@ -168,6 +169,6 @@
                 o => akt.Invoke());
         }
 
-        private readonly Form shell;
+        protected readonly Form shell;
     }
 }

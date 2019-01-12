@@ -77,8 +77,8 @@
                 new KeyboardKeyTappedHandler(w));
         }
 
-        private readonly LoginUi ui;
-        private readonly MethodWeb web;
-        private readonly TimeSpan loginDuration;
+        protected readonly LoginUi ui;
+        protected readonly MethodWeb web;
+        protected readonly TimeSpan loginDuration;
     }
 }

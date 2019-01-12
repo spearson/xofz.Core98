@@ -102,7 +102,7 @@
             var noAccess = AccessLevel.None;
             var newLevel = noAccess;
             w.Run<PasswordHolder, SecureStringToolSet>(
-                (holder, ssd) =>
+                (holder, ssts) =>
                 {
                     var ps = holder.Passwords;
                     if (ps == null)
@@ -112,7 +112,7 @@
 
                     foreach (var kvp in ps)
                     {
-                        if (password == ssd.Decode(kvp.Key))
+                        if (password == ssts.Decode(kvp.Key))
                         {
                             newLevel = kvp.Value;
                             break;

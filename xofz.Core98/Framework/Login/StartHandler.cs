@@ -19,16 +19,16 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<UiReaderWriter>(uiRW =>
             {
                 w.Run<SettingsHolder>(
                     settings =>
                     {
-                        settings.CurrentPassword = rw.Read(
+                        settings.CurrentPassword = uiRW.Read(
                             ui, () => ui.CurrentPassword);
                     });
 
-                rw.WriteSync(ui, () =>
+                uiRW.WriteSync(ui, () =>
                 {
                     try
                     {

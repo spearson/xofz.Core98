@@ -14,7 +14,6 @@
         {
             this.ui = ui;
             this.web = web;
-            this.timerHandlerFinished = new ManualResetEvent(true);
         }
 
         /// <summary>
@@ -82,7 +81,10 @@
             }
 
             var w = this.web;
-            w.Run<StartHandler>(handler => handler.Handle(this.ui));
+            w.Run<StartHandler>(handler =>
+            {
+                handler.Handle(this.ui);
+            });
         }
 
         /// <summary>
@@ -96,7 +98,10 @@
             }
 
             var w = this.web;
-            w.Run<StopHandler>(handler => handler.Handle(this.ui));
+            w.Run<StopHandler>(handler =>
+            {
+                handler.Handle(this.ui);
+            });
         }
 
         private void ui_BackspaceKeyTapped()
@@ -119,13 +124,11 @@
 
         private void timer_Elapsed()
         {
-            var h = this.timerHandlerFinished;
-            h.Reset();
-
             var w = this.web;
-            w.Run<TimerHandler>(handler => handler.Handle(this.ui));
-
-            h.Set();
+            w.Run<TimerHandler>(handler =>
+            {
+                handler.Handle(this.ui);
+            });
         }
 
         private void accessLevelChanged(AccessLevel newAccessLevel)
@@ -151,6 +154,5 @@
         private long setupIf1;
         private readonly LoginUi ui;
         private readonly MethodWeb web;
-        private readonly ManualResetEvent timerHandlerFinished;
     }
 }

@@ -18,9 +18,10 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<SecureStringToolSet, UiReaderWriter>((ssts, rw) =>
+            w.Run<SecureStringToolSet, UiReaderWriter>(
+                (ssts, uiRW) =>
             {
-                var currentPw = ssts.Decode(rw.Read(
+                var currentPw = ssts.Decode(uiRW.Read(
                     ui,
                     () => ui.CurrentPassword));
                 var newPw = StringHelpers.RemoveEndChars(
@@ -28,7 +29,7 @@
                     1);
                 var securePw = ssts.Encode(
                     newPw);
-                rw.Write(ui,
+                uiRW.Write(ui,
                     () =>
                     {
                         ui.CurrentPassword = securePw;

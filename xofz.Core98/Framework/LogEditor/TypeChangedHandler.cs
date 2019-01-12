@@ -18,14 +18,15 @@
             LogEditorUi ui)
         {
             var w = this.web;
-            w.Run<UiReaderWriter>(rw =>
+            w.Run<UiReaderWriter>(uiRW =>
             {
-                var customIsSelected = rw
-                                           .Read(ui, () => ui.SelectedType)
-                                           ?.ToLowerInvariant()
-                                           .Contains("custom")
-                                       ?? false;
-                rw.Write(ui, () =>
+                var customIsSelected
+                    = uiRW
+                          .Read(ui, () => ui.SelectedType)
+                          ?.ToLowerInvariant()
+                          .Contains("custom")
+                      ?? false;
+                uiRW.Write(ui, () =>
                 {
                     ui.CustomTypeVisible = customIsSelected;
                 });

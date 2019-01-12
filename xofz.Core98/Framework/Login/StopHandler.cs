@@ -21,12 +21,11 @@
             var w = this.web;
             w.Run<
                 UiReaderWriter,
-                SettingsHolder,
-                SecureStringToolSet>(
-                (rw, settings, ssd) =>
+                SettingsHolder>(
+                (uiRW, settings) =>
                 {
                     var cp = settings.CurrentPassword;
-                    rw.WriteSync(ui,
+                    uiRW.WriteSync(ui,
                         () =>
                         {
                             ui.CurrentPassword = cp;
