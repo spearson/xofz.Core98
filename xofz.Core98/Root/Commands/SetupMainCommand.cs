@@ -10,7 +10,7 @@
         public SetupMainCommand(
             MainUi ui,
             MethodWeb web,
-            AccessLevel shutdownLevel)
+            AccessLevel shutdownLevel = AccessLevel.None)
             : this(ui, web, new MainUiSettings
             {
                 ShutdownLevel = shutdownLevel
