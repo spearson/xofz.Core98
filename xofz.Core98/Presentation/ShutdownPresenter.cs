@@ -8,32 +8,32 @@
     public sealed class ShutdownPresenter : Presenter
     {
         public ShutdownPresenter(
-            Ui mainUi,
-            Do cleanup,
-            MethodWeb web)
-            : base(mainUi, null)
-        {
-            this.mainUi = mainUi;
-            this.cleanup = cleanup;
-            this.web = web;
-        }
-
-        public ShutdownPresenter(
-            Do cleanup,
-            MethodWeb web)
-            : base(null, null)
-        {
-            this.mainUi = null;
-            this.cleanup = cleanup;
-            this.web = web;
-        }
-
-        public ShutdownPresenter(
             MethodWeb web)
             : base(null, null)
         {
             this.mainUi = null;
             this.cleanup = null;
+            this.web = web;
+        }
+
+        public ShutdownPresenter(
+            Do cleanup,
+            MethodWeb web)
+            : base(null, null)
+        {
+            this.mainUi = null;
+            this.cleanup = cleanup;
+            this.web = web;
+        }
+
+        public ShutdownPresenter(
+            Ui mainUi,
+            Do cleanup,
+            MethodWeb web)
+            : base(null, null)
+        {
+            this.mainUi = mainUi;
+            this.cleanup = cleanup;
             this.web = web;
         }
 

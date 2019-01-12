@@ -47,7 +47,7 @@
                     this.ui_AddKeyTapped);
             });
 
-            w.Run<Navigator>(n => n.RegisterPresenter(this));
+            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
         }
 
         private void ui_TypeChanged()

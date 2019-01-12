@@ -1110,6 +1110,11 @@
             IEnumerable<KeyValuePair<TKey, TValue>> dictionary,
             TValue value)
         {
+            if (dictionary == null)
+            {
+                return default(TKey);
+            }
+
             foreach (var kvp in dictionary)
             {
                 if (kvp.Value?.Equals(value) ?? value == null)

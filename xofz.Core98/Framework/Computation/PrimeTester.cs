@@ -31,7 +31,7 @@
             Lot<long> lot, 
             bool onlyCheckLast)
         {
-            if (lot.Count == 0)
+            if (lot.Count < 1)
             {
                 return true;
             }
@@ -60,7 +60,7 @@
             {
                 var lowestNumber = ll.First.Value;
                 ll.RemoveFirst();
-                if (ll.Count == 0)
+                if (ll.Count < 1)
                 {
                     return true;
                 }

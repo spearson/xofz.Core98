@@ -8,14 +8,7 @@
     {
         public SetupShutdownCommand(
             MethodWeb web)
-            : this(() => { }, web)
-        {
-        }
-
-        public SetupShutdownCommand(
-            Ui mainUi,
-            MethodWeb web)
-            : this(mainUi, () => { }, web)
+            : this(null, null, web)
         {
         }
 

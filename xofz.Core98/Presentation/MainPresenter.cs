@@ -32,7 +32,7 @@
                     this.ui_ShutdownRequested);
             });
             
-            w.Run<Navigator>(n => n.RegisterPresenter(this));
+            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
         }
 
         public override void Start()
