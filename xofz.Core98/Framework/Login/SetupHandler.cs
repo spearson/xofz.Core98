@@ -26,7 +26,7 @@
                     ui,
                     () =>
                     {
-                        ui.TimeRemaining = "Not logged in";
+                        ui.TimeRemaining = @"Not logged in";
                         ui.KeyboardKeyVisible = false;
                     });
 
@@ -49,7 +49,7 @@
                     {
                         t.Start(1000);
                     },
-                    "LoginTimer");
+                    DependencyNames.Timer);
             });
         }
 

@@ -37,7 +37,7 @@
                         t,
                         nameof(t.Elapsed));
                 },
-                @"LoginTimer");
+                DependencyNames.Timer);
         }
 
         protected readonly MethodWeb web;

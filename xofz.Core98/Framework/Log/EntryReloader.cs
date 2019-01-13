@@ -1,8 +1,6 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using xofz.Framework.Logging;
     using xofz.UI;
 
@@ -18,7 +16,8 @@
             string name)
         {
             var w = this.web;
-            w.Run<Log, UiReaderWriter>((log, uiRW) =>
+            w.Run<Log, UiReaderWriter, EntryConverter>(
+                (log, uiRW, converter) =>
                 {
                     var start = uiRW.Read(ui, () => ui.StartDate);
                     var end = uiRW.Read(ui, () => ui.EndDate);
@@ -72,7 +71,7 @@
                         = new LinkedList<XTuple<string, string, string>>(
                             EnumerableHelpers.Select(
                                 matchingEntries,
-                                this.createTuple));
+                                converter.Convert));
 
                     uiRW.WriteSync(
                         ui,
@@ -85,18 +84,6 @@
                         name);
                 },
                 name);
-        }
-
-        protected virtual XTuple<string, string, string> createTuple(LogEntry e)
-        {
-            return XTuple.Create(
-                e.Timestamp.ToString(
-                    "yyyy/MM/dd HH:mm.ss.fffffff",
-                    CultureInfo.CurrentCulture),
-                e.Type,
-                string.Join(
-                    Environment.NewLine,
-                    EnumerableHelpers.ToArray(e.Content)));
         }
 
         protected readonly MethodWeb web;

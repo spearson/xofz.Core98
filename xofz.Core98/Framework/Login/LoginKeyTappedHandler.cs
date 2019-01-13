@@ -43,7 +43,7 @@
                             {
                                 er.Raise(t, nameof(t.Elapsed));
                             },
-                            "LoginTimer");
+                            DependencyNames.Timer);
                     }
 
                     if (newCal > AccessLevel.None)

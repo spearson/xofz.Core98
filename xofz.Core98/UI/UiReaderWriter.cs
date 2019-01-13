@@ -26,7 +26,7 @@
 
             if (root.InvokeRequired)
             {
-                T t = default(T);
+                var t = default(T);
                 root.Invoke((Do)(() => t = read()), null);
                 return t;
             }

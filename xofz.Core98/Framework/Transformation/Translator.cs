@@ -52,7 +52,7 @@
                 source.GetEnumerator());
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             this.sourceEnumerator?.Dispose();
         }

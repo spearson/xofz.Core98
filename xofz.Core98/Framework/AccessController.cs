@@ -31,7 +31,7 @@
                         nameof(t.Elapsed),
                         this.timer_Elapsed);
                 },
-                "AccessTimer");
+                DependencyNames.Timer);
             w.RegisterDependency(this);
         }
 
@@ -139,7 +139,7 @@
                         System.DateTime.Now);
                     t.Start(loginDurationMilliseconds);
                 },
-                @"AccessTimer");
+                DependencyNames.Timer);
         }
 
         protected virtual void setCurrentAccessLevel(

@@ -31,8 +31,8 @@
                 {
                     var customIsSelected = uiRW
                                                .Read(ui, () => ui.SelectedType)
-                                               ?.ToLowerInvariant()
-                                               .Contains("custom")
+                                               ?.Contains(DefaultEntryTypes
+                                                   .Custom)
                                            ?? false;
                     var type = customIsSelected
                         ? uiRW.Read(ui, () => ui.CustomType)

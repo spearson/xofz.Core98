@@ -59,7 +59,7 @@
                             nameof(t.Elapsed),
                             this.timer_Elapsed);
                     },
-                    "LoginTimer");
+                    DependencyNames.Timer);
             });
 
             w.Run<SetupHandler>(handler =>

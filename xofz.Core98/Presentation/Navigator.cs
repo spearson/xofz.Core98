@@ -133,11 +133,11 @@
             var w = this.web;
             w.Run<LatchHolder>(
                 latch => latch.Latch.Reset(),
-                "LoginLatch");
+                Framework.Login.DependencyNames.Latch);
             this.PresentFluidly<LoginPresenter>();
             w.Run<LatchHolder>(
                 latch => latch.Latch.WaitOne(),
-                "LoginLatch");
+                Framework.Login.DependencyNames.Latch);
         }
 
         public virtual void StopPresenter<T>()

@@ -64,7 +64,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                Framework.Log.SettingsHolder.LotterName);
+                Framework.Log.DependencyNames.Lotter);
         }
 
         public virtual void ComputeRange(
@@ -97,7 +97,7 @@
                     this.computeLatestTimestamp(matches);
                 },
                 this.LogName,
-                Framework.Log.SettingsHolder.LotterName);
+                Framework.Log.DependencyNames.Lotter);
         }
 
         public virtual void Reset()

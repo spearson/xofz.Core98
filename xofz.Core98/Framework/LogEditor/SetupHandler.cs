@@ -1,6 +1,7 @@
 ﻿namespace xofz.Framework.LogEditor
 {
     using System.Collections.Generic;
+    using xofz.Framework.Logging;
     using xofz.UI;
 
     public class SetupHandler
@@ -20,10 +21,10 @@
             ICollection<string> types = new LinkedList<string>(
                 new[]
                 {
-                    "Information",
-                    "Warning",
-                    "Error",
-                    "Custom"
+                    DefaultEntryTypes.Information,
+                    DefaultEntryTypes.Warning,
+                    DefaultEntryTypes.Error,
+                    DefaultEntryTypes.Custom
                 });
 
             var w = this.web;
@@ -34,7 +35,7 @@
                     () =>
                     {
                         ui.Types = types;
-                        ui.SelectedType = "Information";
+                        ui.SelectedType = DefaultEntryTypes.Information;
                         ui.CustomTypeVisible = false;
                     });
             });

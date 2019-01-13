@@ -33,7 +33,12 @@
             IEnumerable<T> finiteSource, 
             int skipPoint)
         {
-            var ll = new LinkedList<T>(finiteSource);
+            var ll = new LinkedList<T>();
+            if (finiteSource == null)
+            {
+                return ll;
+            }
+
             var result = new List<T>();
             for (var i = 0; i < skipPoint; ++i)
             {

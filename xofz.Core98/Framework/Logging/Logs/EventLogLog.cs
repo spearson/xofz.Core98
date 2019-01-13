@@ -47,18 +47,18 @@
             switch (entry.EntryType)
             {
                 case EventLogEntryType.Information:
-                    return "Information";
+                    return DefaultEntryTypes.Information;
                 case EventLogEntryType.Error:
-                    return "Error";
+                    return DefaultEntryTypes.Error;
                 case EventLogEntryType.Warning:
-                    return "Warning";
+                    return DefaultEntryTypes.Warning;
                 case EventLogEntryType.SuccessAudit:
-                    return "Successful Audit";
+                    return DefaultEntryTypes.SuccessAudit;
                 case EventLogEntryType.FailureAudit:
-                    return "Audit Failure";
+                    return DefaultEntryTypes.FailureAudit;
             }
 
-            return "Information";
+            return DefaultEntryTypes.Information;
         }
 
         ICollection<LogEntry> Log.ReadEntries(
@@ -106,13 +106,13 @@
         {
             switch (type)
             {
-                case "Warning":
+                case DefaultEntryTypes.Warning:
                     return EventLogEntryType.Warning;
-                case "Error":
+                case DefaultEntryTypes.Error:
                     return EventLogEntryType.Error;
-                case "Audit Failure":
+                case DefaultEntryTypes.FailureAudit:
                     return EventLogEntryType.FailureAudit;
-                case "Successful Audit":
+                case DefaultEntryTypes.SuccessAudit:
                     return EventLogEntryType.SuccessAudit;
             }
 

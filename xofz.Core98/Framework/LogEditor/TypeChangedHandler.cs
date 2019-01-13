@@ -1,5 +1,6 @@
 ﻿namespace xofz.Framework.LogEditor
 {
+    using xofz.Framework.Logging;
     using xofz.UI;
 
     public class TypeChangedHandler
@@ -23,8 +24,7 @@
                 var customIsSelected
                     = uiRW
                           .Read(ui, () => ui.SelectedType)
-                          ?.ToLowerInvariant()
-                          .Contains("custom")
+                          ?.Contains(DefaultEntryTypes.Custom)
                       ?? false;
                 uiRW.Write(ui, () =>
                 {

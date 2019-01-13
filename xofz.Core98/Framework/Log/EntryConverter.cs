@@ -20,9 +20,16 @@
                     null, null, null);
             }
 
+            var w = this.web;
+            string format = null;
+            w.Run<SettingsHolder>(settings =>
+            {
+                format = settings.TimestampFormat;
+            });
+
             return XTuple.Create(
                 entry.Timestamp.ToString(
-                    "yyyy/MM/dd HH:mm.ss.fffffff",
+                    format,
                     CultureInfo.CurrentCulture),
                 entry.Type,
                 string.Join(

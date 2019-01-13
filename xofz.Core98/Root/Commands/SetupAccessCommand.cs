@@ -28,7 +28,7 @@
                 this.passwords);
             w.RegisterDependency(
                 new xofz.Framework.Timer(),
-                @"AccessTimer");
+                DependencyNames.Timer);
             w.RegisterDependency(
                 new SecureStringToolSet());
             w.RegisterDependency(

@@ -45,16 +45,19 @@
     <Compile Include="Framework\AccessController.cs" />
     <Compile Include="Framework\Access\PasswordHolder.cs" />
     <Compile Include="Framework\Access\SettingsHolder.cs" />
+    <Compile Include="Framework\Access\DependencyNames.cs" />
     <Compile Include="Framework\AlphanumericGen.cs" />
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
+    <Compile Include="Framework\Logging\DefaultEntryTypes.cs" />
     <Compile Include="Framework\LogEditor\SetupHandler.cs" />
     <Compile Include="Framework\LogEditor\TypeChangedHandler.cs" />
     <Compile Include="Framework\Login\AccessLevelChangedHandler.cs" />
     <Compile Include="Framework\Login\BackspaceKeyTappedHandler.cs" />
+    <Compile Include="Framework\Login\DependencyNames.cs" />
     <Compile Include="Framework\Login\KeyboardKeyTappedHandler.cs" />
     <Compile Include="Framework\Login\LoginKeyTappedHandler.cs" />
     <Compile Include="Framework\Login\SettingsHolder.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Framework\Log\ClearKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\DateAndFilterResetter.cs" />
     <Compile Include="Framework\Log\DateChangedHandler.cs" />
+    <Compile Include="Framework\Log\DependencyNames.cs" />
     <Compile Include="Framework\Log\EntryConverter.cs" />
     <Compile Include="Framework\Log\EntryReloader.cs" />
     <Compile Include="Framework\Log\EntryWrittenHandler.cs" />

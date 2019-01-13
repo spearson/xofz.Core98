@@ -35,7 +35,7 @@
                         {
                             latch.Latch.Set();
                         },
-                        "LoginLatch");
+                        DependencyNames.Latch);
                 });
         }
 

@@ -150,7 +150,7 @@
 
         checkLotter:
             registered = false;
-            var ln = SettingsHolder.LotterName;
+            var ln = DependencyNames.Lotter;
             w.Run<Lotter>(lotter =>
                 {
                     registered = true;

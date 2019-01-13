@@ -2,8 +2,6 @@
 {
     public class SettingsHolder
     {
-        public const string LotterName = @"LogLotter";
-
         public virtual string LogLocation { get; set; }
         
         public virtual string SecondaryLogLocation { get; set; }
@@ -19,5 +17,8 @@
         public virtual bool StatisticsEnabled { get; set; }
 
         public virtual Gen<string> ComputeBackupLocation { get; set; }
+
+        public virtual string TimestampFormat { get; set; }
+            = @"yyyy/MM/dd HH:mm.ss.fffffff";
     }
 }

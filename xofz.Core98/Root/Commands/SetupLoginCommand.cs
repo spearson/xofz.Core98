@@ -45,7 +45,7 @@
             var w = this.web;
             w.RegisterDependency(
                 new xofz.Framework.Timer(),
-                "LoginTimer");
+                DependencyNames.Timer);
             w.RegisterDependency(
                 new SettingsHolder
                 {
@@ -56,7 +56,7 @@
                 {
                     Latch = new ManualResetEvent(true)
                 },
-                "LoginLatch");
+                DependencyNames.Latch);
             w.RegisterDependency(
                 new KeyboardLoader());
             w.RegisterDependency(
