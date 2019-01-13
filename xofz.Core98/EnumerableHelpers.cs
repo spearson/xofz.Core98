@@ -732,12 +732,21 @@
                 return new T[0];
             }
 
-            var ll = new LinkedList<T>();
-            foreach (var item in source)
+            if (source is T[] a)
             {
-                ll.AddLast(item);
+                return a;
             }
 
+            LinkedList<T> ll;
+            if (source is LinkedList<T> linkedList)
+            {
+                ll = linkedList;
+                goto createArray;
+            }
+
+            ll = new LinkedList<T>(source);
+
+            createArray:
             var array = new T[ll.Count];
             ll.CopyTo(array, 0);
 
@@ -750,6 +759,11 @@
             if (source == null)
             {
                 return new List<T>();
+            }
+
+            if (source is List<T> l)
+            {
+                return l;
             }
 
             return new List<T>(source);
