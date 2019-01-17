@@ -2,6 +2,7 @@
 {
     using xofz.Framework;
     using xofz.Framework.Access;
+    using SettingsHolder = xofz.Framework.Access.SettingsHolder;
 
     public class SetupAccessCommand : Command
     {
@@ -17,7 +18,8 @@
         {
             this.registerDependencies();
 
-            new AccessController(this.web)
+            new AccessController(
+                    this.web)
                 .Setup();
         }
 

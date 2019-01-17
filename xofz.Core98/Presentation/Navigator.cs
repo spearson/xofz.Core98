@@ -167,7 +167,7 @@
 
         public virtual TUi GetUi<TPresenter, TUi>(
             string presenterName = null,
-            string fieldName = "ui")
+            string fieldName = @"ui")
             where TPresenter : Presenter
         {
             ICollection<Presenter> matchingPresenters

@@ -141,10 +141,16 @@
         void PopupUi.Display()
         {
             var s = this.shell;
+            if (s == null)
+            {
+                this.Show();
+                return;
+            }
+
             this.Location = new Point(
                 s.Location.X,
                 s.Location.Y);
-            this.Visible = true;
+            this.Show(s);
         }
 
         private void overallKey_Click(object sender, EventArgs e)

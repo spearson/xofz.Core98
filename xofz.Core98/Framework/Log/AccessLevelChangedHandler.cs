@@ -9,6 +9,7 @@
         {
             this.web = web;
         }
+
         public virtual void Handle(
             LogUi ui,
             AccessLevel newLevel,

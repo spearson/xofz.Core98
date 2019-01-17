@@ -1,6 +1,6 @@
-﻿namespace xofz.Framework
+﻿namespace xofz.Framework.Main
 {
-    public class MainUiSettings
+    public class SettingsHolder
     {
         public virtual AccessLevel ShutdownLevel { get; set; }
     }

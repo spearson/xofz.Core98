@@ -4,7 +4,9 @@
 
     public class Presenter
     {
-        public Presenter(Ui ui, ShellUi shell)
+        public Presenter(
+            Ui ui, 
+            ShellUi shell)
         {
             this.ui = ui;
             this.shell = shell;

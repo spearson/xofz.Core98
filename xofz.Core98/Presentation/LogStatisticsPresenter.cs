@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using xofz.Framework;
-    using xofz.Framework.Logging;
     using xofz.Framework.LogStatistics;
     using xofz.UI;
 

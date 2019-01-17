@@ -383,8 +383,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLogStatisticsUi";
+            this.ShowIcon = false;
             this.Text = "Log Statistics";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.this_FormClosing);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();

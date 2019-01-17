@@ -11,7 +11,7 @@
             MainUi ui,
             MethodWeb web,
             AccessLevel shutdownLevel = AccessLevel.None)
-            : this(ui, web, new MainUiSettings
+            : this(ui, web, new SettingsHolder
             {
                 ShutdownLevel = shutdownLevel
             })
@@ -21,7 +21,7 @@
         public SetupMainCommand(
             MainUi ui,
             MethodWeb web,
-            MainUiSettings settings)
+            SettingsHolder settings)
         {
             this.ui = ui;
             this.web = web;
@@ -44,7 +44,7 @@
             if (s == null)
             {
                 w.RegisterDependency(
-                    new MainUiSettings
+                    new SettingsHolder
                     {
                         ShutdownLevel = AccessLevel.None
                     });
@@ -61,6 +61,6 @@
 
         protected readonly MainUi ui;
         protected readonly MethodWeb web;
-        protected readonly MainUiSettings settings;
+        protected readonly SettingsHolder settings;
     }
 }

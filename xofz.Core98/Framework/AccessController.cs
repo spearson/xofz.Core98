@@ -59,7 +59,7 @@
             string password)
         {
             var w = this.web;
-            w.Run<SettingsHolder>(settings =>
+            w.Run<Access.SettingsHolder>(settings =>
             {
                 this.InputPassword(
                     password,

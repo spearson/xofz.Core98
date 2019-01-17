@@ -37,13 +37,22 @@
         public virtual ICollection<string> ReadKeysInSection(
             string sectionName)
         {
-            var lines = this.readLines();
+            string[] lines;
+            try
+            {
+                lines = this.readLines();
+            }
+            catch
+            {
+                return new LinkedList<string>();
+            }
+            
             var headers = this.readSectionHeaders(
                 lines);
             var targetHeader = EnumerableHelpers.FirstOrDefault(
                 headers,
                 h => h.Name == sectionName);
-            return this.readKeysInSectionInternal(
+            return this.readKeysInSectionProtected(
                 lines,
                 targetHeader);
         }
@@ -64,7 +73,7 @@
             }
 
             if (!this
-                .readKeysInSectionInternal(
+                .readKeysInSectionProtected(
                     lines, 
                     targetHeader)
                 .Contains(key))
@@ -115,7 +124,16 @@
             string key,
             string newValue)
         {
-            var lines = this.readLines();
+            string[] lines;
+            try
+            {
+                lines = this.readLines();
+            }
+            catch
+            {
+                return;
+            }
+
             var sectionHeaders = this.readSectionHeaders(lines);
             var targetHeader = default(SectionHeader);
             var nextHeaderCounter = 1;
@@ -134,7 +152,7 @@
                 return;
             }
 
-            if (!this.readKeysInSectionInternal(lines, targetHeader)
+            if (!this.readKeysInSectionProtected(lines, targetHeader)
                 .Contains(key))
             {
                 return;
@@ -179,7 +197,15 @@
                 }
 
                 lines[i] = sb.ToString();
-                this.writeLines(lines);
+                try
+                {
+                    this.writeLines(lines);
+                }
+                catch
+                {
+                    return;
+                }
+                
                 return;
             }
         }
@@ -235,7 +261,7 @@
             return sectionHeaders;
         }
 
-        private ICollection<string> readKeysInSectionInternal(
+        protected virtual ICollection<string> readKeysInSectionProtected(
             string[] lines,
             SectionHeader targetHeader)
         {

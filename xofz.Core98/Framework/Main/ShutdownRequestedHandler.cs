@@ -18,7 +18,7 @@
             var w = this.web;
             var cal = AccessLevel.None;
             var shutdownLevel = AccessLevel.None;
-            w.Run<AccessController, MainUiSettings>(
+            w.Run<AccessController, SettingsHolder>(
                 (ac, s) =>
                 {
                     cal = ac.CurrentAccessLevel;

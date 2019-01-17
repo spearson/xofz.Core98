@@ -13,16 +13,19 @@
 
         public override void Start()
         {
-            try
-            {
-                UiHelpers.WriteSync(
-                    this.ui,
-                    this.ui.Display);
-            }
-            catch
-            {
-                // assume already visible, swallow
-            }
+            UiHelpers.WriteSync(
+                this.ui,
+                () =>
+                {
+                    try
+                    {
+                        this.ui.Display();
+                    }
+                    catch
+                    {
+                        // assume already visible, swallow
+                    }
+                });
         }
 
         public override void Stop()
