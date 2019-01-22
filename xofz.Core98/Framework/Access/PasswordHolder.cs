@@ -40,6 +40,12 @@
                     break;
                 }
 
+                if (password == null)
+                {
+                    ++counter;
+                    continue;
+                }
+
                 var level = nextLevel(counter);
                 d.Add(password, level);
                 ++counter;
