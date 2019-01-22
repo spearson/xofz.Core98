@@ -34,7 +34,7 @@
                 return null;
             }
 
-            if (count < 0)
+            if (count < 1)
             {
                 return s;
             }

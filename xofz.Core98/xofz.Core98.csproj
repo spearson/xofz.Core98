@@ -122,6 +122,7 @@
     <Compile Include="Framework\Main\ShutdownRequestedHandler.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\MethodWebManager.cs" />
+    <Compile Include="Framework\Shutdown\StartHandler.cs" />
     <Compile Include="SecureStringToolSet.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />

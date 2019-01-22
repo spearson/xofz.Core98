@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Threading;
     using xofz.Framework;
+    using xofz.Framework.Lots;
 
     public class Navigator
     {
@@ -170,12 +171,12 @@
             string fieldName = @"ui")
             where TPresenter : Presenter
         {
-            ICollection<Presenter> matchingPresenters
-                = new LinkedList<Presenter>(
+            Lot<Presenter> matchingPresenters
+                = new LinkedListLot<Presenter>(
                     EnumerableHelpers.Where(
                         this.presenters,
                         p => p is TPresenter));
-            if (matchingPresenters.Count == 0)
+            if (matchingPresenters.Count < 1)
             {
                 return default(TUi);
             }

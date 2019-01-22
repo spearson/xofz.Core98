@@ -183,16 +183,16 @@
             }
         }
 
+        public abstract class AnotherDependency
+        {
+            public abstract void Harness(ushort word);
+
+            public abstract void GeneralHarness<T>(T item)
+                where T : struct;
+        }
+
         public class When_Run_2_T_U_is_called : Context
         {
-            public abstract class AnotherDependency
-            {
-                public abstract void Harness(ushort word);
-
-                public abstract void GeneralHarness<T>(T item)
-                    where T : struct;
-            }
-
             [Fact]
             public void Returns_a_tuple_containing_found_dependencies_if_one_is_missing()
             {
@@ -254,6 +254,195 @@
                     .MustHaveHappened();
                 Assert.True(execute2Called);
                 Assert.True(generalHarnessCalled);
+            }
+        }
+
+        public interface SampleObject
+        {
+            void Operate1();
+        }
+
+        public class When_Run_3_T_U_V_is_called : Context
+        {
+            [Fact]
+            public void Does_not_throw_if_dependency_not_found()
+            {
+                var w = this.web;
+                w.RegisterDependency(A.Fake<SampleObject>());
+                bool throws;
+                try
+                {
+                    w.Run<
+                        SampleObject,
+                        SampleDependencyContract,
+                        AnotherDependency>(
+                        (so, sdc, ad) =>
+                        {
+                            so.Operate1();
+                            sdc.Execute1();
+                            ad.GeneralHarness(0xFF);
+                        });
+                    throws = false;
+                }
+                catch
+                {
+                    throws = true;
+                }
+
+                Assert.False(throws);
+            }
+
+            [Fact]
+            public void Does_not_execute_passed_in_method_if_dependency_not_found()
+            {
+                var w = this.web;
+                w.RegisterDependency(A.Fake<SampleObject>());
+                w.RegisterDependency(A.Fake<AnotherDependency>());
+                bool executed = false;
+                w.Run<
+                    SampleObject, 
+                    SampleDependencyContract, 
+                    AnotherDependency>(
+                    (so, sdc, ad) =>
+                    {
+                        so.Operate1();
+                        sdc.Execute2();
+                        ad.GeneralHarness(0xD34DB33F);
+                        executed = true;
+                    });
+
+                Assert.False(executed);
+            }
+
+            [Fact]
+            public void If_dependencies_found_executes_passed_in_method()
+            {
+                var w = this.web;
+                var sampleObject = A.Fake<SampleObject>();
+                var sampleDependency = A.Fake<SampleDependencyContract>();
+                var sampleDependency2 = A.Fake<AnotherDependency>();
+                w.RegisterDependency(sampleObject);
+                w.RegisterDependency(sampleDependency);
+                w.RegisterDependency(sampleDependency2);
+                w.Run<
+                    SampleDependencyContract,
+                    AnotherDependency, 
+                    SampleObject>(
+                    (sdc, ad, so) =>
+                    {
+                        sdc.Execute1();
+
+                        so.Operate1();
+
+                        ad.Harness(0xFED5);
+                    });
+
+                A.CallTo(() => sampleObject.Operate1())
+                    .MustHaveHappened();
+                A.CallTo(() => sampleDependency.Execute1())
+                    .MustHaveHappened();
+                A.CallTo(() => sampleDependency2.Harness(
+                        0xFED5))
+                    .MustHaveHappened();
+            }
+        }
+
+        public interface SampleService
+        {
+            void Start();
+        }
+
+        public class When_Process_4T_is_called : Context
+        {
+            [Fact]
+            public void Does_not_throw_if_dependency_not_found()
+            {
+                var w = this.web;
+                w.RegisterDependency(A.Fake<SampleObject>());
+                bool throws;
+                try
+                {
+                    w.Run<
+                        SampleObject,
+                        SampleDependencyContract,
+                        AnotherDependency,
+                        SampleService>(
+                        (so, sdc, ad, ss) =>
+                        {
+                            so.Operate1();
+                            sdc.Execute1();
+                            ad.GeneralHarness(0xFF);
+                        });
+                    throws = false;
+                }
+                catch
+                {
+                    throws = true;
+                }
+
+                Assert.False(throws);
+            }
+
+            [Fact]
+            public void Does_not_execute_passed_in_method_if_dependency_not_found()
+            {
+                var w = this.web;
+                w.RegisterDependency(A.Fake<SampleObject>());
+                w.RegisterDependency(A.Fake<AnotherDependency>());
+                bool executed = false;
+                w.Run<
+                    SampleObject,
+                    SampleDependencyContract,
+                    AnotherDependency,
+                    SampleService>(
+                    (so, sdc, ad, ss) =>
+                    {
+                        so.Operate1();
+                        sdc.Execute2();
+                        ad.GeneralHarness(0xD34DB33F);
+                        executed = true;
+                    });
+
+                Assert.False(executed);
+            }
+
+            [Fact]
+            public void If_dependencies_found_executes_passed_in_method()
+            {
+                var w = this.web;
+                var sampleObject = A.Fake<SampleObject>();
+                var sampleDependency = A.Fake<SampleDependencyContract>();
+                var sampleDependency2 = A.Fake<AnotherDependency>();
+                var sampleService = A.Fake<SampleService>();
+                w.RegisterDependency(sampleObject);
+                w.RegisterDependency(sampleDependency);
+                w.RegisterDependency(sampleDependency2);
+                w.RegisterDependency(sampleService);
+                w.Run<
+                    SampleDependencyContract,
+                    AnotherDependency,
+                    SampleObject,
+                    SampleService>(
+                    (sdc, ad, so, ss) =>
+                    {
+                        sdc.Execute1();
+
+                        so.Operate1();
+
+                        ad.Harness(0xFED5);
+
+                        ss.Start();
+                    });
+
+                A.CallTo(() => sampleObject.Operate1())
+                    .MustHaveHappened();
+                A.CallTo(() => sampleDependency.Execute1())
+                    .MustHaveHappened();
+                A.CallTo(() => sampleDependency2.Harness(
+                        0xFED5))
+                    .MustHaveHappened();
+                A.CallTo(() => sampleService.Start())
+                    .MustHaveHappened();
             }
         }
     }

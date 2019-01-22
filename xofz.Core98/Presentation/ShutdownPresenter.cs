@@ -1,9 +1,9 @@
 ﻿namespace xofz.Presentation
 {
-    using System.Diagnostics;
     using System.Threading;
     using UI;
     using xofz.Framework;
+    using xofz.Framework.Shutdown;
 
     public sealed class ShutdownPresenter : Presenter
     {
@@ -53,23 +53,11 @@
 
         public override void Start()
         {
-            var c = this.cleanup;
-            if (c == null)
+            var w = this.web;
+            w.Run<StartHandler>(handler =>
             {
-                Process.GetCurrentProcess().Kill();
-                return;
-            }
-
-            var ui = this.mainUi;
-            if (ui == null)
-            {
-                c();
-                Process.GetCurrentProcess().Kill();
-                return;
-            }
-
-            UiHelpers.WriteSync(ui, c);
-            Process.GetCurrentProcess().Kill();
+                handler.Handle(this.mainUi, this.cleanup);
+            });
         }
 
         private long setupIf1;
