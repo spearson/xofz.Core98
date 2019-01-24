@@ -34,7 +34,7 @@
                     () => ui.FilterContent);
                 if (string.IsNullOrEmpty(contentFilter))
                 {
-                    var logUi = readLogUi();
+                    var logUi = readLogUi?.Invoke();
                     if (logUi == null)
                     {
                         return;

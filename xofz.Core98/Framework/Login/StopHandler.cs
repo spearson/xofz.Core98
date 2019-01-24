@@ -25,7 +25,8 @@
                 (uiRW, settings) =>
                 {
                     var cp = settings.CurrentPassword;
-                    uiRW.WriteSync(ui,
+                    uiRW.WriteSync(
+                        ui,
                         () =>
                         {
                             ui.CurrentPassword = cp;

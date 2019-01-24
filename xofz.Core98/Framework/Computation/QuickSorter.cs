@@ -88,7 +88,7 @@
                 pivotIndex = left + right;
             }
 
-            pivotIndex /= 2;
+            pivotIndex >>= 1;
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
@@ -215,7 +215,7 @@
                 pivotIndex = left + right;
             }
 
-            pivotIndex /= 2;
+            pivotIndex >>= 1;
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
