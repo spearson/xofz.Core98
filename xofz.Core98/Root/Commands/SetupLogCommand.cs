@@ -8,7 +8,6 @@
     using xofz.Framework.Lotters;
     using xofz.Presentation;
     using xofz.UI;
-    using SettingsHolder = xofz.Framework.Log.SettingsHolder;
 
     public class SetupLogCommand : Command
     {

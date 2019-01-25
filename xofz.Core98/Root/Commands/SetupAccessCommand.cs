@@ -2,7 +2,6 @@
 {
     using xofz.Framework;
     using xofz.Framework.Access;
-    using SettingsHolder = xofz.Framework.Access.SettingsHolder;
 
     public class SetupAccessCommand : Command
     {
