@@ -9,10 +9,22 @@
             LogEditor logEditor, 
             UnhandledExceptionEventArgs e)
         {
-            var eo = e?.ExceptionObject;
+            if (e == null)
+            {
+                logEditor?.AddEntry(
+                    "Error",
+                    new[]
+                    {
+                        "An unhandled exception occurred, "
+                        + "but the event args object was null."
+                    });
+                return;
+            }
+
+            var eo = e.ExceptionObject;
             if (eo == null)
             {
-                logEditor.AddEntry(
+                logEditor?.AddEntry(
                     "Error",
                     new[]
                     {
@@ -25,14 +37,14 @@
             var ex = eo as Exception;
             if (ex == null)
             {
-                logEditor.AddEntry(
+                logEditor?.AddEntry(
                     "Error",
                     new[]
                     {
                         "An unhandled exception occurred, but the exception "
                         + "did not derive from System.Exception.",
                         "Here is the exception's type: "
-                        + e.ExceptionObject.GetType()
+                        + eo.GetType()
                     });
                 return;
             }
@@ -64,7 +76,7 @@
                 content.AddRange(trimmedStackTraceFor(ie));
             }
 
-            logEditor.AddEntry("Error", content.ToArray());
+            logEditor?.AddEntry("Error", content.ToArray());
         }
 
         private static IEnumerable<string> trimmedStackTraceFor(Exception e)

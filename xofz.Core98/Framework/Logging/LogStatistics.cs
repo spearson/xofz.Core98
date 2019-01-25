@@ -241,7 +241,7 @@
                 }
 
                 var ts = entry.Timestamp;
-                if (ts.TimeOfDay < earliest.TimeOfDay)
+                if (ts.TimeOfDay <= earliest.TimeOfDay)
                 {
                     earliest = ts;
                     earliestChanged = true;
@@ -275,7 +275,7 @@
                 }
 
                 var ts = entry.Timestamp;
-                if (ts.TimeOfDay > latest.TimeOfDay)
+                if (ts.TimeOfDay >= latest.TimeOfDay)
                 {
                     latest = ts;
                     latestChanged = true;
