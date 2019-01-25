@@ -17,15 +17,16 @@
         {
             var w = this.web;
             w.Run<Log.SettingsHolder>(settings =>
-            {
-                if (settings.ResetOnStart)
                 {
-                    w.Run<DateResetter>(dr =>
+                    if (settings.ResetOnStart)
                     {
-                        dr.Reset(ui, name);
-                    });
-                }
-            });
+                        w.Run<DateResetter>(dr =>
+                        {
+                            dr.Reset(ui, name);
+                        });
+                    }
+                },
+                name);
 
             w.Run<UiReaderWriter>(uiRW =>
             {
