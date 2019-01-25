@@ -18,7 +18,7 @@ namespace xofz.UI.Forms
                 new MethodInvoker(this.findDialog));
         }
 
-        private void findDialog()
+        protected virtual void findDialog()
         {
             var tc = this.tryCount;
             if (tc < 0)
@@ -44,7 +44,7 @@ namespace xofz.UI.Forms
             }
         }
 
-        private bool checkWindow(
+        protected virtual bool checkWindow(
             IntPtr windowHandle,
             IntPtr lp)
         {
@@ -69,36 +69,36 @@ namespace xofz.UI.Forms
             return false;
         }
 
-        public void Dispose()
+        void IDisposable.Dispose()
         {
             this.setTryCount(-1);
         }
 
-        private void setTryCount(short tryCount)
+        protected virtual void setTryCount(short tryCount)
         {
             this.tryCount = tryCount;
         }
 
-        private delegate bool EnumThreadWndProc(IntPtr hWnd, IntPtr lp);
-        private short tryCount;
-        private readonly Form owner;
+        protected delegate bool EnumThreadWndProc(IntPtr hWnd, IntPtr lp);
+        protected short tryCount;
+        protected readonly Form owner;
 
         [DllImport("user32.dll")]
-        private static extern bool EnumThreadWindows(int tid, EnumThreadWndProc callback, IntPtr lp);
+        protected static extern bool EnumThreadWindows(int tid, EnumThreadWndProc callback, IntPtr lp);
 
         [DllImport("kernel32.dll")]
-        private static extern int GetCurrentThreadId();
+        protected static extern int GetCurrentThreadId();
 
         [DllImport("user32.dll")]
-        private static extern int GetClassName(IntPtr hWnd, StringBuilder buffer, int buflen);
+        protected static extern int GetClassName(IntPtr hWnd, StringBuilder buffer, int buflen);
 
         [DllImport("user32.dll")]
-        private static extern bool GetWindowRect(IntPtr hWnd, out RECT rc);
+        protected static extern bool GetWindowRect(IntPtr hWnd, out RECT rc);
 
         [DllImport("user32.dll")]
-        private static extern bool MoveWindow(IntPtr hWnd, int x, int y, int w, int h, bool repaint);
+        protected static extern bool MoveWindow(IntPtr hWnd, int x, int y, int w, int h, bool repaint);
 
-        private struct RECT
+        protected struct RECT
         {
 #pragma warning disable 649
             public int Left;
