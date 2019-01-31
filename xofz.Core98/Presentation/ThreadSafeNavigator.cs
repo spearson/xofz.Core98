@@ -133,7 +133,7 @@
                 }
             }
 
-            this.startPresenter(presenter);
+            this.startPresenter?.Invoke(presenter);
         }
 
         public override void Present<T>(string name)
@@ -154,7 +154,7 @@
                         p.Stop();
                     }
 
-                    this.startPresenter(presenter);
+                    this.startPresenter?.Invoke(presenter);
                     break;
                 }
             }
@@ -175,7 +175,7 @@
                 return;
             }
 
-            this.startPresenter(presenter);
+            this.startPresenter?.Invoke(presenter);
         }
 
         public override void PresentFluidly<T>(string name)
@@ -191,7 +191,7 @@
                         continue;
                     }
 
-                    this.startPresenter(presenter);
+                    this.startPresenter?.Invoke(presenter);
                     break;
                 }
             }

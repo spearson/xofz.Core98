@@ -8,7 +8,7 @@
 
         public virtual IEnumerable<T> Trap(IEnumerable<T> source)
         {
-            if (source == default(IEnumerable<T>))
+            if (source == null)
             {
                 ICollection<T> defaultCollection = new LinkedList<T>();
                 this.setTrapper(defaultCollection);

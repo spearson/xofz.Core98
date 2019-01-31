@@ -78,7 +78,7 @@
                 p.Stop();
             }
 
-            this.startPresenter(presenter);
+            this.startPresenter?.Invoke(presenter);
         }
 
         public virtual void Present<T>(string name)
@@ -98,7 +98,7 @@
                     p.Stop();
                 }
 
-                this.startPresenter(presenter);
+                this.startPresenter?.Invoke(presenter);
                 break;
             }
         }
@@ -114,7 +114,7 @@
                 return;
             }
 
-            this.startPresenter(presenter);
+            this.startPresenter?.Invoke(presenter);
         }
 
         public virtual void PresentFluidly<T>(string name)
@@ -129,7 +129,7 @@
                     continue;
                 }
 
-                this.startPresenter(presenter);
+                this.startPresenter?.Invoke(presenter);
                 break;
             }
         }

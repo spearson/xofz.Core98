@@ -16,14 +16,21 @@
                 yield break;
             }
 
-            if (strike == null)
+            var strikeIsNull = strike == null;
+            loopThrough:
+            if (te.MoveNext())
             {
-                yield break;
-            }
+                if (ke.MoveNext())
+                {
+                    if (strikeIsNull)
+                    {
+                        yield return te.Current;
+                        goto loopThrough;
+                    }
 
-            while (te.MoveNext() || ke.MoveNext())
-            {
-                yield return strike(te.Current, ke.Current);
+                    yield return strike(te.Current, ke.Current);
+                    goto loopThrough;
+                }
             }
 
             te.Dispose();
@@ -42,14 +49,21 @@
                 yield break;
             }
 
-            if (strike == null)
+            var strikeIsNull = strike == null;
+            loopThrough:
+            if (te.MoveNext())
             {
-                yield break;
-            }
+                if (ke.MoveNext())
+                {
+                    if (strikeIsNull)
+                    {
+                        yield return ke.Current;
+                        goto loopThrough;
+                    }
 
-            while (te.MoveNext() || ke.MoveNext())
-            {
-                yield return strike(te.Current, ke.Current);
+                    yield return strike(te.Current, ke.Current);
+                    goto loopThrough;
+                }
             }
 
             te.Dispose();

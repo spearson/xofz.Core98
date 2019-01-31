@@ -36,8 +36,11 @@
                     new AccessController(w)));
             ThreadPool.QueueUserWorkItem(o =>
             {
-                w.Run<QuickSorter>();
-                w.Run<AccessController>();
+                for (byte j = 0; j < 0xFF; ++j)
+                {
+                    w.Run<QuickSorter>();
+                    w.Run<AccessController>();
+                }
             });
             w.Run<AccessController, QuickSorter>();
             var sorted = false;
@@ -51,6 +54,7 @@
             for (short i = 0; i < 0x1FF; ++i)
             {
                 w.RegisterDependency(new object());
+                w.Unregister<object>();
             }
 
             if (!sorted)
