@@ -64,6 +64,7 @@
     <Compile Include="Framework\EventRaiserTests.cs" />
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
+    <Compile Include="Framework\ThreadSafeMethodWebTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableBreakerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableConnectorTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableDecoratorTests.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Presentation\NavigatorTests.cs" />
     <Compile Include="Presentation\PopupPresenterTests.cs" />
     <Compile Include="Presentation\PresenterTests.cs" />
+    <Compile Include="Presentation\ThreadSafeNavigatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XTupleTests.cs" />
   </ItemGroup>

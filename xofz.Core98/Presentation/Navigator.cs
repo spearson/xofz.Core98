@@ -1,6 +1,5 @@
 ﻿namespace xofz.Presentation
 {
-    using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
@@ -21,23 +20,29 @@
         public Navigator(
             MethodWeb web,
             Do<Presenter> startPresenter)
+            : this(web, startPresenter, new LinkedList<Presenter>())
+        {
+        }
+
+        protected Navigator(
+            MethodWeb web,
+            Do<Presenter> startPresenter,
+            ICollection<Presenter> presenters)
         {
             this.web = web;
             this.startPresenter = startPresenter;
-
-            // inherit from this class to override the type of collection
-            this.presenters = new LinkedList<Presenter>();
+            this.presenters = presenters;
         }
 
-        public virtual void RegisterPresenter(Presenter presenter)
+        public virtual bool RegisterPresenter(Presenter presenter)
         {
             if (presenter == null)
             {
-                throw new ArgumentNullException(
-                    nameof(presenter));
+                return false;
             }
 
             this.presenters.Add(presenter);
+            return true;
         }
 
         public virtual bool IsRegistered<T>()
@@ -208,7 +213,7 @@
         }
 
         protected virtual TUi getUiProtected<TUi>(
-            object presenter, 
+            object presenter,
             string fieldName)
         {
             return (TUi)presenter

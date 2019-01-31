@@ -30,10 +30,9 @@
         public class When_RegisterDependency_is_called : Context
         {
             [Fact]
-            public void Throws_ArgumentNullException_if_dependency_is_null()
+            public void Returns_false_if_dependency_is_null()
             {
-                Assert.Throws<ArgumentNullException>(
-                    () => this.web.RegisterDependency(null));
+                Assert.False(this.web.RegisterDependency(null));
             }
 
             [Fact]

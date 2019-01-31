@@ -5,18 +5,23 @@
     public class MethodWeb
     {
         public MethodWeb()
+            : this(new LinkedList<Dependency>())
         {
-            this.dependencies = new LinkedList<Dependency>();
         }
 
-        public virtual void RegisterDependency(
+        protected MethodWeb(
+            ICollection<Dependency> dependencies)
+        {
+            this.dependencies = dependencies;
+        }
+
+        public virtual bool RegisterDependency(
             object dependency,
             string name = null)
         {
             if (dependency == null)
             {
-                throw new System.ArgumentNullException(
-                    nameof(dependency));
+                return false;
             }
 
             this.dependencies.Add(
@@ -25,6 +30,7 @@
                     Content = dependency,
                     Name = name
                 });
+            return true;
         }
 
         public virtual T Run<T>(
@@ -51,7 +57,7 @@
 
             return default(T);
 
-        invoke:
+            invoke:
             method?.Invoke(t);
 
             return t;
@@ -117,7 +123,7 @@
 
             return XTuple.Create(t, u);
 
-        invoke:
+            invoke:
             method?.Invoke(t, u);
 
             return XTuple.Create(t, u);

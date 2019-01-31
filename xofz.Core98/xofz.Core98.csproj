@@ -121,8 +121,10 @@
     <Compile Include="Framework\Lotters\StackLotter.cs" />
     <Compile Include="Framework\Main\ShutdownRequestedHandler.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
+    <Compile Include="Framework\ThreadSafeMethodWeb.cs" />
     <Compile Include="Framework\MethodWebManager.cs" />
     <Compile Include="Framework\Shutdown\StartHandler.cs" />
+    <Compile Include="Presentation\Navigator.cs" />
     <Compile Include="SecureStringToolSet.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />
@@ -165,7 +167,7 @@
     <Compile Include="Presentation\LogStatisticsPresenter.cs" />
     <Compile Include="Presentation\MainPresenter.cs" />
     <Compile Include="Presentation\NamedPresenter.cs" />
-    <Compile Include="Presentation\Navigator.cs" />
+    <Compile Include="Presentation\ThreadSafeNavigator.cs" />
     <Compile Include="Presentation\PopupNamedPresenter.cs" />
     <Compile Include="Presentation\PopupPresenter.cs" />
     <Compile Include="Presentation\Presenter.cs" />
