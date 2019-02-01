@@ -9,13 +9,10 @@
         {
             if (capacity < 0)
             {
-                this.capacity = 0;
-                goto setLinkedList;
+                capacity = 0;
             }
 
             this.capacity = capacity;
-
-            setLinkedList:
             this.linkedList = new LinkedList<T>();
         }
 

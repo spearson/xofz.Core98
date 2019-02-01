@@ -5,7 +5,8 @@
 
     public class Translator<T, Y> : IDisposable
     {
-        public Translator(Gen<Y> yFactory)
+        public Translator(
+            Gen<Y> yFactory)
         {
             this.yFactory = yFactory;
         }

@@ -12,21 +12,43 @@
             this.tFactory = tFactory;
         }
 
-        public Y Strike(
+        public virtual Y Strike(
             Action<T> tAction, 
             Do<T, Y> transform,
             Action<Y> yAction)
         {
-            var t = this.tFactory();
-            tAction(t);
+            var tf = this.tFactory;
+            T t;
+            if (tf == null)
+            {
+                t = default(T);
+                goto actT;
+            }
 
-            var y = this.translator.Translate(t, transform);
-            yAction(y);
+            t = tf();
+
+            actT:
+            tAction?.Invoke(t);
+
+            Y y;
+            var tr = this.translator;
+            if (tr == null)
+            {
+                y = default(Y);
+                goto actY;
+            }
+
+            y = tr.Translate(
+                t, 
+                transform);
+
+            actY:
+            yAction?.Invoke(y);
 
             return y;
         }
 
-        private readonly Translator<T, Y> translator;
-        private readonly Gen<T> tFactory;
+        protected readonly Translator<T, Y> translator;
+        protected readonly Gen<T> tFactory;
     }
 }
