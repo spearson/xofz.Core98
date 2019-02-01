@@ -9,7 +9,7 @@
             this.web = web;
         }
 
-        public virtual string LogName { get; set; }
+        public virtual string LogDependencyName { get; set; }
 
         public virtual long TotalEntryCount { get; protected set; }
 
@@ -63,7 +63,7 @@
                     this.computeEarliestTimestamp(matches);
                     this.computeLatestTimestamp(matches);
                 },
-                this.LogName,
+                this.LogDependencyName,
                 Framework.Log.DependencyNames.Lotter);
         }
 
@@ -96,7 +96,7 @@
                     this.computeEarliestTimestamp(matches);
                     this.computeLatestTimestamp(matches);
                 },
-                this.LogName,
+                this.LogDependencyName,
                 Framework.Log.DependencyNames.Lotter);
         }
 
@@ -231,7 +231,14 @@
                 return;
             }
 
-            var earliest = new DateTime(1, 1, 1, 23, 59, 59);
+            var earliest = new DateTime(
+                1, 
+                1, 
+                1, 
+                23, 
+                59, 
+                59, 
+                999);
             var earliestChanged = false;
             foreach (var entry in entries)
             {

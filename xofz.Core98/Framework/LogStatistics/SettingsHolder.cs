@@ -2,8 +2,10 @@
 {
     public class SettingsHolder
     {
-        public const string DateFormat = @"yyyy/MM/dd";
+        public virtual string DateFormat { get; set; }
+            = @"yyyy/MM/dd";
 
-        public const string TimestampFormat = @"yyyy/MM/dd HH:mm:ss";
+        public virtual string TimestampFormat { get; set; }
+            = @"yyyy/MM/dd HH:mm:ss";
     }
 }

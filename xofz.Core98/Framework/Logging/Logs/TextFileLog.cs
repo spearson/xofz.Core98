@@ -11,6 +11,7 @@
         public TextFileLog(string filePath)
         {
             this.filePath = filePath;
+            this.locker = new object();
         }
 
         public event Do<LogEntry> EntryWritten;
@@ -188,8 +189,8 @@
         }
 
         private readonly string filePath;
+        private readonly object locker;
         private const string timestampFormat = "yyyy MMMM dd hh:mm.ss tt";
         private const string timestampFormatV2 = "yyyy MMMM dd hh:mm:ss.fffffff tt";
-        private readonly object locker = new object();
     }
 }

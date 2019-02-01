@@ -28,9 +28,10 @@
                 {
                     fs.Set(ui, name);
                 });
-                w.Run<LogStatistics>(stats =>
+                w.Run<LogStatistics, SettingsHolder>(
+                    (stats, settings) =>
                     {
-                        var df = SettingsHolder.DateFormat;
+                        var df = settings.DateFormat;
                         stats.ComputeRange(
                             start, end);
                         var typeInfo =

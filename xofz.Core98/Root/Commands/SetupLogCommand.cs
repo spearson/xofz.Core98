@@ -77,7 +77,6 @@
 
             var w = this.web;
             var s = this.settings;
-            var enableStats = s.StatisticsEnabled;
             var n = s.LogDependencyName;
             new LogPresenter(
                     this.ui,
@@ -100,7 +99,7 @@
                     .Setup();
             }
 
-            if (enableStats)
+            if (s.StatisticsEnabled)
             {
                 new LogStatisticsPresenter(
                         this.statsUi,
@@ -171,7 +170,13 @@
             if (se)
             {
                 w.RegisterDependency(
-                    new LogStatistics(w),
+                    new LogStatistics(w)
+                    {
+                        LogDependencyName = ldn
+                    },
+                    ldn);
+                w.RegisterDependency(
+                    new Framework.LogStatistics.SettingsHolder(),
                     ldn);
             }
 
