@@ -627,6 +627,30 @@
             }
         }
 
+        public static IEnumerable<T> SafeCast<T>(
+            IEnumerable source)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                T t;
+                try
+                {
+                    t = (T)item;
+                }
+                catch
+                {
+                    continue;
+                }
+
+                yield return t;
+            }
+        }
+
         public static int Count<T>(
             IEnumerable<T> source)
         {
@@ -827,6 +851,11 @@
             }
 
             if (keySelector == null)
+            {
+                return new LinkedList<T>();
+            }
+
+            if (comparer == null)
             {
                 return new LinkedList<T>();
             }
