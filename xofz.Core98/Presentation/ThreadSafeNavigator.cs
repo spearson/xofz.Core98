@@ -180,6 +180,7 @@
 
         public override void PresentFluidly<T>(string name)
         {
+            NamedPresenter p;
             lock (this.locker)
             {
                 var matchingPresenters = EnumerableHelpers.OfType<T>(
@@ -191,11 +192,14 @@
                         continue;
                     }
 
-                    this.startPresenter?.Invoke(presenter);
-                    break;
+                    p = presenter;
+                    goto start;
                 }
             }
 
+            return;
+            start:
+            this.startPresenter?.Invoke(p);
         }
 
         public override void StopPresenter<T>()
