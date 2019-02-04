@@ -121,6 +121,7 @@
     <Compile Include="Framework\Lotters\StackLotter.cs" />
     <Compile Include="Framework\Main\ShutdownRequestedHandler.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
+    <Compile Include="Framework\Synchronizer.cs" />
     <Compile Include="Framework\ThreadSafeMethodWeb.cs" />
     <Compile Include="Framework\MethodWebManager.cs" />
     <Compile Include="Framework\Shutdown\StartHandler.cs" />
