@@ -1,4 +1,5 @@
-﻿namespace xofz.Presentation
+﻿// ReSharper disable InconsistentlySynchronizedField
+namespace xofz.Presentation
 {
     using System.Collections.Generic;
     using xofz.Framework;
@@ -139,6 +140,7 @@
         public override void Present<T>(string name)
         {
             var ps = this.presenters;
+            NamedPresenter np;
             lock (this.locker)
             {
                 var matchingPresenters = EnumerableHelpers.OfType<T>(ps);
@@ -154,10 +156,14 @@
                         p.Stop();
                     }
 
-                    this.startPresenter?.Invoke(presenter);
-                    break;
+                    np = presenter;
+                    goto start;
                 }
             }
+
+            return;
+            start:
+            this.startPresenter?.Invoke(np);
         }
 
         public override void PresentFluidly<T>()
@@ -180,7 +186,7 @@
 
         public override void PresentFluidly<T>(string name)
         {
-            NamedPresenter p;
+            NamedPresenter np;
             lock (this.locker)
             {
                 var matchingPresenters = EnumerableHelpers.OfType<T>(
@@ -192,14 +198,14 @@
                         continue;
                     }
 
-                    p = presenter;
+                    np = presenter;
                     goto start;
                 }
             }
 
             return;
             start:
-            this.startPresenter?.Invoke(p);
+            this.startPresenter?.Invoke(np);
         }
 
         public override void StopPresenter<T>()

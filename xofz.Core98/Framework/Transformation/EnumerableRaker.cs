@@ -14,6 +14,17 @@
                 yield break;
             }
 
+            if (rakePoints == null)
+            {
+                while (e.MoveNext())
+                {
+                    yield return e.Current;
+                }
+
+                e.Dispose();
+                yield break;
+            }
+
             long counter = 0;
             foreach (var rakePoint in rakePoints)
             {
@@ -39,7 +50,23 @@
             IEnumerable<T> source,
             IEnumerable<int> passPoints)
         {
-            var e = source.GetEnumerator();
+            var e = source?.GetEnumerator();
+            if (e == null)
+            {
+                yield break;
+            }
+
+            if (passPoints == null)
+            {
+                while (e.MoveNext())
+                {
+                    yield return e.Current;
+                }
+
+                e.Dispose();
+                yield break;
+            }
+
             var counter = 0;
             foreach (var pp in passPoints)
             {

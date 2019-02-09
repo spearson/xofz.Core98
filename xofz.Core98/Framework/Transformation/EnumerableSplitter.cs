@@ -22,7 +22,7 @@
                 };
             }
 
-            var array = new LinkedListLot<T>[splits];
+            Lot<T>[] array = new Lot<T>[splits];
             for (var i = 0; i < splits; ++i)
             {
                 array[i] = new LinkedListLot<T>();
@@ -31,18 +31,19 @@
             var enumerator = finiteSource.GetEnumerator();
             if (enumerator == null)
             {
-                return new Lot<T>[0];
+                return array;
             }
 
+            LinkedListLot<T> currentLL;
             if (enumerator.MoveNext())
             {
-                array[0].AddLast(enumerator.Current);
+                currentLL = array[0] as LinkedListLot<T>;
+                currentLL?.AddLast(enumerator.Current);
             }
             
             var zeroFilled = true;
             while (enumerator.MoveNext())
             {
-                loop:
                 for (var i = 0; i < splits; ++i)
                 {
                     if (zeroFilled && i == 0)
@@ -51,7 +52,8 @@
                     }
 
                     zeroFilled = false;
-                    array[i].AddLast(enumerator.Current);
+                    currentLL = array[i] as LinkedListLot<T>;
+                    currentLL?.AddLast(enumerator.Current);
                     if (i < splits - 1)
                     {
                         if (!enumerator.MoveNext())
@@ -62,10 +64,6 @@
                 }
 
                 zeroFilled = false;
-                if (enumerator.MoveNext())
-                {
-                    goto loop;
-                }
             }
 
             enumerator.Dispose();

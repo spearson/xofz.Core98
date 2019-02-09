@@ -11,9 +11,22 @@
 
         protected ThreadSafeMethodWeb(
             ICollection<Dependency> dependencies)
+            : this(dependencies, new object())
+        {
+        }
+
+        protected ThreadSafeMethodWeb(
+            object locker)
+            : this(new LinkedList<Dependency>(), locker)
+        {
+        }
+
+        protected ThreadSafeMethodWeb(
+            ICollection<Dependency> dependencies,
+            object locker)
             : base(dependencies)
         {
-            this.locker = new object();
+            this.locker = locker;
         }
 
         public override bool RegisterDependency(

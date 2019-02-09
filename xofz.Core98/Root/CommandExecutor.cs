@@ -5,17 +5,40 @@
     public class CommandExecutor
     {
         public CommandExecutor()
+            : this(new LinkedList<Command>(), new object())
         {
-            this.executedCommands = new LinkedList<Command>();
+        }
+
+        protected CommandExecutor(
+            ICollection<Command> executedCommands)
+            : this(executedCommands, new object())
+        {
+        }
+
+        protected CommandExecutor(
+            object locker)
+            : this(new LinkedList<Command>(), locker)
+        {
+        }
+
+        protected CommandExecutor(
+            ICollection<Command> executedCommands,
+            object locker)
+        {
+            this.executedCommands = executedCommands;
+            this.locker = locker;
         }
 
         public virtual T Get<T>() where T : Command
         {
-            foreach (var command in this.executedCommands)
+            lock (this.locker)
             {
-                if (command is T t)
+                foreach (var command in this.executedCommands)
                 {
-                    return t;
+                    if (command is T t)
+                    {
+                        return t;
+                    }
                 }
             }
 
@@ -24,11 +47,14 @@
 
         public virtual IEnumerable<T> GetAll<T>() where T : Command
         {
-            foreach (var command in this.executedCommands)
+            lock (this.locker)
             {
-                if (command is T t)
+                foreach (var command in this.executedCommands)
                 {
-                    yield return t;
+                    if (command is T t)
+                    {
+                        yield return t;
+                    }
                 }
             }
         }
@@ -36,11 +62,15 @@
         public virtual CommandExecutor Execute(Command command)
         {
             command.Execute();
-            this.executedCommands.Add(command);
+            lock (this.locker)
+            {
+                this.executedCommands.Add(command);
+            }
 
             return this;
         }
 
         protected readonly ICollection<Command> executedCommands;
+        protected readonly object locker;
     }
 }
