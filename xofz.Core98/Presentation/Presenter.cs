@@ -4,6 +4,8 @@
 
     public class Presenter
     {
+        public const string DefaultUiFieldName = nameof(ui);
+
         public Presenter(
             Ui ui, 
             ShellUi shell)

@@ -24,11 +24,38 @@ namespace xofz.Presentation
 
         protected ThreadSafeNavigator(
             MethodWeb web,
+            object locker)
+            : base(web)
+        {
+            this.locker = locker;
+        }
+
+        protected ThreadSafeNavigator(
+            MethodWeb web,
+            Do<Presenter> startPresenter,
+            object locker)
+            : base(web, startPresenter)
+        {
+            this.locker = locker;
+        }
+
+        protected ThreadSafeNavigator(
+            MethodWeb web,
             Do<Presenter> startPresenter,
             ICollection<Presenter> presenters)
             : base(web, startPresenter, presenters)
         {
             this.locker = new object();
+        }
+
+        protected ThreadSafeNavigator(
+            MethodWeb web,
+            Do<Presenter> startPresenter,
+            ICollection<Presenter> presenters,
+            object locker)
+            : base(web, startPresenter, presenters)
+        {
+            this.locker = locker;
         }
 
         public override bool RegisterPresenter(
@@ -239,7 +266,7 @@ namespace xofz.Presentation
 
         public override TUi GetUi<TPresenter, TUi>(
             string presenterName = null,
-            string fieldName = @"ui")
+            string fieldName = Presenter.DefaultUiFieldName)
         {
             Lot<Presenter> matchingPresenters;
             lock (this.locker)

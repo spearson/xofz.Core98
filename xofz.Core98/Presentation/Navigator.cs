@@ -173,7 +173,7 @@
 
         public virtual TUi GetUi<TPresenter, TUi>(
             string presenterName = null,
-            string fieldName = @"ui")
+            string fieldName = Presenter.DefaultUiFieldName)
             where TPresenter : Presenter
         {
             Lot<Presenter> matchingPresenters
