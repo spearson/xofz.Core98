@@ -3,9 +3,9 @@
     using System.Threading;
     using xofz.UI;
 
-    public class DateChangedHandler
+    public class DateRangeChangedHandler
     {
-        public DateChangedHandler(
+        public DateRangeChangedHandler(
             MethodWeb web)
         {
             this.web = web;

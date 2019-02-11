@@ -79,7 +79,7 @@
     <Compile Include="Framework\Log\AddKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ClearKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\DateAndFilterResetter.cs" />
-    <Compile Include="Framework\Log\DateChangedHandler.cs" />
+    <Compile Include="Framework\Log\DateRangeChangedHandler.cs" />
     <Compile Include="Framework\Log\DependencyNames.cs" />
     <Compile Include="Framework\Log\EntryConverter.cs" />
     <Compile Include="Framework\Log\EntryReloader.cs" />

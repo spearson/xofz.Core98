@@ -269,14 +269,14 @@
             }
 
             registered = false;
-            w.Run<DateChangedHandler>(handler =>
+            w.Run<DateRangeChangedHandler>(handler =>
             {
                 registered = true;
             });
             if (!registered)
             {
                 w.RegisterDependency(
-                    new DateChangedHandler(w));
+                    new DateRangeChangedHandler(w));
             }
 
             registered = false;

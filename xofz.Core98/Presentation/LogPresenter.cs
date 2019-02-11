@@ -39,7 +39,7 @@
                 subscriber.Subscribe(
                     this.ui,
                     nameof(this.ui.DateRangeChanged),
-                    this.ui_DateChanged);
+                    this.ui_DateRangeChanged);
                 subscriber.Subscribe(
                     this.ui,
                     nameof(this.ui.AddKeyTapped),
@@ -91,7 +91,7 @@
                     sub.Unsubscribe(
                         this.ui,
                         nameof(this.ui.DateRangeChanged),
-                        this.ui_DateChanged);
+                        this.ui_DateRangeChanged);
                     sub.Unsubscribe(
                         this.ui,
                         nameof(this.ui.FilterTextChanged),
@@ -102,7 +102,7 @@
                     sub.Subscribe(
                         this.ui,
                         nameof(this.ui.DateRangeChanged),
-                        this.ui_DateChanged);
+                        this.ui_DateRangeChanged);
                     sub.Subscribe(
                         this.ui,
                         nameof(this.ui.FilterTextChanged),
@@ -128,10 +128,10 @@
             });
         }
 
-        private void ui_DateChanged()
+        private void ui_DateRangeChanged()
         {
             var w = this.web;
-            w.Run<DateChangedHandler>(handler =>
+            w.Run<DateRangeChangedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
