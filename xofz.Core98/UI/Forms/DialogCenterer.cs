@@ -14,6 +14,12 @@ namespace xofz.UI.Forms
         public DialogCenterer(Form owner)
         {
             this.owner = owner;
+            if (owner.WindowState == FormWindowState.Minimized)
+            {
+                // do not try to center on a minimized window
+                return;
+            }
+
             owner.BeginInvoke(
                 new MethodInvoker(this.findDialog));
         }
