@@ -147,9 +147,7 @@
                 return;
             }
 
-            this.Location = new Point(
-                s.Location.X,
-                s.Location.Y);
+            this.Location = s.Location;
             this.Show(s);
         }
 

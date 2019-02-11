@@ -26,8 +26,16 @@
         void PopupUi.Display()
         {
             var s = this.shell;
+            if (s == null)
+            {
+                this.Show();
+                goto focus;
+            }
+
             this.Location = s.Location;
             this.Show(s);
+
+            focus:
             this.contentTextBox.Focus();
         }
 

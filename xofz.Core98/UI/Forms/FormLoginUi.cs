@@ -97,9 +97,7 @@
         void PopupUi.Display()
         {
             var s = this.shell;
-            this.Location = new Point(
-                s.Location.X, 
-                s.Location.Y);
+            this.Location = s.Location;
             if (!this.Visible)
             {
                 this.Show(s);
@@ -156,12 +154,12 @@
             {
                 ptb.Text = key.Text;
                 this.firstInputKeyPressed = true;
-            }
-            else
-            {
-                ptb.Text += key.Text;
+                goto focus;
             }
 
+            ptb.Text += key.Text;
+
+            focus:
             LoginUi ui = this;
             ui.FocusPassword();
         }

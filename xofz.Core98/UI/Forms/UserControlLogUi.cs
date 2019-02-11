@@ -16,9 +16,7 @@
             var h = this.Handle;
         }
 
-        public event Do StartDateChanged;
-
-        public event Do EndDateChanged;
+        public event Do DateRangeChanged;
 
         public event Do AddKeyTapped;
 
@@ -162,24 +160,24 @@
 
         private void startDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            var sdc = this.StartDateChanged;
-            if (sdc == null)
+            var drc = this.DateRangeChanged;
+            if (drc == null)
             {
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
+            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
         }
 
         private void endDatePicker_DateSelected(object sender, DateRangeEventArgs e)
         {
-            var edc = this.EndDateChanged;
-            if (edc == null)
+            var drc = this.DateRangeChanged;
+            if (drc == null)
             {
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => edc.Invoke());
+            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
         }
 
         private void downKey_Click(object sender, EventArgs e)
@@ -268,18 +266,13 @@
             edp.SelectionEnd = newEndDate;
             edp.DateSelected += this.endDatePicker_DateSelected;
 
-            var sdc = this.StartDateChanged;
-            if (sdc != null)
+            var drc = this.DateRangeChanged;
+            if (drc == null)
             {
-                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
                 return;
             }
 
-            var edc = this.EndDateChanged;
-            if (edc != null)
-            {
-                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
-            }
+            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
         }
 
         private void previousWeekKey_Click(
@@ -303,18 +296,13 @@
             edp.SelectionEnd = newEndDate;
             edp.DateSelected += this.endDatePicker_DateSelected;
 
-            var sdc = this.StartDateChanged;
-            if (sdc != null)
+            var drc = this.DateRangeChanged;
+            if (drc == null)
             {
-                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
                 return;
             }
 
-            var edc = this.EndDateChanged;
-            if (edc != null)
-            {
-                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
-            }
+            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
         }
 
         private void currentWeekKey_Click(object sender, EventArgs e)
@@ -333,18 +321,13 @@
             sdp.SelectionEnd = newStartDate;
             sdp.DateSelected += this.startDatePicker_DateSelected;            
 
-            var sdc = this.StartDateChanged;
-            if (sdc != null)
+            var drc = this.DateRangeChanged;
+            if (drc == null)
             {
-                ThreadPool.QueueUserWorkItem(o => sdc.Invoke());
                 return;
             }
 
-            var edc = this.EndDateChanged;
-            if (edc != null)
-            {
-                ThreadPool.QueueUserWorkItem(o => edc.Invoke());
-            }
+            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
         }
 
         protected TextBox activeFilterTextBox;

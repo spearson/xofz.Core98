@@ -38,11 +38,7 @@
             {
                 subscriber.Subscribe(
                     this.ui,
-                    nameof(this.ui.StartDateChanged),
-                    this.ui_DateChanged);
-                subscriber.Subscribe(
-                    this.ui,
-                    nameof(this.ui.EndDateChanged),
+                    nameof(this.ui.DateRangeChanged),
                     this.ui_DateChanged);
                 subscriber.Subscribe(
                     this.ui,
@@ -94,11 +90,7 @@
                 {
                     sub.Unsubscribe(
                         this.ui,
-                        nameof(this.ui.StartDateChanged),
-                        this.ui_DateChanged);
-                    sub.Unsubscribe(
-                        this.ui,
-                        nameof(this.ui.EndDateChanged),
+                        nameof(this.ui.DateRangeChanged),
                         this.ui_DateChanged);
                     sub.Unsubscribe(
                         this.ui,
@@ -109,11 +101,7 @@
                 {
                     sub.Subscribe(
                         this.ui,
-                        nameof(this.ui.StartDateChanged),
-                        this.ui_DateChanged);
-                    sub.Subscribe(
-                        this.ui,
-                        nameof(this.ui.EndDateChanged),
+                        nameof(this.ui.DateRangeChanged),
                         this.ui_DateChanged);
                     sub.Subscribe(
                         this.ui,

@@ -4,9 +4,7 @@
 
     public interface LogUi : Ui
     {
-        event Do StartDateChanged;
-
-        event Do EndDateChanged;
+        event Do DateRangeChanged;
 
         event Do AddKeyTapped;
 
