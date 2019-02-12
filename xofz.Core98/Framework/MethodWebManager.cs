@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
     public class MethodWebNameConsts
@@ -13,25 +14,31 @@
     public class MethodWebManager
     {
         public MethodWebManager()
+            : this(new LinkedList<NamedMethodWebHolder>())
         {
-            this.webs = new LinkedList<NamedMethodWebHolder>();
         }
 
-        public virtual IEnumerable<string> WebNames()
+        protected MethodWebManager(
+            ICollection<NamedMethodWebHolder> webs)
         {
-            return EH.Select(
-                this.webs,
-                nmwh => nmwh.Name);
+            this.webs = webs;
         }
 
-        public virtual void AddWeb(
+        public virtual Lot<string> WebNames()
+        {
+            return new LinkedListLot<string>(
+                EH.Select(
+                    this.webs,
+                    nmwh => nmwh.Name));
+        }
+
+        public virtual bool AddWeb(
             MethodWeb web,
             string name = nameof(MethodWebNameConsts.Default))
         {
             if (web == null)
             {
-                throw new InvalidOperationException(
-                    "Cannot add a null web.");
+                return false;
             }
 
             var ws = this.webs;
@@ -40,9 +47,7 @@
                 nmwh => ReferenceEquals(web, nmwh.Web));
             if (namedWeb != default(NamedMethodWebHolder))
             {
-                throw new InvalidOperationException(
-                    "That web has already been added with name: "
-                    + namedWeb.Name);
+                return false;
             }
 
             if (EH.Contains(
@@ -50,8 +55,7 @@
                         ws, nmwh => nmwh.Name),
                         name))
             {
-                throw new InvalidOperationException(
-                    "Name \"" + name + "\" is already taken.");
+                return false;
             }
 
             ws.Add(
@@ -60,6 +64,7 @@
                     Web = web,
                     Name = name
                 });
+            return true;
         }
 
         public virtual void AccessWeb(
@@ -78,7 +83,7 @@
         }
 
         public virtual T RunWeb<T>(
-            xofz.Do<T> engine,
+            xofz.Do<T> engine = null,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependencyName = null)
         {
@@ -94,7 +99,7 @@
         }
 
         public virtual XTuple<T, U> RunWeb<T, U>(
-            Do<T, U> engine,
+            Do<T, U> engine = null,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null)
@@ -116,7 +121,7 @@
         }
 
         public virtual XTuple<T, U, V> RunWeb<T, U, V>(
-            Do<T, U, V> engine,
+            Do<T, U, V> engine = null,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null,
@@ -141,7 +146,7 @@
         }
 
         public virtual XTuple<T, U, V, W> RunWeb<T, U, V, W>(
-            Do<T, U, V, W> engine,
+            Do<T, U, V, W> engine = null,
             string webName = nameof(MethodWebNameConsts.Default),
             string dependency1Name = null,
             string dependency2Name = null,

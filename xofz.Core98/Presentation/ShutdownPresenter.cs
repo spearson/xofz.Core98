@@ -1,7 +1,6 @@
 ﻿namespace xofz.Presentation
 {
     using System.Threading;
-    using UI;
     using xofz.Framework;
     using xofz.Framework.Shutdown;
 
@@ -11,29 +10,6 @@
             MethodWeb web)
             : base(null, null)
         {
-            this.mainUi = null;
-            this.cleanup = null;
-            this.web = web;
-        }
-
-        public ShutdownPresenter(
-            Do cleanup,
-            MethodWeb web)
-            : base(null, null)
-        {
-            this.mainUi = null;
-            this.cleanup = cleanup;
-            this.web = web;
-        }
-
-        public ShutdownPresenter(
-            Ui mainUi,
-            Do cleanup,
-            MethodWeb web)
-            : base(null, null)
-        {
-            this.mainUi = mainUi;
-            this.cleanup = cleanup;
             this.web = web;
         }
 
@@ -56,13 +32,11 @@
             var w = this.web;
             w.Run<StartHandler>(handler =>
             {
-                handler.Handle(this.mainUi, this.cleanup);
+                handler.Handle();
             });
         }
 
         private long setupIf1;
-        private readonly Ui mainUi;
-        private readonly Do cleanup;
         private readonly MethodWeb web;
     }
 }

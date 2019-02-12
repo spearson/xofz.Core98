@@ -21,11 +21,11 @@
         }
 
         public SetupShutdownCommand(
-            Ui mainUi,
+            Ui cleanupUi,
             Do cleanup,
             MethodWeb web)
         {
-            this.mainUi = mainUi;
+            this.cleanupUi = cleanupUi;
             this.cleanup = cleanup;
             this.web = web;
         }
@@ -33,9 +33,8 @@
         public override void Execute()
         {
             this.registerDependencies();
+
             new ShutdownPresenter(
-                    this.mainUi,
-                    this.cleanup,
                     this.web)
                 .Setup();
         }
@@ -43,11 +42,27 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
+            var ui = this.cleanupUi;
+            if (ui != null)
+            {
+                w.RegisterDependency(
+                    ui,
+                    UiNames.Cleanup);
+            }
+
+            var c = this.cleanup;
+            if (c != null)
+            {
+                w.RegisterDependency(
+                    c,
+                    MethodNames.Cleanup);
+            }
+
             w.RegisterDependency(
                 new StartHandler(w));
         }
 
-        protected readonly Ui mainUi;
+        protected readonly Ui cleanupUi;
         protected readonly Do cleanup;
         protected readonly MethodWeb web;
     }

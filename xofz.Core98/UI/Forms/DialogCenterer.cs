@@ -13,6 +13,11 @@ namespace xofz.UI.Forms
     {
         public DialogCenterer(Form owner)
         {
+            if (owner == null)
+            {
+                return;
+            }
+
             this.owner = owner;
             if (owner.WindowState == FormWindowState.Minimized)
             {

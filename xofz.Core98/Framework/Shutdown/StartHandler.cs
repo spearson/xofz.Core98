@@ -11,24 +11,27 @@
             this.web = web;
         }
 
-        public virtual void Handle(
-            Ui mainUi,
-            Do cleanup)
+        public virtual void Handle()
         {
-            if (cleanup == null)
-            {
-                Process.GetCurrentProcess().Kill();
-                return;
-            }
+            var w = this.web;
+            w.Run<Do>(cleanup =>
+                {
+                    var uiFound = false;
+                    w.Run<Ui>(cleanupUi =>
+                        {
+                            uiFound = true;
+                            UiHelpers.WriteSync(
+                                cleanupUi,
+                                cleanup);
+                        },
+                        UiNames.Cleanup);
 
-            if (mainUi == null)
-            {
-                cleanup();
-                Process.GetCurrentProcess().Kill();
-                return;
-            }
-
-            UiHelpers.WriteSync(mainUi, cleanup);
+                    if (!uiFound)
+                    {
+                        cleanup();
+                    }
+                },
+                MethodNames.Cleanup);
             Process.GetCurrentProcess().Kill();
         }
 
