@@ -31,7 +31,8 @@
                 {
                     for (var i = 0; i < 0xFFFFFF; ++i)
                     {
-                        mwm.AccessWeb(web => web.Unregister<object>());
+                        mwm.AccessWeb<MethodWebV2>(
+                            web => web.Unregister<object>());
                     }
                 });
             ThreadPool.QueueUserWorkItem(

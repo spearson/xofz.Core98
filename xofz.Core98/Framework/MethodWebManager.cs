@@ -74,12 +74,31 @@
             var targetWeb = EH.FirstOrDefault(
                 this.webs,
                 nmwh => nmwh.Name == webName);
-            if (targetWeb == default(NamedMethodWebHolder))
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return;
             }
 
-            accessor(targetWeb.Web);
+            accessor(innerWeb);
+        }
+
+        public virtual void AccessWeb<T>(
+            Do<T> accessor,
+            string webName = nameof(MethodWebNameConsts.Default))
+            where T : MethodWeb
+        {
+            var targetWeb = EH.FirstOrDefault(
+                this.webs,
+                nmwh => nmwh.Name == webName);
+
+            var innerWeb = targetWeb?.Web as T;
+            if (innerWeb == null)
+            {
+                return;
+            }
+
+            accessor(innerWeb);
         }
 
         public virtual T RunWeb<T>(

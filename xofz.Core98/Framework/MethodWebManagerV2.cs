@@ -93,7 +93,7 @@
         }
 
         public override void AccessWeb(
-            Do<MethodWeb> accessor, 
+            Do<MethodWeb> accessor,
             string webName = nameof(MethodWebNameConsts.Default))
         {
             NamedMethodWebHolder targetWeb;
@@ -104,16 +104,17 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            if (targetWeb == null)
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return;
             }
 
-            accessor(targetWeb.Web);
+            accessor(innerWeb);
         }
 
-        public virtual void AccessWeb(
-            Do<MethodWebV2> accessor,
+        public override void AccessWeb<T>(
+            Do<T> accessor, 
             string webName = nameof(MethodWebNameConsts.Default))
         {
             NamedMethodWebHolder targetWeb;
@@ -124,13 +125,13 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            var webV2 = targetWeb?.Web as MethodWebV2;
-            if (webV2 == null)
+            var innerWeb = targetWeb?.Web as T;
+            if (innerWeb == null)
             {
                 return;
             }
 
-            accessor(webV2);
+            accessor(innerWeb);
         }
 
         public virtual bool RemoveWeb(

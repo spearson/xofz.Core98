@@ -1,6 +1,7 @@
 ﻿namespace xofz.Root
 {
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class CommandExecutor
     {
@@ -45,18 +46,21 @@
             return default(T);
         }
 
-        public virtual IEnumerable<T> GetAll<T>() where T : Command
+        public virtual Lot<T> GetAll<T>() where T : Command
         {
+            var commands = new LinkedListLot<T>();
             lock (this.locker)
             {
                 foreach (var command in this.executedCommands)
                 {
                     if (command is T t)
                     {
-                        yield return t;
+                        commands.AddLast(t);
                     }
                 }
             }
+
+            return commands;
         }
 
         public virtual CommandExecutor Execute(Command command)
