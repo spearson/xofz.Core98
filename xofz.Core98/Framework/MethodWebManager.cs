@@ -7,7 +7,6 @@
 
     public class MethodWebNameConsts
     {
-        // the variable name should be the web name
         public const bool Default = true;
     }
 
@@ -42,18 +41,18 @@
             }
 
             var ws = this.webs;
-            var namedWeb = EH.FirstOrDefault(
+            var alreadyAddedWeb = EH.FirstOrDefault(
                 ws,
                 nmwh => ReferenceEquals(web, nmwh.Web));
-            if (namedWeb != default(NamedMethodWebHolder))
+            if (alreadyAddedWeb != null)
             {
                 return false;
             }
 
             if (EH.Contains(
-                    EH.Select(
-                        ws, nmwh => nmwh.Name),
-                        name))
+                EH.Select(
+                    ws, nmwh => nmwh.Name),
+                name))
             {
                 return false;
             }
@@ -71,10 +70,9 @@
             Do<MethodWeb> accessor,
             string webName = nameof(MethodWebNameConsts.Default))
         {
-            var targetWeb = EH.FirstOrDefault(
+            var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
-            var innerWeb = targetWeb?.Web;
+                nmwh => nmwh.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return;
@@ -106,15 +104,15 @@
             string webName = nameof(MethodWebNameConsts.Default),
             string dependencyName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
-            if (targetWeb == default(NamedMethodWebHolder))
+                nmwh => nmwh.Name == webName)?.Web;
+            if (innerWeb == null)
             {
                 return default(T);
             }
 
-            return targetWeb.Web.Run(engine, dependencyName);
+            return innerWeb.Run(engine, dependencyName);
         }
 
         public virtual XTuple<T, U> RunWeb<T, U>(
@@ -123,17 +121,17 @@
             string dependency1Name = null,
             string dependency2Name = null)
         {
-            var w = EH.FirstOrDefault(
+            var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
-            if (w == default(NamedMethodWebHolder))
+                nmwh => nmwh.Name == webName)?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return w.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name);
@@ -146,10 +144,10 @@
             string dependency2Name = null,
             string dependency3Name = null)
         {
-            var w = EH.FirstOrDefault(
+            var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
-            if (w == default(NamedMethodWebHolder))
+                nmwh => nmwh.Name == webName)?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -157,7 +155,7 @@
                     default(V));
             }
 
-            return w.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name,
@@ -172,10 +170,10 @@
             string dependency3Name = null,
             string dependency4Name = null)
         {
-            var w = EH.FirstOrDefault(
+            var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
-            if (w == default(NamedMethodWebHolder))
+                nmwh => nmwh.Name == webName)?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -184,7 +182,7 @@
                     default(W));
             }
 
-            return w.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name,

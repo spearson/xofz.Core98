@@ -170,12 +170,13 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            if (targetWeb == null)
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return default(T);
             }
 
-            return targetWeb.Web.Run(engine, dependencyName);
+            return innerWeb.Run(engine, dependencyName);
         }
 
         public override XTuple<T, U> RunWeb<T, U>(
@@ -192,14 +193,15 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            if (targetWeb == null)
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return targetWeb.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name);
@@ -219,7 +221,8 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            if (targetWeb == null)
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -227,7 +230,7 @@
                     default(V));
             }
 
-            return targetWeb.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name,
@@ -250,7 +253,8 @@
                     nmwh => nmwh.Name == webName);
             }
 
-            if (targetWeb == null)
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -259,7 +263,7 @@
                     default(W));
             }
 
-            return targetWeb.Web.Run(
+            return innerWeb.Run(
                 engine,
                 dependency1Name,
                 dependency2Name,
