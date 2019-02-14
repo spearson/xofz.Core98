@@ -17,8 +17,8 @@
 
         protected ThreadSafeMethodWeb(
             object locker)
-            : this(new LinkedList<Dependency>(), locker)
         {
+            this.locker = locker;
         }
 
         protected ThreadSafeMethodWeb(

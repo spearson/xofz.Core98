@@ -22,7 +22,7 @@
             {
                 for (var i = 0; i < 0xFFFFF; ++i)
                 {
-                    mwm.RemoveWeb(nameof(MethodWebNameConsts.Default));
+                    mwm.RemoveWeb(null);
                 }
             });
 

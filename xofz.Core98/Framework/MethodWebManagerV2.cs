@@ -49,7 +49,7 @@
 
         public override bool AddWeb(
             MethodWeb web, 
-            string name = nameof(MethodWebNameConsts.Default))
+            string name = null)
         {
             if (web == null)
             {
@@ -94,7 +94,7 @@
 
         public override void AccessWeb(
             Do<MethodWeb> accessor,
-            string webName = nameof(MethodWebNameConsts.Default))
+            string webName = null)
         {
             NamedMethodWebHolder targetWeb;
             lock (this.locker)
@@ -115,7 +115,7 @@
 
         public override void AccessWeb<T>(
             Do<T> accessor, 
-            string webName = nameof(MethodWebNameConsts.Default))
+            string webName = null)
         {
             NamedMethodWebHolder targetWeb;
             lock (this.locker)
@@ -159,7 +159,7 @@
 
         public override T RunWeb<T>(
             Do<T> engine = null, 
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependencyName = null)
         {
             NamedMethodWebHolder targetWeb;
@@ -181,7 +181,7 @@
 
         public override XTuple<T, U> RunWeb<T, U>(
             Do<T, U> engine = null, 
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null, 
             string dependency2Name = null)
         {
@@ -209,7 +209,7 @@
 
         public override XTuple<T, U, V> RunWeb<T, U, V>(
             Do<T, U, V> engine = null,
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null, string dependency2Name = null,
             string dependency3Name = null)
         {
@@ -239,7 +239,7 @@
 
         public override XTuple<T, U, V, W> RunWeb<T, U, V, W>(
             Do<T, U, V, W> engine = null, 
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null, 
             string dependency2Name = null,
             string dependency3Name = null, 

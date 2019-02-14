@@ -1,14 +1,8 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Collections.Generic;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
-
-    public class MethodWebNameConsts
-    {
-        public const bool Default = true;
-    }
 
     public class MethodWebManager
     {
@@ -33,7 +27,7 @@
 
         public virtual bool AddWeb(
             MethodWeb web,
-            string name = nameof(MethodWebNameConsts.Default))
+            string name = null)
         {
             if (web == null)
             {
@@ -68,7 +62,7 @@
 
         public virtual void AccessWeb(
             Do<MethodWeb> accessor,
-            string webName = nameof(MethodWebNameConsts.Default))
+            string webName = null)
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
@@ -83,7 +77,7 @@
 
         public virtual void AccessWeb<T>(
             Do<T> accessor,
-            string webName = nameof(MethodWebNameConsts.Default))
+            string webName = null)
             where T : MethodWeb
         {
             var targetWeb = EH.FirstOrDefault(
@@ -101,7 +95,7 @@
 
         public virtual T RunWeb<T>(
             xofz.Do<T> engine = null,
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependencyName = null)
         {
             var innerWeb = EH.FirstOrDefault(
@@ -117,7 +111,7 @@
 
         public virtual XTuple<T, U> RunWeb<T, U>(
             Do<T, U> engine = null,
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null,
             string dependency2Name = null)
         {
@@ -139,7 +133,7 @@
 
         public virtual XTuple<T, U, V> RunWeb<T, U, V>(
             Do<T, U, V> engine = null,
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null,
             string dependency2Name = null,
             string dependency3Name = null)
@@ -164,7 +158,7 @@
 
         public virtual XTuple<T, U, V, W> RunWeb<T, U, V, W>(
             Do<T, U, V, W> engine = null,
-            string webName = nameof(MethodWebNameConsts.Default),
+            string webName = null,
             string dependency1Name = null,
             string dependency2Name = null,
             string dependency3Name = null,

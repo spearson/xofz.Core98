@@ -89,7 +89,7 @@
 
         protected TimeSpan interval;
         protected Do<LoggingTimer, LogEditor> log;
+        protected readonly MethodWeb web;
         private string logName;
-        private readonly MethodWeb web;
     }
 }
