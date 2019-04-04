@@ -35,9 +35,9 @@
                         stats.ComputeRange(
                             start, end);
                         var typeInfo =
-                            "Range: "
+                            @"Range: "
                             + start.ToString(df)
-                            + " to "
+                            + @" to "
                             + end.ToString(df);
                         uiRW.WriteSync(
                             ui,

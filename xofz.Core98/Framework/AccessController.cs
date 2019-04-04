@@ -1,5 +1,6 @@
 ﻿namespace xofz.Framework
 {
+    using System.Security;
     using System.Threading;
     using xofz.Framework.Access;
 
@@ -56,6 +57,18 @@
         }
 
         public virtual void InputPassword(
+            SecureString password)
+        {
+            var w = this.web;
+            w.Run<Access.SettingsHolder>(settings =>
+            {
+                this.InputPassword(
+                    password,
+                    settings.DefaultLoginDuration);
+            });
+        }
+
+        public virtual void InputPassword(
             string password)
         {
             var w = this.web;
@@ -68,6 +81,16 @@
         }
 
         public virtual void InputPassword(
+            SecureString password,
+            System.TimeSpan loginDuration)
+        {
+            var milliseconds = (long)loginDuration.TotalMilliseconds;
+            this.InputPassword(
+                password,
+                milliseconds);
+        }
+
+        public virtual void InputPassword(
             string password,
             System.TimeSpan loginDuration)
         {
@@ -75,6 +98,74 @@
             this.InputPassword(
                 password,
                 milliseconds);
+        }
+
+        public virtual void InputPassword(
+            SecureString password,
+            long loginDurationMilliseconds)
+        {
+            if (loginDurationMilliseconds < 0)
+            {
+                return;
+            }
+
+            if (loginDurationMilliseconds > uint.MaxValue)
+            {
+                loginDurationMilliseconds = uint.MaxValue;
+            }
+
+            if (password == null)
+            {
+                this.setCurrentAccessLevel(
+                    AccessLevel.None);
+                return;
+            }
+
+            var w = this.web;
+            var noAccess = AccessLevel.None;
+            var newLevel = noAccess;
+            w.Run<PasswordHolder, SecureStringToolSet>(
+                (holder, ssts) =>
+            {
+                var ps = holder.Passwords;
+                if (ps == null)
+                {
+                    return;
+                }
+
+                foreach (var kvp in ps)
+                {
+                    if (ssts.Decode(password) !=
+                        ssts.Decode(kvp.Key))
+                    {
+                        continue;
+                    }
+
+                    newLevel = kvp.Value;
+                    break;
+                }
+            });
+
+            if (newLevel == noAccess)
+            {
+                this.setCurrentAccessLevel(noAccess);
+                return;
+            }
+
+            w.Run<xofz.Framework.Timer>(t =>
+                {
+                    t.AutoReset = false;
+                    t.Stop();
+                    this.timerFinished.WaitOne();
+                    this.setCurrentAccessLevel(newLevel);
+                    this.setLoginDuration(
+                        System.TimeSpan.FromMilliseconds(
+                            loginDurationMilliseconds));
+                    this.setLoginTime(
+                        System.DateTime.Now);
+                    t.Start(loginDurationMilliseconds);
+                },
+                DependencyNames.Timer);
         }
 
         public virtual void InputPassword(

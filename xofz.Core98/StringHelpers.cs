@@ -39,11 +39,12 @@
                 return s;
             }
 
-            return count >= s.Length
+            var l = s.Length;
+            return count >= l
                 ? string.Empty
                 : s.Substring(
-                    0, 
-                    s.Length - count);
+                    0,
+                    l - count);
         }
 
         public static bool NullOrWhiteSpace(

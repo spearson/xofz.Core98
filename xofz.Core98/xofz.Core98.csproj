@@ -42,6 +42,7 @@
     <Compile Include="EncodingHelpers.cs" />
     <Compile Include="EnumerableHelpers.cs" />
     <Compile Include="EnumHelpers.cs" />
+    <Compile Include="ExceptionHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
     <Compile Include="Framework\Access\PasswordHolder.cs" />
     <Compile Include="Framework\Access\SettingsHolder.cs" />

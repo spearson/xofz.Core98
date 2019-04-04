@@ -2,18 +2,22 @@
 {
     public class Synchronizer<T>
     {
-        public Synchronizer(T t)
+        public Synchronizer(
+            T t)
             : this(t, new object())
         {
         }
 
-        protected Synchronizer(T t, object locker)
+        protected Synchronizer(
+            T t, 
+            object locker)
         {
             this.t = t;
             this.locker = locker;
         }
 
-        public virtual void RunSync(Do<T> syncAction)
+        public virtual void RunSync(
+            Do<T> syncAction)
         {
             var actor = this.t;
             lock (this.locker)

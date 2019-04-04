@@ -14,7 +14,10 @@
             LoginUi ui)
         {
             var w = this.web;
-            w.Run<KeyboardLoader>(loader => loader.Load());
+            w.Run<KeyboardLoader>(loader =>
+            {
+                loader.Load();
+            });
             w.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
