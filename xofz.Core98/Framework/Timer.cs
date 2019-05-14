@@ -29,18 +29,25 @@ namespace xofz.Framework
             set => this.shouldReset = value;
         }
 
-        public virtual void Start(TimeSpan interval)
+        public virtual void Start(
+            TimeSpan interval)
         {
             this.Start((long)interval.TotalMilliseconds);
         }
 
-        public virtual void Start(long intervalMilliseconds)
+        public virtual void Start(
+            long intervalMilliseconds)
         {
             lock (this.locker)
             {
                 if (this.started)
                 {
                     return;
+                }
+
+                if (intervalMilliseconds > int.MaxValue)
+                {
+                    intervalMilliseconds = int.MaxValue;
                 }
 
                 var it = this.innerTimer;
@@ -83,7 +90,7 @@ namespace xofz.Framework
 
         protected bool shouldReset;
         protected bool started;
-        private readonly System.Timers.Timer innerTimer;
-        private readonly object locker;
+        protected readonly System.Timers.Timer innerTimer;
+        protected readonly object locker;
     }
 }

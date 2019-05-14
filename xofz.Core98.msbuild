@@ -12,6 +12,7 @@
     <WorkingFolder>$(teamcity_build_workingDir)</WorkingFolder>
     <!-- This folder has all of its files deleted before copying the build output to it -->
     <DeployFolder>H:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
+    <DeployFolder2>H:\OneDrive\Libraries\$(ProjectName)</DeployFolder2>
   </PropertyGroup>
 
 
@@ -57,5 +58,6 @@
       <FilesToCopy Include="$(WorkingFolder)\ms-PL.txt" />
     </ItemGroup>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder)" />
+    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder2)" />
   </Target>
 </Project>
