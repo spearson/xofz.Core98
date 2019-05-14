@@ -48,6 +48,7 @@
   <Target Name="Deploy" DependsOnTargets="Test">
     <ItemGroup>
       <FilesToDelete Include="$(DeployFolder)\*.*" />
+      <FilesToDelete Include="$(DeployFolder2)\*.*" />
     </ItemGroup>
     <Delete Files="@(FilesToDelete)" />
     <Move SourceFiles="$(BuildFolder)\version.txt" DestinationFiles="$(BuildFolder)\version-$(Version).txt" />
