@@ -94,12 +94,13 @@
                         continue;
                     }
 
-                    if (!(d.Content is T))
+                    var content = d.Content;
+                    if (!(content is T))
                     {
                         continue;
                     }
 
-                    t = (T)d.Content;
+                    t = (T)content;
                     goto invoke;
                 }
             }
@@ -139,12 +140,13 @@
                             goto checkU;
                         }
 
-                        if (!(d.Content is T))
+                        var content = d.Content;
+                        if (!(content is T))
                         {
                             goto checkU;
                         }
 
-                        t = (T)d.Content;
+                        t = (T)content;
                         tMissing = false;
                         continue;
                     }
@@ -157,12 +159,13 @@
                             continue;
                         }
 
-                        if (!(d.Content is U))
+                        var content = d.Content;
+                        if (!(content is U))
                         {
                             continue;
                         }
 
-                        u = (U)d.Content;
+                        u = (U)content;
                         uMissing = false;
                     }
                 }
@@ -211,12 +214,13 @@
                             goto checkU;
                         }
 
-                        if (!(d.Content is T))
+                        var content = d.Content;
+                        if (!(content is T))
                         {
                             goto checkU;
                         }
 
-                        t = (T)d.Content;
+                        t = (T)content;
                         tMissing = false;
                         continue;
                     }
@@ -229,12 +233,13 @@
                             goto checkV;
                         }
 
-                        if (!(d.Content is U))
+                        var content = d.Content;
+                        if (!(content is U))
                         {
                             goto checkV;
                         }
 
-                        u = (U)d.Content;
+                        u = (U)content;
                         uMissing = false;
                         continue;
                     }
@@ -247,12 +252,13 @@
                             continue;
                         }
 
-                        if (!(d.Content is V))
+                        var content = d.Content;
+                        if (!(content is V))
                         {
                             continue;
                         }
 
-                        v = (V)d.Content;
+                        v = (V)content;
                         vMissing = false;
                     }
                 }
@@ -304,12 +310,13 @@
                             goto checkU;
                         }
 
-                        if (!(d.Content is T))
+                        var content = d.Content;
+                        if (!(content is T))
                         {
                             goto checkU;
                         }
 
-                        t = (T)d.Content;
+                        t = (T)content;
                         tMissing = false;
                         continue;
                     }
@@ -322,12 +329,13 @@
                             goto checkV;
                         }
 
-                        if (!(d.Content is U))
+                        var content = d.Content;
+                        if (!(content is U))
                         {
                             goto checkV;
                         }
 
-                        u = (U)d.Content;
+                        u = (U)content;
                         uMissing = false;
                         continue;
                     }
@@ -340,12 +348,13 @@
                             goto checkW;
                         }
 
-                        if (!(d.Content is V))
+                        var content = d.Content;
+                        if (!(content is V))
                         {
                             goto checkW;
                         }
 
-                        v = (V)d.Content;
+                        v = (V)content;
                         vMissing = false;
                         continue;
                     }
@@ -358,12 +367,13 @@
                             continue;
                         }
 
-                        if (!(d.Content is W))
+                        var content = d.Content;
+                        if (!(content is W))
                         {
                             continue;
                         }
 
-                        w = (W)d.Content;
+                        w = (W)content;
                         wMissing = false;
                     }
                 }
