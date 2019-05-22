@@ -7,9 +7,9 @@
     public class SetupHandler
     {
         public SetupHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <remarks>
@@ -27,8 +27,8 @@
                     DefaultEntryTypes.Custom
                 });
 
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
                     ui,
@@ -41,6 +41,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

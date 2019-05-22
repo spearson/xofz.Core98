@@ -6,18 +6,18 @@
     public class StartHandler
     {
         public StartHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle()
         {
-            var w = this.web;
-            w.Run<Do>(cleanup =>
+            var r = this.runner;
+            r.Run<Do>(cleanup =>
                 {
                     var uiFound = false;
-                    w.Run<Ui>(cleanupUi =>
+                    r.Run<Ui>(cleanupUi =>
                         {
                             uiFound = true;
                             UiHelpers.WriteSync(
@@ -35,6 +35,6 @@
             Process.GetCurrentProcess().Kill();
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

@@ -6,17 +6,18 @@
     public class FilterSetter
     {
         public FilterSetter(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Set(
             LogStatisticsUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
+            var r = this.runner;
+            r.Run<LogStatistics, UiReaderWriter>(
+                (stats, uiRW) =>
                 {
                     stats.FilterContent = uiRW.Read(
                         ui,
@@ -28,6 +29,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

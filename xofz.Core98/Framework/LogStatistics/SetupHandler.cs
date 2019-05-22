@@ -5,22 +5,22 @@
     public class SetupHandler
     {
         public SetupHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogStatisticsUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<DateResetter>(dr =>
+            var r = this.runner;
+            r.Run<DateResetter>(dr =>
             {
                 dr.Reset(ui, name);
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

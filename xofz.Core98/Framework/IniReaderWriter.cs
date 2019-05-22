@@ -6,7 +6,8 @@
 
     public class IniReaderWriter
     {
-        public IniReaderWriter(string filePath)
+        public IniReaderWriter(
+            string filePath)
             : this(
                 () => File.Exists(filePath)
                     ? File.ReadAllLines(filePath)

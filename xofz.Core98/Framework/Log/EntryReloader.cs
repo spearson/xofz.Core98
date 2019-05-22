@@ -6,17 +6,18 @@
 
     public class EntryReloader
     {
-        public EntryReloader(MethodWeb web)
+        public EntryReloader(
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Reload(
             LogUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<Log, UiReaderWriter, EntryConverter>(
+            var r = this.runner;
+            r.Run<Log, UiReaderWriter, EntryConverter>(
                 (log, uiRW, converter) =>
                 {
                     var start = uiRW.Read(ui, () => ui.StartDate);
@@ -76,7 +77,7 @@
                     uiRW.WriteSync(
                         ui,
                         () => ui.Entries = uiEntries);
-                    w.Run<ICollection<LogEntry>>(
+                    r.Run<ICollection<LogEntry>>(
                         refreshEntries =>
                         {
                             refreshEntries.Clear();
@@ -86,6 +87,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

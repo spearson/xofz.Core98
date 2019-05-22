@@ -8,9 +8,9 @@
     public class StartHandler
     {
         public StartHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -19,8 +19,8 @@
             Do subscribe,
             string name)
         {
-            var w = this.web;
-            w.Run<FieldHolder, Log, SettingsHolder>(
+            var r = this.runner;
+            r.Run<FieldHolder, Log, SettingsHolder>(
                 (fields, log, settings) =>
                 {
                     Interlocked.CompareExchange(
@@ -33,7 +33,7 @@
                             1,
                             0) != 1)
                     {
-                        w.Run<EntryReloader>(reloader =>
+                        r.Run<EntryReloader>(reloader =>
                         {
                             reloader.Reload(ui, name);
                         });
@@ -45,7 +45,7 @@
                             0,
                             1) == 1)
                     {
-                        w.Run<EntryReloader>(reloader =>
+                        r.Run<EntryReloader>(reloader =>
                         {
                             reloader.Reload(ui, name);
                         });
@@ -54,7 +54,7 @@
 
                     if (settings.ResetOnStart)
                     {
-                        w.Run<DateAndFilterResetter>(resetter =>
+                        r.Run<DateAndFilterResetter>(resetter =>
                         {
                             resetter.Reset(
                                 ui,
@@ -65,7 +65,7 @@
                         return;
                     }
 
-                    w.Run<
+                    r.Run<
                         ICollection<LogEntry>,
                         UiReaderWriter,
                         EntryConverter>(
@@ -86,6 +86,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

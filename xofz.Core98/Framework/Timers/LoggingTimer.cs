@@ -6,28 +6,28 @@
     public class LoggingTimer : Timer
     {
         public LoggingTimer(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
             this.logName = null;
             this.log = (lt, le) =>
             {
                 le.AddEntry(
-                    "Information",
+                    DefaultEntryTypes.Information,
                     new[]
                     {
-                        "Timer " + this.Name + " elapsed.",
-                        "Interval: " + lt.CurrentInterval
+                        @"Timer " + this.Name + @" elapsed.",
+                        @"Interval: " + lt.CurrentInterval
                     });
             };
         }
 
         public LoggingTimer(
             Do<LoggingTimer, LogEditor> log,
-            MethodWeb web)
+            MethodWeb runner)
         {
             this.log = log;
-            this.web = web;
+            this.runner = runner;
             this.logName = null;
         }
 
@@ -72,7 +72,7 @@
             object sender,
             System.Timers.ElapsedEventArgs e)
         {
-            var w = this.web;
+            var w = this.runner;
             w.Run<LogEditor>(le =>
                 {
                     this.log(this, le);
@@ -89,7 +89,7 @@
 
         protected TimeSpan interval;
         protected Do<LoggingTimer, LogEditor> log;
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
         private string logName;
     }
 }

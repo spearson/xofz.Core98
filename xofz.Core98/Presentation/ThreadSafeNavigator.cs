@@ -8,52 +8,52 @@ namespace xofz.Presentation
     public class ThreadSafeNavigator : Navigator
     {
         public ThreadSafeNavigator(
-            MethodWeb web)
-            : base(web)
+            MethodRunner runner)
+            : base(runner)
         {
             this.locker = new object();
         }
 
         public ThreadSafeNavigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter)
-            : base(web, startPresenter)
+            : base(runner, startPresenter)
         {
             this.locker = new object();
         }
 
         protected ThreadSafeNavigator(
-            MethodWeb web,
+            MethodRunner runner,
             object locker)
-            : base(web)
+            : base(runner)
         {
             this.locker = locker;
         }
 
         protected ThreadSafeNavigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter,
             object locker)
-            : base(web, startPresenter)
+            : base(runner, startPresenter)
         {
             this.locker = locker;
         }
 
         protected ThreadSafeNavigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter,
             ICollection<Presenter> presenters)
-            : base(web, startPresenter, presenters)
+            : base(runner, startPresenter, presenters)
         {
             this.locker = new object();
         }
 
         protected ThreadSafeNavigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter,
             ICollection<Presenter> presenters,
             object locker)
-            : base(web, startPresenter, presenters)
+            : base(runner, startPresenter, presenters)
         {
             this.locker = locker;
         }

@@ -5,9 +5,9 @@
     public class BackspaceKeyTappedHandler
     {
         public BackspaceKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -17,8 +17,8 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<SecureStringToolSet, UiReaderWriter>(
+            var r = this.runner;
+            r.Run<SecureStringToolSet, UiReaderWriter>(
                 (ssts, uiRW) =>
             {
                 var currentPw = ssts.Decode(uiRW.Read(
@@ -38,6 +38,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

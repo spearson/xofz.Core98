@@ -3,7 +3,8 @@
     using System;
     using System.Collections.Generic;
 
-    public class Translator<T, Y> : IDisposable
+    public class Translator<T, Y> 
+        : IDisposable
     {
         public Translator(
             Gen<Y> yFactory)

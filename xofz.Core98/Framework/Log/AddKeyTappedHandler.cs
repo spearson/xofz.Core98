@@ -3,9 +3,9 @@
     public class AddKeyTappedHandler
     {
         public AddKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -14,6 +14,6 @@
             presentEditor?.Invoke();
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

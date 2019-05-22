@@ -59,27 +59,40 @@
             return source.GetEnumerator();
         }
 
-        public virtual void CopyTo(T[] array)
+        public virtual void CopyTo(
+            T[] array)
         {
             this.list.CopyTo(array);
         }
 
-        public virtual void CopyTo(T[] array, int arrayIndex)
+        public virtual void CopyTo(
+            T[] array, 
+            int arrayIndex)
         {
             this.list.CopyTo(array, arrayIndex);
         }
 
-        public virtual void CopyTo(int index, T[] array, int arrayIndex, int count)
+        public virtual void CopyTo(
+            int index, 
+            T[] array, 
+            int arrayIndex,
+            int count)
         {
-            this.list.CopyTo(index, array, arrayIndex, count);
+            this.list.CopyTo(
+                index, 
+                array, 
+                arrayIndex,
+                count);
         }
 
-        public virtual void Add(T item)
+        public virtual void Add(
+            T item)
         {
             this.list.Add(item);
         }
 
-        public virtual void AddRange(IEnumerable<T> collection)
+        public virtual void AddRange(
+            IEnumerable<T> collection)
         {
             this.list.AddRange(collection);
         }
@@ -113,7 +126,8 @@
             this.list.Clear();
         }
 
-        public virtual bool Contains(T item)
+        public virtual bool Contains(
+            T item)
         {
             return this.list.Contains(item);
         }
@@ -124,107 +138,141 @@
             return this.list.ConvertAll(converter);
         }
 
-        public virtual bool Exists(Predicate<T> match)
+        public virtual bool Exists(
+            Predicate<T> match)
         {
             return this.list.Exists(match);
         }
 
-        public virtual T Find(Predicate<T> match)
+        public virtual T Find(
+            Predicate<T> match)
         {
             return this.list.Find(match);
         }
 
-        public virtual List<T> FindAll(Predicate<T> match)
+        public virtual List<T> FindAll(
+            Predicate<T> match)
         {
             return this.list.FindAll(match);
         }
 
-        public virtual int FindIndex(Predicate<T> match)
+        public virtual int FindIndex(
+            Predicate<T> match)
         {
             return this.list.FindIndex(match);
         }
 
-        public virtual int FindIndex(int startIndex, Predicate<T> match)
+        public virtual int FindIndex(
+            int startIndex, 
+            Predicate<T> match)
         {
             return this.list.FindIndex(startIndex, match);
         }
 
-        public virtual int FindIndex(int startIndex, int count, Predicate<T> match)
+        public virtual int FindIndex(
+            int startIndex, 
+            int count, 
+            Predicate<T> match)
         {
             return this.list.FindIndex(startIndex, count, match);
         }
 
-        public virtual T FindLast(Predicate<T> match)
+        public virtual T FindLast(
+            Predicate<T> match)
         {
             return this.list.FindLast(match);
         }
 
-        public virtual int FindLastIndex(Predicate<T> match)
+        public virtual int FindLastIndex(
+            Predicate<T> match)
         {
             return this.list.FindLastIndex(match);
         }
 
-        public virtual int FindLastIndex(int startIndex, Predicate<T> match)
+        public virtual int FindLastIndex(
+            int startIndex, 
+            Predicate<T> match)
         {
             return this.list.FindLastIndex(startIndex, match);
         }
 
-        public virtual int FindLastIndex(int startIndex, int count, Predicate<T> match)
+        public virtual int FindLastIndex(
+            int startIndex, 
+            int count, 
+            Predicate<T> match)
         {
             return this.list.FindLastIndex(startIndex, count, match);
         }
 
-        public virtual void ForEach(Action<T> action)
+        public virtual void ForEach(
+            Action<T> action)
         {
             this.list.ForEach(action);
         }
 
-        public virtual List<T> GetRange(int index, int count)
+        public virtual List<T> GetRange(
+            int index, 
+            int count)
         {
             return this.list.GetRange(index, count);
         }
 
-        public virtual int IndexOf(T item)
+        public virtual int IndexOf(
+            T item)
         {
             return this.list.IndexOf(item);
         }
 
-        public virtual int IndexOf(T item, int index)
+        public virtual int IndexOf(
+            T item, 
+            int index)
         {
             return this.list.IndexOf(item, index);
         }
 
-        public virtual int IndexOf(T item, int index, int count)
+        public virtual int IndexOf(
+            T item, 
+            int index, 
+            int count)
         {
             return this.list.IndexOf(item, index, count);
         }
 
-        public virtual void Insert(int index, T item)
+        public virtual void Insert(
+            int index, 
+            T item)
         {
             this.list.Insert(index, item);
         }
 
-        public virtual void InsertRange(int index, IEnumerable<T> collection)
+        public virtual void InsertRange(
+            int index,
+            IEnumerable<T> collection)
         {
             this.list.InsertRange(index, collection);
         }
 
-        public virtual bool Remove(T item)
+        public virtual bool Remove(
+            T item)
         {
             return this.list.Remove(item);
         }
 
-        public virtual int RemoveAll(Predicate<T> match)
+        public virtual int RemoveAll(
+            Predicate<T> match)
         {
             return this.list.RemoveAll(match);
         }
 
-        public virtual void RemoveAt(int index)
+        public virtual void RemoveAt(
+            int index)
         {
             this.list.RemoveAt(index);
         }
 
-        public virtual void RemoveRange(int index, int count)
+        public virtual void RemoveRange(
+            int index,
+            int count)
         {
             this.list.RemoveRange(index, count);
         }
@@ -234,7 +282,9 @@
             this.list.Reverse();
         }
 
-        public virtual void Reverse(int index, int count)
+        public virtual void Reverse(
+            int index, 
+            int count)
         {
             this.list.Reverse(index, count);
         }
@@ -244,17 +294,22 @@
             this.list.Sort();
         }
 
-        public virtual void Sort(IComparer<T> comparer)
+        public virtual void Sort(
+            IComparer<T> comparer)
         {
             this.list.Sort(comparer);
         }
 
-        public virtual void Sort(Comparison<T> comparison)
+        public virtual void Sort(
+            Comparison<T> comparison)
         {
             this.list.Sort(comparison);
         }
 
-        public virtual void Sort(int index, int count, IComparer<T> comparer)
+        public virtual void Sort(
+            int index, 
+            int count,
+            IComparer<T> comparer)
         {
             this.list.Sort(index, count, comparer);
         }
@@ -269,22 +324,29 @@
             this.list.TrimExcess();
         }
 
-        public virtual int LastIndexOf(T item)
+        public virtual int LastIndexOf(
+            T item)
         {
             return this.list.LastIndexOf(item);
         }
 
-        public virtual int LastIndexOf(T item, int index)
+        public virtual int LastIndexOf(
+            T item, 
+            int index)
         {
             return this.list.LastIndexOf(item, index);
         }
 
-        public virtual int LastIndexOf(T item, int index, int count)
+        public virtual int LastIndexOf(
+            T item, 
+            int index,
+            int count)
         {
             return this.list.LastIndexOf(item, index, count);
         }
 
-        public virtual bool TrueForAll(Predicate<T> match)
+        public virtual bool TrueForAll(
+            Predicate<T> match)
         {
             return this.list.TrueForAll(match);
         }

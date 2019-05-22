@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     public class MethodWeb
+        : MethodRunner
     {
         public MethodWeb()
             : this(new LinkedList<Dependency>())

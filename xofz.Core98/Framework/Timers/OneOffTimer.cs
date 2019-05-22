@@ -9,7 +9,7 @@
 
         public override bool AutoReset
         {
-            get => this.shouldReset;
+            get => false;
 
             set { }
         }

@@ -5,7 +5,8 @@
 
     public class EnumerableProjector
     {
-        public virtual T[][] Project2<T>(IEnumerable<T> finiteSource)
+        public virtual T[][] Project2<T>(
+            IEnumerable<T> finiteSource)
         {
             if (finiteSource == null)
             {
@@ -39,7 +40,8 @@
             return jagged2;
         }
 
-        public virtual T[][][] Project3<T>(IEnumerable<T> finiteSource)
+        public virtual T[][][] Project3<T>(
+            IEnumerable<T> finiteSource)
         {
             if (finiteSource == null)
             {
@@ -85,7 +87,8 @@
             return jagged3;
         }
 
-        public virtual T[][][][] Project4<T>(IEnumerable<T> finiteSource)
+        public virtual T[][][][] Project4<T>(
+            IEnumerable<T> finiteSource)
         {
             if (finiteSource == null)
             {

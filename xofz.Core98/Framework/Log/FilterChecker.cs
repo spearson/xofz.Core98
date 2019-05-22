@@ -6,9 +6,9 @@
     public class FilterChecker
     {
         public FilterChecker(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual bool PassesFilters(
@@ -20,9 +20,9 @@
                 return false;
             }
 
-            var w = this.web;
+            var r = this.runner;
             var passed = false;
-            w.Run<UiReaderWriter>(uiRW =>
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 var start = uiRW.Read(
                     ui,
@@ -79,6 +79,6 @@
             return passed;
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

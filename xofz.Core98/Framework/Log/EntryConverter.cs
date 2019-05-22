@@ -7,9 +7,9 @@
     public class EntryConverter
     {
         public EntryConverter(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual XTuple<string, string, string> Convert(LogEntry entry)
@@ -20,9 +20,9 @@
                     null, null, null);
             }
 
-            var w = this.web;
+            var r = this.runner;
             string format = null;
-            w.Run<SettingsHolder>(settings =>
+            r.Run<SettingsHolder>(settings =>
             {
                 format = settings.TimestampFormat;
             });
@@ -37,6 +37,6 @@
                     EnumerableHelpers.ToArray(entry.Content)));
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

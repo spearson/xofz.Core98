@@ -9,11 +9,11 @@
     {
         public MainPresenter(
             MainUi ui,
-            MethodWeb web)
+            MethodRunner runner)
             : base(ui, null)
         {
             this.ui = ui;
-            this.web = web;
+            this.runner = runner;
         }
 
         public void Setup()
@@ -26,8 +26,8 @@
                 return;
             }
 
-            var w = this.web;
-            w.Run<EventSubscriber>(sub =>
+            var r = this.runner;
+            r.Run<EventSubscriber>(sub =>
             {
                 sub.Subscribe(
                     this.ui,
@@ -35,7 +35,7 @@
                     this.ui_ShutdownRequested);
             });
             
-            w.Run<Navigator>(nav => 
+            r.Run<Navigator>(nav => 
                 nav.RegisterPresenter(this));
         }
 
@@ -45,15 +45,15 @@
 
         private void ui_ShutdownRequested()
         {
-            var w = this.web;
+            var r = this.runner;
             Do logIn = null, shutdown = null;
-            w.Run<Navigator>(nav =>
+            r.Run<Navigator>(nav =>
             {
                 logIn = nav.LoginFluidly;
                 shutdown = nav.Present<ShutdownPresenter>;
             });
 
-            w.Run<ShutdownRequestedHandler>(handler =>
+            r.Run<ShutdownRequestedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -64,6 +64,6 @@
 
         private long setupIf1;
         private readonly MainUi ui;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

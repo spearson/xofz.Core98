@@ -5,9 +5,9 @@
     public class SetupHandler
     {
         public SetupHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
         
         /// <summary>
@@ -19,8 +19,8 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
                     ui,
@@ -30,14 +30,14 @@
                         ui.KeyboardKeyVisible = false;
                     });
 
-                w.Run<KeyboardLoader>(loader =>
+                r.Run<KeyboardLoader>(loader =>
                 {
                     uiRW.Write(
                         ui,
                         () => ui.KeyboardKeyVisible = true);
                 });
 
-                w.Run<AccessController>(ac =>
+                r.Run<AccessController>(ac =>
                 {
                     var cal = ac.CurrentAccessLevel;
                     uiRW.Write(
@@ -45,7 +45,7 @@
                         () => ui.CurrentAccessLevel = cal);
                 });
 
-                w.Run<xofz.Framework.Timer>(t =>
+                r.Run<xofz.Framework.Timer>(t =>
                     {
                         t.Start(1000);
                     },
@@ -53,6 +53,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

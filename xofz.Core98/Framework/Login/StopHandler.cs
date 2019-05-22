@@ -5,9 +5,9 @@
     public class StopHandler
     {
         public StopHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -18,8 +18,8 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<
+            var r = this.runner;
+            r.Run<
                 UiReaderWriter,
                 SettingsHolder>(
                 (uiRW, settings) =>
@@ -32,7 +32,7 @@
                             ui.CurrentPassword = cp;
                             ui.Hide();
                         });
-                    w.Run<LatchHolder>(latch =>
+                    r.Run<LatchHolder>(latch =>
                         {
                             latch.Latch.Set();
                         },
@@ -40,6 +40,6 @@
                 });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

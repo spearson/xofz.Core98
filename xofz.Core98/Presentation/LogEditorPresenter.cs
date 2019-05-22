@@ -10,11 +10,11 @@
     {
         public LogEditorPresenter(
             LogEditorUi ui,
-            MethodWeb web)
+            MethodRunner runner)
             : base(ui)
         {
             this.ui = ui;
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <remarks>
@@ -32,10 +32,13 @@
                 return;
             }
 
-            var w = this.web;
-            w.Run<SetupHandler>(handler => handler.Handle(this.ui));
+            var r = this.runner;
+            r.Run<SetupHandler>(handler =>
+            {
+                handler.Handle(this.ui);
+            });
 
-            w.Run<EventSubscriber>(subscriber =>
+            r.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -47,13 +50,14 @@
                     this.ui_AddKeyTapped);
             });
 
-            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
+            r.Run<Navigator>(nav => 
+                nav.RegisterPresenter(this));
         }
 
         private void ui_TypeChanged()
         {
-            var w = this.web;
-            w.Run<TypeChangedHandler>(handler =>
+            var r = this.runner;
+            r.Run<TypeChangedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -61,8 +65,8 @@
 
         private void ui_AddKeyTapped()
         {
-            var w = this.web;
-            w.Run<AddKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<AddKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -70,6 +74,6 @@
 
         private long setupIf1;
         private readonly LogEditorUi ui;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

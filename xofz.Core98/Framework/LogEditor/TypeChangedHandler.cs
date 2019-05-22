@@ -6,9 +6,9 @@
     public class TypeChangedHandler
     {
         public TypeChangedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -18,8 +18,8 @@
         public virtual void Handle(
             LogEditorUi ui)
         {
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 var customIsSelected
                     = uiRW
@@ -33,6 +33,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

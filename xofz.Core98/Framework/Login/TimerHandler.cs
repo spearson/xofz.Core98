@@ -6,9 +6,9 @@
     public class TimerHandler
     {
         public TimerHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -20,8 +20,8 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<
+            var r = this.runner;
+            r.Run<
                 AccessController, 
                 SettingsHolder,
                 UiReaderWriter>(
@@ -31,7 +31,7 @@
                 string timeRemaining;
                 if (cal < AccessLevel.Level1)
                 {
-                    timeRemaining = "Not logged in";
+                    timeRemaining = @"Not logged in";
                     goto checkAccess;
                 }
 
@@ -72,6 +72,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

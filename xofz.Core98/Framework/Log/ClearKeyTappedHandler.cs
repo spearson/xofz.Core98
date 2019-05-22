@@ -6,19 +6,19 @@
     public class ClearKeyTappedHandler
     {
         public ClearKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogUi ui,
             string name)
         {
-            var w = this.web;
+            var r = this.runner;
             var response = Response.No;
             Gen<string> computeBackupLocation = null;
-            w.Run<
+            r.Run<
                 SettingsHolder,
                 Messenger,
                 UiReaderWriter>((settings, m, uiRW) =>
@@ -29,16 +29,16 @@
                         response = uiRW.Read(
                             m.Subscriber,
                             () => m.Question(
-                                "Really clear the log? "
-                                + "A backup will NOT be created."));
+                                @"Really clear the log? "
+                                + @"A backup will NOT be created."));
                         return;
                     }
 
                     response = uiRW.Read(
                         m.Subscriber,
                         () => m.Question(
-                            "Clear log? "
-                            + "A backup will be created."));
+                            @"Clear log? "
+                            + @"A backup will be created."));
                 },
                 name);
 
@@ -47,7 +47,7 @@
                 return;
             }
 
-            w.Run<SettingsHolder, LogEditor>((settings, le) =>
+            r.Run<SettingsHolder, LogEditor>((settings, le) =>
                 {
                     if (computeBackupLocation != null)
                     {
@@ -62,13 +62,13 @@
                         }
 
                         le.AddEntry(
-                            "Information",
+                            DefaultEntryTypes.Information,
                             new[]
                             {
-                                "The log was cleared.  A backup "
-                                + "was created at " + bl + "."
+                                @"The log was cleared.  A backup "
+                                + @"was created at " + bl + '.'
                             });
-                        w.Run<EntryReloader>(reloader =>
+                        r.Run<EntryReloader>(reloader =>
                         {
                             reloader.Reload(ui, name);
                         });
@@ -84,21 +84,21 @@
                         return;
                     }
 
-                    w.Run<EntryReloader>(reloader =>
+                    r.Run<EntryReloader>(reloader =>
                     {
                         reloader.Reload(ui, name);
                     });
                     le.AddEntry(
-                        "Information",
+                        DefaultEntryTypes.Information,
                         new[]
                         {
-                            "The log was cleared."
+                            @"The log was cleared."
                         });
                 },
                 name,
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

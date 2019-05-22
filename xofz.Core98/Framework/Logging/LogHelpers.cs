@@ -12,7 +12,7 @@
             if (e == null)
             {
                 logEditor?.AddEntry(
-                    "Error",
+                    DefaultEntryTypes.Error,
                     new[]
                     {
                         @"An unhandled exception occurred, "
@@ -25,7 +25,7 @@
             if (eo == null)
             {
                 logEditor?.AddEntry(
-                    "Error",
+                    DefaultEntryTypes.Error,
                     new[]
                     {
                         @"An unhandled exception occurred, "
@@ -38,7 +38,7 @@
             if (ex == null)
             {
                 logEditor?.AddEntry(
-                    "Error",
+                    DefaultEntryTypes.Error,
                     new[]
                     {
                         @"An unhandled exception occurred, but the exception "

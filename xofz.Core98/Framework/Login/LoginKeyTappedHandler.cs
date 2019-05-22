@@ -5,9 +5,9 @@
     public class LoginKeyTappedHandler
     {
         public LoginKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -20,8 +20,8 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<
+            var r = this.runner;
+            r.Run<
                 UiReaderWriter,
                 AccessController,
                 SettingsHolder>(
@@ -37,7 +37,7 @@
                     var newCal = ac.CurrentAccessLevel;
                     if (previousCal == newCal)
                     {
-                        w.Run<xofz.Framework.Timer, EventRaiser>(
+                        r.Run<xofz.Framework.Timer, EventRaiser>(
                             (t, er) =>
                             {
                                 er.Raise(t, nameof(t.Elapsed));
@@ -48,7 +48,7 @@
                     if (newCal > AccessLevel.None)
                     {
                         settings.CurrentPassword = securePw;
-                        w.Run<StopHandler>(handler => handler.Handle(ui));
+                        r.Run<StopHandler>(handler => handler.Handle(ui));
                         return;
                     }
 
@@ -58,6 +58,6 @@
                 });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

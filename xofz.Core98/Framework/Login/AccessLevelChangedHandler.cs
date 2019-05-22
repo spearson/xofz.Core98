@@ -5,9 +5,9 @@
     public class AccessLevelChangedHandler
     {
         public AccessLevelChangedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -19,8 +19,8 @@
             LoginUi ui,
             AccessLevel newAccessLevel)
         {
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 if (newAccessLevel == AccessLevel.None)
                 {
@@ -30,7 +30,7 @@
                 }
             });
 
-            w.Run<xofz.Framework.Timer, EventRaiser>(
+            r.Run<xofz.Framework.Timer, EventRaiser>(
                 (t, er) =>
                 {
                     er.Raise(
@@ -40,6 +40,6 @@
                 DependencyNames.Timer);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

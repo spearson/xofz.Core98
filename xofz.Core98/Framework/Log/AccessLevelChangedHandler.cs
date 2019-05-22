@@ -5,9 +5,9 @@
     public class AccessLevelChangedHandler
     {
         public AccessLevelChangedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -15,8 +15,8 @@
             AccessLevel newLevel,
             string name)
         {
-            var w = this.web;
-            w.Run<SettingsHolder, UiReaderWriter>(
+            var r = this.runner;
+            r.Run<SettingsHolder, UiReaderWriter>(
                 (settings, uiRW) =>
                 {
                     var akv = newLevel >= settings.EditLevel;
@@ -32,6 +32,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

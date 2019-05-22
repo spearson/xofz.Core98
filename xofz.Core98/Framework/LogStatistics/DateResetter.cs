@@ -7,17 +7,17 @@
     public class DateResetter
     {
         public DateResetter(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Reset(
             LogStatisticsUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
+            var r = this.runner;
+            r.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
                 {
                     var today = DateTime.Today;
                     var lastWeek = today.Subtract(TimeSpan.FromDays(6));
@@ -29,7 +29,7 @@
 
                     stats.Reset();
 
-                    w.Run<StatsDisplayer>(sd =>
+                    r.Run<StatsDisplayer>(sd =>
                     {
                         sd.Display(ui, stats, true);
                     });
@@ -38,6 +38,6 @@
 
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

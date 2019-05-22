@@ -6,47 +6,47 @@
     public class NavigatorV2 : ThreadSafeNavigator
     {
         public NavigatorV2(
-            MethodWeb web) 
-            : base(web)
+            MethodRunner runner) 
+            : base(runner)
         {
         }
 
         public NavigatorV2(
-            MethodWeb web, 
+            MethodRunner runner, 
             Do<Presenter> startPresenter) 
-            : base(web, startPresenter)
+            : base(runner, startPresenter)
         {
         }
 
         protected NavigatorV2(
-            MethodWeb web, 
+            MethodRunner runner, 
             object locker) 
-            : base(web, locker)
+            : base(runner, locker)
         {
         }
 
         protected NavigatorV2(
-            MethodWeb web, 
+            MethodRunner runner, 
             Do<Presenter> startPresenter, 
             object locker) 
-            : base(web, startPresenter, locker)
+            : base(runner, startPresenter, locker)
         {
         }
 
         protected NavigatorV2(
-            MethodWeb web, 
+            MethodRunner runner, 
             Do<Presenter> startPresenter, 
             ICollection<Presenter> presenters) 
-            : base(web, startPresenter, presenters)
+            : base(runner, startPresenter, presenters)
         {
         }
 
         protected NavigatorV2(
-            MethodWeb web, 
+            MethodRunner runner, 
             Do<Presenter> startPresenter, 
             ICollection<Presenter> presenters, 
             object locker) 
-            : base(web, startPresenter, presenters, locker)
+            : base(runner, startPresenter, presenters, locker)
         {
         }
     }

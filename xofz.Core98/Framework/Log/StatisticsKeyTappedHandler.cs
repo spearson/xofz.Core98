@@ -3,18 +3,18 @@
     public class StatisticsKeyTappedHandler
     {
         public StatisticsKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             Do presentStats)
         {
-            var w = this.web;
+            var r = this.runner;
             presentStats?.Invoke();
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

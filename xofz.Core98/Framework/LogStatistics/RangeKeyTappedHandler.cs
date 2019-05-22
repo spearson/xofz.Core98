@@ -6,17 +6,17 @@
     public class RangeKeyTappedHandler
     {
         public RangeKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogStatisticsUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 var start = uiRW.Read(
                     ui,
@@ -24,11 +24,11 @@
                 var end = uiRW.Read(
                     ui,
                     () => ui.EndDate);
-                w.Run<FilterSetter>(fs =>
+                r.Run<FilterSetter>(fs =>
                 {
                     fs.Set(ui, name);
                 });
-                w.Run<LogStatistics, SettingsHolder>(
+                r.Run<LogStatistics, SettingsHolder>(
                     (stats, settings) =>
                     {
                         var df = settings.DateFormat;
@@ -45,7 +45,7 @@
                             {
                                 ui.Title = typeInfo;
                             });
-                        w.Run<StatsDisplayer>(sd =>
+                        r.Run<StatsDisplayer>(sd =>
                         {
                             sd.Display(ui, stats, false);
                         });
@@ -54,6 +54,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

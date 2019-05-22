@@ -99,7 +99,8 @@
             };
         }
 
-        protected static AccessLevel nextLevel(byte counter)
+        protected static AccessLevel nextLevel(
+            byte counter)
         {
             switch (counter)
             {

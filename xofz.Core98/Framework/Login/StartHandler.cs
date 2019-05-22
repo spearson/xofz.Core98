@@ -5,9 +5,9 @@
     public class StartHandler
     {
         public StartHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -18,10 +18,10 @@
         public virtual void Handle(
             LoginUi ui)
         {
-            var w = this.web;
-            w.Run<UiReaderWriter>(uiRW =>
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
             {
-                w.Run<SettingsHolder>(
+                r.Run<SettingsHolder>(
                     settings =>
                     {
                         settings.CurrentPassword = uiRW.Read(
@@ -43,6 +43,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

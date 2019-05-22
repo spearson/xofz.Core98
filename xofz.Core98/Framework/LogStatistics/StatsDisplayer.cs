@@ -8,9 +8,9 @@
     public class StatsDisplayer
     {
         public StatsDisplayer(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Display(
@@ -18,8 +18,8 @@
             string name,
             bool reset)
         {
-            var w = this.web;
-            w.Run<LogStatistics>(stats =>
+            var r = this.runner;
+            r.Run<LogStatistics>(stats =>
                 {
                     this.Display(ui, stats, reset);
                 },
@@ -31,11 +31,11 @@
             LogStatistics stats,
             bool reset)
         {
-            var w = this.web;
+            var r = this.runner;
             var defaultInfo = reset
                 ? string.Empty
                 : @"No entries in range";
-            w.Run<SettingsHolder>(settings =>
+            r.Run<SettingsHolder>(settings =>
                 {
                     var tf = settings.TimestampFormat;
                     var total = reset
@@ -57,7 +57,7 @@
                         ? string.Empty
                         : Math.Round(stats.AvgEntriesPerDay, 4)
                             .ToString(CultureInfo.CurrentUICulture);
-                    w.Run<UiReaderWriter>(uiRW =>
+                    r.Run<UiReaderWriter>(uiRW =>
                     {
                         uiRW.WriteSync(
                             ui,
@@ -75,6 +75,6 @@
                 stats.LogDependencyName);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

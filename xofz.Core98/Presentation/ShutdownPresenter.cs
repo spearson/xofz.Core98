@@ -7,10 +7,10 @@
     public sealed class ShutdownPresenter : Presenter
     {
         public ShutdownPresenter(
-            MethodWeb web)
+            MethodRunner runner)
             : base(null, null)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public void Setup()
@@ -23,20 +23,20 @@
                 return;
             }
 
-            this.web.Run<Navigator>(
+            this.runner.Run<Navigator>(
                 nav => nav.RegisterPresenter(this));
         }
 
         public override void Start()
         {
-            var w = this.web;
-            w.Run<StartHandler>(handler =>
+            var r = this.runner;
+            r.Run<StartHandler>(handler =>
             {
                 handler.Handle();
             });
         }
 
         private long setupIf1;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

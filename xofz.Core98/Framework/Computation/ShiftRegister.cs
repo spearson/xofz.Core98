@@ -4,7 +4,8 @@
 
     public class ShiftRegister
     {
-        public ShiftRegister(int capacity)
+        public ShiftRegister(
+            int capacity)
         {
             this.capacity = capacity;
             this.bitLinkedList = new LinkedList<bool>();

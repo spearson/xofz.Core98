@@ -9,9 +9,9 @@
     public class EntryWrittenHandler
     {
         public EntryWrittenHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -19,8 +19,8 @@
             string name,
             LogEntry entry)
         {
-            var w = this.web;
-            w.Run<FieldHolder, UiReaderWriter, FilterChecker>(
+            var r = this.runner;
+            r.Run<FieldHolder, UiReaderWriter, FilterChecker>(
                 (holder, uiRW, checker) =>
                 {
                     if (uiRW.Read(ui, () => ui.EndDate)
@@ -34,7 +34,7 @@
                         if (Interlocked.Read(ref holder.startedFirstTimeIf1) ==
                             1 && checker.PassesFilters(ui, entry))
                         {
-                            w.Run<ICollection<LogEntry>>(
+                            r.Run<ICollection<LogEntry>>(
                                 refreshEntries =>
                                 {
                                     refreshEntries.Add(entry);
@@ -47,7 +47,7 @@
 
                     if (checker.PassesFilters(ui, entry))
                     {
-                        w.Run<EntryConverter>(converter =>
+                        r.Run<EntryConverter>(converter =>
                         {
                             var xt = converter.Convert(entry);
                             uiRW.Write(
@@ -59,6 +59,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

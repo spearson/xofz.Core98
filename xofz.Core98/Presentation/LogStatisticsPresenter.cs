@@ -9,11 +9,11 @@
     {
         public LogStatisticsPresenter(
             LogStatisticsUi ui,
-            MethodWeb web)
+            MethodWeb runner)
             : base(ui)
         {
             this.ui = ui;
-            this.web = web;
+            this.runner = runner;
         }
 
         public void Setup()
@@ -26,13 +26,13 @@
                 return;
             }
 
-            var w = this.web;
-            w.Run<SetupHandler>(handler =>
+            var r = this.runner;
+            r.Run<SetupHandler>(handler =>
             {
                 handler.Handle(ui, this.Name);
             });
 
-            w.Run<EventSubscriber>(subscriber =>
+            r.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -56,7 +56,8 @@
                     this.ui_ResetTypeKeyTapped);
             });
             
-            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
+            r.Run<Navigator>(nav => 
+                nav.RegisterPresenter(this));
         }
 
         public override void Start()
@@ -67,16 +68,16 @@
             }
 
             base.Start();
-            var w = this.web;
+            var r = this.runner;
             Gen<LogUi> readLogUi = null;
             var name = this.Name;
-            w.Run<Navigator>(
+            r.Run<Navigator>(
                 n =>
                 {
                     readLogUi = () => n.GetUi<LogPresenter, LogUi>(
                         name);
                 });
-            w.Run<StartHandler>(handler =>
+            r.Run<StartHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -87,8 +88,8 @@
 
         private void ui_RangeKeyTapped()
         {
-            var w = this.web;
-            w.Run<RangeKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<RangeKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -96,8 +97,8 @@
 
         private void ui_OverallKeyTapped()
         {
-            var w = this.web;
-            w.Run<OverallKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<OverallKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -105,8 +106,8 @@
 
         private void ui_ResetContentKeyTapped()
         {
-            var w = this.web;
-            w.Run<ResetContentKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<ResetContentKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -114,8 +115,8 @@
 
         private void ui_ResetTypeKeyTapped()
         {
-            var w = this.web;
-            w.Run<ResetTypeKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<ResetTypeKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -123,6 +124,6 @@
 
         private long setupIf1;
         private readonly LogStatisticsUi ui;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

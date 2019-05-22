@@ -8,6 +8,7 @@
 
         IEnumerable<LogEntry> ReadEntries();
 
-        ICollection<LogEntry> ReadEntries(System.DateTime oldestTimestamp);
+        ICollection<LogEntry> ReadEntries(
+            System.DateTime oldestTimestamp);
     }
 }

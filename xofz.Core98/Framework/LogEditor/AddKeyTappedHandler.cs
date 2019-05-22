@@ -6,9 +6,9 @@
     public class AddKeyTappedHandler
     {
         public AddKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -25,8 +25,8 @@
             LogEditorUi ui,
             string logName)
         {
-            var w = this.web;
-            w.Run<LogEditor, UiReaderWriter>(
+            var r = this.runner;
+            r.Run<LogEditor, UiReaderWriter>(
                 (le, uiRW) =>
                 {
                     var customIsSelected = uiRW
@@ -47,7 +47,7 @@
                         ui, () =>
                         {
                             ui.Content = null;
-                            ui.SelectedType = "Information";
+                            ui.SelectedType = DefaultEntryTypes.Information;
                             ui.Hide();
                         });
 
@@ -55,7 +55,6 @@
                 logName);
         }
 
-        protected readonly MethodWeb web;
-
+        protected readonly MethodRunner runner;
     }
 }

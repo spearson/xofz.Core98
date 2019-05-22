@@ -9,27 +9,33 @@
     public class Navigator
     {
         public Navigator(
-            MethodWeb web)
+            MethodRunner runner)
             : this(
-                  web,
-                  p => ThreadPool.QueueUserWorkItem(
-                      o => p.Start()))
+                  runner,
+                  p =>
+                  {
+                      ThreadPool.QueueUserWorkItem(
+                          o => p.Start());
+                  })
         {
         }
 
         public Navigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter)
-            : this(web, startPresenter, new LinkedList<Presenter>())
+            : this(
+                runner, 
+                startPresenter, 
+                new LinkedList<Presenter>())
         {
         }
 
         protected Navigator(
-            MethodWeb web,
+            MethodRunner runner,
             Do<Presenter> startPresenter,
             ICollection<Presenter> presenters)
         {
-            this.web = web;
+            this.runner = runner;
             this.startPresenter = startPresenter;
             this.presenters = presenters;
         }
@@ -136,13 +142,19 @@
 
         public virtual void LoginFluidly()
         {
-            var w = this.web;
-            w.Run<LatchHolder>(
-                latch => latch.Latch.Reset(),
+            var r = this.runner;
+            r.Run<LatchHolder>(
+                latch =>
+                {
+                    latch.Latch.Reset();
+                },
                 Framework.Login.DependencyNames.Latch);
             this.PresentFluidly<LoginPresenter>();
-            w.Run<LatchHolder>(
-                latch => latch.Latch.WaitOne(),
+            r.Run<LatchHolder>(
+                latch =>
+                {
+                    latch.Latch.WaitOne();
+                },
                 Framework.Login.DependencyNames.Latch);
         }
 
@@ -223,7 +235,7 @@
         }
 
         protected readonly ICollection<Presenter> presenters;
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
         protected readonly Do<Presenter> startPresenter;
     }
 }

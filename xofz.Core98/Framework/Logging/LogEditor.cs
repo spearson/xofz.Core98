@@ -6,12 +6,16 @@
     {
         event Do Cleared;
 
-        void AddEntry(string type, IEnumerable<string> content);
+        void AddEntry(
+            string type, 
+            IEnumerable<string> content);
 
-        void AddEntry(LogEntry entry);
+        void AddEntry(
+            LogEntry entry);
 
         void Clear();
 
-        void Clear(string backupLocation);
+        void Clear(
+            string backupLocation);
     }
 }

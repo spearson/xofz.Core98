@@ -35,7 +35,8 @@
             return source.GetEnumerator();
         }
 
-        public virtual void ShiftRight(T input)
+        public virtual void ShiftRight(
+            T input)
         {
             var ll = this.linkedList;
             ll.AddFirst(input);
@@ -51,7 +52,8 @@
             this.setCurrentArray(array);
         }
 
-        public virtual void ShiftLeft(T input)
+        public virtual void ShiftLeft(
+            T input)
         {
             var ll = this.linkedList;
             ll.AddLast(input);
@@ -67,7 +69,8 @@
             this.setCurrentArray(array);
         }
 
-        protected virtual void setCurrentArray(T[] currentArray)
+        protected virtual void setCurrentArray(
+            T[] currentArray)
         {
             this.currentArray = currentArray;
         }

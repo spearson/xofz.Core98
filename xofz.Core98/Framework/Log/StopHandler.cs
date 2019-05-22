@@ -5,17 +5,18 @@
 
     public class StopHandler
     {
-        public StopHandler(MethodWeb web)
+        public StopHandler(
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<FieldHolder>(holder =>
+            var r = this.runner;
+            r.Run<FieldHolder>(holder =>
                 {
                     Interlocked.CompareExchange(
                         ref holder.startedIf1,
@@ -25,6 +26,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

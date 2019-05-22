@@ -10,7 +10,8 @@
             this.queue = new Queue<T>();
         }
 
-        public QueueLot(IEnumerable<T> finiteSource)
+        public QueueLot(
+            IEnumerable<T> finiteSource)
         {
             if (finiteSource == null)
             {
@@ -56,7 +57,8 @@
             return this.queue.Dequeue();
         }
 
-        public virtual bool Contains(T item)
+        public virtual bool Contains(
+            T item)
         {
             return this.queue.Contains(item);
         }
@@ -66,12 +68,14 @@
             this.queue.Clear();
         }
 
-        public virtual void CopyTo(T[] array)
+        public virtual void CopyTo(
+            T[] array)
         {
             this.queue.CopyTo(array, 0);
         }
 
-        public virtual void Enqueue(T item)
+        public virtual void Enqueue(
+            T item)
         {
             this.queue.Enqueue(item);
         }

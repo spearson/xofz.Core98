@@ -6,17 +6,17 @@
     public class SetupHandler
     {
         public SetupHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<SettingsHolder, UiReaderWriter>((settings, uiRW) =>
+            var r = this.runner;
+            r.Run<SettingsHolder, UiReaderWriter>((settings, uiRW) =>
                 {
                     var addKeyVisible = settings.EditLevel == AccessLevel.None;
                     var clearKeyVisible = settings.ClearLevel == AccessLevel.None;
@@ -38,6 +38,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

@@ -4,9 +4,10 @@
 
     public class LogStatistics
     {
-        public LogStatistics(MethodWeb web)
+        public LogStatistics(
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual string LogDependencyName { get; set; }
@@ -29,7 +30,7 @@
 
         public virtual void ComputeOverall()
         {
-            var w = this.web;
+            var w = this.runner;
             w.Run<Log, Lotter>((l, lotter) =>
                 {
                     var allEntries = lotter.Materialize(l.ReadEntries());
@@ -71,8 +72,8 @@
             DateTime startDate,
             DateTime endDate)
         {
-            var w = this.web;
-            w.Run<Log, Lotter>((l, lotter) =>
+            var r = this.runner;
+            r.Run<Log, Lotter>((l, lotter) =>
                 {
                     var matches = lotter.Materialize(
                         EnumerableHelpers.Where(
@@ -272,7 +273,13 @@
                 return;
             }
 
-            var latest = new DateTime(1, 1, 1, 0, 0, 0);
+            var latest = new DateTime(
+                1, 
+                1, 
+                1, 
+                0, 
+                0, 
+                0);
             var latestChanged = false;
             foreach (var entry in entries)
             {
@@ -297,6 +304,6 @@
             this.LatestTimestamp = latest;
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

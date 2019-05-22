@@ -9,11 +9,11 @@
     {
         public LoginPresenter(
             LoginUi ui,
-            MethodWeb web)
+            MethodWeb runner)
             : base(ui, null)
         {
             this.ui = ui;
-            this.web = web;
+            this.runner = runner;
         }
 
         /// <summary>
@@ -21,13 +21,16 @@
         /// </summary>
         public void Setup()
         {
-            if (Interlocked.CompareExchange(ref this.setupIf1, 1, 0) == 1)
+            if (Interlocked.CompareExchange(
+                    ref this.setupIf1, 
+                    1, 
+                    0) == 1)
             {
                 return;
             }
 
-            var w = this.web;
-            w.Run<EventSubscriber>(subscriber =>
+            var r = this.runner;
+            r.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -45,14 +48,14 @@
                     this.ui,
                     nameof(this.ui.KeyboardKeyTapped),
                     this.ui_KeyboardKeyTapped);
-                w.Run<AccessController>(ac =>
+                r.Run<AccessController>(ac =>
                 {
                     subscriber.Subscribe<AccessLevel>(
                         ac,
                         nameof(ac.AccessLevelChanged),
                         this.accessLevelChanged);
                 });
-                w.Run<xofz.Framework.Timer>(t =>
+                r.Run<xofz.Framework.Timer>(t =>
                     {
                         subscriber.Subscribe(
                             t,
@@ -62,12 +65,13 @@
                     DependencyNames.Timer);
             });
 
-            w.Run<SetupHandler>(handler =>
+            r.Run<SetupHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
 
-            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
+            r.Run<Navigator>(nav => 
+                nav.RegisterPresenter(this));
         }
 
         /// <summary>
@@ -80,8 +84,8 @@
                 return;
             }
 
-            var w = this.web;
-            w.Run<StartHandler>(handler =>
+            var r = this.runner;
+            r.Run<StartHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -97,7 +101,7 @@
                 return;
             }
 
-            var w = this.web;
+            var w = this.runner;
             w.Run<StopHandler>(handler =>
             {
                 handler.Handle(this.ui);
@@ -106,8 +110,8 @@
 
         private void ui_BackspaceKeyTapped()
         {
-            var w = this.web;
-            w.Run<BackspaceKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<BackspaceKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -115,7 +119,7 @@
 
         private void ui_LoginKeyTapped()
         {
-            var w = this.web;
+            var w = this.runner;
             w.Run<LoginKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
@@ -124,8 +128,8 @@
 
         private void timer_Elapsed()
         {
-            var w = this.web;
-            w.Run<TimerHandler>(handler =>
+            var r = this.runner;
+            r.Run<TimerHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -133,7 +137,7 @@
 
         private void accessLevelChanged(AccessLevel newAccessLevel)
         {
-            var w = this.web;
+            var w = this.runner;
             w.Run<AccessLevelChangedHandler>(handler =>
             {
                 handler.Handle(
@@ -144,8 +148,8 @@
 
         private void ui_KeyboardKeyTapped()
         {
-            var w = this.web;
-            w.Run<KeyboardKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<KeyboardKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -153,6 +157,6 @@
 
         private long setupIf1;
         private readonly LoginUi ui;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

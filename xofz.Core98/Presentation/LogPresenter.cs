@@ -11,11 +11,11 @@
         public LogPresenter(
             LogUi ui,
             ShellUi shell,
-            MethodWeb web)
+            MethodRunner runner)
             : base(ui, shell)
         {
             this.ui = ui;
-            this.web = web;
+            this.runner = runner;
         }
 
         public void Setup()
@@ -28,13 +28,14 @@
                 return;
             }
 
-            var w = this.web;
-            w.Run<SetupHandler>(handler =>
+            var r = this.runner;
+            var name = this.Name;
+            r.Run<SetupHandler>(handler =>
             {
-                handler.Handle(this.ui, this.Name);
+                handler.Handle(this.ui, name);
             });
 
-            w.Run<EventSubscriber>(subscriber =>
+            r.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -56,20 +57,21 @@
                     this.ui,
                     nameof(this.ui.FilterTextChanged),
                     this.ui_FilterTextChanged);
-                w.Run<Log>(l =>
+                r.Run<Log>(l =>
                         subscriber.Subscribe<LogEntry>(
                             l,
                             nameof(l.EntryWritten),
                             this.log_EntryWritten),
-                    this.Name);
-                w.Run<AccessController>(ac =>
+                    name);
+                r.Run<AccessController>(ac =>
                     subscriber.Subscribe<AccessLevel>(
                         ac,
                         nameof(ac.AccessLevelChanged),
                         this.accessLevelChanged));
             });
             
-            w.Run<Navigator>(nav => nav.RegisterPresenter(this));
+            r.Run<Navigator>(nav => 
+                nav.RegisterPresenter(this));
         }
 
         public override void Start()
@@ -81,10 +83,10 @@
 
             base.Start();
 
-            var w = this.web;
+            var r = this.runner;
             Do unsubscribe = null;
             Do subscribe = null;
-            w.Run<EventSubscriber>(sub =>
+            r.Run<EventSubscriber>(sub =>
             {
                 unsubscribe = () =>
                 {
@@ -109,7 +111,7 @@
                         this.ui_FilterTextChanged);
                 };
             });
-            w.Run<StartHandler>(handler =>
+            r.Run<StartHandler>(handler =>
             {
                 handler.Handle(
                     this.ui, 
@@ -121,8 +123,8 @@
 
         public override void Stop()
         {
-            var w = this.web;
-            w.Run<StopHandler>(handler =>
+            var r = this.runner;
+            r.Run<StopHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -130,8 +132,8 @@
 
         private void ui_DateRangeChanged()
         {
-            var w = this.web;
-            w.Run<DateRangeChangedHandler>(handler =>
+            var r = this.runner;
+            r.Run<DateRangeChangedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -139,16 +141,19 @@
 
         private void ui_AddKeyTapped()
         {
-            var w = this.web;
+            var r = this.runner;
             Do presentEditor = null;
-            w.Run<Navigator>(
-                n =>
+            r.Run<Navigator>(
+                nav =>
                 {
-                    presentEditor = () => n.PresentFluidly<LogEditorPresenter>(
-                        this.Name);
+                    presentEditor = () =>
+                    {
+                        nav.PresentFluidly<LogEditorPresenter>(
+                            this.Name);
+                    };
                 });
 
-            w.Run<AddKeyTappedHandler>(handler =>
+            r.Run<AddKeyTappedHandler>(handler =>
             {
                 handler.Handle(presentEditor);
             });
@@ -156,8 +161,8 @@
 
         private void ui_ClearKeyTapped()
         {
-            var w = this.web;
-            w.Run<ClearKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<ClearKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -165,18 +170,18 @@
 
         private void ui_StatisticsKeyTapped()
         {
-            var w = this.web;
+            var r = this.runner;
             Do presentStats = () =>
             {
-                w.Run<Navigator>(
-                    n =>
+                r.Run<Navigator>(
+                    nav =>
                     {
-                        n.PresentFluidly<LogStatisticsPresenter>(
+                        nav.PresentFluidly<LogStatisticsPresenter>(
                             this.Name);
                     });
             };
 
-            w.Run<StatisticsKeyTappedHandler>(handler =>
+            r.Run<StatisticsKeyTappedHandler>(handler =>
             {
                 handler.Handle(presentStats);
             });
@@ -184,26 +189,31 @@
 
         private void ui_FilterTextChanged()
         {
-            var w = this.web;
-            w.Run<FilterTextChangedHandler>(handler =>
+            var r = this.runner;
+            r.Run<FilterTextChangedHandler>(handler =>
             {
-                handler.Handle(this.ui, this.Name);
+                handler.Handle(
+                    this.ui, 
+                    this.Name);
             });
         }
 
         private void log_EntryWritten(LogEntry e)
         {
-            var w = this.web;
-            w.Run<EntryWrittenHandler>(handler =>
+            var r = this.runner;
+            r.Run<EntryWrittenHandler>(handler =>
             {
-                handler.Handle(this.ui, this.Name, e);
+                handler.Handle(
+                    this.ui, 
+                    this.Name, 
+                    e);
             });
         }
 
         private void accessLevelChanged(AccessLevel newAccessLevel)
         {
-            var w = this.web;
-            w.Run<AccessLevelChangedHandler>(handler =>
+            var r = this.runner;
+            r.Run<AccessLevelChangedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -214,6 +224,6 @@
 
         private long setupIf1;
         private readonly LogUi ui;
-        private readonly MethodWeb web;
+        private readonly MethodRunner runner;
     }
 }

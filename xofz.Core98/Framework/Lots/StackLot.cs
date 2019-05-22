@@ -10,12 +10,14 @@
             this.stack = new Stack<T>();
         }
 
-        public StackLot(int capacity)
+        public StackLot(
+            int capacity)
         {
             this.stack = new Stack<T>(capacity);
         }
 
-        public StackLot(IEnumerable<T> finiteSource)
+        public StackLot(
+            IEnumerable<T> finiteSource)
         {
             if (finiteSource == null)
             {
@@ -62,7 +64,8 @@
             return this.stack.Pop();
         }
 
-        public virtual bool Contains(T item)
+        public virtual bool Contains(
+            T item)
         {
             return EnumerableHelpers.Contains(
                 this.stack,
@@ -74,12 +77,14 @@
             this.stack.Clear();
         }
 
-        public virtual void CopyTo(T[] array)
+        public virtual void CopyTo(
+            T[] array)
         {
             this.stack.CopyTo(array, 0);
         }
 
-        public virtual void Push(T item)
+        public virtual void Push(
+            T item)
         {
             this.stack.Push(item);
         }

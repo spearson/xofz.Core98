@@ -5,9 +5,9 @@
     public class StartHandler
     {
         public StartHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -15,12 +15,12 @@
             Gen<LogUi> readLogUi,
             string name)
         {
-            var w = this.web;
-            w.Run<Log.SettingsHolder>(settings =>
+            var r = this.runner;
+            r.Run<Log.SettingsHolder>(settings =>
                 {
                     if (settings.ResetOnStart)
                     {
-                        w.Run<DateResetter>(dr =>
+                        r.Run<DateResetter>(dr =>
                         {
                             dr.Reset(ui, name);
                         });
@@ -28,7 +28,7 @@
                 },
                 name);
 
-            w.Run<UiReaderWriter>(uiRW =>
+            r.Run<UiReaderWriter>(uiRW =>
             {
                 var contentFilter = uiRW.Read(
                     ui, 
@@ -46,11 +46,14 @@
                         () => logUi.FilterContent);
                     uiRW.WriteSync(
                         ui,
-                        () => ui.FilterContent = contentFilter);
+                        () =>
+                        {
+                            ui.FilterContent = contentFilter;
+                        });
                 }
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

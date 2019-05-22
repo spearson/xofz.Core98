@@ -5,9 +5,9 @@
     public class ShutdownRequestedHandler
     {
         public ShutdownRequestedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
@@ -15,10 +15,10 @@
             Do logIn,
             Do shutdown)
         {
-            var w = this.web;
+            var r = this.runner;
             var cal = AccessLevel.None;
             var shutdownLevel = AccessLevel.None;
-            w.Run<AccessController, SettingsHolder>(
+            r.Run<AccessController, SettingsHolder>(
                 (ac, s) =>
                 {
                     cal = ac.CurrentAccessLevel;
@@ -32,7 +32,7 @@
             }
 
             logIn?.Invoke();
-            w.Run<AccessController>(ac =>
+            r.Run<AccessController>(ac =>
             {
                 cal = ac.CurrentAccessLevel;
                 if (cal >= shutdownLevel)
@@ -42,6 +42,6 @@
             });
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

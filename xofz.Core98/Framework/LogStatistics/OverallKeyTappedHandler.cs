@@ -6,30 +6,30 @@
     public class OverallKeyTappedHandler
     {
         public OverallKeyTappedHandler(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
         }
 
         public virtual void Handle(
             LogStatisticsUi ui,
             string name)
         {
-            var w = this.web;
-            w.Run<LogStatistics>(stats =>
+            var r = this.runner;
+            r.Run<LogStatistics>(stats =>
                 {
-                    w.Run<FilterSetter>(
+                    r.Run<FilterSetter>(
                         setter => setter.Set(
                             ui, name));
                     stats.ComputeOverall();
-                    w.Run<UiReaderWriter>(uiRW =>
+                    r.Run<UiReaderWriter>(uiRW =>
                     {
                         uiRW.Write(ui, () =>
                         {
                             ui.Title = @"Overall";
                         });
                     });
-                    w.Run<StatsDisplayer>(sd =>
+                    r.Run<StatsDisplayer>(sd =>
                     {
                         sd.Display(ui, stats, false);
                     });
@@ -37,6 +37,6 @@
                 name);
         }
 
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
     }
 }

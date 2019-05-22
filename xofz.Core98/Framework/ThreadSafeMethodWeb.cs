@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class ThreadSafeMethodWeb : MethodWeb
+    public class ThreadSafeMethodWeb 
+        : MethodWeb
     {
         public ThreadSafeMethodWeb()
         {
