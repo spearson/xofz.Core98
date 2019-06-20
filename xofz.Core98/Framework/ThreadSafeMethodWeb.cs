@@ -123,56 +123,56 @@
             var t = default(T);
             var u = default(U);
             bool
-                tMissing = true,
-                uMissing = true;
+                tFound = false,
+                uFound = false;
             lock (this.locker)
             {
                 foreach (var d in ds)
                 {
-                    if (!tMissing && !uMissing)
+                    if (tFound && uFound)
                     {
                         goto invoke;
                     }
 
-                    if (tMissing)
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
                     {
-                        if (d.Name != tName)
+                        if (name != tName)
                         {
                             goto checkU;
                         }
 
-                        var content = d.Content;
                         if (!(content is T))
                         {
                             goto checkU;
                         }
 
                         t = (T)content;
-                        tMissing = false;
+                        tFound = true;
                         continue;
                     }
 
                     checkU:
-                    if (uMissing)
+                    if (!uFound)
                     {
-                        if (d.Name != uName)
+                        if (name != uName)
                         {
                             continue;
                         }
 
-                        var content = d.Content;
                         if (!(content is U))
                         {
                             continue;
                         }
 
                         u = (U)content;
-                        uMissing = false;
+                        uFound = true;
                     }
                 }
             }
 
-            if (!tMissing && !uMissing)
+            if (tFound && uFound)
             {
                 goto invoke;
             }
@@ -196,76 +196,75 @@
             var u = default(U);
             var v = default(V);
             bool
-                tMissing = true,
-                uMissing = true,
-                vMissing = true;
+                tFound = false,
+                uFound = false,
+                vFound = false;
             lock (this.locker)
             {
                 foreach (var d in ds)
                 {
-                    if (!tMissing && !uMissing && !vMissing)
+                    if (tFound && uFound && vFound)
                     {
                         goto invoke;
                     }
 
-                    if (tMissing)
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
                     {
-                        if (d.Name != tName)
+                        if (name != tName)
                         {
                             goto checkU;
                         }
 
-                        var content = d.Content;
                         if (!(content is T))
                         {
                             goto checkU;
                         }
 
                         t = (T)content;
-                        tMissing = false;
+                        tFound = true;
                         continue;
                     }
 
                     checkU:
-                    if (uMissing)
+                    if (!uFound)
                     {
-                        if (d.Name != uName)
+                        if (name != uName)
                         {
                             goto checkV;
                         }
 
-                        var content = d.Content;
                         if (!(content is U))
                         {
                             goto checkV;
                         }
 
                         u = (U)content;
-                        uMissing = false;
+                        uFound = true;
                         continue;
                     }
 
                     checkV:
-                    if (vMissing)
+                    if (!vFound)
                     {
-                        if (d.Name != vName)
+                        if (name != vName)
                         {
                             continue;
                         }
 
-                        var content = d.Content;
                         if (!(content is V))
                         {
                             continue;
                         }
 
                         v = (V)content;
-                        vMissing = false;
+                        vFound = true;
                     }
                 }
             }
 
-            if (!tMissing && !uMissing && !vMissing)
+            if (tFound && uFound && vFound)
             {
                 goto invoke;
             }
@@ -291,96 +290,94 @@
             var v = default(V);
             var w = default(W);
             bool
-                tMissing = true,
-                uMissing = true,
-                vMissing = true,
-                wMissing = true;
+                tFound = false,
+                uFound = false,
+                vFound = false,
+                wFound = false;
             lock (this.locker)
             {
                 foreach (var d in ds)
                 {
-                    if (!tMissing && !uMissing && !vMissing && !wMissing)
+                    if (tFound && uFound && vFound && wFound)
                     {
                         goto invoke;
                     }
 
-                    if (tMissing)
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
                     {
-                        if (d.Name != tName)
+                        if (name != tName)
                         {
                             goto checkU;
                         }
 
-                        var content = d.Content;
                         if (!(content is T))
                         {
                             goto checkU;
                         }
 
                         t = (T)content;
-                        tMissing = false;
+                        tFound = true;
                         continue;
                     }
 
                     checkU:
-                    if (uMissing)
+                    if (!uFound)
                     {
-                        if (d.Name != uName)
+                        if (name != uName)
                         {
                             goto checkV;
                         }
 
-                        var content = d.Content;
                         if (!(content is U))
                         {
                             goto checkV;
                         }
 
                         u = (U)content;
-                        uMissing = false;
+                        uFound = true;
                         continue;
                     }
 
                     checkV:
-                    if (vMissing)
+                    if (!vFound)
                     {
-                        if (d.Name != vName)
+                        if (name != vName)
                         {
                             goto checkW;
                         }
 
-                        var content = d.Content;
                         if (!(content is V))
                         {
                             goto checkW;
                         }
 
                         v = (V)content;
-                        vMissing = false;
+                        vFound = true;
                         continue;
                     }
 
                     checkW:
-                    if (wMissing)
+                    if (!wFound)
                     {
-                        if (d.Name != wName)
+                        if (name != wName)
                         {
                             continue;
                         }
 
-                        var content = d.Content;
                         if (!(content is W))
                         {
                             continue;
                         }
 
                         w = (W)content;
-                        wMissing = false;
+                        wFound = true;
                     }
                 }
             }
 
-            if (!tMissing && !uMissing && !vMissing && !wMissing)
+            if (tFound && uFound && vFound && wFound)
             {
                 goto invoke;
             }

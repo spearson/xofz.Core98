@@ -1,6 +1,5 @@
 ﻿namespace xofz.Tests.Framework
 {
-    using System;
     using FakeItEasy;
     using Ploeh.AutoFixture;
     using xofz.Framework;
