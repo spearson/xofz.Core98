@@ -24,7 +24,7 @@
 
         public LoggingTimer(
             Do<LoggingTimer, LogEditor> log,
-            MethodWeb runner)
+            MethodRunner runner)
         {
             this.log = log;
             this.runner = runner;

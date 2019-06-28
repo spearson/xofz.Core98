@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.passwordTextBoxLabel = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.loginKey = new System.Windows.Forms.Button();
             this.numKey1 = new System.Windows.Forms.Button();
@@ -44,21 +44,21 @@
             this.backspaceKey = new System.Windows.Forms.Button();
             this.clearKey = new System.Windows.Forms.Button();
             this.cancelKey = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.timeRemainingLabelLabel = new System.Windows.Forms.Label();
             this.timeRemainingLabel = new System.Windows.Forms.Label();
             this.levelLabel = new System.Windows.Forms.Label();
             this.keyboardKey = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // passwordTextBoxLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Password:";
+            this.passwordTextBoxLabel.AutoSize = true;
+            this.passwordTextBoxLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.passwordTextBoxLabel.Location = new System.Drawing.Point(12, 9);
+            this.passwordTextBoxLabel.Name = "passwordTextBoxLabel";
+            this.passwordTextBoxLabel.Size = new System.Drawing.Size(97, 24);
+            this.passwordTextBoxLabel.TabIndex = 0;
+            this.passwordTextBoxLabel.Text = "Password:";
             // 
             // passwordTextBox
             // 
@@ -72,7 +72,6 @@
             // 
             // loginKey
             // 
-            this.loginKey.AutoSize = true;
             this.loginKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.loginKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.loginKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -237,7 +236,6 @@
             // 
             // backspaceKey
             // 
-            this.backspaceKey.AutoSize = true;
             this.backspaceKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.backspaceKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.backspaceKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -268,7 +266,6 @@
             // 
             // cancelKey
             // 
-            this.cancelKey.AutoSize = true;
             this.cancelKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.cancelKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.cancelKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -281,19 +278,19 @@
             this.cancelKey.UseVisualStyleBackColor = true;
             this.cancelKey.Click += new System.EventHandler(this.cancelKey_Click);
             // 
-            // label2
+            // timeRemainingLabelLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(183, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(136, 18);
-            this.label2.TabIndex = 54;
-            this.label2.Text = "Duration remaining:";
+            this.timeRemainingLabelLabel.AutoSize = true;
+            this.timeRemainingLabelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeRemainingLabelLabel.Location = new System.Drawing.Point(183, 13);
+            this.timeRemainingLabelLabel.Name = "timeRemainingLabelLabel";
+            this.timeRemainingLabelLabel.Size = new System.Drawing.Size(136, 18);
+            this.timeRemainingLabelLabel.TabIndex = 54;
+            this.timeRemainingLabelLabel.Text = "Duration remaining:";
             // 
             // timeRemainingLabel
             // 
-            this.timeRemainingLabel.BackColor = System.Drawing.Color.PapayaWhip;
+            this.timeRemainingLabel.BackColor = System.Drawing.Color.FloralWhite;
             this.timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeRemainingLabel.Location = new System.Drawing.Point(188, 36);
             this.timeRemainingLabel.Name = "timeRemainingLabel";
@@ -335,7 +332,7 @@
             this.Controls.Add(this.keyboardKey);
             this.Controls.Add(this.levelLabel);
             this.Controls.Add(this.timeRemainingLabel);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.timeRemainingLabelLabel);
             this.Controls.Add(this.cancelKey);
             this.Controls.Add(this.numKey1);
             this.Controls.Add(this.numKey2);
@@ -351,7 +348,7 @@
             this.Controls.Add(this.clearKey);
             this.Controls.Add(this.loginKey);
             this.Controls.Add(this.passwordTextBox);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.passwordTextBoxLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -367,7 +364,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label passwordTextBoxLabel;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button loginKey;
         private System.Windows.Forms.Button numKey1;
@@ -383,7 +380,7 @@
         private System.Windows.Forms.Button backspaceKey;
         private System.Windows.Forms.Button clearKey;
         private System.Windows.Forms.Button cancelKey;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label timeRemainingLabelLabel;
         private System.Windows.Forms.Label timeRemainingLabel;
         private System.Windows.Forms.Label levelLabel;
         private System.Windows.Forms.Button keyboardKey;

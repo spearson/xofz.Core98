@@ -4,7 +4,9 @@
 
     public static class ControlHelpers
     {
-        public static void SafeReplace(Control control, Control container)
+        public static void SafeReplace(
+            Control control, 
+            Control container)
         {
             if (control == null)
             {

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Diagnostics;
+    using xofz.Framework.Lots;
 
     // note: this class requires Windows 2000 or above
     public sealed class EventLogLog 
@@ -34,7 +35,7 @@
                 yield return new LogEntry(
                     entry.TimeWritten,
                     getEntryType(entry),
-                    new LinkedList<string>(
+                    new LinkedListLot<string>(
                         new[]
                         {
                             entry.Message
@@ -87,7 +88,7 @@
         {
             var entry = new LogEntry(
                 type,
-                new LinkedList<string>(content));
+                new LinkedListLot<string>(content));
             LogEditor editor = this;
             editor.AddEntry(entry);
         }
@@ -126,7 +127,8 @@
             this.Cleared?.Invoke();
         }
 
-        void LogEditor.Clear(string backupLocation)
+        void LogEditor.Clear(
+            string backupLocation)
         {
             LogEditor newLog = new TextFileLog(backupLocation);
             var oldLog = this.eventLog;
@@ -137,7 +139,7 @@
                     new LogEntry(
                         entry.TimeWritten,
                         getEntryType(entry),
-                        new LinkedList<string>(
+                        new LinkedListLot<string>(
                             new[]
                             {
                                 entry.Message

@@ -112,7 +112,8 @@
             this.TotalEntryCount = 0;
         }
 
-        protected virtual bool passesFilters(LogEntry e)
+        protected virtual bool passesFilters(
+            LogEntry e)
         {
             var fc = this.FilterContent;
             if (!string.IsNullOrEmpty(fc))
@@ -160,7 +161,8 @@
             return true;
         }
 
-        protected virtual void computeTotal(Lot<LogEntry> entries)
+        protected virtual void computeTotal(
+            Lot<LogEntry> entries)
         {
             this.TotalEntryCount = entries.Count;
         }
@@ -180,7 +182,8 @@
             this.AvgEntriesPerDay = entryCount / totalDays;
         }
 
-        protected virtual void computeOldestTimestamp(Lot<LogEntry> entries)
+        protected virtual void computeOldestTimestamp(
+            Lot<LogEntry> entries)
         {
             if (entries.Count == 0)
             {

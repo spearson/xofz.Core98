@@ -21,7 +21,9 @@
             r.Run<
                 SettingsHolder,
                 Messenger,
-                UiReaderWriter>((settings, m, uiRW) =>
+                Labels,
+                UiReaderWriter>(
+                (settings, m, labels, uiRW) =>
                 {
                     computeBackupLocation = settings.ComputeBackupLocation;
                     if (computeBackupLocation == null)
@@ -29,16 +31,14 @@
                         response = uiRW.Read(
                             m.Subscriber,
                             () => m.Question(
-                                @"Really clear the log? "
-                                + @"A backup will NOT be created."));
+                                labels.ClearNoBackupQuestion));
                         return;
                     }
 
                     response = uiRW.Read(
                         m.Subscriber,
                         () => m.Question(
-                            @"Clear log? "
-                            + @"A backup will be created."));
+                            labels.ClearWithBackupQuestion));
                 },
                 name);
 
@@ -47,7 +47,10 @@
                 return;
             }
 
-            r.Run<SettingsHolder, LogEditor>((settings, le) =>
+            r.Run<
+                SettingsHolder,
+                LogEditor,
+                Labels>((settings, le, labels) =>
                 {
                     if (computeBackupLocation != null)
                     {
@@ -65,8 +68,7 @@
                             DefaultEntryTypes.Information,
                             new[]
                             {
-                                @"The log was cleared.  A backup "
-                                + @"was created at " + bl + '.'
+                                labels.ClearedWithBackup(bl)
                             });
                         r.Run<EntryReloader>(reloader =>
                         {
@@ -92,7 +94,7 @@
                         DefaultEntryTypes.Information,
                         new[]
                         {
-                            @"The log was cleared."
+                            labels.ClearedNoBackup
                         });
                 },
                 name,

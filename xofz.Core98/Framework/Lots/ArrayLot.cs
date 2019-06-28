@@ -6,7 +6,8 @@
 
     public class ArrayLot<T> : Lot<T>
     {
-        public ArrayLot(T[] array)
+        public ArrayLot(
+            T[] array)
         {
             if (array == null)
             {
@@ -36,16 +37,21 @@
             return this.array.GetEnumerator();
         }
 
-        public virtual bool Contains(T item)
+        public virtual bool Contains(
+            T item)
         {
             return EnumerableHelpers.Contains(
                 this.array,
                 item);
         }
 
-        public virtual void CopyTo(T[] array)
+        public virtual void CopyTo(
+            T[] array)
         {
-            Array.Copy(this.array, array, array.Length);
+            Array.Copy(
+                this.array, 
+                array, 
+                array.Length);
         }
 
         protected readonly T[] array;

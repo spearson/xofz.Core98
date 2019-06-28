@@ -8,10 +8,13 @@
     using xofz.UI;
 
     public partial class FormLoginUi 
-        : FormUi, LoginUi
+        : FormUi, LoginUiV2
     {
-        public FormLoginUi(Form shell)
-            : this(shell, new SecureStringToolSet())
+        public FormLoginUi(
+            Form shell)
+            : this(
+                shell, 
+                new SecureStringToolSet())
         {
         }
 
@@ -39,6 +42,62 @@
         public event Do CancelKeyTapped;
 
         public event Do KeyboardKeyTapped;
+
+        string LoginUiV2.PasswordLabel
+        {
+            get => this.passwordTextBoxLabel.Text;
+
+            set => this.passwordTextBoxLabel.Text = value;
+        }
+
+        string LoginUiV2.TimeRemainingLabel
+        {
+            get => this.timeRemainingLabelLabel.Text;
+
+            set => this.timeRemainingLabelLabel.Text = value;
+        }
+
+        string LoginUiV2.BackspaceKeyLabel
+        {
+            get => this.backspaceKey.Text;
+
+            set => this.backspaceKey.Text = value;
+        }
+
+        string LoginUiV2.ClearKeyLabel
+        {
+            get => this.clearKey.Text;
+
+            set => this.clearKey.Text = value;
+        }
+
+        string LoginUiV2.LogInKeyLabel
+        {
+            get => this.loginKey.Text;
+
+            set => this.loginKey.Text = value;
+        }
+
+        string LoginUiV2.CancelKeyLabel
+        {
+            get => this.cancelKey.Text;
+
+            set => this.cancelKey.Text = value;
+        }
+
+        string LoginUiV2.KeyboardKeyLabel
+        {
+            get => this.keyboardKey.Text;
+
+            set => this.keyboardKey.Text = value;
+        }
+
+        string LoginUiV2.Title
+        {
+            get => this.Text;
+
+            set => this.Text = value;
+        }
 
         SecureString LoginUi.CurrentPassword
         {
@@ -86,8 +145,6 @@
             set
             {
                 this.currentLevel = value;
-                this.Text = @"Log In [Current Access Level: "
-                            + value + @"]";
                 var ll = this.levelLabel;
                 ll.Text = value.ToString();
                 ll.BackColor = this.determineColorForLevel(value);
@@ -119,7 +176,8 @@
             this.Visible = false;
         }
 
-        private Color determineColorForLevel(AccessLevel level)
+        protected virtual Color determineColorForLevel(
+            AccessLevel level)
         {
             switch (level)
             {
@@ -134,7 +192,9 @@
             }
         }
 
-        private void loginKey_Click(object sender, EventArgs e)
+        private void loginKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var lkt = this.LoginKeyTapped;
             if (lkt == null)
@@ -146,7 +206,9 @@
                 o => lkt.Invoke());
         }
 
-        private void numKey_Click(object sender, EventArgs e)
+        private void numKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var key = (Button)sender;
             var ptb = this.passwordTextBox;
@@ -164,7 +226,9 @@
             ui.FocusPassword();
         }
 
-        private void clearKey_Click(object sender, EventArgs e)
+        private void clearKey_Click(
+            object sender, 
+            EventArgs e)
         {
             this.passwordTextBox.Text = null;
 
@@ -172,7 +236,9 @@
             ui.FocusPassword();
         }
 
-        private void backspaceKey_Click(object sender, EventArgs e)
+        private void backspaceKey_Click(
+            object sender,
+            EventArgs e)
         {
             var bkt = this.BackspaceKeyTapped;
             if (bkt == null)
@@ -185,7 +251,9 @@
                 o => bkt.Invoke());
         }
 
-        private void cancelKey_Click(object sender, EventArgs e)
+        private void cancelKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var ckt = this.CancelKeyTapped;
             if (ckt == null)
@@ -197,7 +265,9 @@
                 o => ckt.Invoke());
         }
 
-        private void this_FormClosing(object sender, FormClosingEventArgs e)
+        private void this_FormClosing(
+            object sender, 
+            FormClosingEventArgs e)
         {
             e.Cancel = true;
             var ckt = this.CancelKeyTapped;
@@ -210,12 +280,16 @@
                 o => ckt.Invoke());
         }
 
-        private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void passwordTextBox_KeyPress(
+            object sender,
+            KeyPressEventArgs e)
         {
             this.firstInputKeyPressed = true;
         }
 
-        private void keyboardKey_Click(object sender, EventArgs e)
+        private void keyboardKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var kkt = this.KeyboardKeyTapped;
             if (kkt == null)
@@ -231,6 +305,5 @@
         protected AccessLevel currentLevel;
         protected readonly Form shell;
         protected readonly SecureStringToolSet ssts;
-
     }
 }

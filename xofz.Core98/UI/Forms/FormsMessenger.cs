@@ -6,7 +6,8 @@
     {
         Ui Messenger.Subscriber { get; set; }
 
-        Response Messenger.Question(string question)
+        Response Messenger.Question(
+            string question)
         {
             Messenger messenger = this;
             var subscriber = messenger.Subscriber as Form;
@@ -42,7 +43,8 @@
             }
         }
 
-        Response Messenger.QuestionWithCancel(string question)
+        Response Messenger.QuestionWithCancel(
+            string question)
         {
             Messenger messenger = this;
             var subscriber = messenger.Subscriber as Form;
@@ -82,31 +84,42 @@
             }
         }
 
-        void Messenger.Inform(string message)
+        void Messenger.Inform(
+            string message)
         {
-            this.sendMessage(message, MessageBoxIcon.Information);
+            this.sendMessage(
+                message, 
+                MessageBoxIcon.Information);
         }
 
-        void Messenger.Warn(string warning)
+        void Messenger.Warn(
+            string warning)
         {
-            this.sendMessage(warning, MessageBoxIcon.Warning);
+            this.sendMessage(
+                warning,
+                MessageBoxIcon.Warning);
         }
 
-        void Messenger.GiveError(string error)
+        void Messenger.GiveError(
+            string error)
         {
-            this.sendMessage(error, MessageBoxIcon.Error);
+            this.sendMessage(
+                error, 
+                MessageBoxIcon.Error);
         }
 
-        private void sendMessage(string message, MessageBoxIcon icon)
+        private void sendMessage(
+            string message, 
+            MessageBoxIcon icon)
         {
             string caption;
             switch (icon)
             {
                 case MessageBoxIcon.Warning:
-                    caption = "Warning";
+                    caption = @"Warning";
                     break;
                 case MessageBoxIcon.Error:
-                    caption = "Error";
+                    caption = @"Error";
                     break;
                 default:
                     caption = string.Empty;

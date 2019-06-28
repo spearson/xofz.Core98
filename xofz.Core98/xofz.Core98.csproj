@@ -53,6 +53,8 @@
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
+    <Compile Include="Framework\LogEditor\LabelApplier.cs" />
+    <Compile Include="Framework\LogEditor\Labels.cs" />
     <Compile Include="Framework\Logging\DefaultEntryTypes.cs" />
     <Compile Include="Framework\LogEditor\SetupHandler.cs" />
     <Compile Include="Framework\LogEditor\TypeChangedHandler.cs" />
@@ -60,6 +62,8 @@
     <Compile Include="Framework\Login\BackspaceKeyTappedHandler.cs" />
     <Compile Include="Framework\Login\DependencyNames.cs" />
     <Compile Include="Framework\Login\KeyboardKeyTappedHandler.cs" />
+    <Compile Include="Framework\Login\LabelApplier.cs" />
+    <Compile Include="Framework\Login\Labels.cs" />
     <Compile Include="Framework\Login\LoginKeyTappedHandler.cs" />
     <Compile Include="Framework\Login\SettingsHolder.cs" />
     <Compile Include="Framework\Login\SetupHandler.cs" />
@@ -68,6 +72,8 @@
     <Compile Include="Framework\Login\TimerHandler.cs" />
     <Compile Include="Framework\LogStatistics\DateResetter.cs" />
     <Compile Include="Framework\LogStatistics\FilterSetter.cs" />
+    <Compile Include="Framework\LogStatistics\LabelApplier.cs" />
+    <Compile Include="Framework\LogStatistics\Labels.cs" />
     <Compile Include="Framework\LogStatistics\OverallKeyTappedHandler.cs" />
     <Compile Include="Framework\LogStatistics\RangeKeyTappedHandler.cs" />
     <Compile Include="Framework\LogStatistics\ResetContentKeyTappedHandler.cs" />
@@ -88,6 +94,8 @@
     <Compile Include="Framework\Log\FieldHolder.cs" />
     <Compile Include="Framework\Log\FilterChecker.cs" />
     <Compile Include="Framework\Log\FilterTextChangedHandler.cs" />
+    <Compile Include="Framework\Log\LabelApplier.cs" />
+    <Compile Include="Framework\Log\Labels.cs" />
     <Compile Include="Framework\Log\SetupHandler.cs" />
     <Compile Include="Framework\Log\StartHandler.cs" />
     <Compile Include="Framework\Log\StatisticsKeyTappedHandler.cs" />
@@ -165,6 +173,10 @@
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
     <Compile Include="Root\Commands\SetupAccessCommand.cs" />
+    <Compile Include="UI\LogEditorUiV2.cs" />
+    <Compile Include="UI\LoginUiV2.cs" />
+    <Compile Include="UI\LogStatisticsUiV2.cs" />
+    <Compile Include="UI\LogUiV2.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />
     <Compile Include="Lot.cs" />

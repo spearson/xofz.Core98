@@ -74,6 +74,18 @@
                 new AccessLevelChangedHandler(w));
             w.RegisterDependency(
                 new KeyboardKeyTappedHandler(w));
+            w.RegisterDependency(
+                new LabelApplier(w));
+            var registered = false;
+            w.Run<Labels>(labels =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new Labels());
+            }
         }
 
         protected readonly LoginUi ui;

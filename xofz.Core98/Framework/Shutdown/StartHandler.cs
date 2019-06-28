@@ -17,10 +17,11 @@
             r.Run<Do>(cleanup =>
                 {
                     var uiFound = false;
-                    r.Run<Ui>(cleanupUi =>
+                    r.Run<Ui, UiReaderWriter>(
+                        (cleanupUi, uiRW) =>
                         {
                             uiFound = true;
-                            UiHelpers.WriteSync(
+                            uiRW.WriteSync(
                                 cleanupUi,
                                 cleanup);
                         },

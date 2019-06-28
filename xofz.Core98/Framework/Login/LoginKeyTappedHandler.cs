@@ -48,7 +48,10 @@
                     if (newCal > AccessLevel.None)
                     {
                         settings.CurrentPassword = securePw;
-                        r.Run<StopHandler>(handler => handler.Handle(ui));
+                        r.Run<StopHandler>(handler =>
+                        {
+                            handler.Handle(ui);
+                        });
                         return;
                     }
 

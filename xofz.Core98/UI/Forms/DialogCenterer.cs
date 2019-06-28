@@ -9,7 +9,8 @@ namespace xofz.UI.Forms
     using System.Text;
     using System.Windows.Forms;
 
-    public class DialogCenterer : IDisposable
+    public class DialogCenterer 
+        : IDisposable
     {
         public DialogCenterer(Form owner)
         {

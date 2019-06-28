@@ -18,10 +18,11 @@
         public virtual void Handle(
             LogEditorUi ui)
         {
+            var defaultType = DefaultEntryTypes.Information;
             ICollection<string> types = new LinkedList<string>(
                 new[]
                 {
-                    DefaultEntryTypes.Information,
+                    defaultType,
                     DefaultEntryTypes.Warning,
                     DefaultEntryTypes.Error,
                     DefaultEntryTypes.Custom
@@ -35,10 +36,19 @@
                     () =>
                     {
                         ui.Types = types;
-                        ui.SelectedType = DefaultEntryTypes.Information;
+                        ui.SelectedType = defaultType;
                         ui.CustomTypeVisible = false;
                     });
             });
+
+            var v2 = ui as LogEditorUiV2;
+            if (v2 != null)
+            {
+                r.Run<LabelApplier>(applier =>
+                {
+                    applier.Apply(v2);
+                });
+            }
         }
 
         protected readonly MethodRunner runner;

@@ -16,7 +16,14 @@
             var r = this.runner;
             r.Run<KeyboardLoader>(loader =>
             {
-                loader.Load();
+                try
+                {
+                    loader.Load();
+                }
+                catch
+                {
+                    // swallow
+                }
             });
             r.Run<UiReaderWriter>(uiRW =>
             {

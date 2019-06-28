@@ -32,11 +32,13 @@
             bool reset)
         {
             var r = this.runner;
-            var defaultInfo = reset
-                ? string.Empty
-                : @"No entries in range";
-            r.Run<SettingsHolder>(settings =>
+            r.Run<SettingsHolder, Labels>(
+                (settings, labels) =>
                 {
+                    var defaultInfo = reset
+                        ? string.Empty
+                        : labels.NoEntriesInRange;
+
                     var tf = settings.TimestampFormat;
                     var total = reset
                         ? defaultInfo

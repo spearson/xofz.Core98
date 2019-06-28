@@ -19,6 +19,15 @@
             {
                 dr.Reset(ui, name);
             });
+
+            var v2 = ui as LogStatisticsUiV2;
+            if (v2 != null)
+            {
+                r.Run<LabelApplier>(applier =>
+                {
+                    applier.Apply(v2);
+                });
+            }
         }
 
         protected readonly MethodRunner runner;

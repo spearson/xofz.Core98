@@ -20,13 +20,14 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter>(uiRW =>
+            r.Run<Labels, UiReaderWriter>(
+                (labels, uiRW) =>
             {
                 uiRW.Write(
                     ui,
                     () =>
                     {
-                        ui.TimeRemaining = @"Not logged in";
+                        ui.TimeRemaining = labels.NotLoggedIn;
                         ui.KeyboardKeyVisible = false;
                     });
 
@@ -34,7 +35,10 @@
                 {
                     uiRW.Write(
                         ui,
-                        () => ui.KeyboardKeyVisible = true);
+                        () =>
+                        {
+                            ui.KeyboardKeyVisible = true;
+                        });
                 });
 
                 r.Run<AccessController>(ac =>
@@ -42,8 +46,21 @@
                     var cal = ac.CurrentAccessLevel;
                     uiRW.Write(
                         ui,
-                        () => ui.CurrentAccessLevel = cal);
+                        () =>
+                        {
+                            ui.CurrentAccessLevel = cal;
+                        });
                 });
+
+                var v2 = ui as LoginUiV2;
+                if (v2 != null)
+                {
+                    r.Run<LabelApplier>(applier =>
+                    {
+                        applier.Apply(
+                            v2);
+                    });
+                }
 
                 r.Run<xofz.Framework.Timer>(t =>
                     {

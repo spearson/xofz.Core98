@@ -15,7 +15,8 @@
 
         public virtual int CurrentSize => this.bitLinkedList.Count;
 
-        public virtual void ShiftLeft(bool input)
+        public virtual void ShiftLeft(
+            bool input)
         {
             var ll = this.bitLinkedList;
             ll.AddLast(input);
@@ -31,7 +32,8 @@
             this.setCurrentArray(array);
         }
 
-        public virtual void ShiftRight(bool input)
+        public virtual void ShiftRight(
+            bool input)
         {
             var ll = this.bitLinkedList;
             ll.AddFirst(input);
@@ -47,7 +49,8 @@
             this.setCurrentArray(array);
         }
 
-        protected virtual void setCurrentArray(bool[] currentArray)
+        protected virtual void setCurrentArray(
+            bool[] currentArray)
         {
             this.currentArray = currentArray;
         }

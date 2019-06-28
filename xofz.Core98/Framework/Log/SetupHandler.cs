@@ -36,6 +36,15 @@
                     });
                 },
                 name);
+
+            var v2 = ui as LogUiV2;
+            if (v2 != null)
+            {
+                r.Run<LabelApplier>(applier =>
+                {
+                    applier.Apply(v2);
+                });
+            }
         }
 
         protected readonly MethodRunner runner;

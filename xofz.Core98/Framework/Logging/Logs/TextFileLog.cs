@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.IO;
     using System.Text;
+    using xofz.Framework.Lots;
 
     public sealed class TextFileLog 
         : Log, LogEditor
@@ -77,7 +78,8 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedList<string>(content));
+                                new LinkedListLot<string>(
+                                    content));
                             continue;
                         }
 
@@ -91,7 +93,7 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedList<string>(content));
+                                new LinkedListLot<string>(content));
                         }
                     }
                 }
@@ -126,7 +128,7 @@
             editor.AddEntry(
                 new LogEntry(
                     type,
-                    new LinkedList<string>(content)));
+                    new LinkedListLot<string>(content)));
         }
 
         void LogEditor.AddEntry(LogEntry entry)

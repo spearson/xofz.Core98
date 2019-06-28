@@ -28,17 +28,19 @@
                 {
                     fs.Set(ui, name);
                 });
-                r.Run<LogStatistics, SettingsHolder>(
-                    (stats, settings) =>
+                r.Run<
+                    LogStatistics, 
+                    SettingsHolder,
+                    Labels>(
+                    (stats, settings, labels) =>
                     {
                         var df = settings.DateFormat;
                         stats.ComputeRange(
                             start, end);
-                        var typeInfo =
-                            @"Range: "
-                            + start.ToString(df)
-                            + @" to "
-                            + end.ToString(df);
+                        var typeInfo = labels.Range(
+                            start,
+                            end,
+                            df);
                         uiRW.WriteSync(
                             ui,
                             () =>

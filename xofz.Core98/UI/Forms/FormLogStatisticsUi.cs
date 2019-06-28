@@ -1,19 +1,25 @@
 ﻿namespace xofz.UI.Forms
 {
     using System;
-    using System.Drawing;
     using System.Threading;
     using System.Windows.Forms;
 
-    public partial class FormLogStatisticsUi : FormUi, LogStatisticsUi
+    public partial class FormLogStatisticsUi 
+        : FormUi, LogStatisticsUiV2
     {
-        public FormLogStatisticsUi(Form shell)
+        public FormLogStatisticsUi(
+            Form shell)
         {
             this.shell = shell;
 
             this.InitializeComponent();
 
             var h = this.Handle;
+        }
+
+        private FormLogStatisticsUi()
+        {
+            this.InitializeComponent();
         }
 
         public event Do OverallKeyTapped;
@@ -76,9 +82,9 @@
 
         string LogStatisticsUi.Title
         {
-            get => this.groupBox.Text;
+            get => this.statsContainer.Text;
 
-            set => this.groupBox.Text = value;
+            set => this.statsContainer.Text = value;
         }
 
         string LogStatisticsUi.TotalEntryCount
@@ -123,6 +129,118 @@
             set => this.latestTimestampLabel.Text = value;
         }
 
+        string LogStatisticsUiV2.StartLabelLabel
+        {
+            get => this.startLabel.Text;
+
+            set => this.startLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.EndLabelLabel
+        {
+            get => this.endLabel.Text;
+
+            set => this.endLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.HideKeyLabel
+        {
+            get => this.hideKey.Text;
+
+            set => this.hideKey.Text = value;
+        }
+
+        string LogStatisticsUiV2.OverallKeyLabel
+        {
+            get => this.overallKey.Text;
+
+            set => this.overallKey.Text = value;
+        }
+
+        string LogStatisticsUiV2.RangeKeyLabel
+        {
+            get => this.rangeKey.Text;
+
+            set => this.rangeKey.Text = value;
+        }
+
+        string LogStatisticsUiV2.FilterContentLabelLabel
+        {
+            get => this.filterContentLabel.Text;
+
+            set => this.filterContentLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.FilterTypeLabelLabel
+        {
+            get => this.filterTypeLabel.Text;
+
+            set => this.filterTypeLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.ResetContentKeyLabel
+        {
+            get => this.resetContentKey.Text;
+
+            set => this.resetContentKey.Text = value;
+        }
+
+        string LogStatisticsUiV2.ResetTypeKeyLabel
+        {
+            get => this.resetTypeKey.Text;
+
+            set => this.resetTypeKey.Text = value;
+        }
+
+        string LogStatisticsUiV2.StatsContainerLabel
+        {
+            get => this.statsContainer.Text;
+
+            set => this.statsContainer.Text = value;
+        }
+
+        string LogStatisticsUiV2.TotalEntryCountLabelLabelLabel
+        {
+            get => this.totalEntryCountLabelLabel.Text;
+
+            set => this.totalEntryCountLabelLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.AvgEntriesPerDayLabelLabelLabel
+        {
+            get => this.avgEntriesPerDayLabelLabel.Text;
+
+            set => this.avgEntriesPerDayLabelLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.OldestTimestampLabelLabelLabel
+        {
+            get => this.oldestTimestampLabelLabel.Text;
+
+            set => this.oldestTimestampLabelLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.NewestTimestampLabelLabelLabel
+        {
+            get => this.newestTimestampLabelLabel.Text;
+
+            set => this.newestTimestampLabelLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.EarliestTimestampLabelLabelLabel
+        {
+            get => this.earliestTimestampLabelLabel.Text;
+
+            set => this.earliestTimestampLabelLabel.Text = value;
+        }
+
+        string LogStatisticsUiV2.LatestTimestampLabelLabelLabel
+        {
+            get => this.latestTimestampLabelLabel.Text;
+
+            set => this.latestTimestampLabelLabel.Text = value;
+        }
+
         private void this_FormClosing(
             object sender, 
             FormClosingEventArgs e)
@@ -151,7 +269,9 @@
             this.Show(s);
         }
 
-        private void overallKey_Click(object sender, EventArgs e)
+        private void overallKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var okt = this.OverallKeyTapped;
             if (okt == null)
@@ -163,7 +283,9 @@
                 o => okt.Invoke());
         }
 
-        private void rangeKey_Click(object sender, EventArgs e)
+        private void rangeKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var rkt = this.RangeKeyTapped;
             if (rkt == null)
@@ -175,7 +297,9 @@
                 o => rkt.Invoke());
         }
 
-        private void hideKey_Click(object sender, EventArgs e)
+        private void hideKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var hkt = this.HideKeyTapped;
             if (hkt == null)
@@ -187,7 +311,9 @@
                 o => hkt.Invoke());
         }
 
-        private void resetContentKey_Click(object sender, EventArgs e)
+        private void resetContentKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var rckt = this.ResetContentKeyTapped;
             if (rckt == null)
@@ -199,7 +325,9 @@
                 o => rckt.Invoke());
         }
 
-        private void resetTypeKey_Click(object sender, EventArgs e)
+        private void resetTypeKey_Click(
+            object sender,
+            EventArgs e)
         {
             var rtkt = this.ResetTypeKeyTapped;
             if (rtkt == null)

@@ -7,7 +7,7 @@
     {
         public virtual void Load()
         {
-            Process.Start("osk.exe");
+            Process.Start(@"osk.exe");
         }
     }
 }

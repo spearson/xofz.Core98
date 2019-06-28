@@ -2,20 +2,46 @@
 {
     using System;
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
 
     public class LogEntry
     {
         public LogEntry(
+            string type,
+            IEnumerable<string> finiteContent)
+            : this(
+                DateTime.Now,
+                type,
+                finiteContent)
+        {
+        }
+
+        public LogEntry(
             string type, 
-            ICollection<string> content)
-            : this(DateTime.Now, type, content)
+            Lot<string> content)
+            : this(
+                DateTime.Now, 
+                type, 
+                content)
+        {
+        }
+
+        public LogEntry(
+            DateTime timestamp,
+            string type,
+            IEnumerable<string> finiteContent)
+            : this(
+                timestamp,
+                type,
+                new LinkedListLot<string>(
+                    finiteContent))
         {
         }
 
         public LogEntry(
             DateTime timestamp, 
             string type, 
-            ICollection<string> content)
+            Lot<string> content)
         {
             this.Timestamp = timestamp;
             this.Type = type;
@@ -26,6 +52,6 @@
 
         public virtual string Type { get; }
 
-        public virtual ICollection<string> Content { get; }
+        public virtual Lot<string> Content { get; }
     }
 }

@@ -12,7 +12,8 @@
             this.runner = runner;
         }
 
-        public virtual XTuple<string, string, string> Convert(LogEntry entry)
+        public virtual XTuple<string, string, string> Convert(
+            LogEntry entry)
         {
             if (entry == null)
             {

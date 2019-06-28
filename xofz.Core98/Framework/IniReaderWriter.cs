@@ -230,12 +230,12 @@
                     continue;
                 }
 
-                if (!line.StartsWith("["))
+                if (!line.StartsWith(@"["))
                 {
                     continue;
                 }
 
-                if (!line.Contains("]"))
+                if (!line.Contains(@"]"))
                 {
                     continue;
                 }
@@ -243,7 +243,7 @@
                 var closingBracketIndex = line.IndexOf(']');
                 if (line
                     .Substring(0, closingBracketIndex)
-                    .Contains(";"))
+                    .Contains(@";"))
                 {
                     continue;
                 }

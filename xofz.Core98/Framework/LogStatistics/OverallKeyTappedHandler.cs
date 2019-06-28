@@ -22,11 +22,12 @@
                         setter => setter.Set(
                             ui, name));
                     stats.ComputeOverall();
-                    r.Run<UiReaderWriter>(uiRW =>
+                    r.Run<UiReaderWriter, Labels>(
+                        (uiRW, labels) =>
                     {
                         uiRW.Write(ui, () =>
                         {
-                            ui.Title = @"Overall";
+                            ui.Title = labels.Overall;
                         });
                     });
                     r.Run<StatsDisplayer>(sd =>

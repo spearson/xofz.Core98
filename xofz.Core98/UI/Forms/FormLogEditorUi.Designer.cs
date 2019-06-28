@@ -32,8 +32,8 @@
             this.contentTextBox = new System.Windows.Forms.TextBox();
             this.entryTypeComboBox = new System.Windows.Forms.ComboBox();
             this.addKey = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.entryContentLabel = new System.Windows.Forms.Label();
+            this.entryTypeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // customTypeTextBox
@@ -71,8 +71,7 @@
             // 
             // addKey
             // 
-            this.addKey.AutoSize = true;
-            this.addKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.addKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.addKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.addKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -84,23 +83,23 @@
             this.addKey.UseVisualStyleBackColor = true;
             this.addKey.Click += new System.EventHandler(this.addKey_Click);
             // 
-            // label2
+            // entryContentLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Content:";
+            this.entryContentLabel.Location = new System.Drawing.Point(12, 52);
+            this.entryContentLabel.Name = "entryContentLabel";
+            this.entryContentLabel.Size = new System.Drawing.Size(61, 13);
+            this.entryContentLabel.TabIndex = 6;
+            this.entryContentLabel.Text = "Content:";
+            this.entryContentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label1
+            // entryTypeLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Entry Type:";
+            this.entryTypeLabel.Location = new System.Drawing.Point(12, 22);
+            this.entryTypeLabel.Name = "entryTypeLabel";
+            this.entryTypeLabel.Size = new System.Drawing.Size(61, 13);
+            this.entryTypeLabel.TabIndex = 5;
+            this.entryTypeLabel.Text = "Entry Type:";
+            this.entryTypeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // FormLogEditorUi
             // 
@@ -110,8 +109,8 @@
             this.Controls.Add(this.contentTextBox);
             this.Controls.Add(this.entryTypeComboBox);
             this.Controls.Add(this.addKey);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.entryContentLabel);
+            this.Controls.Add(this.entryTypeLabel);
             this.MaximizeBox = false;
             this.Name = "FormLogEditorUi";
             this.ShowIcon = false;
@@ -127,8 +126,8 @@
         private System.Windows.Forms.TextBox contentTextBox;
         private System.Windows.Forms.ComboBox entryTypeComboBox;
         private System.Windows.Forms.Button addKey;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label entryContentLabel;
+        private System.Windows.Forms.Label entryTypeLabel;
         private System.Windows.Forms.TextBox customTypeTextBox;
     }
 }

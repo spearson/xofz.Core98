@@ -24,14 +24,15 @@
             r.Run<
                 AccessController, 
                 SettingsHolder,
+                Labels,
                 UiReaderWriter>(
-                (ac, settings, uiRW) =>
+                (ac, settings, labels, uiRW) =>
             {
                 var cal = ac.CurrentAccessLevel;
                 string timeRemaining;
                 if (cal < AccessLevel.Level1)
                 {
-                    timeRemaining = @"Not logged in";
+                    timeRemaining = labels.NotLoggedIn;
                     goto checkAccess;
                 }
 

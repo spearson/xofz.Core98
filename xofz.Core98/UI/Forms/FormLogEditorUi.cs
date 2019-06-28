@@ -6,7 +6,7 @@
     using System.Windows.Forms;
 
     public partial class FormLogEditorUi 
-        : FormUi, LogEditorUi
+        : FormUi, LogEditorUiV2
     {
         public FormLogEditorUi(
             Form shell)
@@ -93,7 +93,7 @@
             set => this.customTypeTextBox.Visible = value;
         }
 
-        public ICollection<string> Content
+        ICollection<string> LogEditorUi.Content
         {
             get
             {
@@ -142,7 +142,37 @@
             }
         }
 
-        private void this_FormClosing(object sender, FormClosingEventArgs e)
+        string LogEditorUiV2.EntryTypeLabelLabel
+        {
+            get => this.entryTypeLabel.Text;
+
+            set => this.entryTypeLabel.Text = value;
+        }
+
+        string LogEditorUiV2.EntryContentLabelLabel
+        {
+            get => this.entryContentLabel.Text;
+
+            set => this.entryContentLabel.Text = value;
+        }
+
+        string LogEditorUiV2.AddKeyLabel
+        {
+            get => this.addKey.Text;
+
+            set => this.addKey.Text = value;
+        }
+
+        string LogEditorUiV2.TitleLabel
+        {
+            get => this.Text;
+
+            set => this.Text = value;
+        }
+
+        private void this_FormClosing(
+            object sender,
+            FormClosingEventArgs e)
         {
             e.Cancel = true;
 

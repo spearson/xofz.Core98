@@ -6,7 +6,7 @@
     using System.Windows.Forms;
 
     public partial class UserControlLogUi 
-        : UserControlUi, LogUi
+        : UserControlUi, LogUiV2
     {
         public UserControlLogUi()
         {
@@ -136,6 +136,168 @@
                 entry.Item3);
         }
 
+        string LogUiV2.StartLabelLabel
+        {
+            get => this.startLabel.Text;
+
+            set => this.startLabel.Text = value;
+        }
+
+        string LogUiV2.EndLabelLabel
+        {
+            get => this.endLabel.Text;
+
+            set => this.endLabel.Text = value;
+        }
+
+        string LogUiV2.ClearKeyLabel
+        {
+            get => this.clearKey.Text;
+
+            set => this.clearKey.Text = value;
+        }
+
+        string LogUiV2.StatsKeyLabel
+        {
+            get => this.statisticsKey.Text;
+
+            set => this.statisticsKey.Text = value;
+        }
+
+        string LogUiV2.AddKeyLabel
+        {
+            get => this.addKey.Text;
+
+            set => this.addKey.Text = value;
+        }
+
+        string LogUiV2.PreviousWeekKeyLabel
+        {
+            get => this.previousWeekKey.Text;
+
+            set => this.previousWeekKey.Text = value;
+        }
+
+        string LogUiV2.NextWeekKeyLabel
+        {
+            get => this.nextWeekKey.Text;
+
+            set => this.nextWeekKey.Text = value;
+        }
+
+        string LogUiV2.CurrentWeekKeyLabel
+        {
+            get => this.currentWeekKey.Text;
+
+            set => this.currentWeekKey.Text = value;
+        }
+
+        string LogUiV2.FilterContentLabelLabel
+        {
+            get => this.filterContentLabel.Text;
+
+            set => this.filterContentLabel.Text = value;
+        }
+
+        string LogUiV2.FilterTypeLabelLabel
+        {
+            get => this.filterTypeLabel.Text;
+
+            set => this.filterTypeLabel.Text = value;
+        }
+
+        string LogUiV2.ResetContentKeyLabel
+        {
+            get => this.resetContentKey.Text;
+
+            set => this.resetContentKey.Text = value;
+        }
+
+        string LogUiV2.ResetTypeKeyLabel
+        {
+            get => this.resetTypeKey.Text;
+
+            set => this.resetTypeKey.Text = value;
+        }
+
+        string LogUiV2.TimestampColumnHeaderLabel
+        {
+            get
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 1)
+                {
+                    return null;
+                }
+
+                return columns[0].HeaderText;
+            }
+
+            set
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 1)
+                {
+                    return;
+                }
+
+                columns[0].HeaderText = value;
+
+            }
+        }
+
+        string LogUiV2.TypeColumnHeaderLabel
+        {
+            get
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 2)
+                {
+                    return null;
+                }
+
+                return columns[1].HeaderText;
+            }
+
+            set
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 2)
+                {
+                    return;
+                }
+
+                columns[1].HeaderText = value;
+
+            }
+        }
+
+        string LogUiV2.ContentColumnHeaderLabel
+        {
+            get
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 3)
+                {
+                    return null;
+                }
+
+                return columns[2].HeaderText;
+            }
+
+            set
+            {
+                var columns = this.entriesGrid.Columns;
+                if (columns.Count < 3)
+                {
+                    return;
+                }
+
+                columns[2].HeaderText = value;
+
+            }
+        }
+
         private void addKey_Click(object sender, EventArgs e)
         {
             var akt = this.AddKeyTapped;
@@ -184,14 +346,14 @@
         {
             this.entriesGrid.Focus();
             
-            SendKeys.Send("{PGDN}");
+            SendKeys.Send(@"{PGDN}");
         }
 
         private void upKey_Click(object sender, EventArgs e)
         {
             this.entriesGrid.Focus();
 
-            SendKeys.Send("{PGUP}");
+            SendKeys.Send(@"{PGUP}");
         }
 
         private void statisticsKey_Click(object sender, EventArgs e)

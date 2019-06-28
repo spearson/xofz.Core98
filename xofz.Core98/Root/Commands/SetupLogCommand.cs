@@ -91,7 +91,7 @@
             if (eui != null)
             {
                 new LogEditorPresenter(
-                        this.editUi,
+                        eui,
                         w)
                     {
                         Name = n
@@ -119,10 +119,7 @@
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
             var registered = false;
-            w.Run<Log>(log =>
-                {
-                    registered = true;
-                },
+            w.Run<Log>(log => { registered = true; },
                 ldn);
             if (registered)
             {
@@ -147,13 +144,10 @@
                 new EventLogLog(location, location2),
                 ldn);
 
-        checkLotter:
+            checkLotter:
             registered = false;
             var ln = DependencyNames.Lotter;
-            w.Run<Lotter>(lotter =>
-                {
-                    registered = true;
-                },
+            w.Run<Lotter>(lotter => { registered = true; },
                 ln);
             if (!registered)
             {
@@ -258,10 +252,7 @@
             }
 
             registered = false;
-            w.Run<AccessLevelChangedHandler>(handler =>
-            {
-                registered = true;
-            });
+            w.Run<AccessLevelChangedHandler>(handler => { registered = true; });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -269,10 +260,7 @@
             }
 
             registered = false;
-            w.Run<DateRangeChangedHandler>(handler =>
-            {
-                registered = true;
-            });
+            w.Run<DateRangeChangedHandler>(handler => { registered = true; });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -280,10 +268,7 @@
             }
 
             registered = false;
-            w.Run<FilterTextChangedHandler>(handler =>
-            {
-                registered = true;
-            });
+            w.Run<FilterTextChangedHandler>(handler => { registered = true; });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -302,10 +287,7 @@
             }
 
             registered = false;
-            w.Run<ClearKeyTappedHandler>(handler =>
-            {
-                registered = true;
-            });
+            w.Run<ClearKeyTappedHandler>(handler => { registered = true; });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -313,14 +295,34 @@
             }
 
             registered = false;
-            w.Run<EntryWrittenHandler>(handler =>
+            w.Run<EntryWrittenHandler>(handler => { registered = true; });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new EntryWrittenHandler(w));
+            }
+
+            registered = false;
+            w.Run<Labels>(labels =>
             {
                 registered = true;
             });
             if (!registered)
             {
                 w.RegisterDependency(
-                    new EntryWrittenHandler(w));
+                    new Labels());
+            }
+
+            registered = false;
+            w.Run<LabelApplier>(applier =>
+            {
+                registered = true;
+            });
+
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new LabelApplier(w));
             }
 
             registered = false;
@@ -356,14 +358,33 @@
                     new xofz.Framework.LogEditor.AddKeyTappedHandler(w));
             }
 
+            registered = false;
+            w.Run<xofz.Framework.LogEditor.Labels>(labels =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new xofz.Framework.LogEditor.Labels());
+            }
+
+            registered = false;
+            w.Run<xofz.Framework.LogEditor.LabelApplier>(applier =>
+            {
+                registered = true;
+            });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new xofz.Framework.LogEditor.LabelApplier(w));
+            }
+
             if (se)
             {
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.SetupHandler>(
-                    handler =>
-                    {
-                        registered = true;
-                    });
+                    handler => { registered = true; });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -373,10 +394,7 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.StartHandler>(
-                    handler =>
-                    {
-                        registered = true;
-                    });
+                    handler => { registered = true; });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -430,10 +448,7 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.OverallKeyTappedHandler>(
-                    handler =>
-                    {
-                        registered = true;
-                    });
+                    handler => { registered = true; });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -443,10 +458,7 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.RangeKeyTappedHandler>(
-                    handler =>
-                    {
-                        registered = true;
-                    });
+                    handler => { registered = true; });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -457,7 +469,17 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.DateResetter>(
-                    handler =>
+                    handler => { registered = true; });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            DateResetter(w));
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.Labels>(
+                    labels =>
                     {
                         registered = true;
                     });
@@ -465,11 +487,24 @@
                 {
                     w.RegisterDependency(
                         new xofz.Framework.LogStatistics.
-                            DateResetter(w));
+                            Labels());
+                }
+
+                registered = false;
+                w.Run<xofz.Framework.LogStatistics.LabelApplier>(
+                    applier =>
+                    {
+                        registered = true;
+                    });
+                if (!registered)
+                {
+                    w.RegisterDependency(
+                        new xofz.Framework.LogStatistics.
+                            LabelApplier(w));
                 }
             }
         }
-        
+
         protected readonly LogUi ui;
         protected readonly LogEditorUi editUi;
         protected readonly ShellUi shell;
