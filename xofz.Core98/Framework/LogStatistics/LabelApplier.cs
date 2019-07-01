@@ -20,6 +20,7 @@
                     ui,
                     () =>
                     {
+                        ui.Label = labels.Label;
                         ui.StartLabelLabel = labels.StartLabel;
                         ui.EndLabelLabel = labels.EndLabel;
                         ui.HideKeyLabel = labels.HideKey;

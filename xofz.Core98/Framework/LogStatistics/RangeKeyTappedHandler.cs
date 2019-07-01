@@ -41,7 +41,7 @@
                             start,
                             end,
                             df);
-                        uiRW.WriteSync(
+                        uiRW.Write(
                             ui,
                             () =>
                             {

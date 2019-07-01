@@ -144,9 +144,9 @@
 
         string LogEditorUiV2.EntryTypeLabelLabel
         {
-            get => this.entryTypeLabel.Text;
+            get => this.typeLabel.Text;
 
-            set => this.entryTypeLabel.Text = value;
+            set => this.typeLabel.Text = value;
         }
 
         string LogEditorUiV2.EntryContentLabelLabel

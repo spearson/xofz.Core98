@@ -32,103 +32,6 @@
 
         public event Do ResetTypeKeyTapped;
 
-        DateTime LogStatisticsUi.StartDate
-        {
-            get => this.startDatePicker.SelectionStart;
-
-            set
-            {
-                var sdp = this.startDatePicker;
-                sdp.SelectionStart = value;
-                sdp.SelectionEnd = value;
-            }
-        }
-
-        DateTime LogStatisticsUi.EndDate
-        {
-            get => this.endDatePicker.SelectionStart;
-
-            set
-            {
-                var edp = this.endDatePicker;
-                edp.SelectionStart = value;
-                edp.SelectionEnd = value;
-            }
-        }
-
-        string LogStatisticsUi.FilterContent
-        {
-            get => this.filterContentTextBox.Text;
-
-            set
-            {
-                var fctb = this.filterContentTextBox;
-                fctb.Text = value;
-                fctb.Focus();
-            }
-        }
-
-        string LogStatisticsUi.FilterType
-        {
-            get => this.filterTypeTextBox.Text;
-
-            set
-            {
-                var fttb = this.filterTypeTextBox;
-                fttb.Text = value;
-                fttb.Focus();
-            }
-        }
-
-        string LogStatisticsUi.Title
-        {
-            get => this.statsContainer.Text;
-
-            set => this.statsContainer.Text = value;
-        }
-
-        string LogStatisticsUi.TotalEntryCount
-        {
-            get => this.totalEntryCountLabel.Text;
-
-            set => this.totalEntryCountLabel.Text = value;
-        }
-
-        string LogStatisticsUi.AvgEntriesPerDay
-        {
-            get => this.avgEntriesPerDayLabel.Text;
-
-            set => this.avgEntriesPerDayLabel.Text = value;
-        }
-
-        string LogStatisticsUi.OldestTimestamp
-        {
-            get => this.oldestTimestampLabel.Text;
-
-            set => this.oldestTimestampLabel.Text = value;
-        }
-
-        string LogStatisticsUi.NewestTimestamp
-        {
-            get => this.newestTimestampLabel.Text;
-
-            set => this.newestTimestampLabel.Text = value;
-        }
-
-        string LogStatisticsUi.EarliestTimestamp
-        {
-            get => this.earliestTimestampLabel.Text;
-
-            set => this.earliestTimestampLabel.Text = value;
-        }
-
-        string LogStatisticsUi.LatestTimestamp
-        {
-            get => this.latestTimestampLabel.Text;
-
-            set => this.latestTimestampLabel.Text = value;
-        }
-
         string LogStatisticsUiV2.StartLabelLabel
         {
             get => this.startLabel.Text;
@@ -239,6 +142,110 @@
             get => this.latestTimestampLabelLabel.Text;
 
             set => this.latestTimestampLabelLabel.Text = value;
+        }
+
+        DateTime LogStatisticsUi.StartDate
+        {
+            get => this.startDatePicker.SelectionStart;
+
+            set
+            {
+                var sdp = this.startDatePicker;
+                sdp.SelectionStart = value;
+                sdp.SelectionEnd = value;
+            }
+        }
+
+        DateTime LogStatisticsUi.EndDate
+        {
+            get => this.endDatePicker.SelectionStart;
+
+            set
+            {
+                var edp = this.endDatePicker;
+                edp.SelectionStart = value;
+                edp.SelectionEnd = value;
+            }
+        }
+
+        string LogStatisticsUi.FilterContent
+        {
+            get => this.filterContentTextBox.Text;
+
+            set
+            {
+                var fctb = this.filterContentTextBox;
+                fctb.Text = value;
+                fctb.Focus();
+            }
+        }
+
+        string LogStatisticsUi.FilterType
+        {
+            get => this.filterTypeTextBox.Text;
+
+            set
+            {
+                var fttb = this.filterTypeTextBox;
+                fttb.Text = value;
+                fttb.Focus();
+            }
+        }
+
+        string LogStatisticsUi.Title
+        {
+            get => this.statsContainer.Text;
+
+            set => this.statsContainer.Text = value;
+        }
+
+        string LogStatisticsUi.TotalEntryCount
+        {
+            get => this.totalEntryCountLabel.Text;
+
+            set => this.totalEntryCountLabel.Text = value;
+        }
+
+        string LogStatisticsUi.AvgEntriesPerDay
+        {
+            get => this.avgEntriesPerDayLabel.Text;
+
+            set => this.avgEntriesPerDayLabel.Text = value;
+        }
+
+        string LogStatisticsUi.OldestTimestamp
+        {
+            get => this.oldestTimestampLabel.Text;
+
+            set => this.oldestTimestampLabel.Text = value;
+        }
+
+        string LogStatisticsUi.NewestTimestamp
+        {
+            get => this.newestTimestampLabel.Text;
+
+            set => this.newestTimestampLabel.Text = value;
+        }
+
+        string LogStatisticsUi.EarliestTimestamp
+        {
+            get => this.earliestTimestampLabel.Text;
+
+            set => this.earliestTimestampLabel.Text = value;
+        }
+
+        string LogStatisticsUi.LatestTimestamp
+        {
+            get => this.latestTimestampLabel.Text;
+
+            set => this.latestTimestampLabel.Text = value;
+        }
+
+        string LabeledUi.Label
+        {
+            get => this.Text;
+
+            set => this.Text = value;
         }
 
         private void this_FormClosing(

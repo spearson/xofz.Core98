@@ -68,5 +68,8 @@
 
         public virtual string LatestTimestampLabelLabel { get; set; }
             = @"Latest timestamp:";
+
+        public virtual string Label { get; set; }
+            = @"Log Statistics";
     }
 }

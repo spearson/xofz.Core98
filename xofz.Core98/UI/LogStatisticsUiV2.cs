@@ -1,7 +1,7 @@
 ﻿namespace xofz.UI
 {
     public interface LogStatisticsUiV2
-        : LogStatisticsUi
+        : LogStatisticsUi, LabeledUi
     {
         string StartLabelLabel { get; set; }
 
