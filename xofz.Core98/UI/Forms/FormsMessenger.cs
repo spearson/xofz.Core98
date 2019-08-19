@@ -2,15 +2,28 @@
 {
     using System.Windows.Forms;
 
-    public sealed class FormsMessenger : Messenger
+    public sealed class FormsMessenger 
+        : Messenger
     {
         Ui Messenger.Subscriber { get; set; }
+
+        string Messenger.InfoCaption { get; set; }
+            = string.Empty;
+
+        string Messenger.WarningCaption { get; set; }
+            = @"Warning";
+
+        string Messenger.ErrorCaption { get; set; }
+            = @"Error";
+
+        string Messenger.QuestionCaption { get; set; }
+            = @"?";
 
         Response Messenger.Question(
             string question)
         {
-            Messenger messenger = this;
-            var subscriber = messenger.Subscriber as Form;
+            Messenger m = this;
+            var subscriber = m.Subscriber as Form;
             DialogResult result;
             if (subscriber != null)
             {
@@ -19,7 +32,7 @@
                     result = MessageBox.Show(
                         subscriber,
                         question,
-                        @"?",
+                        m.QuestionCaption,
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
                 }
@@ -29,7 +42,7 @@
 
             result = MessageBox.Show(
                     question,
-                    @"?",
+                    m.QuestionCaption,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
 
@@ -46,8 +59,8 @@
         Response Messenger.QuestionWithCancel(
             string question)
         {
-            Messenger messenger = this;
-            var subscriber = messenger.Subscriber as Form;
+            Messenger m = this;
+            var subscriber = m.Subscriber as Form;
             DialogResult result;
             if (subscriber != null)
             {
@@ -56,7 +69,7 @@
                     result = MessageBox.Show(
                         subscriber,
                         question,
-                        @"?",
+                        m.QuestionCaption,
                         MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Question);
                 }
@@ -66,7 +79,7 @@
 
             result = MessageBox.Show(
                     question,
-                    @"?",
+                    m.QuestionCaption,
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question);
 
@@ -77,6 +90,45 @@
                     return Response.Yes;
                 case DialogResult.No:
                     return Response.No;
+                case DialogResult.Cancel:
+                    return Response.Cancel;
+                default:
+                    return Response.Cancel;
+            }
+        }
+
+        Response Messenger.QuestionOKCancel(
+            string question)
+        {
+            Messenger m = this;
+            var subscriber = m.Subscriber as Form;
+            DialogResult result;
+            if (subscriber != null)
+            {
+                using (new DialogCenterer(subscriber))
+                {
+                    result = MessageBox.Show(
+                        subscriber,
+                        question,
+                        m.QuestionCaption,
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Question);
+                }
+
+                goto handleResult;
+            }
+
+            result = MessageBox.Show(
+                question,
+                m.QuestionCaption,
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question);
+
+            handleResult:
+            switch (result)
+            {
+                case DialogResult.OK:
+                    return Response.OK;
                 case DialogResult.Cancel:
                     return Response.Cancel;
                 default:
@@ -113,13 +165,17 @@
             MessageBoxIcon icon)
         {
             string caption;
+            Messenger m = this;
             switch (icon)
             {
                 case MessageBoxIcon.Warning:
-                    caption = @"Warning";
+                    caption = m.WarningCaption;
                     break;
                 case MessageBoxIcon.Error:
-                    caption = @"Error";
+                    caption = m.ErrorCaption;
+                    break;
+                case MessageBoxIcon.Information:
+                    caption = m.InfoCaption;
                     break;
                 default:
                     caption = string.Empty;

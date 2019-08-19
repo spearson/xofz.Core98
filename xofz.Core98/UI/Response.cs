@@ -4,6 +4,7 @@
     {
         No,
         Yes,
-        Cancel // todo: add more
+        Cancel,
+        OK // todo: add more
     }
 }
