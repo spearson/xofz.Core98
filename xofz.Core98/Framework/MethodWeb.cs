@@ -820,20 +820,17 @@
             string passedName,
             out T dependency)
         {
-            if (name != passedName)
+            if (name == passedName)
             {
-                dependency = default(T);
-                return false;
+                if (content is T correctContent)
+                {
+                    dependency = correctContent;
+                    return true;
+                }
             }
 
-            if (!(content is T))
-            {
-                dependency = default(T);
-                return false;
-            }
-
-            dependency = (T)content;
-            return true;
+            dependency = default(T);
+            return false;
         }
 
         protected readonly ICollection<Dependency> dependencies;
