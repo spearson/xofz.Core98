@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class ThreadSafeMethodWeb 
+    public class ThreadSafeMethodWeb
         : MethodWeb
     {
         public ThreadSafeMethodWeb()
@@ -388,6 +388,674 @@
             method?.Invoke(t, u, v, w);
 
             return XTuple.Create(t, u, v, w);
+        }
+
+        public override XTuple<T, U, V, W, X> Run<T, U, V, W, X>(
+            Do<T, U, V, W, X> method = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null)
+        {
+            var ds = this.dependencies;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            var w = default(W);
+            var x = default(X);
+            bool
+                tFound = false,
+                uFound = false,
+                vFound = false,
+                wFound = false,
+                xFound = false;
+            lock (this.locker)
+            {
+                foreach (var d in ds)
+                {
+                    if (tFound && uFound && vFound && wFound && xFound)
+                    {
+                        goto invoke;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
+                    {
+                        if (name != tName)
+                        {
+                            goto checkU;
+                        }
+
+                        if (!(content is T))
+                        {
+                            goto checkU;
+                        }
+
+                        t = (T)content;
+                        tFound = true;
+                        continue;
+                    }
+
+                    checkU:
+                    if (!uFound)
+                    {
+                        if (name != uName)
+                        {
+                            goto checkV;
+                        }
+
+                        if (!(content is U))
+                        {
+                            goto checkV;
+                        }
+
+                        u = (U)content;
+                        uFound = true;
+                        continue;
+                    }
+
+                    checkV:
+                    if (!vFound)
+                    {
+                        if (name != vName)
+                        {
+                            goto checkW;
+                        }
+
+                        if (!(content is V))
+                        {
+                            goto checkW;
+                        }
+
+                        v = (V)content;
+                        vFound = true;
+                        continue;
+                    }
+
+                    checkW:
+                    if (!wFound)
+                    {
+                        if (name != wName)
+                        {
+                            goto checkX;
+                        }
+
+                        if (!(content is W))
+                        {
+                            goto checkX;
+                        }
+
+                        w = (W)content;
+                        wFound = true;
+                        continue;
+                    }
+
+                    checkX:
+                    if (!xFound)
+                    {
+                        if (name != xName)
+                        {
+                            continue;
+                        }
+
+                        if (!(content is X))
+                        {
+                            continue;
+                        }
+
+                        x = (X)content;
+                        xFound = true;
+                    }
+                }
+            }
+
+            if (tFound && uFound && vFound && wFound && xFound)
+            {
+                goto invoke;
+            }
+
+            return XTuple.Create(t, u, v, w, x);
+
+            invoke:
+            method?.Invoke(t, u, v, w, x);
+
+            return XTuple.Create(t, u, v, w, x);
+        }
+
+        public override XTuple<T, U, V, W, X, Y> Run<T, U, V, W, X, Y>(
+            Do<T, U, V, W, X, Y> method = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null)
+        {
+            var ds = this.dependencies;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            var w = default(W);
+            var x = default(X);
+            var y = default(Y);
+            bool
+                tFound = false,
+                uFound = false,
+                vFound = false,
+                wFound = false,
+                xFound = false,
+                yFound = false;
+            lock (this.locker)
+            {
+                foreach (var d in ds)
+                {
+                    if (tFound && uFound && vFound && wFound && xFound &&
+                        yFound)
+                    {
+                        goto invoke;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
+                    {
+                        if (name != tName)
+                        {
+                            goto checkU;
+                        }
+
+                        if (!(content is T))
+                        {
+                            goto checkU;
+                        }
+
+                        t = (T)content;
+                        tFound = true;
+                        continue;
+                    }
+
+                    checkU:
+                    if (!uFound)
+                    {
+                        if (name != uName)
+                        {
+                            goto checkV;
+                        }
+
+                        if (!(content is U))
+                        {
+                            goto checkV;
+                        }
+
+                        u = (U)content;
+                        uFound = true;
+                        continue;
+                    }
+
+                    checkV:
+                    if (!vFound)
+                    {
+                        if (name != vName)
+                        {
+                            goto checkW;
+                        }
+
+                        if (!(content is V))
+                        {
+                            goto checkW;
+                        }
+
+                        v = (V)content;
+                        vFound = true;
+                        continue;
+                    }
+
+                    checkW:
+                    if (!wFound)
+                    {
+                        if (name != wName)
+                        {
+                            goto checkX;
+                        }
+
+                        if (!(content is W))
+                        {
+                            goto checkX;
+                        }
+
+                        w = (W)content;
+                        wFound = true;
+                        continue;
+                    }
+
+                    checkX:
+                    if (!xFound)
+                    {
+                        if (name != xName)
+                        {
+                            goto checkY;
+                        }
+
+                        if (!(content is X))
+                        {
+                            goto checkY;
+                        }
+
+                        x = (X)content;
+                        xFound = true;
+                        continue;
+                    }
+
+                    checkY:
+                    if (!yFound)
+                    {
+                        if (name != yName)
+                        {
+                            continue;
+                        }
+
+                        if (!(content is Y))
+                        {
+                            continue;
+                        }
+
+                        y = (Y)content;
+                        yFound = true;
+                    }
+                }
+            }
+
+            if (tFound && uFound && vFound && wFound && xFound && yFound)
+            {
+                goto invoke;
+            }
+
+            return XTuple.Create(t, u, v, w, x, y);
+
+            invoke:
+            method?.Invoke(t, u, v, w, x, y);
+
+            return XTuple.Create(t, u, v, w, x, y);
+        }
+
+        public override XTuple<T, U, V, W, X, Y, Z> Run<T, U, V, W, X, Y, Z>(
+            Do<T, U, V, W, X, Y, Z> method = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null,
+            string zName = null)
+        {
+            var ds = this.dependencies;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            var w = default(W);
+            var x = default(X);
+            var y = default(Y);
+            var z = default(Z);
+            bool
+                tFound = false,
+                uFound = false,
+                vFound = false,
+                wFound = false,
+                xFound = false,
+                yFound = false,
+                zFound = false;
+            lock (this.locker)
+            {
+                foreach (var d in ds)
+                {
+                    if (tFound && uFound && vFound && wFound && xFound &&
+                        yFound && zFound)
+                    {
+                        goto invoke;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
+                    {
+                        if (name != tName)
+                        {
+                            goto checkU;
+                        }
+
+                        if (!(content is T))
+                        {
+                            goto checkU;
+                        }
+
+                        t = (T)content;
+                        tFound = true;
+                        continue;
+                    }
+
+                    checkU:
+                    if (!uFound)
+                    {
+                        if (name != uName)
+                        {
+                            goto checkV;
+                        }
+
+                        if (!(content is U))
+                        {
+                            goto checkV;
+                        }
+
+                        u = (U)content;
+                        uFound = true;
+                        continue;
+                    }
+
+                    checkV:
+                    if (!vFound)
+                    {
+                        if (name != vName)
+                        {
+                            goto checkW;
+                        }
+
+                        if (!(content is V))
+                        {
+                            goto checkW;
+                        }
+
+                        v = (V)content;
+                        vFound = true;
+                        continue;
+                    }
+
+                    checkW:
+                    if (!wFound)
+                    {
+                        if (name != wName)
+                        {
+                            goto checkX;
+                        }
+
+                        if (!(content is W))
+                        {
+                            goto checkX;
+                        }
+
+                        w = (W)content;
+                        wFound = true;
+                        continue;
+                    }
+
+                    checkX:
+                    if (!xFound)
+                    {
+                        if (name != xName)
+                        {
+                            goto checkY;
+                        }
+
+                        if (!(content is X))
+                        {
+                            goto checkY;
+                        }
+
+                        x = (X)content;
+                        xFound = true;
+                        continue;
+                    }
+
+                    checkY:
+                    if (!yFound)
+                    {
+                        if (name != yName)
+                        {
+                            goto checkZ;
+                        }
+
+                        if (!(content is Y))
+                        {
+                            goto checkZ;
+                        }
+
+                        y = (Y)content;
+                        yFound = true;
+                        continue;
+                    }
+
+                    checkZ:
+                    if (!zFound)
+                    {
+                        if (name != zName)
+                        {
+                            continue;
+                        }
+
+                        if (!(content is Z))
+                        {
+                            continue;
+                        }
+
+                        z = (Z)content;
+                        zFound = true;
+                    }
+                }
+            }
+
+            if (tFound && uFound && vFound && wFound && xFound && yFound &&
+                zFound)
+            {
+                goto invoke;
+            }
+
+            return XTuple.Create(t, u, v, w, x, y, z);
+
+            invoke:
+            method?.Invoke(t, u, v, w, x, y, z);
+
+            return XTuple.Create(t, u, v, w, x, y, z);
+        }
+
+        public override XTuple<T, U, V, W, X, Y, Z, AA> Run<T, U, V, W, X, Y, Z,
+            AA>(
+            Do<T, U, V, W, X, Y, Z, AA> method = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null,
+            string zName = null,
+            string aaName = null)
+        {
+            var ds = this.dependencies;
+            var t = default(T);
+            var u = default(U);
+            var v = default(V);
+            var w = default(W);
+            var x = default(X);
+            var y = default(Y);
+            var z = default(Z);
+            var aa = default(AA);
+            bool
+                tFound = false,
+                uFound = false,
+                vFound = false,
+                wFound = false,
+                xFound = false,
+                yFound = false,
+                zFound = false,
+                aaFound = false;
+            lock (this.locker)
+            {
+                foreach (var d in ds)
+                {
+                    if (tFound && uFound && vFound && wFound && xFound &&
+                        yFound && zFound && aaFound)
+                    {
+                        goto invoke;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
+                    if (!tFound)
+                    {
+                        if (name != tName)
+                        {
+                            goto checkU;
+                        }
+
+                        if (!(content is T))
+                        {
+                            goto checkU;
+                        }
+
+                        t = (T)content;
+                        tFound = true;
+                        continue;
+                    }
+
+                    checkU:
+                    if (!uFound)
+                    {
+                        if (name != uName)
+                        {
+                            goto checkV;
+                        }
+
+                        if (!(content is U))
+                        {
+                            goto checkV;
+                        }
+
+                        u = (U)content;
+                        uFound = true;
+                        continue;
+                    }
+
+                    checkV:
+                    if (!vFound)
+                    {
+                        if (name != vName)
+                        {
+                            goto checkW;
+                        }
+
+                        if (!(content is V))
+                        {
+                            goto checkW;
+                        }
+
+                        v = (V)content;
+                        vFound = true;
+                        continue;
+                    }
+
+                    checkW:
+                    if (!wFound)
+                    {
+                        if (name != wName)
+                        {
+                            goto checkX;
+                        }
+
+                        if (!(content is W))
+                        {
+                            goto checkX;
+                        }
+
+                        w = (W)content;
+                        wFound = true;
+                        continue;
+                    }
+
+                    checkX:
+                    if (!xFound)
+                    {
+                        if (name != xName)
+                        {
+                            goto checkY;
+                        }
+
+                        if (!(content is X))
+                        {
+                            goto checkY;
+                        }
+
+                        x = (X)content;
+                        xFound = true;
+                        continue;
+                    }
+
+                    checkY:
+                    if (!yFound)
+                    {
+                        if (name != yName)
+                        {
+                            goto checkZ;
+                        }
+
+                        if (!(content is Y))
+                        {
+                            goto checkZ;
+                        }
+
+                        y = (Y)content;
+                        yFound = true;
+                        continue;
+                    }
+
+                    checkZ:
+                    if (!zFound)
+                    {
+                        if (name != zName)
+                        {
+                            goto checkAA;
+                        }
+
+                        if (!(content is Z))
+                        {
+                            goto checkAA;
+                        }
+
+                        z = (Z)content;
+                        zFound = true;
+                        continue;
+                    }
+
+                    checkAA:
+                    if (!aaFound)
+                    {
+                        if (name != aaName)
+                        {
+                            continue;
+                        }
+
+                        if (!(content is AA))
+                        {
+                            continue;
+                        }
+
+                        aa = (AA)content;
+                        aaFound = true;
+                    }
+                }
+            }
+
+            if (tFound && uFound && vFound && wFound && xFound && yFound &&
+                zFound && aaFound)
+            {
+                goto invoke;
+            }
+
+            return XTuple.Create(t, u, v, w, x, y, z, aa);
+
+            invoke:
+            method?.Invoke(t, u, v, w, x, y, z, aa);
+
+            return XTuple.Create(t, u, v, w, x, y, z, aa);
         }
 
         protected readonly object locker;

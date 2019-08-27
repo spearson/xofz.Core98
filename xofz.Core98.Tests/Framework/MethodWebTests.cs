@@ -4,6 +4,7 @@
     using Ploeh.AutoFixture;
     using xofz.Framework;
     using Xunit;
+    using Xunit.Abstractions;
 
     public class MethodWebTests
     {
@@ -350,7 +351,7 @@
             void Start();
         }
 
-        public class When_Process_4T_is_called : Context
+        public class When_Run_4T_is_called : Context
         {
             [Fact]
             public void Does_not_throw_if_dependency_not_found()
@@ -441,6 +442,139 @@
                     .MustHaveHappened();
                 A.CallTo(() => sampleService.Start())
                     .MustHaveHappened();
+            }
+        }
+
+        public class When_Run_5_is_called : Context
+        {
+            protected readonly ITestOutputHelper outputter;
+
+            public When_Run_5_is_called(
+                ITestOutputHelper outputter)
+            {
+                this.outputter = outputter;
+            }
+
+            [Fact]
+            public void Executes_if_everything_found()
+            {
+                var w = this.web;
+                var ran = false;
+                w.RegisterDependency(this.fixture.Create<short>());
+                w.RegisterDependency(this.fixture.Create<long>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<int>());
+                w.RegisterDependency(this.fixture.Create<byte>());
+
+                w.Run<int, long, byte, short, string>((i, l, b, s, ss) =>
+                {
+                    outputter.WriteLine(ss);
+                    ran = true;
+                });
+
+                Assert.True(ran);
+            }
+        }
+
+        public class When_Run_6_is_called : Context
+        {
+            protected readonly ITestOutputHelper outputter;
+
+            public When_Run_6_is_called(
+                ITestOutputHelper outputter)
+            {
+                this.outputter = outputter;
+            }
+
+            [Fact]
+            public void Executes_if_everything_found()
+            {
+                var w = this.web;
+                var ran = false;
+                w.RegisterDependency(this.fixture.Create<short>());
+                w.RegisterDependency(this.fixture.Create<long>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<int>());
+                w.RegisterDependency(this.fixture.Create<byte>());
+
+                w.Run<int, long, string, byte, short, string>((i, l, ss1, b, s, ss2) =>
+                {
+                    outputter.WriteLine(ss2);
+                    ran = true;
+                });
+
+                Assert.True(ran);
+            }
+        }
+
+        public class When_Run_7_is_called : Context
+        {
+            protected readonly ITestOutputHelper outputter;
+
+            public When_Run_7_is_called(
+                ITestOutputHelper outputter)
+            {
+                this.outputter = outputter;
+            }
+
+            [Fact]
+            public void Executes_if_everything_found()
+            {
+                var w = this.web;
+                var ran = false;
+                w.RegisterDependency(this.fixture.Create<short>());
+                w.RegisterDependency(this.fixture.Create<long>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<int>());
+                w.RegisterDependency(this.fixture.Create<byte>());
+                w.RegisterDependency(A.Fake<SampleDependencyContract>());
+
+                w.Run<int, long, SampleDependencyContract, string, byte, short,
+                    string>((i, l, sampleDep, ss1, b, s, ss2) =>
+                {
+                    outputter.WriteLine(ss2);
+                    ran = true;
+                });
+
+                Assert.True(ran);
+            }
+        }
+
+        public class When_Run_8_is_called : Context
+        {
+            protected readonly ITestOutputHelper outputter;
+
+            public When_Run_8_is_called(
+                ITestOutputHelper outputter)
+            {
+                this.outputter = outputter;
+            }
+
+            [Fact]
+            public void Executes_if_everything_found()
+            {
+                var w = this.web;
+                var ran = false;
+                w.RegisterDependency(this.fixture.Create<short>());
+                w.RegisterDependency(this.fixture.Create<long>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(A.Fake<AnotherDependency>());
+                w.RegisterDependency(this.fixture.Create<string>());
+                w.RegisterDependency(this.fixture.Create<int>());
+                w.RegisterDependency(this.fixture.Create<byte>());
+                w.RegisterDependency(A.Fake<SampleDependencyContract>());
+
+                w.Run<int, long, SampleDependencyContract, string, byte, short,
+                    string, AnotherDependency>(
+                    (i, l, sampleDep, ss1, b, s, ss2, anotherDep) =>
+                {
+                    outputter.WriteLine(ss2);
+                    ran = true;
+                });
+
+                Assert.True(ran);
             }
         }
     }

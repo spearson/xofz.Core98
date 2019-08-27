@@ -36,7 +36,7 @@
                     new AccessController(w)));
             ThreadPool.QueueUserWorkItem(o =>
             {
-                for (byte j = 0; j < 0xFF; ++j)
+                for (short j = 0; j < 0x3FF; ++j)
                 {
                     w.Run<QuickSorter>();
                     w.Run<AccessController>();

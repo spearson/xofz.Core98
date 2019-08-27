@@ -4,7 +4,8 @@
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
-    public class MethodWebManagerV2 : MethodWebManager
+    public class MethodWebManagerV2
+        : MethodWebManager
     {
         public MethodWebManagerV2()
         {
@@ -48,7 +49,7 @@
         }
 
         public override bool AddWeb(
-            MethodWeb web, 
+            MethodWeb web,
             string name = null)
         {
             if (web == null)
@@ -92,8 +93,8 @@
             return true;
         }
 
-        public override void AccessWeb(
-            Do<MethodWeb> accessor,
+        public override MethodWeb AccessWeb(
+            Do<MethodWeb> accessor = null,
             string webName = null)
         {
             NamedMethodWebHolder targetWeb;
@@ -107,14 +108,15 @@
             var innerWeb = targetWeb?.Web;
             if (innerWeb == null)
             {
-                return;
+                return null;
             }
 
-            accessor(innerWeb);
+            accessor?.Invoke(innerWeb);
+            return innerWeb;
         }
 
-        public override void AccessWeb<T>(
-            Do<T> accessor, 
+        public override T AccessWeb<T>(
+            Do<T> accessor = null,
             string webName = null)
         {
             NamedMethodWebHolder targetWeb;
@@ -128,10 +130,11 @@
             var innerWeb = targetWeb?.Web as T;
             if (innerWeb == null)
             {
-                return;
+                return null;
             }
 
-            accessor(innerWeb);
+            accessor?.Invoke(innerWeb);
+            return innerWeb;
         }
 
         public virtual bool RemoveWeb(
@@ -158,7 +161,7 @@
         }
 
         public override T RunWeb<T>(
-            Do<T> engine = null, 
+            Do<T> engine = null,
             string webName = null,
             string dependencyName = null)
         {
@@ -176,14 +179,16 @@
                 return default(T);
             }
 
-            return innerWeb.Run(engine, dependencyName);
+            return innerWeb.Run(
+                engine, 
+                dependencyName);
         }
 
         public override XTuple<T, U> RunWeb<T, U>(
-            Do<T, U> engine = null, 
+            Do<T, U> engine = null,
             string webName = null,
-            string dependency1Name = null, 
-            string dependency2Name = null)
+            string tName = null,
+            string uName = null)
         {
             NamedMethodWebHolder targetWeb;
             lock (this.locker)
@@ -203,15 +208,15 @@
 
             return innerWeb.Run(
                 engine,
-                dependency1Name,
-                dependency2Name);
+                tName,
+                uName);
         }
 
         public override XTuple<T, U, V> RunWeb<T, U, V>(
             Do<T, U, V> engine = null,
             string webName = null,
-            string dependency1Name = null, string dependency2Name = null,
-            string dependency3Name = null)
+            string tName = null, string uName = null,
+            string vName = null)
         {
             NamedMethodWebHolder targetWeb;
             lock (this.locker)
@@ -232,18 +237,18 @@
 
             return innerWeb.Run(
                 engine,
-                dependency1Name,
-                dependency2Name,
-                dependency3Name);
+                tName,
+                uName,
+                vName);
         }
 
         public override XTuple<T, U, V, W> RunWeb<T, U, V, W>(
-            Do<T, U, V, W> engine = null, 
+            Do<T, U, V, W> engine = null,
             string webName = null,
-            string dependency1Name = null, 
-            string dependency2Name = null,
-            string dependency3Name = null, 
-            string dependency4Name = null)
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null)
         {
             NamedMethodWebHolder targetWeb;
             lock (this.locker)
@@ -265,10 +270,177 @@
 
             return innerWeb.Run(
                 engine,
-                dependency1Name,
-                dependency2Name,
-                dependency3Name,
-                dependency4Name);
+                tName,
+                uName,
+                vName,
+                wName);
+        }
+
+        public override XTuple<T, U, V, W, X> RunWeb<T, U, V, W, X>(
+            Do<T, U, V, W, X> engine = null,
+            string webName = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null)
+        {
+            NamedMethodWebHolder targetWeb;
+            lock (this.locker)
+            {
+                targetWeb = EH.FirstOrDefault(
+                    this.webs,
+                    nmwh => nmwh.Name == webName);
+            }
+
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
+            {
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X));
+            }
+
+            return innerWeb.Run(
+                engine,
+                tName,
+                uName,
+                vName,
+                wName,
+                xName);
+        }
+
+        public override XTuple<T, U, V, W, X, Y> RunWeb<T, U, V, W, X, Y>(
+            Do<T, U, V, W, X, Y> engine = null,
+            string webName = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null)
+        {
+            NamedMethodWebHolder targetWeb;
+            lock (this.locker)
+            {
+                targetWeb = EH.FirstOrDefault(
+                    this.webs,
+                    nmwh => nmwh.Name == webName);
+            }
+
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
+            {
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y));
+            }
+
+            return innerWeb.Run(
+                engine,
+                tName,
+                uName,
+                vName,
+                wName,
+                xName,
+                yName);
+        }
+
+        public override XTuple<T, U, V, W, X, Y, Z> RunWeb<T, U, V, W, X, Y, Z>(
+            Do<T, U, V, W, X, Y, Z> engine = null,
+            string webName = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null,
+            string zName = null)
+        {
+            NamedMethodWebHolder targetWeb;
+            lock (this.locker)
+            {
+                targetWeb = EH.FirstOrDefault(
+                    this.webs,
+                    nmwh => nmwh.Name == webName);
+            }
+
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
+            {
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y),
+                    default(Z));
+            }
+
+            return innerWeb.Run(
+                engine,
+                tName,
+                uName,
+                vName,
+                wName,
+                xName,
+                yName,
+                zName);
+        }
+
+        public override XTuple<T, U, V, W, X, Y, Z, AA> RunWeb<T, U, V, W, X, Y,
+            Z, AA>(
+            Do<T, U, V, W, X, Y, Z, AA> engine = null,
+            string webName = null,
+            string tName = null,
+            string uName = null,
+            string vName = null,
+            string wName = null,
+            string xName = null,
+            string yName = null,
+            string zName = null,
+            string aaName = null)
+        {
+            NamedMethodWebHolder targetWeb;
+            lock (this.locker)
+            {
+                targetWeb = EH.FirstOrDefault(
+                    this.webs,
+                    nmwh => nmwh.Name == webName);
+            }
+
+            var innerWeb = targetWeb?.Web;
+            if (innerWeb == null)
+            {
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y),
+                    default(Z),
+                    default(AA));
+            }
+
+            return innerWeb.Run(
+                engine,
+                tName,
+                uName,
+                vName,
+                wName,
+                xName,
+                yName,
+                zName,
+                aaName);
         }
 
         protected readonly object locker;
