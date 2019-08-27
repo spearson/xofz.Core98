@@ -42,19 +42,14 @@
             T t;
             foreach (var d in ds)
             {
-                if (d.Name != dependencyName)
+                if (this.tryGet(
+                    d.Content,
+                    d.Name,
+                    dependencyName,
+                    out t))
                 {
-                    continue;
+                    goto invoke;
                 }
-
-                var content = d.Content;
-                if (!(content is T))
-                {
-                    continue;
-                }
-
-                t = (T)content;
-                goto invoke;
             }
 
             return default(T);
@@ -87,36 +82,27 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
-
-                checkU:
+                
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        continue;
+                        uFound = true;
                     }
-
-                    if (!(content is U))
-                    {
-                        continue;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
                 }
             }
 
@@ -158,54 +144,40 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        continue;
+                        vFound = true;
                     }
-
-                    if (!(content is V))
-                    {
-                        continue;
-                    }
-
-                    v = (V)content;
-                    vFound = true;
                 }
             }
 
@@ -250,72 +222,53 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        goto checkW;
+                        vFound = true;
+                        continue;
                     }
-
-                    if (!(content is V))
-                    {
-                        goto checkW;
-                    }
-
-                    v = (V)content;
-                    vFound = true;
-                    continue;
                 }
 
-                checkW:
                 if (!wFound)
                 {
-                    if (name != wName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        wName,
+                        out w))
                     {
-                        continue;
+                        wFound = true;
                     }
-
-                    if (!(content is W))
-                    {
-                        continue;
-                    }
-
-                    w = (W)content;
-                    wFound = true;
                 }
             }
 
@@ -363,90 +316,66 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T) content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U) content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        goto checkW;
+                        vFound = true;
+                        continue;
                     }
-
-                    if (!(content is V))
-                    {
-                        goto checkW;
-                    }
-
-                    v = (V) content;
-                    vFound = true;
-                    continue;
                 }
 
-                checkW:
                 if (!wFound)
                 {
-                    if (name != wName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        wName,
+                        out w))
                     {
-                        goto checkX;
+                        wFound = true;
+                        continue;
                     }
-
-                    if (!(content is W))
-                    {
-                        goto checkX;
-                    }
-
-                    w = (W) content;
-                    wFound = true;
-                    continue;
                 }
 
-                checkX:
                 if (!xFound)
                 {
-                    if (name != xName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        xName,
+                        out x))
                     {
-                        continue;
+                        xFound = true;
                     }
-
-                    if (!(content is X))
-                    {
-                        continue;
-                    }
-
-                    x = (X)content;
-                    xFound = true;
                 }
             }
 
@@ -497,108 +426,79 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        goto checkW;
+                        vFound = true;
+                        continue;
                     }
-
-                    if (!(content is V))
-                    {
-                        goto checkW;
-                    }
-
-                    v = (V)content;
-                    vFound = true;
-                    continue;
                 }
 
-                checkW:
                 if (!wFound)
                 {
-                    if (name != wName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        wName,
+                        out w))
                     {
-                        goto checkX;
+                        wFound = true;
+                        continue;
                     }
-
-                    if (!(content is W))
-                    {
-                        goto checkX;
-                    }
-
-                    w = (W)content;
-                    wFound = true;
-                    continue;
                 }
 
-                checkX:
                 if (!xFound)
                 {
-                    if (name != xName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        xName,
+                        out x))
                     {
-                        goto checkY;
+                        xFound = true;
+                        continue;
                     }
-
-                    if (!(content is X))
-                    {
-                        goto checkY;
-                    }
-
-                    x = (X)content;
-                    xFound = true;
-                    continue;
                 }
 
-                checkY:
                 if (!yFound)
                 {
-                    if (name != yName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        yName,
+                        out y))
                     {
-                        continue;
+                        yFound = true;
                     }
-
-                    if (!(content is Y))
-                    {
-                        continue;
-                    }
-
-                    y = (Y)content;
-                    yFound = true;
                 }
             }
 
@@ -653,126 +553,92 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        goto checkW;
+                        vFound = true;
+                        continue;
                     }
-
-                    if (!(content is V))
-                    {
-                        goto checkW;
-                    }
-
-                    v = (V)content;
-                    vFound = true;
-                    continue;
                 }
 
-                checkW:
                 if (!wFound)
                 {
-                    if (name != wName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        wName,
+                        out w))
                     {
-                        goto checkX;
+                        wFound = true;
+                        continue;
                     }
-
-                    if (!(content is W))
-                    {
-                        goto checkX;
-                    }
-
-                    w = (W)content;
-                    wFound = true;
-                    continue;
                 }
 
-                checkX:
                 if (!xFound)
                 {
-                    if (name != xName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        xName,
+                        out x))
                     {
-                        goto checkY;
+                        xFound = true;
+                        continue;
                     }
-
-                    if (!(content is X))
-                    {
-                        goto checkY;
-                    }
-
-                    x = (X)content;
-                    xFound = true;
-                    continue;
                 }
 
-                checkY:
                 if (!yFound)
                 {
-                    if (name != yName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        yName,
+                        out y))
                     {
-                        goto checkZ;
+                        yFound = true;
+                        continue;
                     }
-
-                    if (!(content is Y))
-                    {
-                        goto checkZ;
-                    }
-
-                    y = (Y)content;
-                    yFound = true;
-                    continue;
                 }
 
-                checkZ:
                 if (!zFound)
                 {
-                    if (name != zName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        zName,
+                        out z))
                     {
-                        continue;
+                        zFound = true;
                     }
-
-                    if (!(content is Z))
-                    {
-                        continue;
-                    }
-
-                    z = (Z)content;
-                    zFound = true;
                 }
             }
 
@@ -832,144 +698,105 @@
                 var content = d.Content;
                 if (!tFound)
                 {
-                    if (name != tName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        tName,
+                        out t))
                     {
-                        goto checkU;
+                        tFound = true;
+                        continue;
                     }
-
-                    if (!(content is T))
-                    {
-                        goto checkU;
-                    }
-
-                    t = (T)content;
-                    tFound = true;
-                    continue;
                 }
 
-                checkU:
                 if (!uFound)
                 {
-                    if (name != uName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        uName,
+                        out u))
                     {
-                        goto checkV;
+                        uFound = true;
+                        continue;
                     }
-
-                    if (!(content is U))
-                    {
-                        goto checkV;
-                    }
-
-                    u = (U)content;
-                    uFound = true;
-                    continue;
                 }
 
-                checkV:
                 if (!vFound)
                 {
-                    if (name != vName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        vName,
+                        out v))
                     {
-                        goto checkW;
+                        vFound = true;
+                        continue;
                     }
-
-                    if (!(content is V))
-                    {
-                        goto checkW;
-                    }
-
-                    v = (V)content;
-                    vFound = true;
-                    continue;
                 }
 
-                checkW:
                 if (!wFound)
                 {
-                    if (name != wName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        wName,
+                        out w))
                     {
-                        goto checkX;
+                        wFound = true;
+                        continue;
                     }
-
-                    if (!(content is W))
-                    {
-                        goto checkX;
-                    }
-
-                    w = (W)content;
-                    wFound = true;
-                    continue;
                 }
 
-                checkX:
                 if (!xFound)
                 {
-                    if (name != xName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        xName,
+                        out x))
                     {
-                        goto checkY;
+                        xFound = true;
+                        continue;
                     }
-
-                    if (!(content is X))
-                    {
-                        goto checkY;
-                    }
-
-                    x = (X)content;
-                    xFound = true;
-                    continue;
                 }
 
-                checkY:
                 if (!yFound)
                 {
-                    if (name != yName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        yName,
+                        out y))
                     {
-                        goto checkZ;
+                        yFound = true;
+                        continue;
                     }
-
-                    if (!(content is Y))
-                    {
-                        goto checkZ;
-                    }
-
-                    y = (Y)content;
-                    yFound = true;
-                    continue;
                 }
 
-                checkZ:
                 if (!zFound)
                 {
-                    if (name != zName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        zName,
+                        out z))
                     {
-                        goto checkAA;
+                        zFound = true;
+                        continue;
                     }
-
-                    if (!(content is Z))
-                    {
-                        goto checkAA;
-                    }
-
-                    z = (Z)content;
-                    zFound = true;
-                    continue;
                 }
 
-                checkAA:
                 if (!aaFound)
                 {
-                    if (name != aaName)
+                    if (this.tryGet(
+                        content,
+                        name,
+                        aaName,
+                        out aa))
                     {
-                        continue;
+                        aaFound = true;
                     }
-
-                    if (!(content is AA))
-                    {
-                        continue;
-                    }
-
-                    aa = (AA)content;
-                    aaFound = true;
                 }
             }
 
@@ -985,6 +812,28 @@
             method?.Invoke(t, u, v, w, x, y, z, aa);
 
             return XTuple.Create(t, u, v, w, x, y, z, aa);
+        }
+
+        protected virtual bool tryGet<T>(
+            object content,
+            string name,
+            string passedName,
+            out T dependency)
+        {
+            if (name != passedName)
+            {
+                dependency = default(T);
+                return false;
+            }
+
+            if (!(content is T))
+            {
+                dependency = default(T);
+                return false;
+            }
+
+            dependency = (T)content;
+            return true;
         }
 
         protected readonly ICollection<Dependency> dependencies;
