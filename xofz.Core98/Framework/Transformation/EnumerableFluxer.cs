@@ -44,32 +44,32 @@
 
             using (var e = source.GetEnumerator())
             {
-                T nextCurrent = default;
-                byte indexer = 0;
+                var indexer = 0;
+                T nextItem = default;
 
-                addAndReturnChunk:
+                chunk:
+                ICollection<T> currentChunk = new LinkedList<T>();
                 var nextChunkSize = this.rng.Next(min, maxExclusive);
-                var ll = new LinkedList<T>();
                 if (indexer > 0)
                 {
-                    ll.AddLast(nextCurrent);
+                    currentChunk.Add(nextItem);
                 }
 
                 while (indexer < nextChunkSize && e.MoveNext())
                 {
-                    ll.AddLast(e.Current);
+                    currentChunk.Add(e.Current);
                     ++indexer;
                 }
 
-                yield return ll;
+                yield return currentChunk;
                 if (!e.MoveNext())
                 {
                     yield break;
                 }
 
-                nextCurrent = e.Current;
+                nextItem = e.Current;
                 indexer = 1;
-                goto addAndReturnChunk;
+                goto chunk;
             }
         }
 
