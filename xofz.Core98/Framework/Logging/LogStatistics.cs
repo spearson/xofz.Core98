@@ -30,8 +30,8 @@
 
         public virtual void ComputeOverall()
         {
-            var w = this.runner;
-            w.Run<Log, Lotter>((l, lotter) =>
+            var r = this.runner;
+            r.Run<Log, Lotter>((l, lotter) =>
                 {
                     var allEntries = lotter.Materialize(l.ReadEntries());
                     var start = DateTime.MaxValue;

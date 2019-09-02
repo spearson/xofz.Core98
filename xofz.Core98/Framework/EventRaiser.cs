@@ -16,7 +16,7 @@
                 return;
             }
 
-            var @event = (Delegate)holderType
+            var @event = (Delegate) holderType
                 .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
                 ?.GetValue(eventHolder);
             if (@event == null)
@@ -24,14 +24,28 @@
                 Type baseType = null;
                 for (byte i = 0; i < 0xFF; ++i)
                 {
-                    baseType = baseType?.BaseType ?? holderType.BaseType;
+                    if (baseType == null)
+                    {
+                        baseType = holderType.BaseType;
+                        if (baseType == null)
+                        {
+                            break;
+                        }
+
+                        goto tryGetEvent;
+                    }
+
+                    baseType = baseType.BaseType;
                     if (baseType == null)
                     {
                         break;
                     }
 
-                    @event = (Delegate)baseType
-                        .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
+                    tryGetEvent:
+                    @event = (Delegate) baseType
+                        .GetField(eventName,
+                            BindingFlags.Instance |
+                            BindingFlags.NonPublic)
                         ?.GetValue(eventHolder);
                     if (@event != null)
                     {
@@ -42,7 +56,7 @@
                 return;
             }
 
-        raise:
+            raise:
             @event.DynamicInvoke(args);
         }
     }

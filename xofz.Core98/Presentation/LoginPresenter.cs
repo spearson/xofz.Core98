@@ -79,7 +79,8 @@
         /// </summary>
         public override void Start()
         {
-            if (Interlocked.Read(ref this.setupIf1) != 1)
+            if (Interlocked.Read(
+                    ref this.setupIf1) != 1)
             {
                 return;
             }
@@ -101,8 +102,8 @@
                 return;
             }
 
-            var w = this.runner;
-            w.Run<StopHandler>(handler =>
+            var r = this.runner;
+            r.Run<StopHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -119,8 +120,8 @@
 
         private void ui_LoginKeyTapped()
         {
-            var w = this.runner;
-            w.Run<LoginKeyTappedHandler>(handler =>
+            var r = this.runner;
+            r.Run<LoginKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -135,10 +136,11 @@
             });
         }
 
-        private void accessLevelChanged(AccessLevel newAccessLevel)
+        private void accessLevelChanged(
+            AccessLevel newAccessLevel)
         {
-            var w = this.runner;
-            w.Run<AccessLevelChangedHandler>(handler =>
+            var r = this.runner;
+            r.Run<AccessLevelChangedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,

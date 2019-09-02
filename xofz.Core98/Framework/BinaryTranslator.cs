@@ -187,12 +187,15 @@
             }
         }
 
-        protected virtual bool getBit(byte b, byte shift)
+        protected virtual bool getBit(
+            byte b, 
+            byte shift)
         {
             return (b >> shift) % 2 == 1;
         }
 
-        protected virtual byte getByte(bool[] bits)
+        protected virtual byte getByte(
+            bool[] bits)
         {
             byte result = 0;
             if (bits == null)

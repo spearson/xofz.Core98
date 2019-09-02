@@ -11,7 +11,7 @@
         {
             if (s == null)
             {
-                return default(T);
+                return default;
             }
 
             try
@@ -20,7 +20,7 @@
             }
             catch
             {
-                return default(T);
+                return default;
             }
             
         }

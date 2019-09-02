@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>H:\Dropbox\Libraries\xUnit\xunit.assert.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.console">
+      <HintPath>H:\Dropbox\Libraries\xUnit\xunit.console.exe</HintPath>
+    </Reference>
     <Reference Include="xunit.core, Version=2.1.0.3179, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>H:\Dropbox\Libraries\xUnit\xunit.core.dll</HintPath>

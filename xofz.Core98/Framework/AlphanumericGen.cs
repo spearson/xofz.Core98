@@ -7,7 +7,8 @@
 
     public class AlphanumericGen
     {
-        public virtual string Generate(byte length)
+        public virtual string Generate(
+            byte length)
         {
             var sb = new StringBuilder(length);
             var buffer = new byte[1];
@@ -45,7 +46,8 @@
             return sb.ToString();
         }
 
-        public virtual SecureString GenerateSecure(byte length)
+        public virtual SecureString GenerateSecure(
+            byte length)
         {
             var s = new SecureString();
             var buffer = new byte[1];

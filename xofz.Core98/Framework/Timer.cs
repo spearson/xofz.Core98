@@ -8,7 +8,8 @@ namespace xofz.Framework
 {
     using System;
 
-    public class Timer : IDisposable
+    public class Timer
+        : IDisposable
     {
         public Timer()
         {

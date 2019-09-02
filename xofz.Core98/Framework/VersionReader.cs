@@ -9,13 +9,9 @@
         public VersionReader(
             Assembly executingAssembly)
         {
-            if (executingAssembly == null)
-            {
-                throw new ArgumentNullException(
-                    nameof(executingAssembly));
-            }
-
-            this.executingAssembly = executingAssembly;
+            this.executingAssembly = executingAssembly ??
+                                     throw new ArgumentNullException(
+                                         nameof(executingAssembly));
         }
        
         public virtual string Read()
@@ -55,7 +51,8 @@
             return an.Version;
         }
 
-        protected virtual string readProtected(Assembly assembly)
+        protected virtual string readProtected(
+            Assembly assembly)
         {
             var v = this.ReadAsVersion(assembly);
 

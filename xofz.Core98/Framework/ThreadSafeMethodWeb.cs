@@ -98,7 +98,7 @@
                 }
             }
 
-            return default(T);
+            return default;
 
             invoke:
             method?.Invoke(t);
@@ -112,8 +112,8 @@
             string uName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
+            T t = default;
+            U u = default;
             bool
                 tFound = false,
                 uFound = false;
@@ -175,9 +175,9 @@
             string vName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
+            T t = default;
+            U u = default;
+            V v = default;
             bool
                 tFound = false,
                 uFound = false,
@@ -254,10 +254,10 @@
             string wName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
-            var w = default(W);
+            T t = default;
+            U u = default;
+            V v = default;
+            W w = default;
             bool
                 tFound = false,
                 uFound = false,
@@ -349,11 +349,11 @@
             string xName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
-            var w = default(W);
-            var x = default(X);
+            T t = default;
+            U u = default;
+            V v = default;
+            W w = default;
+            X x = default;
             bool
                 tFound = false,
                 uFound = false,
@@ -460,12 +460,12 @@
             string yName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
-            var w = default(W);
-            var x = default(X);
-            var y = default(Y);
+            T t = default;
+            U u = default;
+            V v = default;
+            W w = default;
+            X x = default;
+            Y y = default;
             bool
                 tFound = false,
                 uFound = false,
@@ -588,13 +588,13 @@
             string zName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
-            var w = default(W);
-            var x = default(X);
-            var y = default(Y);
-            var z = default(Z);
+            T t = default;
+            U u = default;
+            V v = default;
+            W w = default;
+            X x = default;
+            Y y = default;
+            Z z = default;
             bool
                 tFound = false,
                 uFound = false,
@@ -734,14 +734,14 @@
             string aaName = null)
         {
             var ds = this.dependencies;
-            var t = default(T);
-            var u = default(U);
-            var v = default(V);
-            var w = default(W);
-            var x = default(X);
-            var y = default(Y);
-            var z = default(Z);
-            var aa = default(AA);
+            T t = default;
+            U u = default;
+            V v = default;
+            W w = default;
+            X x = default;
+            Y y = default;
+            Z z = default;
+            AA aa = default;
             bool
                 tFound = false,
                 uFound = false,

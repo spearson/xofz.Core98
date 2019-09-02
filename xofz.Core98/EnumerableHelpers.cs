@@ -305,9 +305,9 @@
             if (source == null)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is null and therefore "
-                    + "does not have a first item.  If this can happen, "
-                    + "consider using FirstOrDefault<T>()");
+                    @"The enumerable is null and therefore "
+                    + @"does not have a first item.  If this can happen, "
+                    + @"consider using FirstOrDefault<T>()");
             }
 
             foreach (var item in source)
@@ -316,9 +316,9 @@
             }
 
             throw new InvalidOperationException(
-                "The enumerable is empty and therefore "
-                + "does not have a first item.  If this can happen, "
-                + "consider using FirstOrDefault<T>()");
+                @"The enumerable is empty and therefore "
+                + @"does not have a first item.  If this can happen, "
+                + @"consider using FirstOrDefault<T>()");
         }
 
         public static T First<T>(
@@ -328,9 +328,9 @@
             if (source == null)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is null and therefore "
-                    + "does not have a first item.  If this can happen, "
-                    + "consider using FirstOrDefault<T>()");
+                    @"The enumerable is null and therefore "
+                    + @"does not have a first item.  If this can happen, "
+                    + @"consider using FirstOrDefault<T>()");
             }
 
             if (predicate == null)
@@ -351,14 +351,14 @@
             if (empty)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is empty and therefore "
-                    + "does not have a first item.  If this can happen, "
-                    + "consider using FirstOrDefault<T>()");
+                    @"The enumerable is empty and therefore "
+                    + @"does not have a first item.  If this can happen, "
+                    + @"consider using FirstOrDefault<T>()");
             }
 
             throw new InvalidOperationException(
-                "The non-empty enumerable did not have any elements "
-                + "which matched the predicate.");
+                @"The non-empty enumerable did not have any elements "
+                + @"which matched the predicate.");
         }
 
         public static T FirstOrDefault<T>(
@@ -366,7 +366,7 @@
         {
             if (source == null)
             {
-                return default(T);
+                return default;
             }
 
             foreach (var item in source)
@@ -374,7 +374,7 @@
                 return item;
             }
 
-            return default(T);
+            return default;
         }
 
         public static T FirstOrDefault<T>(
@@ -383,12 +383,12 @@
         {
             if (source == null)
             {
-                return default(T);
+                return default;
             }
 
             if (predicate == null)
             {
-                return default(T);
+                return default;
             }
 
             foreach (var item in source)
@@ -399,7 +399,7 @@
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public static T Last<T>(
@@ -408,12 +408,12 @@
             if (source == null)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is null and therefore does not " +
-                    "have a last item.  If this can occur, consider using " +
-                    "LastOrDefault<T>()");
+                    @"The enumerable is null and therefore does not " +
+                    @"have a last item.  If this can occur, consider using " +
+                    @"LastOrDefault<T>()");
             }
 
-            T lastItem = default(T);
+            T lastItem = default;
             bool lastChanged = false;
             foreach (var item in source)
             {
@@ -424,9 +424,9 @@
             if (!lastChanged)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is empty and therefore does not " +
-                    "have a last item.  If this can occur, consider using " +
-                    "LastOrDefault<T>()");
+                    @"The enumerable is empty and therefore does not " +
+                    @"have a last item.  If this can occur, consider using " +
+                    @"LastOrDefault<T>()");
             }
 
             return lastItem;
@@ -439,9 +439,9 @@
             if (source == null)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is null and therefore does not " +
-                    "have a last item.  If this can occur, consider using " +
-                    "LastOrDefault<T>()");
+                    @"The enumerable is null and therefore does not " +
+                    @"have a last item.  If this can occur, consider using " +
+                    @"LastOrDefault<T>()");
             }
 
             if (predicate == null)
@@ -449,7 +449,7 @@
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            T lastItem = default(T);
+            T lastItem = default;
             bool empty = true;
             bool lastChanged = false;
             foreach (var item in source)
@@ -465,14 +465,14 @@
             if (!lastChanged && !empty)
             {
                 throw new InvalidOperationException(
-                    "No elements in the source matched the predicate.");
+                    @"No elements in the source matched the predicate.");
             }
 
             if (empty)
             {
                 throw new InvalidOperationException(
-                    "The enumerable is empty and does not contain a last item. " +
-                    "To avoid the exception, consider using LastOrDefault<T>()");
+                    @"The enumerable is empty and does not contain a last item. " +
+                    @"To avoid the exception, consider using LastOrDefault<T>()");
             }
 
             return lastItem;
@@ -483,10 +483,10 @@
         {
             if (source == null)
             {
-                return default(T);
+                return default;
             }
 
-            T lastItem = default(T);
+            T lastItem = default;
             foreach (var item in source)
             {
                 lastItem = item;
@@ -501,15 +501,15 @@
         {
             if (source == null)
             {
-                return default(T);
+                return default;
             }
 
             if (predicate == null)
             {
-                return default(T);
+                return default;
             }
 
-            T lastItem = default(T);
+            T lastItem = default;
             foreach (var item in source)
             {
                 if (predicate(item))
@@ -749,7 +749,8 @@
             return count;
         }
 
-        public static T[] ToArray<T>(IEnumerable<T> source)
+        public static T[] ToArray<T>(
+            IEnumerable<T> source)
         {
             if (source == null)
             {
@@ -1155,18 +1156,19 @@
         {
             if (dictionary == null)
             {
-                return default(TKey);
+                return default;
             }
 
+            var valueIsNull = value == null;
             foreach (var kvp in dictionary)
             {
-                if (kvp.Value?.Equals(value) ?? value == null)
+                if (kvp.Value?.Equals(value) ?? valueIsNull)
                 {
                     return kvp.Key;
                 }
             }
 
-            return default(TKey);
+            return default;
         }
     }
 }

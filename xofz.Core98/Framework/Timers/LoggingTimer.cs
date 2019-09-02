@@ -47,7 +47,8 @@
             set => this.interval = value;
         }
 
-        public override void Start(TimeSpan interval)
+        public override void Start(
+            TimeSpan interval)
         {
             if (!base.started)
             {
@@ -57,12 +58,14 @@
             base.Start(interval);
         }
 
-        public override void Start(long intervalMilliseconds)
+        public override void Start(
+            long intervalMilliseconds)
         {
             if (!base.started)
             {
                 this.setCurrentInterval(
-                    TimeSpan.FromMilliseconds((double)intervalMilliseconds));
+                    TimeSpan.FromMilliseconds(
+                        (double)intervalMilliseconds));
             }
 
             base.Start(intervalMilliseconds);
@@ -72,8 +75,8 @@
             object sender,
             System.Timers.ElapsedEventArgs e)
         {
-            var w = this.runner;
-            w.Run<LogEditor>(le =>
+            var r = this.runner;
+            r.Run<LogEditor>(le =>
                 {
                     this.log(this, le);
                 },
@@ -82,7 +85,8 @@
             base.innerTimer_Elapsed(sender, e);
         }
 
-        protected virtual void setCurrentInterval(TimeSpan currentInterval)
+        protected virtual void setCurrentInterval(
+            TimeSpan currentInterval)
         {
             this.interval = currentInterval;
         }
