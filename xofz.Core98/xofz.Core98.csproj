@@ -140,6 +140,7 @@
     <Compile Include="Framework\MethodWebManager.cs" />
     <Compile Include="Framework\Shutdown\StartHandler.cs" />
     <Compile Include="Framework\MethodRunner.cs" />
+    <Compile Include="Framework\Transformation\EnumerableFluxer.cs" />
     <Compile Include="Presentation\Navigator.cs" />
     <Compile Include="Presentation\NavigatorV2.cs" />
     <Compile Include="SecureStringToolSet.cs" />

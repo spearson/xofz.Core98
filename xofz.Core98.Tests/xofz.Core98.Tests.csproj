@@ -75,6 +75,7 @@
     <Compile Include="Framework\Transformation\EnumerableDisperserTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableDisplacerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableDraggerTests.cs" />
+    <Compile Include="Framework\Transformation\EnumerableFluxerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableFrontBackLoaderTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableHeartbeaterTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableInjectorTests.cs" />
