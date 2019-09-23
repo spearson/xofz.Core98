@@ -5,7 +5,8 @@
 
     public class ShiftingLot<T> : Lot<T>
     {
-        public ShiftingLot(long capacity)
+        public ShiftingLot(
+            long capacity)
         {
             if (capacity < 0)
             {

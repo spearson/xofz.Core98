@@ -11,12 +11,12 @@
         {
             if (source == null)
             {
-                return default(T);
+                return default;
             }
 
             if (target == null)
             {
-                return default(T);
+                return default;
             }
 
             foreach (var item in source)
@@ -27,7 +27,7 @@
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public virtual Lot<T> Target<T>(
@@ -42,20 +42,20 @@
             }
 
             Lot<T> lot = ll;
-            var nullTarget = target == null;
             var e = source.GetEnumerator();
             if (e == null)
             {
                 return lot;
             }
 
+            var nullTarget = target == null;
             while (e.MoveNext())
             {
                 var item = e.Current;
                 ll.AddLast(item);
                 if (item?.Equals(target) ?? nullTarget)
                 {
-                    for (var i = 0; i < radius; ++i)
+                    for (long i = 0; i < radius; ++i)
                     {
                         if (e.MoveNext())
                         {
@@ -63,6 +63,7 @@
                         }
                     }
 
+                    e.Dispose();
                     return ll;
                 }
 

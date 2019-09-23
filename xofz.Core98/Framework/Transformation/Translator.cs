@@ -26,7 +26,7 @@
 
             if (!s.MoveNext())
             {
-                this.setSourceEnumerator(null);
+                this.Dispose();
                 y = this.yFactory();
                 goto translate;
             }
@@ -57,9 +57,11 @@
         public virtual void Dispose()
         {
             this.sourceEnumerator?.Dispose();
+
+            this.setSourceEnumerator(null);
         }
 
-        private void setSourceEnumerator(
+        protected virtual void setSourceEnumerator(
             IEnumerator<Y> sourceEnumerator)
         {
             this.sourceEnumerator = sourceEnumerator;

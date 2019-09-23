@@ -21,7 +21,7 @@
             T t;
             if (tf == null)
             {
-                t = default(T);
+                t = default;
                 goto actT;
             }
 
@@ -34,7 +34,7 @@
             var tr = this.translator;
             if (tr == null)
             {
-                y = default(Y);
+                y = default;
                 goto actY;
             }
 

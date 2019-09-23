@@ -26,16 +26,23 @@
         public static PasswordHolder Create(
             IEnumerable<SecureString> passwords)
         {
-            var d = new Dictionary<SecureString, AccessLevel>(10);
+            // assuming 1 password per access level
+            var maxPwCount = System
+                .Enum
+                .GetNames(typeof(AccessLevel))
+                .Length;
+
+            var d = new Dictionary<SecureString, AccessLevel>(
+                maxPwCount);
             if (passwords == null)
             {
                 goto finish;
             }
 
-            byte counter = 1;
+            long counter = 1;
             foreach (var password in passwords)
             {
-                if (counter > 10)
+                if (counter > maxPwCount)
                 {
                     break;
                 }
@@ -61,16 +68,23 @@
         public static PasswordHolder Create(
             IEnumerable<string> passwords)
         {
-            var d = new Dictionary<SecureString, AccessLevel>(10);
+            // assuming 1 password per access level
+            var maxPwCount = System
+                .Enum
+                .GetNames(typeof(AccessLevel))
+                .Length;
+
+            var d = new Dictionary<SecureString, AccessLevel>(
+                maxPwCount);
             if (passwords == null)
             {
                 goto finish;
             }
 
-            byte counter = 1;
+            long counter = 1;
             foreach (var password in passwords)
             {
-                if (counter > 10)
+                if (counter > maxPwCount)
                 {
                     break;
                 }
@@ -100,35 +114,32 @@
         }
 
         protected static AccessLevel nextLevel(
-            byte counter)
+            long counter)
         {
-            switch (counter)
+            int enumValue;
+            if (counter > int.MaxValue)
             {
-                case 0:
-                    return AccessLevel.None;
-                case 1:
-                    return AccessLevel.Level1;
-                case 2:
-                    return AccessLevel.Level2;
-                case 3:
-                    return AccessLevel.Level3;
-                case 4:
-                    return AccessLevel.Level4;
-                case 5:
-                    return AccessLevel.Level5;
-                case 6:
-                    return AccessLevel.Level6;
-                case 7:
-                    return AccessLevel.Level7;
-                case 8:
-                    return AccessLevel.Level8;
-                case 9:
-                    return AccessLevel.Level9;
-                case 10:
-                    return AccessLevel.Level10;
-                default:
-                    return AccessLevel.None;
+                enumValue = int.MaxValue;
+                goto checkDef;
             }
+
+            if (counter < int.MinValue)
+            {
+                enumValue = int.MinValue;
+                goto checkDef;
+            }
+
+            enumValue = (int)counter;
+
+            checkDef:
+            if (!System.Enum.IsDefined(
+                typeof(AccessLevel),
+                enumValue))
+            {
+                return AccessLevel.None;
+            }
+
+            return (AccessLevel)enumValue;
         }
     }
 }

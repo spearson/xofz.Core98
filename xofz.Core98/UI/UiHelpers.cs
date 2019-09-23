@@ -8,7 +8,7 @@
         {
             if (read == null)
             {
-                return default(T);
+                return default;
             }
 
             var root = ui?.Root;
@@ -20,13 +20,13 @@
                 }
                 catch
                 {
-                    return default(T);
+                    return default;
                 }
             }
 
             if (root.InvokeRequired)
             {
-                var t = default(T);
+                T t = default;
                 root.Invoke((Do)(() => t = read()), null);
                 return t;
             }

@@ -49,12 +49,12 @@
 
                 chunk:
                 ICollection<T> currentChunk = new LinkedList<T>();
-                var nextChunkSize = this.rng.Next(min, maxExclusive);
                 if (indexer > 0)
                 {
                     currentChunk.Add(nextItem);
                 }
 
+                var nextChunkSize = this.rng.Next(min, maxExclusive);
                 while (indexer < nextChunkSize && e.MoveNext())
                 {
                     currentChunk.Add(e.Current);

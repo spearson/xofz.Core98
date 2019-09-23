@@ -28,7 +28,7 @@
                 item = queue.Dequeue();
                 jagged2[counter1][counter2] = item;
                 ++counter2;
-                if (counter2 != jagged2[counter1].Length)
+                if (counter2 < jagged2[counter1].Length)
                 {
                     continue;
                 }
@@ -67,7 +67,7 @@
                 item = queue.Dequeue();
                 jagged3[counter1][counter2][counter3] = item;
                 ++counter3;
-                if (counter3 != jagged3[counter1][counter2].Length)
+                if (counter3 < jagged3[counter1][counter2].Length)
                 {
                     continue;
                 }
@@ -75,7 +75,7 @@
                 ++counter2;
                 counter3 = 0;
 
-                if (counter2 != jagged3[counter1].Length)
+                if (counter2 < jagged3[counter1].Length)
                 {
                     continue;
                 }
@@ -118,7 +118,7 @@
                 item = queue.Dequeue();
                 jagged4[counter1][counter2][counter3][counter4] = item;
                 ++counter4;
-                if (counter4 != jagged4[counter1][counter2][counter3].Length)
+                if (counter4 < jagged4[counter1][counter2][counter3].Length)
                 {
                     continue;
                 }
@@ -126,7 +126,7 @@
                 ++counter3;
                 counter4 = 0;
 
-                if (counter3 != jagged4[counter1][counter2].Length)
+                if (counter3 < jagged4[counter1][counter2].Length)
                 {
                     continue;
                 }
@@ -134,7 +134,7 @@
                 ++counter2;
                 counter3 = 0;
 
-                if (counter2 != jagged4[counter1].Length)
+                if (counter2 < jagged4[counter1].Length)
                 {
                     continue;
                 }

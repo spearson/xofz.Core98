@@ -158,15 +158,14 @@
             // 
             // addKey
             // 
-            this.addKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.addKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.addKey.AutoSize = true;
             this.addKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.addKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.addKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.addKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addKey.Location = new System.Drawing.Point(228, 150);
+            this.addKey.Location = new System.Drawing.Point(246, 148);
             this.addKey.Margin = new System.Windows.Forms.Padding(0);
             this.addKey.Name = "addKey";
             this.addKey.Size = new System.Drawing.Size(102, 31);
@@ -177,8 +176,7 @@
             // 
             // downKey
             // 
-            this.downKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.downKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.downKey.AutoSize = true;
             this.downKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.downKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
@@ -196,8 +194,7 @@
             // 
             // upKey
             // 
-            this.upKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.upKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.upKey.AutoSize = true;
             this.upKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.upKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
@@ -215,15 +212,14 @@
             // 
             // statisticsKey
             // 
-            this.statisticsKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.statisticsKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.statisticsKey.AutoSize = true;
             this.statisticsKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.statisticsKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.statisticsKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.statisticsKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.statisticsKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statisticsKey.Location = new System.Drawing.Point(228, 112);
+            this.statisticsKey.Location = new System.Drawing.Point(242, 113);
             this.statisticsKey.Margin = new System.Windows.Forms.Padding(0);
             this.statisticsKey.Name = "statisticsKey";
             this.statisticsKey.Size = new System.Drawing.Size(111, 31);
@@ -312,15 +308,14 @@
             // 
             // clearKey
             // 
-            this.clearKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clearKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.clearKey.AutoSize = true;
             this.clearKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.clearKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.clearKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.clearKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clearKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearKey.Location = new System.Drawing.Point(228, 76);
+            this.clearKey.Location = new System.Drawing.Point(246, 78);
             this.clearKey.Margin = new System.Windows.Forms.Padding(0);
             this.clearKey.Name = "clearKey";
             this.clearKey.Size = new System.Drawing.Size(102, 31);
@@ -331,6 +326,7 @@
             // 
             // previousWeekKey
             // 
+            this.previousWeekKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.previousWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.previousWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.previousWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -347,7 +343,7 @@
             // 
             // nextWeekKey
             // 
-            this.nextWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nextWeekKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.nextWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.nextWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.nextWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -364,8 +360,7 @@
             // 
             // currentWeekKey
             // 
-            this.currentWeekKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.currentWeekKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.currentWeekKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
             this.currentWeekKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.currentWeekKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;

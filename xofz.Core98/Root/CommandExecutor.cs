@@ -6,19 +6,25 @@
     public class CommandExecutor
     {
         public CommandExecutor()
-            : this(new LinkedList<Command>(), new object())
+            : this(
+                new LinkedList<Command>(), 
+                new object())
         {
         }
 
         protected CommandExecutor(
             ICollection<Command> executedCommands)
-            : this(executedCommands, new object())
+            : this(
+                executedCommands, 
+                new object())
         {
         }
 
         protected CommandExecutor(
             object locker)
-            : this(new LinkedList<Command>(), locker)
+            : this(
+                new LinkedList<Command>(), 
+                locker)
         {
         }
 
@@ -43,7 +49,7 @@
                 }
             }
 
-            return default(T);
+            return default;
         }
 
         public virtual Lot<T> GetAll<T>() where T : Command
