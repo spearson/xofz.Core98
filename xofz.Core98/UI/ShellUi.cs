@@ -1,7 +1,9 @@
 ﻿namespace xofz.UI
 {
-    public interface ShellUi : Ui
+    public interface ShellUi
+        : Ui
     {
-        void SwitchUi(Ui newUi);
+        void SwitchUi(
+            Ui newUi);
     }
 }

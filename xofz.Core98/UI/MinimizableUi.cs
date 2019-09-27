@@ -1,6 +1,7 @@
 ﻿namespace xofz.UI
 {
-    public interface MinimizableUi : Ui
+    public interface MinimizableUi
+        : Ui
     {
         event Do Minimized;
 

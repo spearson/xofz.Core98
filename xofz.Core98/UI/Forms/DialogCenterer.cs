@@ -91,24 +91,40 @@ namespace xofz.UI.Forms
             this.tryCount = tryCount;
         }
 
-        protected delegate bool EnumThreadWndProc(IntPtr hWnd, IntPtr lp);
+        protected delegate bool EnumThreadWndProc(
+            IntPtr hWnd, 
+            IntPtr lp);
         protected short tryCount;
         protected readonly Form owner;
 
-        [DllImport("user32.dll")]
-        protected static extern bool EnumThreadWindows(int tid, EnumThreadWndProc callback, IntPtr lp);
+        [DllImport(@"user32.dll")]
+        protected static extern bool EnumThreadWindows(
+            int tid, 
+            EnumThreadWndProc callback, 
+            IntPtr lp);
 
-        [DllImport("kernel32.dll")]
+        [DllImport(@"kernel32.dll")]
         protected static extern int GetCurrentThreadId();
 
-        [DllImport("user32.dll")]
-        protected static extern int GetClassName(IntPtr hWnd, StringBuilder buffer, int buflen);
+        [DllImport(@"user32.dll")]
+        protected static extern int GetClassName(
+            IntPtr hWnd, 
+            StringBuilder buffer, 
+            int buflen);
 
-        [DllImport("user32.dll")]
-        protected static extern bool GetWindowRect(IntPtr hWnd, out RECT rc);
+        [DllImport(@"user32.dll")]
+        protected static extern bool GetWindowRect(
+            IntPtr hWnd, 
+            out RECT rc);
 
-        [DllImport("user32.dll")]
-        protected static extern bool MoveWindow(IntPtr hWnd, int x, int y, int w, int h, bool repaint);
+        [DllImport(@"user32.dll")]
+        protected static extern bool MoveWindow(
+            IntPtr hWnd,
+            int x,
+            int y,
+            int w,
+            int h, 
+            bool repaint);
 
         protected struct RECT
         {

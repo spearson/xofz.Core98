@@ -298,7 +298,9 @@
             }
         }
 
-        private void addKey_Click(object sender, EventArgs e)
+        private void addKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var akt = this.AddKeyTapped;
             if (akt == null)
@@ -306,10 +308,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => akt.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => akt.Invoke());
         }
 
-        private void clearKey_Click(object sender, EventArgs e)
+        private void clearKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var ckt = this.ClearKeyTapped;
             if (ckt == null)
@@ -317,10 +322,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => ckt.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => ckt.Invoke());
         }
 
-        private void startDatePicker_DateSelected(object sender, DateRangeEventArgs e)
+        private void startDatePicker_DateSelected(
+            object sender, 
+            DateRangeEventArgs e)
         {
             var drc = this.DateRangeChanged;
             if (drc == null)
@@ -328,10 +336,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => drc.Invoke());
         }
 
-        private void endDatePicker_DateSelected(object sender, DateRangeEventArgs e)
+        private void endDatePicker_DateSelected(
+            object sender, 
+            DateRangeEventArgs e)
         {
             var drc = this.DateRangeChanged;
             if (drc == null)
@@ -339,24 +350,31 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => drc.Invoke());
         }
 
-        private void downKey_Click(object sender, EventArgs e)
+        private void downKey_Click(
+            object sender, 
+            EventArgs e)
         {
             this.entriesGrid.Focus();
             
             SendKeys.Send(@"{PGDN}");
         }
 
-        private void upKey_Click(object sender, EventArgs e)
+        private void upKey_Click(
+            object sender, 
+            EventArgs e)
         {
             this.entriesGrid.Focus();
 
             SendKeys.Send(@"{PGUP}");
         }
 
-        private void statisticsKey_Click(object sender, EventArgs e)
+        private void statisticsKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var skt = this.StatisticsKeyTapped;
             if (skt == null)
@@ -364,10 +382,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => skt.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => skt.Invoke());
         }
 
-        private void filterContentTextBox_TextChanged(object sender, EventArgs e)
+        private void filterContentTextBox_TextChanged(
+            object sender, 
+            EventArgs e)
         {
             this.activeFilterTextBox = this.filterContentTextBox;
             var ftc = this.FilterTextChanged;
@@ -376,10 +397,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => ftc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => ftc.Invoke());
         }
 
-        private void filterTypeTextBox_TextChanged(object sender, EventArgs e)
+        private void filterTypeTextBox_TextChanged(
+            object sender, 
+            EventArgs e)
         {
             this.activeFilterTextBox = this.filterTypeTextBox;
             var ftc = this.FilterTextChanged;
@@ -388,10 +412,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => ftc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => ftc.Invoke());
         }
 
-        private void resetContentKey_Click(object sender, EventArgs e)
+        private void resetContentKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var fctb = this.filterContentTextBox;
             this.activeFilterTextBox = fctb;
@@ -399,7 +426,9 @@
             fctb.Focus();
         }
 
-        private void resetTypeKey_Click(object sender, EventArgs e)
+        private void resetTypeKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var fttb = this.filterTypeTextBox;
             this.activeFilterTextBox = fttb;
@@ -434,7 +463,8 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => drc.Invoke());
         }
 
         private void previousWeekKey_Click(
@@ -464,10 +494,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => drc.Invoke());
         }
 
-        private void currentWeekKey_Click(object sender, EventArgs e)
+        private void currentWeekKey_Click(
+            object sender, 
+            EventArgs e)
         {
             var edp = this.endDatePicker;
             var newEndDate = DateTime.Today;
@@ -489,7 +522,8 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(
+                o => drc.Invoke());
         }
 
         protected TextBox activeFilterTextBox;

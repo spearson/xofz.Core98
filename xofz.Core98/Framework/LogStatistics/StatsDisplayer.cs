@@ -43,18 +43,22 @@
                     var total = reset
                         ? defaultInfo
                         : stats.TotalEntryCount.ToString();
-                    var oldest = stats.OldestTimestamp == default(DateTime)
+                    var oldest = stats.OldestTimestamp;
+                    var newest = stats.NewestTimestamp;
+                    var earliest = stats.EarliestTimestamp;
+                    var latest = stats.LatestTimestamp;
+                    var oldestString = oldest == default
                         ? defaultInfo
-                        : stats.OldestTimestamp.ToString(tf);
-                    var newest = stats.NewestTimestamp == default(DateTime)
+                        : oldest.ToString(tf);
+                    var newestString = newest == default
                         ? defaultInfo
-                        : stats.NewestTimestamp.ToString(tf);
-                    var earliest = stats.EarliestTimestamp == default(DateTime)
+                        : newest.ToString(tf);
+                    var earliestString = earliest == default
                         ? defaultInfo
-                        : stats.EarliestTimestamp.ToString(tf);
-                    var latest = stats.LatestTimestamp == default(DateTime)
+                        : earliest.ToString(tf);
+                    var latestString = latest == default
                         ? defaultInfo
-                        : stats.LatestTimestamp.ToString(tf);
+                        : latest.ToString(tf);
                     var avgPerDay = reset
                         ? string.Empty
                         : Math.Round(stats.AvgEntriesPerDay, 4)
@@ -66,10 +70,10 @@
                             () =>
                             {
                                 ui.TotalEntryCount = total;
-                                ui.OldestTimestamp = oldest;
-                                ui.NewestTimestamp = newest;
-                                ui.EarliestTimestamp = earliest;
-                                ui.LatestTimestamp = latest;
+                                ui.OldestTimestamp = oldestString;
+                                ui.NewestTimestamp = newestString;
+                                ui.EarliestTimestamp = earliestString;
+                                ui.LatestTimestamp = latestString;
                                 ui.AvgEntriesPerDay = avgPerDay;
                             });
                     });

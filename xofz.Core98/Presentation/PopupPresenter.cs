@@ -2,7 +2,8 @@
 {
     using xofz.UI;
 
-    public class PopupPresenter : Presenter
+    public class PopupPresenter 
+        : Presenter
     {
         public PopupPresenter(
             PopupUi ui) 

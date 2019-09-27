@@ -1,6 +1,7 @@
 ﻿namespace xofz.UI
 {
-    public interface ToggleUi : LabeledUi
+    public interface ToggleUi
+        : LabeledUi
     {
         event Do<ToggleUi> Tapped;
 

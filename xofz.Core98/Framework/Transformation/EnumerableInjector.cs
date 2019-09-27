@@ -36,7 +36,7 @@
             }
 
             var numberOfInjections = injections.Length;
-            if (numberOfInjections == 0)
+            if (numberOfInjections < 1)
             {
                 foreach (var item in source)
                 {
@@ -61,9 +61,10 @@
             long index = 0;
             foreach (var item in source)
             {                
-                foreach (var ip in injectionPoints)
+                foreach (var injectionPoint in injectionPoints)
                 {
-                    if (ip == counter && index < numberOfInjections)
+                    if (injectionPoint == counter 
+                        && index < numberOfInjections)
                     {
                         yield return injections[index];
                         ++index;

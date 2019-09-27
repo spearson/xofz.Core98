@@ -5,7 +5,8 @@ namespace xofz.Presentation
     using xofz.Framework;
     using xofz.Framework.Lots;
 
-    public class ThreadSafeNavigator : Navigator
+    public class ThreadSafeNavigator 
+        : Navigator
     {
         public ThreadSafeNavigator(
             MethodRunner runner)
@@ -280,7 +281,7 @@ namespace xofz.Presentation
 
             if (matchingPresenters.Count < 1)
             {
-                return default(TUi);
+                return default;
             }
 
             if (presenterName == null)
@@ -306,7 +307,7 @@ namespace xofz.Presentation
                 }
             }
 
-            return default(TUi);
+            return default;
         }
 
         protected readonly object locker;

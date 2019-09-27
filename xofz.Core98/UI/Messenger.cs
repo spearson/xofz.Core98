@@ -12,16 +12,22 @@
 
         string QuestionCaption { get; set; }
 
-        Response Question(string question);
+        Response Question(
+            string question);
 
-        Response QuestionWithCancel(string question);
+        Response QuestionWithCancel(
+            string question);
 
-        Response QuestionOKCancel(string question);
+        Response QuestionOKCancel(
+            string question);
 
-        void Inform(string message);
+        void Inform(
+            string message);
 
-        void Warn(string warning);
+        void Warn(
+            string warning);
 
-        void GiveError(string error);
+        void GiveError(
+            string error);
     }
 }

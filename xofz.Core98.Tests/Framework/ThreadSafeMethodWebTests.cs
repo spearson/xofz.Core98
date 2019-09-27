@@ -1,6 +1,5 @@
 ﻿namespace xofz.Tests.Framework
 {
-    using System;
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Computation;
@@ -57,10 +56,7 @@
                 w.Unregister<object>();
             }
 
-            if (!sorted)
-            {
-                throw new InvalidOperationException();
-            }
+            Assert.True(sorted);
         }
     }
 }

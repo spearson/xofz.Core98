@@ -76,7 +76,10 @@
                                 var xt = converter.Convert(entry);
                                 uiRW.WriteSync(
                                     ui,
-                                    () => ui.AddToTop(xt));
+                                    () =>
+                                    {
+                                        ui.AddToTop(xt);
+                                    });
                             }
                         },
                         name);

@@ -2,7 +2,8 @@
 {
     using System.Security;
 
-    public interface LoginUi : PopupUi
+    public interface LoginUi 
+        : PopupUi
     {
         event Do BackspaceKeyTapped;
 

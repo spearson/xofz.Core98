@@ -8,7 +8,8 @@
         Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> source)
         {
-            return new ListLot<T>(source);
+            return new ListLot<T>(
+                source);
         }
     }
 }

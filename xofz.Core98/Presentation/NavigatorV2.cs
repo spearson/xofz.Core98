@@ -3,7 +3,8 @@
     using System.Collections.Generic;
     using xofz.Framework;
 
-    public class NavigatorV2 : ThreadSafeNavigator
+    public class NavigatorV2
+        : ThreadSafeNavigator
     {
         public NavigatorV2(
             MethodRunner runner) 

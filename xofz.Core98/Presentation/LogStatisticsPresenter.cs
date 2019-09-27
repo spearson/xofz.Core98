@@ -5,7 +5,8 @@
     using xofz.Framework.LogStatistics;
     using xofz.UI;
 
-    public sealed class LogStatisticsPresenter : PopupNamedPresenter
+    public sealed class LogStatisticsPresenter 
+        : PopupNamedPresenter
     {
         public LogStatisticsPresenter(
             LogStatisticsUi ui,

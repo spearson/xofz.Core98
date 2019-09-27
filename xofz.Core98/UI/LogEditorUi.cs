@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public interface LogEditorUi : PopupUi
+    public interface LogEditorUi 
+        : PopupUi
     {
         event Do AddKeyTapped;
 
@@ -10,12 +11,12 @@
 
         ICollection<string> Types { get; set; }
 
+        ICollection<string> Content { get; set; }
+
         string SelectedType { get; set; }
 
         string CustomType { get; set; }
 
         bool CustomTypeVisible { get; set; }
-
-        ICollection<string> Content { get; set; }
     }
 }

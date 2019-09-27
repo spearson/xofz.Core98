@@ -5,7 +5,8 @@
 
     public class SecureStringToolSet
     {
-        public virtual string Decode(SecureString ss)
+        public virtual string Decode(
+            SecureString ss)
         {
             if (ss == null)
             {
@@ -23,7 +24,8 @@
             }
         }
 
-        public virtual SecureString Encode(string s)
+        public virtual SecureString Encode(
+            string s)
         {
             var ss = new SecureString();
             if (s == null)

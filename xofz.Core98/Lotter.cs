@@ -4,6 +4,7 @@
 
     public interface Lotter
     {
-        Lot<T> Materialize<T>(IEnumerable<T> finiteSource);
+        Lot<T> Materialize<T>(
+            IEnumerable<T> finiteSource);
     }
 }

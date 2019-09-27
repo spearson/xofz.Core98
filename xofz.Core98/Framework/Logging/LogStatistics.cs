@@ -31,9 +31,10 @@
         public virtual void ComputeOverall()
         {
             var r = this.runner;
-            r.Run<Log, Lotter>((l, lotter) =>
+            r.Run<Log, Lotter>((log, lotter) =>
                 {
-                    var allEntries = lotter.Materialize(l.ReadEntries());
+                    var allEntries = lotter.Materialize(
+                        log.ReadEntries());
                     var start = DateTime.MaxValue;
                     var end = DateTime.MinValue;
                     foreach (var entry in allEntries)
@@ -172,9 +173,9 @@
             DateTime start,
             DateTime end)
         {
-            if (entryCount == 0)
+            if (entryCount < 1)
             {
-                this.AvgEntriesPerDay = default(double);
+                this.AvgEntriesPerDay = default;
                 return;
             }
 
@@ -185,9 +186,9 @@
         protected virtual void computeOldestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count == 0)
+            if (entries.Count < 1)
             {
-                this.OldestTimestamp = default(DateTime);
+                this.OldestTimestamp = default;
                 return;
             }
 
@@ -207,9 +208,9 @@
         protected virtual void computeNewestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count == 0)
+            if (entries.Count < 1)
             {
-                this.NewestTimestamp = default(DateTime);
+                this.NewestTimestamp = default;
                 return;
             }
 
@@ -231,7 +232,7 @@
         {
             if (entries.Count < 1)
             {
-                this.EarliestTimestamp = default(DateTime);
+                this.EarliestTimestamp = default;
                 return;
             }
 
@@ -261,7 +262,7 @@
 
             if (!earliestChanged)
             {
-                earliest = default(DateTime);
+                earliest = default;
             }
 
             this.EarliestTimestamp = earliest;
@@ -272,7 +273,7 @@
         {
             if (entries.Count < 1)
             {
-                this.LatestTimestamp = default(DateTime);
+                this.LatestTimestamp = default;
                 return;
             }
 
@@ -301,7 +302,7 @@
 
             if (!latestChanged)
             {
-                latest = default(DateTime);
+                latest = default;
             }
 
             this.LatestTimestamp = latest;

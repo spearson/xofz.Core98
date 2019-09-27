@@ -52,7 +52,10 @@
                             var xt = converter.Convert(entry);
                             uiRW.Write(
                                 ui,
-                                () => ui.AddToTop(xt));
+                                () =>
+                                {
+                                    ui.AddToTop(xt);
+                                });
                         });
                     }
                 },

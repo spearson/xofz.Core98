@@ -29,11 +29,12 @@
             r.Run<LogEditor, UiReaderWriter>(
                 (le, uiRW) =>
                 {
-                    var customIsSelected = uiRW
-                                               .Read(ui, () => ui.SelectedType)
-                                               ?.Contains(DefaultEntryTypes
-                                                   .Custom)
-                                           ?? false;
+                    var customIsSelected =
+                        uiRW
+                            .Read(ui, () => ui.SelectedType)
+                            ?.Contains(DefaultEntryTypes
+                                .Custom)
+                        ?? false;
                     var type = customIsSelected
                         ? uiRW.Read(ui, () => ui.CustomType)
                         : uiRW.Read(ui, () => ui.SelectedType);

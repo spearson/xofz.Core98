@@ -7,7 +7,8 @@
     {
         Lot<T> Lotter.Materialize<T>(IEnumerable<T> source)
         {
-            return new QueueLot<T>(source);
+            return new QueueLot<T>(
+                source);
         }
     }
 }

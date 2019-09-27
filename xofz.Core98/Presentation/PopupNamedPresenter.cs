@@ -2,7 +2,8 @@
 {
     using xofz.UI;
 
-    public class PopupNamedPresenter : NamedPresenter
+    public class PopupNamedPresenter
+        : NamedPresenter
     {
         public PopupNamedPresenter(
             PopupUi ui) 

@@ -17,7 +17,8 @@
             string name)
         {
             var r = this.runner;
-            r.Run<LogStatistics, UiReaderWriter>((stats, uiRW) =>
+            r.Run<LogStatistics, UiReaderWriter>(
+                (stats, uiRW) =>
                 {
                     var today = DateTime.Today;
                     var lastWeek = today.Subtract(TimeSpan.FromDays(6));

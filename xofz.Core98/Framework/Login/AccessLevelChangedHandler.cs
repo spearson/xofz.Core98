@@ -26,7 +26,10 @@
                 {
                     uiRW.Write(
                         ui,
-                        () => ui.CurrentPassword = null);
+                        () =>
+                        {
+                            ui.CurrentPassword = null;
+                        });
                 }
             });
 

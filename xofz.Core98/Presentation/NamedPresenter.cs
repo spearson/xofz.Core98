@@ -2,7 +2,8 @@
 {
     using UI;
 
-    public class NamedPresenter : Presenter
+    public class NamedPresenter 
+        : Presenter
     {
         public NamedPresenter(
             Ui ui, 

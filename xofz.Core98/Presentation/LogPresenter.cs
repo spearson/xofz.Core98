@@ -6,7 +6,8 @@
     using xofz.Framework.Log;
     using xofz.Framework.Logging;
 
-    public sealed class LogPresenter : NamedPresenter
+    public sealed class LogPresenter 
+        : NamedPresenter
     {
         public LogPresenter(
             LogUi ui,

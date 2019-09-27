@@ -5,7 +5,8 @@
     using xofz.Framework.Login;
     using xofz.UI;
 
-    public sealed class LoginPresenter : Presenter
+    public sealed class LoginPresenter 
+        : Presenter
     {
         public LoginPresenter(
             LoginUi ui,

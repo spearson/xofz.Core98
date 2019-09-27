@@ -76,7 +76,10 @@
 
                     uiRW.WriteSync(
                         ui,
-                        () => ui.Entries = uiEntries);
+                        () =>
+                        {
+                            ui.Entries = uiEntries;
+                        });
                     r.Run<ICollection<LogEntry>>(
                         refreshEntries =>
                         {

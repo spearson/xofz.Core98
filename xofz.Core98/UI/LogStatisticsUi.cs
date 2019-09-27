@@ -2,7 +2,8 @@
 {
     using System;
 
-    public interface LogStatisticsUi : PopupUi
+    public interface LogStatisticsUi 
+        : PopupUi
     {
         event Do OverallKeyTapped;
 

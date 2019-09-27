@@ -19,7 +19,10 @@
             var s = this.shell;
             UiHelpers.WriteSync(
                 s,
-                () => s.SwitchUi(this.ui));
+                () =>
+                {
+                    s.SwitchUi(this.ui);
+                });
         }
 
         public virtual void Stop()

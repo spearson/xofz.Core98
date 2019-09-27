@@ -4,7 +4,8 @@
     using xofz.Framework;
     using xofz.Framework.Shutdown;
 
-    public sealed class ShutdownPresenter : Presenter
+    public sealed class ShutdownPresenter 
+        : Presenter
     {
         public ShutdownPresenter(
             MethodRunner runner)

@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public interface LogUi : Ui
+    public interface LogUi 
+        : Ui
     {
         event Do DateRangeChanged;
 

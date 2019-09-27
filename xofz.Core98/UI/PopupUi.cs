@@ -1,6 +1,7 @@
 ﻿namespace xofz.UI
 {
-    public interface PopupUi : Ui
+    public interface PopupUi 
+        : Ui
     {
         void Display();
 

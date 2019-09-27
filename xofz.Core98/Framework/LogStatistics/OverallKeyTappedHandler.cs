@@ -24,12 +24,14 @@
                     stats.ComputeOverall();
                     r.Run<UiReaderWriter, Labels>(
                         (uiRW, labels) =>
-                    {
-                        uiRW.Write(ui, () =>
                         {
-                            ui.Title = labels.Overall;
+                            uiRW.Write(
+                                ui,
+                                () =>
+                                {
+                                    ui.Title = labels.Overall;
+                                });
                         });
-                    });
                     r.Run<StatsDisplayer>(sd =>
                     {
                         sd.Display(ui, stats, false);

@@ -5,7 +5,8 @@
     using xofz.Framework.Main;
     using xofz.UI;
 
-    public sealed class MainPresenter : Presenter
+    public sealed class MainPresenter 
+        : Presenter
     {
         public MainPresenter(
             MainUi ui,
