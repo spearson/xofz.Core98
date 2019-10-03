@@ -387,31 +387,31 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar endDatePicker;
-        private System.Windows.Forms.MonthCalendar startDatePicker;
-        private System.Windows.Forms.Label endLabel;
-        private System.Windows.Forms.Label startLabel;
-        private System.Windows.Forms.Button overallKey;
-        private System.Windows.Forms.Button rangeKey;
-        private System.Windows.Forms.GroupBox statsContainer;
-        private System.Windows.Forms.Label latestTimestampLabel;
-        private System.Windows.Forms.Label earliestTimestampLabel;
-        private System.Windows.Forms.Label newestTimestampLabel;
-        private System.Windows.Forms.Label oldestTimestampLabel;
-        private System.Windows.Forms.Label avgEntriesPerDayLabel;
-        private System.Windows.Forms.Label latestTimestampLabelLabel;
-        private System.Windows.Forms.Label earliestTimestampLabelLabel;
-        private System.Windows.Forms.Label newestTimestampLabelLabel;
-        private System.Windows.Forms.Label oldestTimestampLabelLabel;
-        private System.Windows.Forms.Label avgEntriesPerDayLabelLabel;
-        private System.Windows.Forms.Button hideKey;
-        private System.Windows.Forms.Label totalEntryCountLabel;
-        private System.Windows.Forms.Label totalEntryCountLabelLabel;
-        private System.Windows.Forms.Label filterContentLabel;
-        private System.Windows.Forms.TextBox filterContentTextBox;
-        private System.Windows.Forms.TextBox filterTypeTextBox;
-        private System.Windows.Forms.Label filterTypeLabel;
-        private System.Windows.Forms.Button resetTypeKey;
-        private System.Windows.Forms.Button resetContentKey;
+        protected System.Windows.Forms.MonthCalendar endDatePicker;
+        protected System.Windows.Forms.MonthCalendar startDatePicker;
+        protected System.Windows.Forms.Label endLabel;
+        protected System.Windows.Forms.Label startLabel;
+        protected System.Windows.Forms.Button overallKey;
+        protected System.Windows.Forms.Button rangeKey;
+        protected System.Windows.Forms.GroupBox statsContainer;
+        protected System.Windows.Forms.Label latestTimestampLabel;
+        protected System.Windows.Forms.Label earliestTimestampLabel;
+        protected System.Windows.Forms.Label newestTimestampLabel;
+        protected System.Windows.Forms.Label oldestTimestampLabel;
+        protected System.Windows.Forms.Label avgEntriesPerDayLabel;
+        protected System.Windows.Forms.Label latestTimestampLabelLabel;
+        protected System.Windows.Forms.Label earliestTimestampLabelLabel;
+        protected System.Windows.Forms.Label newestTimestampLabelLabel;
+        protected System.Windows.Forms.Label oldestTimestampLabelLabel;
+        protected System.Windows.Forms.Label avgEntriesPerDayLabelLabel;
+        protected System.Windows.Forms.Button hideKey;
+        protected System.Windows.Forms.Label totalEntryCountLabel;
+        protected System.Windows.Forms.Label totalEntryCountLabelLabel;
+        protected System.Windows.Forms.Label filterContentLabel;
+        protected System.Windows.Forms.TextBox filterContentTextBox;
+        protected System.Windows.Forms.TextBox filterTypeTextBox;
+        protected System.Windows.Forms.Label filterTypeLabel;
+        protected System.Windows.Forms.Button resetTypeKey;
+        protected System.Windows.Forms.Button resetContentKey;
     }
 }

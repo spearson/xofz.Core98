@@ -62,6 +62,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button key;
+        protected System.Windows.Forms.Button key;
     }
 }

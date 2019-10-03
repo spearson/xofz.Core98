@@ -16,15 +16,15 @@
             var h = this.Handle;
         }
 
-        public event Do DateRangeChanged;
+        public virtual event Do DateRangeChanged;
 
-        public event Do AddKeyTapped;
+        public virtual event Do AddKeyTapped;
 
-        public event Do ClearKeyTapped;
+        public virtual event Do ClearKeyTapped;
 
-        public event Do StatisticsKeyTapped;
+        public virtual event Do StatisticsKeyTapped;
 
-        public event Do FilterTextChanged;
+        public virtual event Do FilterTextChanged;
 
         ICollection<XTuple<string, string, string>> LogUi.Entries
         {
@@ -298,7 +298,7 @@
             }
         }
 
-        private void addKey_Click(
+        protected virtual void addKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -312,7 +312,7 @@
                 o => akt.Invoke());
         }
 
-        private void clearKey_Click(
+        protected virtual void clearKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -326,7 +326,7 @@
                 o => ckt.Invoke());
         }
 
-        private void startDatePicker_DateSelected(
+        protected virtual void startDatePicker_DateSelected(
             object sender, 
             DateRangeEventArgs e)
         {
@@ -340,7 +340,7 @@
                 o => drc.Invoke());
         }
 
-        private void endDatePicker_DateSelected(
+        protected virtual void endDatePicker_DateSelected(
             object sender, 
             DateRangeEventArgs e)
         {
@@ -354,7 +354,7 @@
                 o => drc.Invoke());
         }
 
-        private void downKey_Click(
+        protected virtual void downKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -363,7 +363,7 @@
             SendKeys.Send(@"{PGDN}");
         }
 
-        private void upKey_Click(
+        protected virtual void upKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -372,7 +372,7 @@
             SendKeys.Send(@"{PGUP}");
         }
 
-        private void statisticsKey_Click(
+        protected virtual void statisticsKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -386,7 +386,7 @@
                 o => skt.Invoke());
         }
 
-        private void filterContentTextBox_TextChanged(
+        protected virtual void filterContentTextBox_TextChanged(
             object sender, 
             EventArgs e)
         {
@@ -401,7 +401,7 @@
                 o => ftc.Invoke());
         }
 
-        private void filterTypeTextBox_TextChanged(
+        protected virtual void filterTypeTextBox_TextChanged(
             object sender, 
             EventArgs e)
         {
@@ -416,7 +416,7 @@
                 o => ftc.Invoke());
         }
 
-        private void resetContentKey_Click(
+        protected virtual void resetContentKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -426,7 +426,7 @@
             fctb.Focus();
         }
 
-        private void resetTypeKey_Click(
+        protected virtual void resetTypeKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -436,7 +436,7 @@
             fttb.Focus();
         }
 
-        private void nextWeekKey_Click(
+        protected virtual void nextWeekKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -467,7 +467,7 @@
                 o => drc.Invoke());
         }
 
-        private void previousWeekKey_Click(
+        protected virtual void previousWeekKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -498,7 +498,7 @@
                 o => drc.Invoke());
         }
 
-        private void currentWeekKey_Click(
+        protected virtual void currentWeekKey_Click(
             object sender, 
             EventArgs e)
         {

@@ -16,11 +16,11 @@
             var h = this.Handle;
         }
 
-        public event Do<ToggleUi> Tapped;
+        public virtual event Do<ToggleUi> Tapped;
 
-        public event Do<ToggleUi> Pressed;
+        public virtual event Do<ToggleUi> Pressed;
 
-        public event Do<ToggleUi> Released;
+        public virtual event Do<ToggleUi> Released;
 
         public virtual string Label
         {
@@ -55,7 +55,9 @@
             set => this.key.BackColor = value ? Color.Lime : Color.DimGray;
         }
 
-        private void key_Click(object sender, System.EventArgs e)
+        protected virtual void key_Click(
+            object sender, 
+            System.EventArgs e)
         {
             var t = this.Tapped;
             if (t == null)
@@ -63,10 +65,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => t.Invoke(this));
+            ThreadPool.QueueUserWorkItem(
+                o => t.Invoke(this));
         }
 
-        private void key_MouseDown(object sender, MouseEventArgs e)
+        protected virtual void key_MouseDown(
+            object sender, 
+            MouseEventArgs e)
         {
             var p = this.Pressed;
             if (p == null)
@@ -74,10 +79,13 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => p.Invoke(this));
+            ThreadPool.QueueUserWorkItem(
+                o => p.Invoke(this));
         }
 
-        private void key_MouseUp(object sender, MouseEventArgs e)
+        protected virtual void key_MouseUp(
+            object sender, 
+            MouseEventArgs e)
         {
             var r = this.Released;
             if (r == null)
@@ -85,7 +93,8 @@
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(o => r.Invoke(this));
+            ThreadPool.QueueUserWorkItem(
+                o => r.Invoke(this));
         }
     }
 }

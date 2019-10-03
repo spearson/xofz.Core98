@@ -36,7 +36,8 @@
             this.locker = locker;
         }
 
-        public virtual T Get<T>() where T : Command
+        public virtual T Get<T>()
+            where T : Command
         {
             lock (this.locker)
             {
@@ -52,7 +53,8 @@
             return default;
         }
 
-        public virtual Lot<T> GetAll<T>() where T : Command
+        public virtual Lot<T> GetAll<T>() 
+            where T : Command
         {
             var commands = new LinkedListLot<T>();
             lock (this.locker)
@@ -69,7 +71,8 @@
             return commands;
         }
 
-        public virtual CommandExecutor Execute(Command command)
+        public virtual CommandExecutor Execute(
+            Command command)
         {
             command.Execute();
             lock (this.locker)

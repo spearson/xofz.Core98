@@ -23,6 +23,10 @@
             this.InitializeComponent();
         }
 
+        public virtual event Do AddKeyTapped;
+
+        public virtual event Do TypeChanged;
+
         void PopupUi.Display()
         {
             var s = this.shell;
@@ -38,10 +42,6 @@
             focus:
             this.contentTextBox.Focus();
         }
-
-        public event Do AddKeyTapped;
-
-        public event Do TypeChanged;
 
         ICollection<string> LogEditorUi.Types
         {
@@ -170,7 +170,7 @@
             set => this.Text = value;
         }
 
-        private void this_FormClosing(
+        protected virtual void this_FormClosing(
             object sender,
             FormClosingEventArgs e)
         {
@@ -179,7 +179,7 @@
             this.Hide();            
         }
 
-        private void entryTypeComboBox_SelectedIndexChanged(
+        protected virtual void entryTypeComboBox_SelectedIndexChanged(
             object sender, 
             EventArgs e)
         {
@@ -193,7 +193,7 @@
                 o => tc.Invoke());
         }
 
-        private void addKey_Click(
+        protected virtual void addKey_Click(
             object sender, 
             EventArgs e)
         {

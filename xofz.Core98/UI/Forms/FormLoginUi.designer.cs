@@ -44,8 +44,8 @@
             this.backspaceKey = new System.Windows.Forms.Button();
             this.clearKey = new System.Windows.Forms.Button();
             this.cancelKey = new System.Windows.Forms.Button();
-            this.timeRemainingLabelLabel = new System.Windows.Forms.Label();
-            this.timeRemainingLabel = new System.Windows.Forms.Label();
+            this.durationRemainingLabelLabel = new System.Windows.Forms.Label();
+            this.durationRemainingLabel = new System.Windows.Forms.Label();
             this.levelLabel = new System.Windows.Forms.Label();
             this.keyboardKey = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -278,25 +278,25 @@
             this.cancelKey.UseVisualStyleBackColor = true;
             this.cancelKey.Click += new System.EventHandler(this.cancelKey_Click);
             // 
-            // timeRemainingLabelLabel
+            // durationRemainingLabelLabel
             // 
-            this.timeRemainingLabelLabel.AutoSize = true;
-            this.timeRemainingLabelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeRemainingLabelLabel.Location = new System.Drawing.Point(183, 13);
-            this.timeRemainingLabelLabel.Name = "timeRemainingLabelLabel";
-            this.timeRemainingLabelLabel.Size = new System.Drawing.Size(136, 18);
-            this.timeRemainingLabelLabel.TabIndex = 54;
-            this.timeRemainingLabelLabel.Text = "Duration remaining:";
+            this.durationRemainingLabelLabel.AutoSize = true;
+            this.durationRemainingLabelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.durationRemainingLabelLabel.Location = new System.Drawing.Point(183, 13);
+            this.durationRemainingLabelLabel.Name = "durationRemainingLabelLabel";
+            this.durationRemainingLabelLabel.Size = new System.Drawing.Size(136, 18);
+            this.durationRemainingLabelLabel.TabIndex = 54;
+            this.durationRemainingLabelLabel.Text = "Duration remaining:";
             // 
-            // timeRemainingLabel
+            // durationRemainingLabel
             // 
-            this.timeRemainingLabel.BackColor = System.Drawing.Color.FloralWhite;
-            this.timeRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeRemainingLabel.Location = new System.Drawing.Point(188, 36);
-            this.timeRemainingLabel.Name = "timeRemainingLabel";
-            this.timeRemainingLabel.Size = new System.Drawing.Size(168, 38);
-            this.timeRemainingLabel.TabIndex = 55;
-            this.timeRemainingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.durationRemainingLabel.BackColor = System.Drawing.Color.FloralWhite;
+            this.durationRemainingLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.durationRemainingLabel.Location = new System.Drawing.Point(188, 36);
+            this.durationRemainingLabel.Name = "durationRemainingLabel";
+            this.durationRemainingLabel.Size = new System.Drawing.Size(168, 38);
+            this.durationRemainingLabel.TabIndex = 55;
+            this.durationRemainingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // levelLabel
             // 
@@ -331,8 +331,8 @@
             this.ClientSize = new System.Drawing.Size(368, 270);
             this.Controls.Add(this.keyboardKey);
             this.Controls.Add(this.levelLabel);
-            this.Controls.Add(this.timeRemainingLabel);
-            this.Controls.Add(this.timeRemainingLabelLabel);
+            this.Controls.Add(this.durationRemainingLabel);
+            this.Controls.Add(this.durationRemainingLabelLabel);
             this.Controls.Add(this.cancelKey);
             this.Controls.Add(this.numKey1);
             this.Controls.Add(this.numKey2);
@@ -364,25 +364,25 @@
 
         #endregion
 
-        private System.Windows.Forms.Label passwordTextBoxLabel;
-        private System.Windows.Forms.TextBox passwordTextBox;
-        private System.Windows.Forms.Button loginKey;
-        private System.Windows.Forms.Button numKey1;
-        private System.Windows.Forms.Button numKey2;
-        private System.Windows.Forms.Button numKey6;
-        private System.Windows.Forms.Button numKey9;
-        private System.Windows.Forms.Button numKey0;
-        private System.Windows.Forms.Button numKey3;
-        private System.Windows.Forms.Button numKey5;
-        private System.Windows.Forms.Button numKey8;
-        private System.Windows.Forms.Button numKey7;
-        private System.Windows.Forms.Button numKey4;
-        private System.Windows.Forms.Button backspaceKey;
-        private System.Windows.Forms.Button clearKey;
-        private System.Windows.Forms.Button cancelKey;
-        private System.Windows.Forms.Label timeRemainingLabelLabel;
-        private System.Windows.Forms.Label timeRemainingLabel;
-        private System.Windows.Forms.Label levelLabel;
-        private System.Windows.Forms.Button keyboardKey;
+        protected System.Windows.Forms.Label passwordTextBoxLabel;
+        protected System.Windows.Forms.TextBox passwordTextBox;
+        protected System.Windows.Forms.Button loginKey;
+        protected System.Windows.Forms.Button numKey1;
+        protected System.Windows.Forms.Button numKey2;
+        protected System.Windows.Forms.Button numKey6;
+        protected System.Windows.Forms.Button numKey9;
+        protected System.Windows.Forms.Button numKey0;
+        protected System.Windows.Forms.Button numKey3;
+        protected System.Windows.Forms.Button numKey5;
+        protected System.Windows.Forms.Button numKey8;
+        protected System.Windows.Forms.Button numKey7;
+        protected System.Windows.Forms.Button numKey4;
+        protected System.Windows.Forms.Button backspaceKey;
+        protected System.Windows.Forms.Button clearKey;
+        protected System.Windows.Forms.Button cancelKey;
+        protected System.Windows.Forms.Label durationRemainingLabelLabel;
+        protected System.Windows.Forms.Label durationRemainingLabel;
+        protected System.Windows.Forms.Label levelLabel;
+        protected System.Windows.Forms.Button keyboardKey;
     }
 }

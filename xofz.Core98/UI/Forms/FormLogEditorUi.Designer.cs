@@ -125,11 +125,11 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox contentTextBox;
-        private System.Windows.Forms.ComboBox entryTypeComboBox;
-        private System.Windows.Forms.Button addKey;
-        private System.Windows.Forms.Label entryContentLabel;
-        private System.Windows.Forms.Label typeLabel;
-        private System.Windows.Forms.TextBox customTypeTextBox;
+        protected System.Windows.Forms.TextBox contentTextBox;
+        protected System.Windows.Forms.ComboBox entryTypeComboBox;
+        protected System.Windows.Forms.Button addKey;
+        protected System.Windows.Forms.Label entryContentLabel;
+        protected System.Windows.Forms.Label typeLabel;
+        protected System.Windows.Forms.TextBox customTypeTextBox;
     }
 }

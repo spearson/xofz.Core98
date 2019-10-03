@@ -52,9 +52,9 @@
 
         string LoginUiV2.TimeRemainingLabel
         {
-            get => this.timeRemainingLabelLabel.Text;
+            get => this.durationRemainingLabelLabel.Text;
 
-            set => this.timeRemainingLabelLabel.Text = value;
+            set => this.durationRemainingLabelLabel.Text = value;
         }
 
         string LoginUiV2.BackspaceKeyLabel
@@ -119,9 +119,9 @@
 
         string LoginUi.TimeRemaining
         {
-            get => this.timeRemainingLabel.Text;
+            get => this.durationRemainingLabel.Text;
 
-            set => this.timeRemainingLabel.Text = value;
+            set => this.durationRemainingLabel.Text = value;
         }
 
         bool LoginUi.KeyboardKeyVisible
@@ -192,7 +192,7 @@
             }
         }
 
-        private void loginKey_Click(
+        protected virtual void loginKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -206,7 +206,7 @@
                 o => lkt.Invoke());
         }
 
-        private void numKey_Click(
+        protected virtual void numKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -226,7 +226,7 @@
             ui.FocusPassword();
         }
 
-        private void clearKey_Click(
+        protected virtual void clearKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -236,7 +236,7 @@
             ui.FocusPassword();
         }
 
-        private void backspaceKey_Click(
+        protected virtual void backspaceKey_Click(
             object sender,
             EventArgs e)
         {
@@ -251,7 +251,7 @@
                 o => bkt.Invoke());
         }
 
-        private void cancelKey_Click(
+        protected virtual void cancelKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -265,7 +265,7 @@
                 o => ckt.Invoke());
         }
 
-        private void this_FormClosing(
+        protected virtual void this_FormClosing(
             object sender, 
             FormClosingEventArgs e)
         {
@@ -280,14 +280,14 @@
                 o => ckt.Invoke());
         }
 
-        private void passwordTextBox_KeyPress(
+        protected virtual void passwordTextBox_KeyPress(
             object sender,
             KeyPressEventArgs e)
         {
             this.firstInputKeyPressed = true;
         }
 
-        private void keyboardKey_Click(
+        protected virtual void keyboardKey_Click(
             object sender, 
             EventArgs e)
         {

@@ -406,27 +406,27 @@
 
         #endregion
 
-        private System.Windows.Forms.MonthCalendar startDatePicker;
-        private System.Windows.Forms.MonthCalendar endDatePicker;
-        private System.Windows.Forms.Label startLabel;
-        private System.Windows.Forms.Label endLabel;
-        private System.Windows.Forms.DataGridView entriesGrid;
-        private System.Windows.Forms.Button addKey;
-        private System.Windows.Forms.Button downKey;
-        private System.Windows.Forms.Button upKey;
-        private System.Windows.Forms.Button statisticsKey;
-        private System.Windows.Forms.Label filterContentLabel;
-        private System.Windows.Forms.Label filterTypeLabel;
-        private System.Windows.Forms.TextBox filterTypeTextBox;
-        private System.Windows.Forms.TextBox filterContentTextBox;
-        private System.Windows.Forms.Button resetContentKey;
-        private System.Windows.Forms.Button resetTypeKey;
-        private System.Windows.Forms.Button clearKey;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timestampColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
-        private System.Windows.Forms.Button previousWeekKey;
-        private System.Windows.Forms.Button nextWeekKey;
-        private System.Windows.Forms.Button currentWeekKey;
+        protected System.Windows.Forms.MonthCalendar startDatePicker;
+        protected System.Windows.Forms.MonthCalendar endDatePicker;
+        protected System.Windows.Forms.Label startLabel;
+        protected System.Windows.Forms.Label endLabel;
+        protected System.Windows.Forms.DataGridView entriesGrid;
+        protected System.Windows.Forms.Button addKey;
+        protected System.Windows.Forms.Button downKey;
+        protected System.Windows.Forms.Button upKey;
+        protected System.Windows.Forms.Button statisticsKey;
+        protected System.Windows.Forms.Label filterContentLabel;
+        protected System.Windows.Forms.Label filterTypeLabel;
+        protected System.Windows.Forms.TextBox filterTypeTextBox;
+        protected System.Windows.Forms.TextBox filterContentTextBox;
+        protected System.Windows.Forms.Button resetContentKey;
+        protected System.Windows.Forms.Button resetTypeKey;
+        protected System.Windows.Forms.Button clearKey;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn timestampColumn;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn typeColumn;
+        protected System.Windows.Forms.DataGridViewTextBoxColumn contentColumn;
+        protected System.Windows.Forms.Button previousWeekKey;
+        protected System.Windows.Forms.Button nextWeekKey;
+        protected System.Windows.Forms.Button currentWeekKey;
     }
 }

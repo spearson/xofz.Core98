@@ -6,7 +6,8 @@
     {
         public static byte GetAsciiByte(char c)
         {
-            return Encoding.ASCII.GetBytes(new[] { c })[0];
+            return Encoding.ASCII.GetBytes(
+                new[] { c })[0];
         }
     }
 }

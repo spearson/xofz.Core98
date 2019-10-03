@@ -22,15 +22,15 @@
             this.InitializeComponent();
         }
 
-        public event Do OverallKeyTapped;
+        public virtual event Do OverallKeyTapped;
 
-        public event Do RangeKeyTapped;
+        public virtual event Do RangeKeyTapped;
 
-        public event Do HideKeyTapped;
+        public virtual event Do HideKeyTapped;
 
-        public event Do ResetContentKeyTapped;
+        public virtual event Do ResetContentKeyTapped;
 
-        public event Do ResetTypeKeyTapped;
+        public virtual event Do ResetTypeKeyTapped;
 
         string LogStatisticsUiV2.StartLabelLabel
         {
