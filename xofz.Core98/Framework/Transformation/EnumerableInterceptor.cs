@@ -11,7 +11,7 @@
         {
             if (source == null)
             {
-                if (interceptionPoint == 0)
+                if (interceptionPoint < 1)
                 {
                     yield return interception;
                 }
@@ -19,16 +19,20 @@
                 yield break;
             }
 
-            long counter = 0;
+            long indexer = 0;
             foreach (var item in source)
             {
-                if (counter == interceptionPoint)
+                if (indexer == interceptionPoint)
                 {
                     yield return interception;
                 }
 
-                ++counter;
                 yield return item;
+
+                checked
+                {
+                    ++indexer;
+                }
             }
         }
 
@@ -37,11 +41,11 @@
             ICollection<T> interception,
             long interceptionPoint)
         {
-            long counter = 0;
+            long indexer = 0;
             var nullInterception = interception == null;
             if (source == null)
             {
-                if (interceptionPoint == 0)
+                if (interceptionPoint < 1)
                 {
                     if (nullInterception)
                     {
@@ -69,7 +73,7 @@
 
             foreach (var item in source)
             {
-                if (counter == interceptionPoint)
+                if (indexer == interceptionPoint)
                 {
                     foreach (var intercept in interception)
                     {
@@ -77,8 +81,53 @@
                     }
                 }
 
-                ++counter;
                 yield return item;
+
+                checked
+                {
+                    ++indexer;
+                }
+            }
+        }
+
+        public virtual IEnumerable<T> Intercept<T>(
+            IEnumerable<T> source,
+            IEnumerable<T> interceptions,
+            ICollection<long> interceptionPoints)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (interceptions == null || interceptionPoints == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            long indexer = 0;
+            using (var interceptionsEnumerator = interceptions.GetEnumerator())
+            {
+                foreach (var item in source)
+                {
+                    if (interceptionPoints.Contains(indexer))
+                    {
+                        interceptionsEnumerator.MoveNext();
+                        yield return interceptionsEnumerator.Current;
+                    }
+
+                    yield return item;
+
+                    checked
+                    {
+                        ++indexer;
+                    }
+                }
             }
         }
     }
