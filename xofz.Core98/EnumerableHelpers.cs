@@ -299,6 +299,24 @@
             }
         }
 
+        public static IEnumerable<T> Append<T>(
+            IEnumerable<T> source,
+            T appendee)
+        {
+            if (source == null)
+            {
+                yield return appendee;
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                yield return item;
+            }
+
+            yield return appendee;
+        }
+
         public static T First<T>(
             IEnumerable<T> source)
         {
@@ -923,7 +941,8 @@
             return end;
         }
 
-        public static IEnumerable<T> OfType<T>(IEnumerable source)
+        public static IEnumerable<T> OfType<T>(
+            IEnumerable source)
         {
             if (source == null)
             {
@@ -939,7 +958,8 @@
             }
         }
 
-        public static IEnumerable<T> SafeForEach<T>(IEnumerable<T> source)
+        public static IEnumerable<T> SafeForEach<T>(
+            IEnumerable<T> source)
         {
             if (source == null)
             {
@@ -952,7 +972,8 @@
             }
         }
 
-        public static IEnumerable<T> Iterate<T>(params T[] items)
+        public static IEnumerable<T> Iterate<T>(
+            params T[] items)
         {
             if (items == null)
             {

@@ -5,7 +5,8 @@
     using xofz.Presentation;
     using xofz.UI;
 
-    public class SetupMainCommand : Command
+    public class SetupMainCommand 
+        : Command
     {
         public SetupMainCommand(
             MainUi ui,

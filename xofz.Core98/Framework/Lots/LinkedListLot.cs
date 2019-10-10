@@ -48,62 +48,78 @@
             return source.GetEnumerator();
         }
 
-        public virtual LinkedListNode<T> Find(T value)
+        public virtual LinkedListNode<T> Find(
+            T value)
         {
             return this.linkedList.Find(value);
         }
 
-        public virtual LinkedListNode<T> FindLast(T value)
+        public virtual LinkedListNode<T> FindLast(
+            T value)
         {
             return this.linkedList.FindLast(value);
         }
 
-        public virtual LinkedListNode<T> AddFirst(T value)
+        public virtual LinkedListNode<T> AddFirst(
+            T value)
         {
             return this.linkedList.AddFirst(value);
         }
 
-        public virtual LinkedListNode<T> AddLast(T value)
+        public virtual LinkedListNode<T> AddLast(
+            T value)
         {
             return this.linkedList.AddLast(value);
         }
 
-        public virtual bool Contains(T value)
+        public virtual bool Contains(
+            T value)
         {
             return this.linkedList.Contains(value);
         }
 
-        public virtual bool Remove(T value)
+        public virtual bool Remove(
+            T value)
         {
             return this.linkedList.Remove(value);
         }
 
-        public virtual void AddAfter(LinkedListNode<T> node, T value)
+        public virtual void AddAfter(
+            LinkedListNode<T> node, 
+            T value)
         {
             this.linkedList.AddAfter(node, value);
         }
 
-        public virtual void AddAfter(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        public virtual void AddAfter(
+            LinkedListNode<T> node, 
+            LinkedListNode<T> newNode)
         {
             this.linkedList.AddAfter(node, newNode);
         }
 
-        public virtual void AddBefore(LinkedListNode<T> node, T value)
+        public virtual void AddBefore(
+            LinkedListNode<T> node, 
+            T value)
         {
             this.linkedList.AddBefore(node, value);
         }
 
-        public virtual void AddBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
+        public virtual void AddBefore(
+            LinkedListNode<T> node, 
+            LinkedListNode<T> newNode)
         {
             this.linkedList.AddBefore(node, newNode);
         }
 
-        public virtual void AddFirst(LinkedListNode<T> node)
+        public virtual void AddFirst(
+            LinkedListNode<T> node)
         {
             this.linkedList.AddFirst(node);
         }
 
-        public virtual void AddLast(LinkedListNode<T> node)
+        public virtual void AddLast(
+            LinkedListNode<T> node)
         {
             this.linkedList.AddLast(node);
         }
@@ -113,7 +129,8 @@
             this.linkedList.Clear();
         }
 
-        public virtual void CopyTo(T[] array)
+        public virtual void CopyTo(
+            T[] array)
         {
             this.linkedList.CopyTo(array, 0);
         }
@@ -125,12 +142,14 @@
             this.linkedList.GetObjectData(info, context);
         }
 
-        public virtual void OnDeserialization(object sender)
+        public virtual void OnDeserialization(
+            object sender)
         {
             this.linkedList.OnDeserialization(sender);
         }
 
-        public virtual void Remove(LinkedListNode<T> node)
+        public virtual void Remove(
+            LinkedListNode<T> node)
         {
             this.linkedList.Remove(node);
         }

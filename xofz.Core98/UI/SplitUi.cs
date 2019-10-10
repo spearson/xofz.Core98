@@ -2,8 +2,10 @@
 {
     public interface SplitUi : Ui
     {
-        void SwitchUi1(Ui newFirstUi);
+        void SwitchUi1(
+            Ui newFirstUi);
 
-        void SwitchUi2(Ui newSecondUi);
+        void SwitchUi2(
+            Ui newSecondUi);
     }
 }

@@ -31,6 +31,7 @@
 
         bool StatisticsKeyVisible { get; set; }
 
-        void AddToTop(XTuple<string, string, string> entry);
+        void AddToTop(
+            XTuple<string, string, string> entry);
     }
 }

@@ -14,14 +14,7 @@
             var root = ui?.Root;
             if (root == null)
             {
-                try
-                {
-                    return read();
-                }
-                catch
-                {
-                    return default;
-                }
+                return default;
             }
 
             if (root.InvokeRequired)
@@ -46,15 +39,6 @@
             var root = ui?.Root;
             if (root == null)
             {
-                try
-                {
-                    write();
-                }
-                catch
-                {
-                    // swallow
-                }
-
                 return;
             }
 
@@ -79,15 +63,6 @@
             var root = ui?.Root;
             if (root == null)
             {
-                try
-                {
-                    write();
-                }
-                catch
-                {
-                    // swallow
-                }
-
                 return;
             }
 

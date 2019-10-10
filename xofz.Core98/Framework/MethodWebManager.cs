@@ -105,7 +105,7 @@
                 nmwh => nmwh.Name == webName)?.Web;
             if (innerWeb == null)
             {
-                return default(T);
+                return default;
             }
 
             return innerWeb.Run(engine, dependencyName);

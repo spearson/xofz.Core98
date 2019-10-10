@@ -102,12 +102,15 @@
             return this.list.AsReadOnly();
         }
 
-        public virtual int BinarySearch(T item)
+        public virtual int BinarySearch(
+            T item)
         {
             return this.list.BinarySearch(item);
         }
 
-        public virtual int BinarySearch(T item, IComparer<T> comparer)
+        public virtual int BinarySearch(
+            T item, 
+            IComparer<T> comparer)
         {
             return this.list.BinarySearch(item, comparer);
         }

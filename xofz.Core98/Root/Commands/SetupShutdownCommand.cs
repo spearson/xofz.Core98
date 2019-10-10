@@ -5,7 +5,8 @@
     using xofz.Presentation;
     using xofz.UI;
 
-    public class SetupShutdownCommand : Command
+    public class SetupShutdownCommand 
+        : Command
     {
         public SetupShutdownCommand(
             MethodWeb web)

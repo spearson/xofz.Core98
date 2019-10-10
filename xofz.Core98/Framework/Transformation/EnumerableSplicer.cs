@@ -8,6 +8,11 @@
         public virtual Lot<T> Splice<T>(
             ICollection<T>[] collections)
         {
+            if (collections == null)
+            {
+                return Lot.Empty<T>();
+            }
+
             var sources = new IEnumerable<T>[collections.Length];
             var indexCounter = 0;
             foreach (var collection in collections)
@@ -22,6 +27,11 @@
         public virtual Lot<T> Splice<T>(
             Lot<T>[] lots)
         {
+            if (lots == null)
+            {
+                return Lot.Empty<T>();
+            }
+
             var sources = new IEnumerable<T>[lots.Length];
             var indexCounter = 0;
             foreach (var lot in lots)
@@ -66,10 +76,11 @@
 
             for (var i = 0; i < smallestCount; ++i)
             {
+                var currentIndex = i;
                 result.AddRange(
                     EnumerableHelpers.Select(
                         lists,
-                        l => l[i]));
+                        l => l[currentIndex]));
             }
 
             var remainingLists = new LinkedList<List<T>>();
@@ -82,7 +93,7 @@
                 }
             }
 
-            if (remainingLists.Count == 0)
+            if (remainingLists.Count < 1)
             {
                 return result;
             }

@@ -43,7 +43,8 @@
             }
         }
 
-        private static string getEntryType(EventLogEntry entry)
+        private static string getEntryType(
+            EventLogEntry entry)
         {
             switch (entry.EntryType)
             {
@@ -93,7 +94,8 @@
             editor.AddEntry(entry);
         }
 
-        void LogEditor.AddEntry(LogEntry entry)
+        void LogEditor.AddEntry(
+            LogEntry entry)
         {
             this.eventLog.WriteEntry(
                 string.Join(
@@ -103,7 +105,8 @@
             this.EntryWritten?.Invoke(entry);
         }
 
-        private static EventLogEntryType getEventLogEntryType(string type)
+        private static EventLogEntryType getEventLogEntryType(
+            string type)
         {
             switch (type)
             {

@@ -7,7 +7,8 @@
     using xofz.Presentation;
     using xofz.UI;
 
-    public class SetupLoginCommand : Command
+    public class SetupLoginCommand 
+        : Command
     {
         public SetupLoginCommand(
             LoginUi ui,

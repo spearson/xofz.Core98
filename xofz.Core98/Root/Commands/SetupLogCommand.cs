@@ -9,7 +9,8 @@
     using xofz.Presentation;
     using xofz.UI;
 
-    public class SetupLogCommand : Command
+    public class SetupLogCommand 
+        : Command
     {
         public SetupLogCommand(
             LogUi ui,

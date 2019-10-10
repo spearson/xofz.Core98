@@ -40,7 +40,8 @@
             this.presenters = presenters;
         }
 
-        public virtual bool RegisterPresenter(Presenter presenter)
+        public virtual bool RegisterPresenter(
+            Presenter presenter)
         {
             if (presenter == null)
             {
@@ -59,7 +60,8 @@
                     this.presenters));
         }
 
-        public virtual bool IsRegistered<T>(string name)
+        public virtual bool IsRegistered<T>(
+            string name)
             where T : NamedPresenter
         {
             return EnumerableHelpers.Any(
@@ -68,7 +70,8 @@
                 p => p.Name == name);
         }
 
-        public virtual void Present<T>() where T : Presenter
+        public virtual void Present<T>() 
+            where T : Presenter
         {
             var ps = this.presenters;
             var presenter = EnumerableHelpers.FirstOrDefault(
@@ -87,7 +90,8 @@
             this.startPresenter?.Invoke(presenter);
         }
 
-        public virtual void Present<T>(string name)
+        public virtual void Present<T>(
+            string name)
             where T : NamedPresenter
         {
             var ps = this.presenters;
@@ -123,7 +127,8 @@
             this.startPresenter?.Invoke(presenter);
         }
 
-        public virtual void PresentFluidly<T>(string name)
+        public virtual void PresentFluidly<T>(
+            string name)
             where T : NamedPresenter
         {
             var matchingPresenters = EnumerableHelpers.OfType<T>(
@@ -169,7 +174,8 @@
             }
         }
 
-        public virtual void StopPresenter<T>(string name)
+        public virtual void StopPresenter<T>(
+            string name)
             where T : NamedPresenter
         {
             foreach (var presenter in
@@ -195,7 +201,7 @@
                         p => p is TPresenter));
             if (matchingPresenters.Count < 1)
             {
-                return default(TUi);
+                return default;
             }
 
             if (presenterName == null)
@@ -221,7 +227,7 @@
                 }
             }
 
-            return default(TUi);
+            return default;
         }
 
         protected virtual TUi getUiProtected<TUi>(

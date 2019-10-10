@@ -21,7 +21,8 @@
                 (stats, uiRW) =>
                 {
                     var today = DateTime.Today;
-                    var lastWeek = today.Subtract(TimeSpan.FromDays(6));
+                    var lastWeek = today.Subtract(
+                        TimeSpan.FromDays(6));
                     uiRW.WriteSync(ui, () =>
                     {
                         ui.StartDate = lastWeek;

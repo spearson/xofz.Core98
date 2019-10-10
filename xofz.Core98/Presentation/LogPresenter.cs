@@ -199,7 +199,8 @@
             });
         }
 
-        private void log_EntryWritten(LogEntry e)
+        private void log_EntryWritten(
+            LogEntry e)
         {
             var r = this.runner;
             r.Run<EntryWrittenHandler>(handler =>
@@ -211,7 +212,8 @@
             });
         }
 
-        private void accessLevelChanged(AccessLevel newAccessLevel)
+        private void accessLevelChanged(
+            AccessLevel newAccessLevel)
         {
             var r = this.runner;
             r.Run<AccessLevelChangedHandler>(handler =>

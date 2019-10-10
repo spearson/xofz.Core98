@@ -3,7 +3,8 @@
     using xofz.Framework;
     using xofz.Framework.Access;
 
-    public class SetupAccessCommand : Command
+    public class SetupAccessCommand 
+        : Command
     {
         public SetupAccessCommand(
             PasswordHolder passwords,

@@ -5,7 +5,8 @@
 
     public sealed class QueueLotter : Lotter
     {
-        Lot<T> Lotter.Materialize<T>(IEnumerable<T> source)
+        Lot<T> Lotter.Materialize<T>(
+            IEnumerable<T> source)
         {
             return new QueueLot<T>(
                 source);

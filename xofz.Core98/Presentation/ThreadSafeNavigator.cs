@@ -85,7 +85,8 @@ namespace xofz.Presentation
             }
         }
 
-        public override bool IsRegistered<T>(string name)
+        public override bool IsRegistered<T>(
+            string name)
         {
             lock (this.locker)
             {
@@ -165,7 +166,8 @@ namespace xofz.Presentation
             this.startPresenter?.Invoke(presenter);
         }
 
-        public override void Present<T>(string name)
+        public override void Present<T>(
+            string name)
         {
             var ps = this.presenters;
             NamedPresenter np;
@@ -212,7 +214,8 @@ namespace xofz.Presentation
             this.startPresenter?.Invoke(presenter);
         }
 
-        public override void PresentFluidly<T>(string name)
+        public override void PresentFluidly<T>(
+            string name)
         {
             NamedPresenter np;
             lock (this.locker)
@@ -249,7 +252,8 @@ namespace xofz.Presentation
             }
         }
 
-        public override void StopPresenter<T>(string name)
+        public override void StopPresenter<T>(
+            string name)
         {
             lock (this.locker)
             {

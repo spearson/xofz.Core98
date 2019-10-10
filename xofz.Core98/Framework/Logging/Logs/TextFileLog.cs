@@ -9,7 +9,8 @@
     public sealed class TextFileLog 
         : Log, LogEditor
     {
-        public TextFileLog(string filePath)
+        public TextFileLog(
+            string filePath)
         {
             this.filePath = filePath;
             this.locker = new object();
@@ -122,7 +123,9 @@
 
         public event Do Cleared;
 
-        void LogEditor.AddEntry(string type, IEnumerable<string> content)
+        void LogEditor.AddEntry(
+            string type, 
+            IEnumerable<string> content)
         {
             LogEditor editor = this;
             editor.AddEntry(
@@ -131,7 +134,8 @@
                     new LinkedListLot<string>(content)));
         }
 
-        void LogEditor.AddEntry(LogEntry entry)
+        void LogEditor.AddEntry(
+            LogEntry entry)
         {
             var lines = new LinkedList<string>();
             lines.AddLast(entry.Timestamp.ToString(timestampFormatV2));
@@ -173,7 +177,8 @@
             this.Cleared?.Invoke();
         }
 
-        void LogEditor.Clear(string backupLocation)
+        void LogEditor.Clear(
+            string backupLocation)
         {
             lock (this.locker)
             {

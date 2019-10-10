@@ -176,7 +176,7 @@
             var innerWeb = targetWeb?.Web;
             if (innerWeb == null)
             {
-                return default(T);
+                return default;
             }
 
             return innerWeb.Run(
