@@ -334,6 +334,45 @@
             }
         }
 
+        public static IEnumerable<T> Insert<T>(
+            IEnumerable<T> source,
+            T itemToInsert,
+            long insertionIndex)
+        {
+            if (source == null)
+            {
+                yield return itemToInsert;
+                yield break;
+            }
+
+            if (insertionIndex < 0)
+            {
+                yield return itemToInsert;
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            long indexer = 0;
+            foreach (var item in source)
+            {
+                if (indexer == insertionIndex)
+                {
+                    yield return itemToInsert;
+                }
+
+                yield return item;
+
+                checked
+                {
+                    ++indexer;
+                }
+            }
+        }
+
         public static T First<T>(
             IEnumerable<T> source)
         {
