@@ -317,6 +317,23 @@
             yield return appendee;
         }
 
+        public static IEnumerable<T> Prepend<T>(
+            IEnumerable<T> source,
+            T prependee)
+        {
+            yield return prependee;
+
+            if (source == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
+                yield return item;
+            }
+        }
+
         public static T First<T>(
             IEnumerable<T> source)
         {
