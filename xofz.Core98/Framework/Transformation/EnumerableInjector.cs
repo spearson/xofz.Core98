@@ -9,6 +9,43 @@
             Lot<long> injectionPoints,
             params T[] injections)
         {
+            return this.injectProtected(
+                source,
+                injectionPoints,
+                injections,
+                injections?.Length ?? -1);
+        }
+
+        public virtual IEnumerable<T> Inject<T>(
+            IEnumerable<T> source,
+            Lot<long> injectionPoints,
+            ICollection<T> injections)
+        {
+            return this.injectProtected(
+                source,
+                injectionPoints,
+                injections,
+                injections?.Count ?? -1);
+        }
+
+        public virtual IEnumerable<T> Inject<T>(
+            IEnumerable<T> source,
+            Lot<long> injectionPoints,
+            Lot<T> injections)
+        {
+            return this.injectProtected(
+                source,
+                injectionPoints,
+                injections,
+                injections?.Count ?? -1);
+        }
+
+        protected virtual IEnumerable<T> injectProtected<T>(
+            IEnumerable<T> source,
+            Lot<long> injectionPoints,
+            IEnumerable<T> injections,
+            long injectionsCount)
+        {
             var nullInjections = injections == null;
             if (source == null)
             {
@@ -24,7 +61,7 @@
 
                 yield break;
             }
-            
+
             if (nullInjections)
             {
                 foreach (var item in source)
@@ -35,8 +72,7 @@
                 yield break;
             }
 
-            var numberOfInjections = injections.Length;
-            if (numberOfInjections < 1)
+            if (injectionsCount < 1)
             {
                 foreach (var item in source)
                 {
@@ -58,22 +94,39 @@
             }
 
             long counter = 0;
-            long index = 0;
+            long currentInjectionIndex = 0;
+            var injectionsE = injections.GetEnumerator();
             foreach (var item in source)
-            {                
-                foreach (var injectionPoint in injectionPoints)
+            {
+                if (currentInjectionIndex < injectionsCount)
                 {
-                    if (injectionPoint == counter 
-                        && index < numberOfInjections)
+                    foreach (var injectionPoint in injectionPoints)
                     {
-                        yield return injections[index];
-                        ++index;
+                        if (injectionPoint != counter)
+                        {
+                            continue;
+                        }
+
+                        if (currentInjectionIndex >= injectionsCount)
+                        {
+                            break;
+                        }
+
+                        injectionsE.MoveNext();
+                        yield return injectionsE.Current;
+                        ++currentInjectionIndex;
                     }
                 }
 
-                ++counter;
+                checked
+                {
+                    ++counter;
+                }
+
                 yield return item;
             }
+
+            injectionsE.Dispose();
         }
     }
 }

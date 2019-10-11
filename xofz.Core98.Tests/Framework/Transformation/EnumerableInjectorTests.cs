@@ -1,5 +1,6 @@
 ﻿namespace xofz.Tests.Framework.Transformation
 {
+    using System.Collections.Generic;
     using xofz.Framework.Lots;
     using xofz.Framework.Transformation;
     using Xunit;
@@ -27,7 +28,7 @@
                 foreach (var item in this.injector.Inject<object>(
                     null,
                     injectionPoints,
-                    null))
+                    (Lot<object>)null))
                 {
                     noItems = false;
                 }
@@ -38,7 +39,7 @@
             [Fact]
             public void If_source_is_null_yield_returns_each_injection_and_then_breaks()
             {
-                var injections = new object[] { "test string", 0xAF, 4.56 };
+                var injections = new object[] { @"test string", 0xAF, 4.56 };
                 byte counter = 0;
                 foreach (var item in this.injector.Inject<object>(
                     null,
@@ -93,19 +94,19 @@
                 {
                     0xFFABF,
                     3.567,
-                    "testing 1 2 3...",
+                    @"testing 1 2 3...",
                     999,
                     0,
-                    "more test data"
+                    @"more test data"
                 };
                 byte counter = 0;
                 Lot<long> injectionPoints = new ArrayLot<long>(
                     new long[] { 1, 3, 4 });
-                var injections = new object[]
+                var injections = new List<object>
                 {
-                    "injection 1",
-                    "injection 2",
-                    "injection 3"
+                    @"injection 1",
+                    @"injection 2",
+                    @"injection 3"
                 };
                 foreach (var item in this.injector.Inject(
                     source,

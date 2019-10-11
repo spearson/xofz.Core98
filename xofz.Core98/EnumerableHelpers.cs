@@ -371,6 +371,11 @@
                     ++indexer;
                 }
             }
+
+            if (indexer == insertionIndex)
+            {
+                yield return itemToInsert;
+            }
         }
 
         public static T First<T>(
