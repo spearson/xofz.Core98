@@ -62,28 +62,7 @@
                 yield break;
             }
 
-            if (nullInjections)
-            {
-                foreach (var item in source)
-                {
-                    yield return item;
-                }
-
-                yield break;
-            }
-
-            if (injectionsCount < 1)
-            {
-                foreach (var item in source)
-                {
-                    yield return item;
-                }
-
-                yield break;
-            }
-
-
-            if (injectionPoints == null)
+            if (nullInjections || injectionsCount < 1 || injectionPoints == null)
             {
                 foreach (var item in source)
                 {

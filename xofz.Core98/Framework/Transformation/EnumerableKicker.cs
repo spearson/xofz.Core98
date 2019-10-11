@@ -54,13 +54,18 @@
             long kickCounter = 0;
             foreach (var item in source)
             {
-                ++kickCounter;
-                var shouldKick = false;
-                foreach (var kp in kickPoints)
+                checked
                 {
-                    if (kp == kickCounter)
+                    ++kickCounter;
+                }
+
+                var shouldKick = false;
+                foreach (var kickPoint in kickPoints)
+                {
+                    if (kickPoint == kickCounter)
                     {
                         shouldKick = true;
+                        break;
                     }
                 }
 
