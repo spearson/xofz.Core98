@@ -3,7 +3,8 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class QueueLot<T> : Lot<T>
+    public class QueueLot<T> 
+        : Lot<T>
     {
         public QueueLot()
         {

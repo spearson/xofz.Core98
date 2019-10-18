@@ -16,8 +16,10 @@
                 return;
             }
 
-            var @event = (Delegate) holderType
-                .GetField(eventName, BindingFlags.Instance | BindingFlags.NonPublic)
+            var @event = (Delegate)holderType
+                .GetField(
+                    eventName,
+                    BindingFlags.Instance | BindingFlags.NonPublic)
                 ?.GetValue(eventHolder);
             if (@event == null)
             {
@@ -42,7 +44,7 @@
                     }
 
                     tryGetEvent:
-                    @event = (Delegate) baseType
+                    @event = (Delegate)baseType
                         .GetField(eventName,
                             BindingFlags.Instance |
                             BindingFlags.NonPublic)

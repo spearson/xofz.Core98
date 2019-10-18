@@ -61,7 +61,7 @@
             this.startDatePicker.Location = new System.Drawing.Point(1, 20);
             this.startDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.startDatePicker.Name = "startDatePicker";
-            this.startDatePicker.TabIndex = 15;
+            this.startDatePicker.TabIndex = 0;
             this.startDatePicker.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.startDatePicker_DateSelected);
             // 
             // endDatePicker
@@ -70,7 +70,7 @@
             this.endDatePicker.Location = new System.Drawing.Point(373, 20);
             this.endDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.endDatePicker.Name = "endDatePicker";
-            this.endDatePicker.TabIndex = 16;
+            this.endDatePicker.TabIndex = 1;
             this.endDatePicker.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.endDatePicker_DateSelected);
             // 
             // startLabel
@@ -80,7 +80,7 @@
             this.startLabel.Location = new System.Drawing.Point(-3, 0);
             this.startLabel.Name = "startLabel";
             this.startLabel.Size = new System.Drawing.Size(54, 20);
-            this.startLabel.TabIndex = 2;
+            this.startLabel.TabIndex = 99;
             this.startLabel.Text = "Start:";
             // 
             // endLabel
@@ -91,7 +91,7 @@
             this.endLabel.Location = new System.Drawing.Point(369, 0);
             this.endLabel.Name = "endLabel";
             this.endLabel.Size = new System.Drawing.Size(46, 20);
-            this.endLabel.TabIndex = 3;
+            this.endLabel.TabIndex = 99;
             this.endLabel.Text = "End:";
             // 
             // entriesGrid
@@ -129,7 +129,7 @@
             this.entriesGrid.RowHeadersVisible = false;
             this.entriesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.entriesGrid.Size = new System.Drawing.Size(600, 219);
-            this.entriesGrid.TabIndex = 4;
+            this.entriesGrid.TabIndex = 14;
             // 
             // timestampColumn
             // 
@@ -169,7 +169,7 @@
             this.addKey.Margin = new System.Windows.Forms.Padding(0);
             this.addKey.Name = "addKey";
             this.addKey.Size = new System.Drawing.Size(102, 31);
-            this.addKey.TabIndex = 5;
+            this.addKey.TabIndex = 9;
             this.addKey.Text = "Add Entry";
             this.addKey.UseVisualStyleBackColor = true;
             this.addKey.Click += new System.EventHandler(this.addKey_Click);
@@ -205,7 +205,7 @@
             this.upKey.Margin = new System.Windows.Forms.Padding(0);
             this.upKey.Name = "upKey";
             this.upKey.Size = new System.Drawing.Size(51, 55);
-            this.upKey.TabIndex = 7;
+            this.upKey.TabIndex = 5;
             this.upKey.Text = "^";
             this.upKey.UseVisualStyleBackColor = true;
             this.upKey.Click += new System.EventHandler(this.upKey_Click);
@@ -256,7 +256,7 @@
             this.filterTypeTextBox.Location = new System.Drawing.Point(158, 252);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
             this.filterTypeTextBox.Size = new System.Drawing.Size(204, 26);
-            this.filterTypeTextBox.TabIndex = 1;
+            this.filterTypeTextBox.TabIndex = 12;
             this.filterTypeTextBox.TextChanged += new System.EventHandler(this.filterTypeTextBox_TextChanged);
             // 
             // filterContentTextBox
@@ -267,7 +267,7 @@
             this.filterContentTextBox.Location = new System.Drawing.Point(158, 220);
             this.filterContentTextBox.Name = "filterContentTextBox";
             this.filterContentTextBox.Size = new System.Drawing.Size(373, 26);
-            this.filterContentTextBox.TabIndex = 0;
+            this.filterContentTextBox.TabIndex = 10;
             this.filterContentTextBox.TextChanged += new System.EventHandler(this.filterContentTextBox_TextChanged);
             // 
             // resetContentKey
@@ -283,7 +283,7 @@
             this.resetContentKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetContentKey.Name = "resetContentKey";
             this.resetContentKey.Size = new System.Drawing.Size(66, 31);
-            this.resetContentKey.TabIndex = 13;
+            this.resetContentKey.TabIndex = 11;
             this.resetContentKey.Text = "Reset";
             this.resetContentKey.UseVisualStyleBackColor = true;
             this.resetContentKey.Click += new System.EventHandler(this.resetContentKey_Click);
@@ -301,7 +301,7 @@
             this.resetTypeKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetTypeKey.Name = "resetTypeKey";
             this.resetTypeKey.Size = new System.Drawing.Size(66, 31);
-            this.resetTypeKey.TabIndex = 14;
+            this.resetTypeKey.TabIndex = 13;
             this.resetTypeKey.Text = "Reset";
             this.resetTypeKey.UseVisualStyleBackColor = true;
             this.resetTypeKey.Click += new System.EventHandler(this.resetTypeKey_Click);
@@ -319,7 +319,7 @@
             this.clearKey.Margin = new System.Windows.Forms.Padding(0);
             this.clearKey.Name = "clearKey";
             this.clearKey.Size = new System.Drawing.Size(102, 31);
-            this.clearKey.TabIndex = 17;
+            this.clearKey.TabIndex = 7;
             this.clearKey.Text = "Clear Log";
             this.clearKey.UseVisualStyleBackColor = true;
             this.clearKey.Click += new System.EventHandler(this.clearKey_Click);
@@ -335,7 +335,7 @@
             this.previousWeekKey.Margin = new System.Windows.Forms.Padding(0);
             this.previousWeekKey.Name = "previousWeekKey";
             this.previousWeekKey.Size = new System.Drawing.Size(165, 31);
-            this.previousWeekKey.TabIndex = 18;
+            this.previousWeekKey.TabIndex = 2;
             this.previousWeekKey.Text = "<< Previous Week";
             this.previousWeekKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.previousWeekKey.UseVisualStyleBackColor = true;
@@ -352,7 +352,7 @@
             this.nextWeekKey.Margin = new System.Windows.Forms.Padding(0);
             this.nextWeekKey.Name = "nextWeekKey";
             this.nextWeekKey.Size = new System.Drawing.Size(165, 31);
-            this.nextWeekKey.TabIndex = 19;
+            this.nextWeekKey.TabIndex = 3;
             this.nextWeekKey.Text = "Next Week >>";
             this.nextWeekKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.nextWeekKey.UseVisualStyleBackColor = true;
@@ -369,7 +369,7 @@
             this.currentWeekKey.Margin = new System.Windows.Forms.Padding(0);
             this.currentWeekKey.Name = "currentWeekKey";
             this.currentWeekKey.Size = new System.Drawing.Size(84, 31);
-            this.currentWeekKey.TabIndex = 20;
+            this.currentWeekKey.TabIndex = 4;
             this.currentWeekKey.Text = "Current";
             this.currentWeekKey.UseVisualStyleBackColor = true;
             this.currentWeekKey.Click += new System.EventHandler(this.currentWeekKey_Click);

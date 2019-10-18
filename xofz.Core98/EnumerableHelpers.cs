@@ -249,10 +249,10 @@
         }
 
         public static IEnumerable<T> TakeLast<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             int takeCount)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 yield break;
             }
@@ -266,7 +266,7 @@
                 EnumerableHelpers.Reverse(
                     EnumerableHelpers.Take(
                         EnumerableHelpers.Reverse(
-                            source),
+                            finiteSource),
                         takeCount)))
             {
                 yield return item;
@@ -300,16 +300,16 @@
         }
 
         public static IEnumerable<T> Append<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             T appendee)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 yield return appendee;
                 yield break;
             }
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 yield return item;
             }
@@ -482,9 +482,9 @@
         }
 
         public static T Last<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 throw new InvalidOperationException(
                     @"The enumerable is null and therefore does not " +
@@ -494,7 +494,7 @@
 
             T lastItem = default;
             bool lastChanged = false;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 lastChanged = true;
                 lastItem = item;
@@ -512,10 +512,10 @@
         }
 
         public static T Last<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 throw new InvalidOperationException(
                     @"The enumerable is null and therefore does not " +
@@ -531,7 +531,7 @@
             T lastItem = default;
             bool empty = true;
             bool lastChanged = false;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 empty = false;
                 if (predicate(item))
@@ -558,15 +558,15 @@
         }
 
         public static T LastOrDefault<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return default;
             }
 
             T lastItem = default;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 lastItem = item;
             }
@@ -575,10 +575,10 @@
         }
 
         public static T LastOrDefault<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return default;
             }
@@ -589,7 +589,7 @@
             }
 
             T lastItem = default;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (predicate(item))
                 {
@@ -642,10 +642,10 @@
         }
 
         public static bool All<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return true;
             }
@@ -655,7 +655,7 @@
                 return true;
             }
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (!predicate(item))
                 {
@@ -731,15 +731,15 @@
         }
 
         public static int Count<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             var count = 0;
-            if (source == null)
+            if (finiteSource == null)
             {
                 return count;
             }
             
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 checked
                 {
@@ -751,11 +751,11 @@
         }
 
         public static int Count<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
             var count = 0;
-            if (source == null)
+            if (finiteSource == null)
             {
                 return count;
             }
@@ -765,7 +765,7 @@
                 return count;
             }
             
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (predicate(item))
                 {
@@ -780,15 +780,15 @@
         }
 
         public static long LongCount<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             long count = 0;
-            if (source == null)
+            if (finiteSource == null)
             {
                 return count;
             }
             
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 checked
                 {
@@ -800,11 +800,11 @@
         }
 
         public static long LongCount<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
             long count = 0;
-            if (source == null)
+            if (finiteSource == null)
             {
                 return count;
             }
@@ -814,7 +814,7 @@
                 return count;
             }
             
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (predicate(item))
                 {
@@ -829,26 +829,26 @@
         }
 
         public static T[] ToArray<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new T[0];
             }
 
-            if (source is T[] a)
+            if (finiteSource is T[] a)
             {
                 return a;
             }
 
             LinkedList<T> ll;
-            if (source is LinkedList<T> linkedList)
+            if (finiteSource is LinkedList<T> linkedList)
             {
                 ll = linkedList;
                 goto createArray;
             }
 
-            ll = new LinkedList<T>(source);
+            ll = new LinkedList<T>(finiteSource);
 
             createArray:
             var array = new T[ll.Count];
@@ -858,84 +858,74 @@
         }
 
         public static List<T> ToList<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return new List<T>();
             }
 
-            if (source is List<T> l)
+            if (finiteSource is List<T> l)
             {
                 return l;
             }
 
-            return new List<T>(source);
+            return new List<T>(finiteSource);
         }
 
         public static ICollection<T> OrderBy<T, TKey>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, TKey> keySelector)
         {
             return orderBy(
-                source,
+                finiteSource,
                 keySelector,
                 Comparer<TKey>.Default,
                 false);
         }
 
         public static ICollection<T> OrderBy<T, TKey>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             return orderBy(
-                source,
+                finiteSource,
                 keySelector,
                 comparer,
                 false);
         }
 
         public static ICollection<T> OrderByDescending<T, TKey>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, TKey> keySelector)
         {
             return orderBy(
-                source,
+                finiteSource,
                 keySelector,
                 Comparer<TKey>.Default,
                 true);
         }
 
         public static ICollection<T> OrderByDescending<T, TKey>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, TKey> keySelector,
             IComparer<TKey> comparer)
         {
             return orderBy(
-                source,
+                finiteSource,
                 keySelector,
                 comparer,
                 true);
         }
 
         private static ICollection<T> orderBy<T, TKey>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, TKey> keySelector,
             IComparer<TKey> comparer,
             bool descending)
         {
-            if (source == null)
-            {
-                return new LinkedList<T>();
-            }
-
-            if (keySelector == null)
-            {
-                return new LinkedList<T>();
-            }
-
-            if (comparer == null)
+            if (finiteSource == null || keySelector == null || comparer == null)
             {
                 return new LinkedList<T>();
             }
@@ -943,7 +933,7 @@
             var d = new Dictionary<TKey, ICollection<T>>();
             ICollection<T> itemsWithNullKeys = new LinkedList<T>();
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 var key = keySelector(item);
                 if (key == null)
@@ -979,11 +969,11 @@
         }
 
         public static TEnd Aggregate<T, TEnd>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             TEnd seed,
             Gen<TEnd, T, TEnd> accumulator)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return seed;
             }
@@ -994,7 +984,7 @@
             }
 
             var end = seed;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 end = accumulator(end, item);
             }
@@ -1070,10 +1060,10 @@
         }
 
         public static int Sum<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, int> valueComputer)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
@@ -1084,7 +1074,7 @@
             }
 
             var sum = 0;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 checked
                 {
@@ -1096,10 +1086,10 @@
         }
 
         public static long Sum<T>(
-            IEnumerable<T> source,
+            IEnumerable<T> finiteSource,
             Gen<T, long> valueComputer)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
@@ -1110,7 +1100,7 @@
             }
 
             long sum = 0;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 checked
                 {
@@ -1122,16 +1112,16 @@
         }
 
         public static int Min(
-            IEnumerable<int> source)
+            IEnumerable<int> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
 
             var min = int.MaxValue;
             var minChanged = false;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 minChanged = true;
                 if (item < min)
@@ -1149,16 +1139,16 @@
         }
 
         public static long Min(
-            IEnumerable<long> source)
+            IEnumerable<long> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
 
             var min = long.MaxValue;
             var minChanged = false;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 minChanged = true;
                 if (item < min)
@@ -1176,15 +1166,15 @@
         }
 
         public static int Max(
-            IEnumerable<int> source)
+            IEnumerable<int> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
 
             var max = 0;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (item > max)
                 {
@@ -1196,15 +1186,15 @@
         }
 
         public static long Max(
-            IEnumerable<long> source)
+            IEnumerable<long> finiteSource)
         {
-            if (source == null)
+            if (finiteSource == null)
             {
                 return 0;
             }
 
             long max = 0;
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 if (item > max)
                 {
@@ -1216,15 +1206,15 @@
         }
 
         public static ICollection<T> Reverse<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             var ll = new LinkedList<T>();
-            if (source == null)
+            if (finiteSource == null)
             {
                 return ll;
             }
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 ll.AddFirst(item);
             }
@@ -1251,6 +1241,25 @@
             }
 
             return default;
+        }
+
+        public static IEnumerable<TKey> KeysLookup<TValue, TKey>(
+            IEnumerable<KeyValuePair<TKey, TValue>> dictionary,
+            TValue value)
+        {
+            if (dictionary == null)
+            {
+                yield break;
+            }
+
+            var valueIsNull = value == null;
+            foreach (var kvp in dictionary)
+            {
+                if (kvp.Value?.Equals(value) ?? valueIsNull)
+                {
+                    yield return kvp.Key;
+                }
+            }
         }
     }
 }

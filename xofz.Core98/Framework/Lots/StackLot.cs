@@ -3,7 +3,8 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class StackLot<T> : Lot<T>
+    public class StackLot<T> 
+        : Lot<T>
     {
         public StackLot()
         {

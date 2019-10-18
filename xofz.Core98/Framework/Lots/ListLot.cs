@@ -5,7 +5,8 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ListLot<T> : Lot<T>
+    public class ListLot<T> 
+        : GetArray<T>
     {
         public ListLot()
             : this(new List<T>())
@@ -13,9 +14,9 @@
         }
 
         public ListLot(
-            int capacity)
+            long capacity)
         {
-            this.list = new List<T>(capacity);
+            this.list = new List<T>((int)capacity);
         }
 
         public ListLot(
@@ -39,13 +40,18 @@
 
         public virtual long Count => this.list.Count;
 
-        public virtual long Capacity => this.list.Capacity;
-
-        public virtual T this[int index]
+        public virtual long Capacity
         {
-            get => this.list[index];
+            get => this.list.Capacity;
 
-            set => this.list[index] = value;
+            set => this.list.Capacity = (int)value;
+        }
+
+        public virtual T this[long index]
+        {
+            get => this.list[(int)index];
+
+            set => this.list[(int)index] = value;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()

@@ -3,7 +3,8 @@
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
-    public sealed class LinkedListLotter : Lotter
+    public sealed class LinkedListLotter 
+        : Lotter
     {
         Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> source)

@@ -57,7 +57,7 @@
             this.passwordTextBoxLabel.Location = new System.Drawing.Point(12, 9);
             this.passwordTextBoxLabel.Name = "passwordTextBoxLabel";
             this.passwordTextBoxLabel.Size = new System.Drawing.Size(97, 24);
-            this.passwordTextBoxLabel.TabIndex = 0;
+            this.passwordTextBoxLabel.TabIndex = 99;
             this.passwordTextBoxLabel.Text = "Password:";
             // 
             // passwordTextBox
@@ -295,7 +295,7 @@
             this.durationRemainingLabel.Location = new System.Drawing.Point(188, 36);
             this.durationRemainingLabel.Name = "durationRemainingLabel";
             this.durationRemainingLabel.Size = new System.Drawing.Size(168, 38);
-            this.durationRemainingLabel.TabIndex = 55;
+            this.durationRemainingLabel.TabIndex = 99;
             this.durationRemainingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // levelLabel
@@ -306,7 +306,7 @@
             this.levelLabel.Location = new System.Drawing.Point(186, 80);
             this.levelLabel.Name = "levelLabel";
             this.levelLabel.Size = new System.Drawing.Size(168, 40);
-            this.levelLabel.TabIndex = 56;
+            this.levelLabel.TabIndex = 99;
             this.levelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // keyboardKey

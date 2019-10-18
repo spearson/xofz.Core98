@@ -4,7 +4,8 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ArrayLot<T> : Lot<T>
+    public class ArrayLot<T> 
+        : GetArray<T>
     {
         public ArrayLot(
             T[] array)
@@ -20,7 +21,7 @@
 
         public virtual long Count => this.array.Length;
 
-        public virtual T this[int index]
+        public virtual T this[long index]
         {
             get => this.array[index];
 

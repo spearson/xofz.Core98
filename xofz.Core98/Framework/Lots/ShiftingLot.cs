@@ -3,7 +3,8 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ShiftingLot<T> : Lot<T>
+    public class ShiftingLot<T> 
+        : GetArray<T>
     {
         public ShiftingLot(
             long capacity)
@@ -18,7 +19,7 @@
         }
 
         public virtual T this[long index] => this.currentArray[index];
-
+        
         public virtual long MaxSize => this.capacity;
 
         public virtual long CurrentSize => this.linkedList.Count;

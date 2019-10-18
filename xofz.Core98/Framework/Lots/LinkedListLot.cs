@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    public class LinkedListLot<T> : Lot<T>
+    public class LinkedListLot<T> 
+        : Lot<T>
     {
         public LinkedListLot()
         {

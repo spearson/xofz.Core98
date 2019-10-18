@@ -89,7 +89,7 @@
             this.entryContentLabel.Location = new System.Drawing.Point(12, 49);
             this.entryContentLabel.Name = "entryContentLabel";
             this.entryContentLabel.Size = new System.Drawing.Size(90, 32);
-            this.entryContentLabel.TabIndex = 6;
+            this.entryContentLabel.TabIndex = 99;
             this.entryContentLabel.Text = "Content:";
             this.entryContentLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -99,7 +99,7 @@
             this.typeLabel.Location = new System.Drawing.Point(41, 11);
             this.typeLabel.Name = "typeLabel";
             this.typeLabel.Size = new System.Drawing.Size(61, 32);
-            this.typeLabel.TabIndex = 5;
+            this.typeLabel.TabIndex = 99;
             this.typeLabel.Text = "Type:";
             this.typeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 

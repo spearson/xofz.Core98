@@ -42,7 +42,7 @@
 
         protected virtual IEnumerable<T> injectProtected<T>(
             IEnumerable<T> source,
-            Lot<long> injectionPoints,
+            Lot<long> injectionIndices,
             IEnumerable<T> injections,
             long injectionsCount)
         {
@@ -62,7 +62,7 @@
                 yield break;
             }
 
-            if (nullInjections || injectionsCount < 1 || injectionPoints == null)
+            if (nullInjections || injectionsCount < 1 || injectionIndices == null)
             {
                 foreach (var item in source)
                 {
@@ -72,37 +72,36 @@
                 yield break;
             }
 
-            long counter = 0;
-            long currentInjectionIndex = 0;
+            long currentItemIndex = 0, currentInjectionIndex = 0;
             var injectionsE = injections.GetEnumerator();
             foreach (var item in source)
             {
                 if (currentInjectionIndex < injectionsCount)
                 {
-                    foreach (var injectionPoint in injectionPoints)
+                    foreach (var injectionIndex in injectionIndices)
                     {
-                        if (injectionPoint != counter)
+                        if (injectionIndex != currentItemIndex)
                         {
                             continue;
                         }
 
+                        injectionsE.MoveNext();
+                        yield return injectionsE.Current;
+
+                        ++currentInjectionIndex;
                         if (currentInjectionIndex >= injectionsCount)
                         {
                             break;
                         }
-
-                        injectionsE.MoveNext();
-                        yield return injectionsE.Current;
-                        ++currentInjectionIndex;
                     }
                 }
 
+                yield return item;
+
                 checked
                 {
-                    ++counter;
+                    ++currentItemIndex;
                 }
-
-                yield return item;
             }
 
             injectionsE.Dispose();

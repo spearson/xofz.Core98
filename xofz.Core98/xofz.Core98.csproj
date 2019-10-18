@@ -100,6 +100,7 @@
     <Compile Include="Framework\Log\StartHandler.cs" />
     <Compile Include="Framework\Log\StatisticsKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\StopHandler.cs" />
+    <Compile Include="Framework\Lots\DictionaryLot.cs" />
     <Compile Include="Framework\Lots\ShiftingLot.cs" />
     <Compile Include="Framework\Computation\ShiftRegister.cs" />
     <Compile Include="Delegates.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Framework\MethodRunner.cs" />
     <Compile Include="Framework\Transformation\EnumerableFluxer.cs" />
     <Compile Include="Framework\Transformation\EnumerablePartitioner.cs" />
+    <Compile Include="GetArray.cs" />
     <Compile Include="Presentation\Navigator.cs" />
     <Compile Include="Presentation\NavigatorV2.cs" />
     <Compile Include="SecureStringToolSet.cs" />

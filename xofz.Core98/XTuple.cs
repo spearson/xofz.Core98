@@ -6,7 +6,7 @@ namespace xofz
     public class XTuple<T, U>
     {
         public XTuple(
-            T item1, 
+            T item1,
             U item2)
         {
             this.one = item1;
@@ -28,13 +28,13 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out U item2)
         {
             while (Interlocked.CompareExchange(
-                ref this.settingOrGettingIf1, 
-                1, 
-                0) == 1)
+                       ref this.settingOrGettingIf1,
+                       1,
+                       0) == 1)
             {
                 continue;
             }
@@ -42,19 +42,19 @@ namespace xofz
             item1 = this.Item1;
             item2 = this.Item2;
             Interlocked.CompareExchange(
-                ref this.settingOrGettingIf1, 
-                0, 
+                ref this.settingOrGettingIf1,
+                0,
                 1);
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             U item2)
         {
             while (Interlocked.CompareExchange(
-                ref this.settingOrGettingIf1,
-                1, 
-                0) == 1)
+                       ref this.settingOrGettingIf1,
+                       1,
+                       0) == 1)
             {
                 continue;
             }
@@ -62,8 +62,8 @@ namespace xofz
             this.Item1 = item1;
             this.Item2 = item2;
             Interlocked.CompareExchange(
-                ref this.settingOrGettingIf1, 
-                0, 
+                ref this.settingOrGettingIf1,
+                0,
                 1);
         }
 
@@ -135,7 +135,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out U item2)
         {
             while (Interlocked.CompareExchange(
@@ -151,7 +151,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             U item2)
         {
             while (Interlocked.CompareExchange(
@@ -167,7 +167,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -183,11 +183,11 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             V item3)
         {
             while (Interlocked.CompareExchange(
-                ref this.settingOrGettingIf1, 1, 0) == 1)
+                       ref this.settingOrGettingIf1, 1, 0) == 1)
             {
                 continue;
             }
@@ -199,7 +199,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out U item2, 
+            out U item2,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -215,7 +215,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            U item2, 
+            U item2,
             V item3)
         {
             while (Interlocked.CompareExchange(
@@ -231,8 +231,8 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
-            out U item2, 
+            out T item1,
+            out U item2,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -249,8 +249,8 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
-            U item2, 
+            T item1,
+            U item2,
             V item3)
         {
             while (Interlocked.CompareExchange(
@@ -350,7 +350,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out U item2)
         {
             while (Interlocked.CompareExchange(
@@ -366,7 +366,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             U item2)
         {
             while (Interlocked.CompareExchange(
@@ -382,7 +382,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -398,7 +398,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             V item3)
         {
             while (Interlocked.CompareExchange(
@@ -414,7 +414,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
+            out T item1,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -430,7 +430,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
+            T item1,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -446,7 +446,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out U item2, 
+            out U item2,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -462,7 +462,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            U item2, 
+            U item2,
             V item3)
         {
             while (Interlocked.CompareExchange(
@@ -478,7 +478,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out U item2, 
+            out U item2,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -494,7 +494,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            U item2, 
+            U item2,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -510,7 +510,7 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out V item3, 
+            out V item3,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -526,7 +526,7 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            V item3, 
+            V item3,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -542,8 +542,8 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
-            out U item2, 
+            out T item1,
+            out U item2,
             out V item3)
         {
             while (Interlocked.CompareExchange(
@@ -560,8 +560,8 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
-            U item2, 
+            T item1,
+            U item2,
             V item3)
         {
             while (Interlocked.CompareExchange(
@@ -578,8 +578,8 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
-            out U item2, 
+            out T item1,
+            out U item2,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -596,8 +596,8 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
-            U item2, 
+            T item1,
+            U item2,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -614,8 +614,8 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
-            out V item3, 
+            out T item1,
+            out V item3,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -632,8 +632,8 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
-            V item3, 
+            T item1,
+            V item3,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -650,8 +650,8 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out U item2, 
-            out V item3, 
+            out U item2,
+            out V item3,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -668,8 +668,8 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            U item2, 
-            V item3, 
+            U item2,
+            V item3,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -686,9 +686,9 @@ namespace xofz
         }
 
         public virtual void AtomicGet(
-            out T item1, 
-            out U item2, 
-            out V item3, 
+            out T item1,
+            out U item2,
+            out V item3,
             out W item4)
         {
             while (Interlocked.CompareExchange(
@@ -706,9 +706,9 @@ namespace xofz
         }
 
         public virtual void AtomicSet(
-            T item1, 
-            U item2, 
-            V item3, 
+            T item1,
+            U item2,
+            V item3,
             W item4)
         {
             while (Interlocked.CompareExchange(
@@ -1168,7 +1168,7 @@ namespace xofz
 
             return false;
 
-        checkItem7:
+            checkItem7:
             var ti7 = this.Item7;
             var oi7 = otherTuple.Item7;
             if (ti7?.Equals(oi7) ?? oi7 == null)

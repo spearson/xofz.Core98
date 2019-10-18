@@ -43,7 +43,7 @@
             this.key.Margin = new System.Windows.Forms.Padding(0);
             this.key.Name = "key";
             this.key.Size = new System.Drawing.Size(100, 94);
-            this.key.TabIndex = 3;
+            this.key.TabIndex = 0;
             this.key.Text = "Sample Label";
             this.key.UseVisualStyleBackColor = true;
             this.key.Click += new System.EventHandler(this.key_Click);

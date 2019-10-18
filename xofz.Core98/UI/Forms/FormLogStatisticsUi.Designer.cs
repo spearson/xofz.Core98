@@ -62,14 +62,14 @@
             this.endDatePicker.Location = new System.Drawing.Point(254, 47);
             this.endDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.endDatePicker.Name = "endDatePicker";
-            this.endDatePicker.TabIndex = 3;
+            this.endDatePicker.TabIndex = 1;
             // 
             // startDatePicker
             // 
             this.startDatePicker.Location = new System.Drawing.Point(9, 47);
             this.startDatePicker.Margin = new System.Windows.Forms.Padding(0);
             this.startDatePicker.Name = "startDatePicker";
-            this.startDatePicker.TabIndex = 2;
+            this.startDatePicker.TabIndex = 0;
             // 
             // endLabel
             // 
@@ -103,7 +103,7 @@
             this.overallKey.Margin = new System.Windows.Forms.Padding(0);
             this.overallKey.Name = "overallKey";
             this.overallKey.Size = new System.Drawing.Size(153, 32);
-            this.overallKey.TabIndex = 9;
+            this.overallKey.TabIndex = 2;
             this.overallKey.Text = "Compute Overall";
             this.overallKey.UseVisualStyleBackColor = true;
             this.overallKey.Click += new System.EventHandler(this.overallKey_Click);
@@ -120,7 +120,7 @@
             this.rangeKey.Margin = new System.Windows.Forms.Padding(0);
             this.rangeKey.Name = "rangeKey";
             this.rangeKey.Size = new System.Drawing.Size(151, 32);
-            this.rangeKey.TabIndex = 10;
+            this.rangeKey.TabIndex = 3;
             this.rangeKey.Text = "Compute Range";
             this.rangeKey.UseVisualStyleBackColor = true;
             this.rangeKey.Click += new System.EventHandler(this.rangeKey_Click);
@@ -143,7 +143,7 @@
             this.statsContainer.Location = new System.Drawing.Point(12, 327);
             this.statsContainer.Name = "statsContainer";
             this.statsContainer.Size = new System.Drawing.Size(466, 162);
-            this.statsContainer.TabIndex = 11;
+            this.statsContainer.TabIndex = 99;
             this.statsContainer.TabStop = false;
             this.statsContainer.Text = "Statistics";
             // 
@@ -154,7 +154,7 @@
             this.totalEntryCountLabel.Location = new System.Drawing.Point(166, 21);
             this.totalEntryCountLabel.Name = "totalEntryCountLabel";
             this.totalEntryCountLabel.Size = new System.Drawing.Size(92, 16);
-            this.totalEntryCountLabel.TabIndex = 11;
+            this.totalEntryCountLabel.TabIndex = 99;
             this.totalEntryCountLabel.Text = "Placeholder";
             // 
             // totalEntryCountLabelLabel
@@ -163,7 +163,7 @@
             this.totalEntryCountLabelLabel.Location = new System.Drawing.Point(51, 21);
             this.totalEntryCountLabelLabel.Name = "totalEntryCountLabelLabel";
             this.totalEntryCountLabelLabel.Size = new System.Drawing.Size(109, 16);
-            this.totalEntryCountLabelLabel.TabIndex = 10;
+            this.totalEntryCountLabelLabel.TabIndex = 99;
             this.totalEntryCountLabelLabel.Text = "Total entry count:";
             this.totalEntryCountLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -174,7 +174,7 @@
             this.latestTimestampLabel.Location = new System.Drawing.Point(166, 131);
             this.latestTimestampLabel.Name = "latestTimestampLabel";
             this.latestTimestampLabel.Size = new System.Drawing.Size(92, 16);
-            this.latestTimestampLabel.TabIndex = 9;
+            this.latestTimestampLabel.TabIndex = 99;
             this.latestTimestampLabel.Text = "Placeholder";
             // 
             // earliestTimestampLabel
@@ -184,7 +184,7 @@
             this.earliestTimestampLabel.Location = new System.Drawing.Point(166, 109);
             this.earliestTimestampLabel.Name = "earliestTimestampLabel";
             this.earliestTimestampLabel.Size = new System.Drawing.Size(92, 16);
-            this.earliestTimestampLabel.TabIndex = 8;
+            this.earliestTimestampLabel.TabIndex = 99;
             this.earliestTimestampLabel.Text = "Placeholder";
             // 
             // newestTimestampLabel
@@ -194,7 +194,7 @@
             this.newestTimestampLabel.Location = new System.Drawing.Point(166, 87);
             this.newestTimestampLabel.Name = "newestTimestampLabel";
             this.newestTimestampLabel.Size = new System.Drawing.Size(92, 16);
-            this.newestTimestampLabel.TabIndex = 7;
+            this.newestTimestampLabel.TabIndex = 99;
             this.newestTimestampLabel.Text = "Placeholder";
             // 
             // oldestTimestampLabel
@@ -204,7 +204,7 @@
             this.oldestTimestampLabel.Location = new System.Drawing.Point(166, 65);
             this.oldestTimestampLabel.Name = "oldestTimestampLabel";
             this.oldestTimestampLabel.Size = new System.Drawing.Size(92, 16);
-            this.oldestTimestampLabel.TabIndex = 6;
+            this.oldestTimestampLabel.TabIndex = 99;
             this.oldestTimestampLabel.Text = "Placeholder";
             // 
             // avgEntriesPerDayLabel
@@ -214,7 +214,7 @@
             this.avgEntriesPerDayLabel.Location = new System.Drawing.Point(166, 43);
             this.avgEntriesPerDayLabel.Name = "avgEntriesPerDayLabel";
             this.avgEntriesPerDayLabel.Size = new System.Drawing.Size(92, 16);
-            this.avgEntriesPerDayLabel.TabIndex = 5;
+            this.avgEntriesPerDayLabel.TabIndex = 99;
             this.avgEntriesPerDayLabel.Text = "Placeholder";
             // 
             // latestTimestampLabelLabel
@@ -223,7 +223,7 @@
             this.latestTimestampLabelLabel.Location = new System.Drawing.Point(48, 131);
             this.latestTimestampLabelLabel.Name = "latestTimestampLabelLabel";
             this.latestTimestampLabelLabel.Size = new System.Drawing.Size(112, 16);
-            this.latestTimestampLabelLabel.TabIndex = 4;
+            this.latestTimestampLabelLabel.TabIndex = 99;
             this.latestTimestampLabelLabel.Text = "Latest timestamp:";
             this.latestTimestampLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -233,7 +233,7 @@
             this.earliestTimestampLabelLabel.Location = new System.Drawing.Point(39, 109);
             this.earliestTimestampLabelLabel.Name = "earliestTimestampLabelLabel";
             this.earliestTimestampLabelLabel.Size = new System.Drawing.Size(121, 16);
-            this.earliestTimestampLabelLabel.TabIndex = 3;
+            this.earliestTimestampLabelLabel.TabIndex = 99;
             this.earliestTimestampLabelLabel.Text = "Earliest timestamp:";
             this.earliestTimestampLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -243,7 +243,7 @@
             this.newestTimestampLabelLabel.Location = new System.Drawing.Point(7, 87);
             this.newestTimestampLabelLabel.Name = "newestTimestampLabelLabel";
             this.newestTimestampLabelLabel.Size = new System.Drawing.Size(153, 16);
-            this.newestTimestampLabelLabel.TabIndex = 2;
+            this.newestTimestampLabelLabel.TabIndex = 99;
             this.newestTimestampLabelLabel.Text = "Newest entry timestamp:";
             this.newestTimestampLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -253,7 +253,7 @@
             this.oldestTimestampLabelLabel.Location = new System.Drawing.Point(13, 65);
             this.oldestTimestampLabelLabel.Name = "oldestTimestampLabelLabel";
             this.oldestTimestampLabelLabel.Size = new System.Drawing.Size(147, 16);
-            this.oldestTimestampLabelLabel.TabIndex = 1;
+            this.oldestTimestampLabelLabel.TabIndex = 99;
             this.oldestTimestampLabelLabel.Text = "Oldest entry timestamp:";
             this.oldestTimestampLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -263,7 +263,7 @@
             this.avgEntriesPerDayLabelLabel.Location = new System.Drawing.Point(6, 43);
             this.avgEntriesPerDayLabelLabel.Name = "avgEntriesPerDayLabelLabel";
             this.avgEntriesPerDayLabelLabel.Size = new System.Drawing.Size(154, 16);
-            this.avgEntriesPerDayLabelLabel.TabIndex = 0;
+            this.avgEntriesPerDayLabelLabel.TabIndex = 99;
             this.avgEntriesPerDayLabelLabel.Text = "Avg. # of entries per day:";
             this.avgEntriesPerDayLabelLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
@@ -281,7 +281,7 @@
             this.hideKey.Margin = new System.Windows.Forms.Padding(0);
             this.hideKey.Name = "hideKey";
             this.hideKey.Size = new System.Drawing.Size(58, 32);
-            this.hideKey.TabIndex = 12;
+            this.hideKey.TabIndex = 8;
             this.hideKey.Text = "Hide";
             this.hideKey.UseVisualStyleBackColor = true;
             this.hideKey.Click += new System.EventHandler(this.hideKey_Click);
@@ -302,7 +302,7 @@
             this.filterContentTextBox.Location = new System.Drawing.Point(167, 257);
             this.filterContentTextBox.Name = "filterContentTextBox";
             this.filterContentTextBox.Size = new System.Drawing.Size(242, 26);
-            this.filterContentTextBox.TabIndex = 0;
+            this.filterContentTextBox.TabIndex = 4;
             // 
             // filterTypeTextBox
             // 
@@ -310,7 +310,7 @@
             this.filterTypeTextBox.Location = new System.Drawing.Point(167, 295);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
             this.filterTypeTextBox.Size = new System.Drawing.Size(242, 26);
-            this.filterTypeTextBox.TabIndex = 1;
+            this.filterTypeTextBox.TabIndex = 6;
             // 
             // filterTypeLabel
             // 
@@ -332,7 +332,7 @@
             this.resetTypeKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetTypeKey.Name = "resetTypeKey";
             this.resetTypeKey.Size = new System.Drawing.Size(69, 32);
-            this.resetTypeKey.TabIndex = 17;
+            this.resetTypeKey.TabIndex = 7;
             this.resetTypeKey.Text = "Reset";
             this.resetTypeKey.UseVisualStyleBackColor = true;
             this.resetTypeKey.Click += new System.EventHandler(this.resetTypeKey_Click);
@@ -348,7 +348,7 @@
             this.resetContentKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetContentKey.Name = "resetContentKey";
             this.resetContentKey.Size = new System.Drawing.Size(69, 32);
-            this.resetContentKey.TabIndex = 18;
+            this.resetContentKey.TabIndex = 5;
             this.resetContentKey.Text = "Reset";
             this.resetContentKey.UseVisualStyleBackColor = true;
             this.resetContentKey.Click += new System.EventHandler(this.resetContentKey_Click);
