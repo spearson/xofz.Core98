@@ -85,11 +85,9 @@
             base.Start();
 
             var r = this.runner;
-            Do unsubscribe = null;
-            Do subscribe = null;
             r.Run<EventSubscriber>(sub =>
             {
-                unsubscribe = () =>
+                Do unsubscribe = () =>
                 {
                     sub.Unsubscribe(
                         this.ui,
@@ -100,7 +98,7 @@
                         nameof(this.ui.FilterTextChanged),
                         this.ui_FilterTextChanged);
                 };
-                subscribe = () =>
+                Do subscribe = () =>
                 {
                     sub.Subscribe(
                         this.ui,
@@ -111,14 +109,15 @@
                         nameof(this.ui.FilterTextChanged),
                         this.ui_FilterTextChanged);
                 };
-            });
-            r.Run<StartHandler>(handler =>
-            {
-                handler.Handle(
-                    this.ui, 
-                    unsubscribe,
-                    subscribe,
-                    this.Name);
+
+                r.Run<StartHandler>(handler =>
+                {
+                    handler.Handle(
+                        this.ui,
+                        unsubscribe,
+                        subscribe,
+                        this.Name);
+                });
             });
         }
 
@@ -143,21 +142,20 @@
         private void ui_AddKeyTapped()
         {
             var r = this.runner;
-            Do presentEditor = null;
             r.Run<Navigator>(
                 nav =>
                 {
-                    presentEditor = () =>
+                    Do presentEditor = () =>
                     {
                         nav.PresentFluidly<LogEditorPresenter>(
                             this.Name);
                     };
-                });
 
-            r.Run<AddKeyTappedHandler>(handler =>
-            {
-                handler.Handle(presentEditor);
-            });
+                    r.Run<AddKeyTappedHandler>(handler =>
+                    {
+                        handler.Handle(presentEditor);
+                    });
+                });
         }
 
         private void ui_ClearKeyTapped()
@@ -172,19 +170,18 @@
         private void ui_StatisticsKeyTapped()
         {
             var r = this.runner;
-            Do presentStats = () =>
+            r.Run<Navigator>(nav =>
             {
-                r.Run<Navigator>(
-                    nav =>
-                    {
-                        nav.PresentFluidly<LogStatisticsPresenter>(
-                            this.Name);
-                    });
-            };
+                Do presentStats = () =>
+                {
+                    nav.PresentFluidly<LogStatisticsPresenter>(
+                        this.Name);
+                };
 
-            r.Run<StatisticsKeyTappedHandler>(handler =>
-            {
-                handler.Handle(presentStats);
+                r.Run<StatisticsKeyTappedHandler>(handler =>
+                {
+                    handler.Handle(presentStats);
+                });
             });
         }
 

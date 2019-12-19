@@ -71,20 +71,18 @@
 
             base.Start();
             var r = this.runner;
-            Gen<LogUi> readLogUi = null;
-            var name = this.Name;
-            r.Run<Navigator>(
-                n =>
+            r.Run<Navigator>(nav =>
+            {
+                var name = this.Name;
+                Gen<LogUi> readLogUi = () => nav.GetUi<LogPresenter, LogUi>(
+                    name);
+                r.Run<StartHandler>(handler =>
                 {
-                    readLogUi = () => n.GetUi<LogPresenter, LogUi>(
+                    handler.Handle(
+                        this.ui,
+                        readLogUi,
                         name);
                 });
-            r.Run<StartHandler>(handler =>
-            {
-                handler.Handle(
-                    this.ui,
-                    readLogUi,
-                    name);
             });
         }
 

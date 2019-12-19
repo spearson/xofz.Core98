@@ -47,19 +47,18 @@
         private void ui_ShutdownRequested()
         {
             var r = this.runner;
-            Do logIn = null, shutdown = null;
             r.Run<Navigator>(nav =>
             {
-                logIn = nav.LoginFluidly;
-                shutdown = nav.Present<ShutdownPresenter>;
-            });
+                Do logIn = nav.LoginFluidly;
+                Do shutdown = nav.Present<ShutdownPresenter>;
 
-            r.Run<ShutdownRequestedHandler>(handler =>
-            {
-                handler.Handle(
-                    this.ui,
-                    logIn,
-                    shutdown);
+                r.Run<ShutdownRequestedHandler>(handler =>
+                {
+                    handler.Handle(
+                        this.ui,
+                        logIn,
+                        shutdown);
+                });
             });
         }
 
