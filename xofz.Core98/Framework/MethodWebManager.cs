@@ -5,6 +5,7 @@
     using EH = EnumerableHelpers;
 
     public class MethodWebManager
+        : MultiWebRunner
     {
         public MethodWebManager()
             : this(new LinkedList<NamedMethodWebHolder>())
