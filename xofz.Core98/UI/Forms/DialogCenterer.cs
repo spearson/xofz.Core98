@@ -12,7 +12,8 @@ namespace xofz.UI.Forms
     public class DialogCenterer 
         : IDisposable
     {
-        public DialogCenterer(Form owner)
+        public DialogCenterer(
+            Form owner)
         {
             if (owner == null)
             {
@@ -86,7 +87,8 @@ namespace xofz.UI.Forms
             this.setTryCount(-1);
         }
 
-        protected virtual void setTryCount(short tryCount)
+        protected virtual void setTryCount(
+            short tryCount)
         {
             this.tryCount = tryCount;
         }

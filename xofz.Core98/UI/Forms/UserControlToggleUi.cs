@@ -7,7 +7,7 @@
     using xofz.UI;
 
     public partial class UserControlToggleUi 
-        : UserControlUi, ToggleUi
+        : UserControlUi, ToggleUiV2
     {
         public UserControlToggleUi()
         {
@@ -50,9 +50,81 @@
 
         bool ToggleUi.Toggled
         {
-            get => this.key.BackColor == Color.Lime;
+            get
+            {
+                ToggleUiV2 toggle = this;
+                var tc = toggle.ToggledColor;
+                Color backColor;
+                try
+                {
+                    backColor = Color.FromName(tc);
+                }
+                catch
+                {
+                    backColor = Color.Lime;
+                }
 
-            set => this.key.BackColor = value ? Color.Lime : Color.DimGray;
+                return this.key.BackColor == backColor;
+            }
+
+            set
+            {
+                Color backColor;
+                ToggleUiV2 toggle = this;
+                if (value)
+                {
+                    try
+                    {
+                        backColor = Color.FromName(
+                            toggle.ToggledColor);
+                    }
+                    catch
+                    {
+                        backColor = Color.Lime;
+                    }
+
+                    goto setKeyBackColor;
+                }
+
+                try
+                {
+                    backColor = Color.FromName(
+                        toggle.UntoggledColor);
+                }
+                catch
+                {
+                    backColor = Color.DimGray;
+                }
+
+                setKeyBackColor:
+                this.key.BackColor = backColor;
+            }
+        }
+
+        string ToggleUiV2.ToggledColor { get; set; }
+            = nameof(Color.Lime);
+
+        string ToggleUiV2.UntoggledColor { get; set; }
+            = nameof(Color.DimGray);
+
+        string ToggleUiV2.PressedColor
+        {
+            get => this.key.FlatAppearance.MouseDownBackColor.ToString();
+
+            set
+            {
+                Color color;
+                try
+                {
+                    color = Color.FromName(value);
+                }
+                catch
+                {
+                    color = Color.GhostWhite;
+                }
+
+                this.key.FlatAppearance.MouseDownBackColor = color;
+            }
         }
 
         protected virtual void key_Click(

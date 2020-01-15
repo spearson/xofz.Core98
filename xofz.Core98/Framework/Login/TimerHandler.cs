@@ -13,7 +13,7 @@
 
         /// <summary>
         /// Requires an AccessController and UiReaderWriter
-        /// Also requires a SettingsHolder, but
+        /// Also requires a SettingsHolder and Labels, but
         /// this is registered by the SetupLoginCommand
         /// </summary>
         /// <param name="ui">The LoginUi on which to handle the event</param>
@@ -24,9 +24,8 @@
             r.Run<
                 AccessController, 
                 SettingsHolder,
-                Labels,
-                UiReaderWriter>(
-                (ac, settings, labels, uiRW) =>
+                Labels>(
+                (ac, settings, labels) =>
             {
                 var cal = ac.CurrentAccessLevel;
                 string timeRemaining;
@@ -63,13 +62,16 @@
                     settings.CurrentPassword = null;
                 }
 
-                uiRW.Write(
-                    ui,
-                    () =>
-                    {
-                        ui.CurrentAccessLevel = cal;
-                        ui.TimeRemaining = timeRemaining;
-                    });
+                r.Run<UiReaderWriter>(uiRW =>
+                {
+                    uiRW.Write(
+                        ui,
+                        () =>
+                        {
+                            ui.CurrentAccessLevel = cal;
+                            ui.TimeRemaining = timeRemaining;
+                        });
+                });
             });
         }
 

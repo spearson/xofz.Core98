@@ -2,13 +2,13 @@
 {
     public class DefaultEntryTypes
     {
-        public const string Information = @"Information";
+        public const string Information = nameof(Information);
 
-        public const string Warning = @"Warning";
+        public const string Warning = nameof(Warning);
 
-        public const string Error = @"Error";
+        public const string Error = nameof(Error);
 
-        public const string Custom = @"Custom";
+        public const string Custom = nameof(Custom);
 
         public const string SuccessAudit = @"Successful Audit";
 
