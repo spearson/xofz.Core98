@@ -8,6 +8,7 @@
     using xofz.Framework.Lotters;
     using xofz.Presentation;
     using xofz.UI;
+    using xofz.UI.Forms;
 
     public class SetupLogCommand 
         : Command
@@ -120,7 +121,10 @@
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
             var registered = false;
-            w.Run<Log>(log => { registered = true; },
+            w.Run<Log>(log =>
+                {
+                    registered = true;
+                },
                 ldn);
             if (registered)
             {
@@ -169,6 +173,9 @@
                     {
                         LogDependencyName = ldn
                     },
+                    ldn);
+                w.RegisterDependency(
+                    this.statsUi,
                     ldn);
                 w.RegisterDependency(
                     new Framework.LogStatistics.SettingsHolder(),
@@ -220,6 +227,18 @@
             }
 
             registered = false;
+            w.Run<TimeProvider>(
+                provider =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new TimeProvider());
+            }
+
+            registered = false;
             w.Run<Framework.Log.SetupHandler>(handler =>
             {
                 registered = true;
@@ -253,7 +272,10 @@
             }
 
             registered = false;
-            w.Run<AccessLevelChangedHandler>(handler => { registered = true; });
+            w.Run<AccessLevelChangedHandler>(handler =>
+            {
+                registered = true;
+            });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -261,7 +283,10 @@
             }
 
             registered = false;
-            w.Run<DateRangeChangedHandler>(handler => { registered = true; });
+            w.Run<DateRangeChangedHandler>(handler =>
+            {
+                registered = true;
+            });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -269,7 +294,10 @@
             }
 
             registered = false;
-            w.Run<FilterTextChangedHandler>(handler => { registered = true; });
+            w.Run<FilterTextChangedHandler>(handler =>
+            {
+                registered = true;
+            });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -288,7 +316,10 @@
             }
 
             registered = false;
-            w.Run<ClearKeyTappedHandler>(handler => { registered = true; });
+            w.Run<ClearKeyTappedHandler>(handler =>
+            {
+                registered = true;
+            });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -296,7 +327,10 @@
             }
 
             registered = false;
-            w.Run<EntryWrittenHandler>(handler => { registered = true; });
+            w.Run<EntryWrittenHandler>(handler =>
+            {
+                registered = true;
+            });
             if (!registered)
             {
                 w.RegisterDependency(
@@ -324,6 +358,102 @@
             {
                 w.RegisterDependency(
                     new LabelApplier(w));
+            }
+
+            registered = false;
+            w.Run<PreviousWeekKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new PreviousWeekKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<CurrentWeekKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new CurrentWeekKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<NextWeekKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new NextWeekKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<KeyPresser>(
+                presser =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new FormsKeyPresser());
+            }
+
+            registered = false;
+            w.Run<DownKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new DownKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<UpKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new UpKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<ResetContentKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new ResetContentKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w.Run<ResetTypeKeyTappedHandler>(
+                handler =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w.RegisterDependency(
+                    new ResetTypeKeyTappedHandler(w));
             }
 
             registered = false;
@@ -385,7 +515,10 @@
             {
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.SetupHandler>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -395,7 +528,10 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.StartHandler>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -417,7 +553,10 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.ResetTypeKeyTappedHandler>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -449,7 +588,10 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.OverallKeyTappedHandler>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -459,7 +601,10 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.RangeKeyTappedHandler>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(
@@ -470,7 +615,10 @@
 
                 registered = false;
                 w.Run<xofz.Framework.LogStatistics.DateResetter>(
-                    handler => { registered = true; });
+                    handler =>
+                    {
+                        registered = true;
+                    });
                 if (!registered)
                 {
                     w.RegisterDependency(

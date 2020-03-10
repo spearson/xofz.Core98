@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System;
     using xofz.UI;
 
     public class SetupHandler
@@ -16,23 +15,34 @@
             string name)
         {
             var r = this.runner;
-            r.Run<SettingsHolder, UiReaderWriter>((settings, uiRW) =>
+            r.Run<SettingsHolder, UiReaderWriter>(
+                (settings, uiRW) =>
                 {
                     var addKeyVisible = settings.EditLevel == AccessLevel.None;
                     var clearKeyVisible = settings.ClearLevel == AccessLevel.None;
                     var statisticsKeyVisible = settings.StatisticsEnabled;
-                    var today = DateTime.Today;
-                    var lastWeek = today.Subtract(TimeSpan.FromDays(6));
 
                     uiRW.WriteSync(ui, () =>
                     {
                         ui.AddKeyVisible = addKeyVisible;
                         ui.ClearKeyVisible = clearKeyVisible;
                         ui.StatisticsKeyVisible = statisticsKeyVisible;
-                        ui.StartDate = lastWeek;
-                        ui.EndDate = today;
                         ui.FilterType = string.Empty;
                         ui.FilterContent = string.Empty;
+                    });
+
+                    r.Run<TimeProvider>(provider =>
+                    {
+                        var today = provider.Now().Date;
+                        var lastWeek = today.AddDays(-6).Date;
+
+                        uiRW.WriteSync(
+                            ui,
+                            () =>
+                            {
+                                ui.EndDate = today;
+                                ui.StartDate = lastWeek;
+                            });
                     });
                 },
                 name);
@@ -43,6 +53,19 @@
                 r.Run<LabelApplier>(applier =>
                 {
                     applier.Apply(v2);
+                });
+            }
+
+            var v3 = ui as LogUiV3;
+            if (v3 != null)
+            {
+                r.Run<CurrentWeekKeyTappedHandler>(handler =>
+                {
+                    handler.Handle(
+                        v3,
+                        name,
+                        null,
+                        null);
                 });
             }
         }

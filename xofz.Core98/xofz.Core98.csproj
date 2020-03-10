@@ -52,6 +52,11 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\Log\DownKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\ResetContentKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
+    <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
     <Compile Include="Framework\LogEditor\LabelApplier.cs" />
     <Compile Include="Framework\LogEditor\Labels.cs" />
@@ -85,6 +90,7 @@
     <Compile Include="Framework\Log\AccessLevelChangedHandler.cs" />
     <Compile Include="Framework\Log\AddKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ClearKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\CurrentWeekKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\DateAndFilterResetter.cs" />
     <Compile Include="Framework\Log\DateRangeChangedHandler.cs" />
     <Compile Include="Framework\Log\DependencyNames.cs" />
@@ -96,10 +102,13 @@
     <Compile Include="Framework\Log\FilterTextChangedHandler.cs" />
     <Compile Include="Framework\Log\LabelApplier.cs" />
     <Compile Include="Framework\Log\Labels.cs" />
+    <Compile Include="Framework\Log\NextWeekKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\PreviousWeekKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\SetupHandler.cs" />
     <Compile Include="Framework\Log\StartHandler.cs" />
     <Compile Include="Framework\Log\StatisticsKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\StopHandler.cs" />
+    <Compile Include="Framework\Log\TimeProvider.cs" />
     <Compile Include="Framework\Lots\DictionaryLot.cs" />
     <Compile Include="Framework\Lots\ShiftingLot.cs" />
     <Compile Include="Framework\Computation\ShiftRegister.cs" />
@@ -179,10 +188,12 @@
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
     <Compile Include="Root\Commands\SetupAccessCommand.cs" />
+    <Compile Include="UI\Forms\FormsKeyPresser.cs" />
     <Compile Include="UI\LogEditorUiV2.cs" />
     <Compile Include="UI\LoginUiV2.cs" />
     <Compile Include="UI\LogStatisticsUiV2.cs" />
     <Compile Include="UI\LogUiV2.cs" />
+    <Compile Include="UI\LogUiV3.cs" />
     <Compile Include="UI\ToggleUiV2.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />

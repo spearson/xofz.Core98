@@ -22,7 +22,6 @@
             {
                 return default;
             }
-            
         }
 
         public static string RemoveEndChars(

@@ -6,7 +6,7 @@
     using System.Windows.Forms;
 
     public partial class UserControlLogUi 
-        : UserControlUi, LogUiV2
+        : UserControlUi, LogUiV3
     {
         public UserControlLogUi()
         {
@@ -25,6 +25,41 @@
         public virtual event Do StatisticsKeyTapped;
 
         public virtual event Do FilterTextChanged;
+
+        public virtual event Do PreviousWeekKeyTapped;
+
+        public virtual event Do CurrentWeekKeyTapped;
+
+        public virtual event Do NextWeekKeyTapped;
+
+        public virtual event Do UpKeyTapped;
+
+        public virtual event Do DownKeyTapped;
+
+        public virtual event Do ResetContentKeyTapped;
+
+        public virtual event Do ResetTypeKeyTapped;
+
+        void LogUiV3.FocusEntries()
+        {
+            this.entriesGrid.Focus();
+        }
+
+        void LogUiV3.ResetContentFilter()
+        {
+            var fctb = this.filterContentTextBox;
+            this.activeFilterTextBox = fctb;
+            fctb.Clear();
+            fctb.Focus();
+        }
+
+        void LogUiV3.ResetTypeFilter()
+        {
+            var fttb = this.filterTypeTextBox;
+            this.activeFilterTextBox = fttb;
+            fttb.Clear();
+            fttb.Focus();
+        }
 
         ICollection<XTuple<string, string, string>> LogUi.Entries
         {
@@ -61,10 +96,13 @@
 
                 foreach (var entry in value)
                 {
-                    eg.Rows.Add(entry.Item1, entry.Item2, entry.Item3);
+                    eg.Rows.Add(
+                        entry.Item1,
+                        entry.Item2, 
+                        entry.Item3);
                 }
 
-                this.activeFilterTextBox.Focus();
+                this.activeFilterTextBox?.Focus();
             }
         }
 
@@ -268,7 +306,6 @@
                 }
 
                 columns[1].HeaderText = value;
-
             }
         }
 
@@ -294,7 +331,6 @@
                 }
 
                 columns[2].HeaderText = value;
-
             }
         }
 
@@ -358,18 +394,28 @@
             object sender, 
             EventArgs e)
         {
-            this.entriesGrid.Focus();
-            
-            SendKeys.Send(@"{PGDN}");
+            var dkt = this.DownKeyTapped;
+            if (dkt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o =>
+                dkt.Invoke());
         }
 
         protected virtual void upKey_Click(
             object sender, 
             EventArgs e)
         {
-            this.entriesGrid.Focus();
+            var ukt = this.UpKeyTapped;
+            if (ukt == null)
+            {
+                return;
+            }
 
-            SendKeys.Send(@"{PGUP}");
+            ThreadPool.QueueUserWorkItem(o =>
+                ukt.Invoke());
         }
 
         protected virtual void statisticsKey_Click(
@@ -420,110 +466,71 @@
             object sender, 
             EventArgs e)
         {
-            var fctb = this.filterContentTextBox;
-            this.activeFilterTextBox = fctb;
-            fctb.Text = string.Empty;
-            fctb.Focus();
+            var rckt = this.ResetContentKeyTapped;
+            if (rckt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o =>
+                rckt.Invoke());
         }
 
         protected virtual void resetTypeKey_Click(
             object sender, 
             EventArgs e)
         {
-            var fttb = this.filterTypeTextBox;
-            this.activeFilterTextBox = fttb;
-            fttb.Text = string.Empty;
-            fttb.Focus();
+            var rtkt = this.ResetTypeKeyTapped;
+            if (rtkt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(o =>
+                rtkt.Invoke());
         }
 
         protected virtual void nextWeekKey_Click(
             object sender, 
             EventArgs e)
         {
-            var sdp = this.startDatePicker;
-            var newStartDate = sdp.SelectionStart.AddDays(7);
-
-            sdp.DateSelected -= this.startDatePicker_DateSelected;            
-            sdp.SelectionStart = newStartDate;
-            sdp.SelectionEnd = newStartDate;
-            sdp.DateSelected += this.startDatePicker_DateSelected;
-
-
-            var edp = this.endDatePicker;
-            var newEndDate = edp.SelectionStart.AddDays(7);
-
-            edp.DateSelected -= this.endDatePicker_DateSelected;            
-            edp.SelectionStart = newEndDate;
-            edp.SelectionEnd = newEndDate;
-            edp.DateSelected += this.endDatePicker_DateSelected;
-
-            var drc = this.DateRangeChanged;
-            if (drc == null)
+            var nwkt = this.NextWeekKeyTapped;
+            if (nwkt == null)
             {
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(
-                o => drc.Invoke());
+            ThreadPool.QueueUserWorkItem(o =>
+                nwkt.Invoke());
         }
 
         protected virtual void previousWeekKey_Click(
             object sender, 
             EventArgs e)
         {
-            var sdp = this.startDatePicker;
-            var newStartDate = sdp.SelectionStart.AddDays(-7);
-
-            sdp.DateSelected -= this.startDatePicker_DateSelected;
-            sdp.SelectionStart = newStartDate;
-            sdp.SelectionEnd = newStartDate;
-            sdp.DateSelected += this.startDatePicker_DateSelected;
-
-
-            var edp = this.endDatePicker;
-            var newEndDate = edp.SelectionStart.AddDays(-7);
-
-            edp.DateSelected -= this.endDatePicker_DateSelected;
-            edp.SelectionStart = newEndDate;
-            edp.SelectionEnd = newEndDate;
-            edp.DateSelected += this.endDatePicker_DateSelected;
-
-            var drc = this.DateRangeChanged;
-            if (drc == null)
+            var pwkt = this.PreviousWeekKeyTapped;
+            if (pwkt == null)
             {
                 return;
             }
 
             ThreadPool.QueueUserWorkItem(
-                o => drc.Invoke());
+                o => pwkt.Invoke());
+
         }
 
         protected virtual void currentWeekKey_Click(
             object sender, 
             EventArgs e)
         {
-            var edp = this.endDatePicker;
-            var newEndDate = DateTime.Today;
-            edp.DateSelected -= this.endDatePicker_DateSelected;
-            edp.SelectionStart = newEndDate;
-            edp.SelectionEnd = newEndDate;
-            edp.DateSelected += this.endDatePicker_DateSelected;
-
-            var sdp = this.startDatePicker;
-            var newStartDate = newEndDate.AddDays(-7);
-            sdp.DateSelected -= this.startDatePicker_DateSelected;
-            sdp.SelectionStart = newStartDate;
-            sdp.SelectionEnd = newStartDate;
-            sdp.DateSelected += this.startDatePicker_DateSelected;            
-
-            var drc = this.DateRangeChanged;
-            if (drc == null)
+            var cwkt = this.CurrentWeekKeyTapped;
+            if (cwkt == null)
             {
                 return;
             }
 
             ThreadPool.QueueUserWorkItem(
-                o => drc.Invoke());
+                o => cwkt.Invoke());
         }
 
         protected TextBox activeFilterTextBox;
