@@ -1,9 +1,6 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System;
-    using xofz.Framework.Logging;
     using xofz.UI;
-    using EH = xofz.EnumerableHelpers;
 
     public class CurrentWeekKeyTappedHandler
     {
@@ -24,31 +21,6 @@
                 (uiRW, timeProvider) =>
                 {
                     var currentDay = timeProvider.Now().Date;
-                    r.Run<Log>(log =>
-                        {
-                            try
-                            {
-                                var newestEntry =
-                                    EH.FirstOrDefault(
-                                        EH.OrderByDescending(
-                                            log.ReadEntries(),
-                                            entry => entry.Timestamp));
-                                if (newestEntry != null)
-                                {
-                                    var ts = newestEntry.Timestamp;
-                                    if (currentDay > ts)
-                                    {
-                                        currentDay = ts.Date;
-                                    }
-                                }
-                            }
-                            catch (OutOfMemoryException)
-                            {
-                                // swallow
-                            }
-                        },
-                        name);
-
                     const short daysToAdd = -6;
                     var newEndDate = currentDay;
                     var newStartDate = newEndDate

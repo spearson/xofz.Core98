@@ -227,7 +227,7 @@
             }
 
             registered = false;
-            w.Run<TimeProvider>(
+            w.Run<Framework.Log.TimeProvider>(
                 provider =>
                 {
                     registered = true;
@@ -235,7 +235,7 @@
             if (!registered)
             {
                 w.RegisterDependency(
-                    new TimeProvider());
+                    new Framework.Log.TimeProvider());
             }
 
             registered = false;
