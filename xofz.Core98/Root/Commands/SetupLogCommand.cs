@@ -405,7 +405,7 @@
             if (!registered)
             {
                 w.RegisterDependency(
-                    new FormsKeyPresser());
+                    new GeneralKeyPresser());
             }
 
             registered = false;

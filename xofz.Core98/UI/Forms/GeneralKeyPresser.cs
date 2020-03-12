@@ -2,13 +2,13 @@
 {
     using System.Windows.Forms;
 
-    public sealed class FormsKeyPresser
+    public sealed class GeneralKeyPresser
         : KeyPresser
     {
         void KeyPresser.Press(
             string keys)
         {
-            SendKeys.Send(keys);
+            SendKeys.SendWait(keys);
         }
     }
 }
