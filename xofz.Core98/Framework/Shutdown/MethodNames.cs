@@ -2,6 +2,7 @@
 {
     public class MethodNames
     {
-        public const string Cleanup = @"ShutdownCleanup";
+        public const string Cleanup =
+            nameof(Shutdown) + nameof(Cleanup);
     }
 }

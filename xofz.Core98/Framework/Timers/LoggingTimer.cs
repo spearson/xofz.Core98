@@ -3,7 +3,8 @@
     using System;
     using xofz.Framework.Logging;
 
-    public class LoggingTimer : Timer
+    public class LoggingTimer 
+        : Timer
     {
         public LoggingTimer(
             MethodRunner runner)

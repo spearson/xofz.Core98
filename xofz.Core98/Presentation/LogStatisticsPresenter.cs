@@ -10,7 +10,7 @@
     {
         public LogStatisticsPresenter(
             LogStatisticsUi ui,
-            MethodWeb runner)
+            MethodRunner runner)
             : base(ui)
         {
             this.ui = ui;

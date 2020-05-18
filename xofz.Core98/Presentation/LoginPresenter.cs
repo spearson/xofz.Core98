@@ -10,7 +10,7 @@
     {
         public LoginPresenter(
             LoginUi ui,
-            MethodWeb runner)
+            MethodRunner runner)
             : base(ui, null)
         {
             this.ui = ui;
