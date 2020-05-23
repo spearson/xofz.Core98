@@ -47,8 +47,7 @@
                 },
                 name);
 
-            var v2 = ui as LogUiV2;
-            if (v2 != null)
+            if (ui is LogUiV2 v2)
             {
                 r.Run<LabelApplier>(applier =>
                 {
@@ -56,8 +55,7 @@
                 });
             }
 
-            var v3 = ui as LogUiV3;
-            if (v3 != null)
+            if (ui is LogUiV3 v3)
             {
                 r.Run<CurrentWeekKeyTappedHandler>(handler =>
                 {

@@ -52,8 +52,7 @@
                         });
                 });
 
-                var v2 = ui as LoginUiV2;
-                if (v2 != null)
+                if (ui is LoginUiV2 v2)
                 {
                     r.Run<LabelApplier>(applier =>
                     {

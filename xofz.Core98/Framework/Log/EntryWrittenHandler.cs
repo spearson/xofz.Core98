@@ -23,8 +23,13 @@
             r.Run<FieldHolder, UiReaderWriter, FilterChecker>(
                 (holder, uiRW, checker) =>
                 {
-                    if (uiRW.Read(ui, () => ui.EndDate)
-                        < DateTime.Today)
+                    var today = DateTime.Today;
+                    r.Run<TimeProvider>(provider =>
+                    {
+                        today = provider.Now().Date;
+                    });
+
+                    if (uiRW.Read(ui, () => ui.EndDate) < today)
                     {
                         return;
                     }

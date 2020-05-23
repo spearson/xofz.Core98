@@ -31,6 +31,11 @@
                     }
 
                     var today = DateTime.Today;
+                    r.Run<TimeProvider>(provider =>
+                    {
+                        today = provider.Now().Date;
+                    });
+
                     var lastWeek = today.Subtract(TimeSpan.FromDays(6));
                     var needsReload = true;
                     var started = Interlocked.Read(ref holder.startedIf1) == 1;

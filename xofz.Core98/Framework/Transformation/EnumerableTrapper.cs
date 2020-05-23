@@ -40,9 +40,9 @@
         }
 
         public virtual ICollection<T> TrapNow(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
-            if (source is ICollection<T> collection)
+            if (finiteSource is ICollection<T> collection)
             {
                 this.setTrapper(collection);
                 return collection;
@@ -53,12 +53,12 @@
             // (that supports adding items)
             var fieldReference = this.trapper;
 
-            if (source == null)
+            if (finiteSource == null)
             {
                 return fieldReference;
             }
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 fieldReference.Add(item);
             }

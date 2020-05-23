@@ -28,8 +28,7 @@
                 return;
             }
 
-            var l = finiteSource as List<T>;
-            if (l != null)
+            if (finiteSource is List<T> l)
             {
                 this.list = l;
                 return;

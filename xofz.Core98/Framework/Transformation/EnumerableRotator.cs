@@ -6,17 +6,17 @@
     public class EnumerableRotator
     {
         public virtual Lot<T> Rotate<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> finiteSource, 
             int cycles, 
             bool goRight = true)
         {
             var ll = new LinkedListLot<T>();
-            if (source == null)
+            if (finiteSource == null)
             {
                 return ll;
             }
 
-            foreach (var item in source)
+            foreach (var item in finiteSource)
             {
                 ll.AddLast(item);
             }

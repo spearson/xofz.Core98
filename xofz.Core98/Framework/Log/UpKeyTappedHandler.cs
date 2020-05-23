@@ -23,7 +23,7 @@
                         () =>
                         {
                             ui.FocusEntries();
-                            presser.Press("{PGUP}");
+                            presser.Press(@"{PGUP}");
                         });
                 });
         }

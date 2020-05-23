@@ -20,8 +20,7 @@
                 dr.Reset(ui, name);
             });
 
-            var v2 = ui as LogStatisticsUiV2;
-            if (v2 != null)
+            if (ui is LogStatisticsUiV2 v2)
             {
                 r.Run<LabelApplier>(applier =>
                 {

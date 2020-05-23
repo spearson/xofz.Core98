@@ -25,6 +25,7 @@
                     // swallow
                 }
             });
+
             r.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(

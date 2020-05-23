@@ -21,6 +21,11 @@
                 (stats, uiRW) =>
                 {
                     var today = DateTime.Today;
+                    r.Run<Framework.Log.TimeProvider>(provider =>
+                    {
+                        today = provider.Now().Date;
+                    });
+
                     var lastWeek = today.Subtract(
                         TimeSpan.FromDays(6));
                     uiRW.WriteSync(ui, () =>

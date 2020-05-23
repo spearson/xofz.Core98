@@ -20,8 +20,7 @@
                 return;
             }
 
-            var q = finiteSource as Queue<T>;
-            if (q != null)
+            if (finiteSource is Queue<T> q)
             {
                 this.queue = q;
                 return;

@@ -9,8 +9,7 @@
             T heartbeat, 
             int interval)
         {
-            var nullSource = source == null;
-            if (nullSource)
+            if (source == null)
             {
                 yield break;
             }

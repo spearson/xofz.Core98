@@ -14,7 +14,8 @@
         public StackLot(
             int capacity)
         {
-            this.stack = new Stack<T>(capacity);
+            this.stack = new Stack<T>(
+                capacity);
         }
 
         public StackLot(
@@ -26,8 +27,7 @@
                 return;
             }
 
-            var s = finiteSource as Stack<T>;
-            if (s != null)
+            if (finiteSource is Stack<T> s)
             {
                 this.stack = s;
                 return;

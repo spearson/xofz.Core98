@@ -21,8 +21,7 @@
                 return;
             }
 
-            var ll = finiteSource as LinkedList<T>;
-            if (ll != null)
+            if (finiteSource is LinkedList<T> ll)
             {
                 this.linkedList = ll;
                 return;

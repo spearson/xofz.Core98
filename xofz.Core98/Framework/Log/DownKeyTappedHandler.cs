@@ -23,7 +23,7 @@
                         () =>
                         {
                             ui.FocusEntries();
-                            presser.Press("{PGDN}");
+                            presser.Press(@"{PGDN}");
                         });
                 });
         }

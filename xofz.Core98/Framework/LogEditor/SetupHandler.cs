@@ -41,8 +41,7 @@
                     });
             });
 
-            var v2 = ui as LogEditorUiV2;
-            if (v2 != null)
+            if (ui is LogEditorUiV2 v2)
             {
                 r.Run<LabelApplier>(applier =>
                 {
