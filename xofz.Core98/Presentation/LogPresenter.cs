@@ -6,7 +6,7 @@
     using xofz.Framework.Log;
     using xofz.Framework.Logging;
 
-    public sealed class LogPresenter 
+    public sealed class LogPresenter
         : NamedPresenter
     {
         public LogPresenter(
@@ -22,9 +22,9 @@
         public void Setup()
         {
             if (Interlocked.CompareExchange(
-                    ref this.setupIf1, 
-                    1, 
-                    0) == 1)
+                ref this.setupIf1,
+                1,
+                0) == 1)
             {
                 return;
             }
@@ -102,8 +102,8 @@
                         this.v3_ResetTypeKeyTapped);
                 }
             });
-            
-            r.Run<Navigator>(nav => 
+
+            r.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 
@@ -177,13 +177,14 @@
             r.Run<Navigator>(
                 nav =>
                 {
-                    Do<string> presentEditor = 
+                    Do<string> presentEditor =
                         nav.PresentFluidly<LogEditorPresenter>;
 
                     r.Run<AddKeyTappedHandler>(handler =>
                     {
                         handler.Handle(
                             presentEditor,
+                            this.ui,
                             this.Name);
                     });
                 });
@@ -194,7 +195,9 @@
             var r = this.runner;
             r.Run<ClearKeyTappedHandler>(handler =>
             {
-                handler.Handle(this.ui, this.Name);
+                handler.Handle(
+                    this.ui,
+                    this.Name);
             });
         }
 
@@ -210,6 +213,7 @@
                 {
                     handler.Handle(
                         presentStats,
+                        this.ui,
                         this.Name);
                 });
             });
@@ -221,7 +225,7 @@
             r.Run<FilterTextChangedHandler>(handler =>
             {
                 handler.Handle(
-                    this.ui, 
+                    this.ui,
                     this.Name);
             });
         }
@@ -233,8 +237,8 @@
             r.Run<EntryWrittenHandler>(handler =>
             {
                 handler.Handle(
-                    this.ui, 
-                    this.Name, 
+                    this.ui,
+                    this.Name,
                     e);
             });
         }

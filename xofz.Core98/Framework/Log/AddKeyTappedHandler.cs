@@ -1,5 +1,7 @@
 ﻿namespace xofz.Framework.Log
 {
+    using xofz.UI;
+
     public class AddKeyTappedHandler
     {
         public AddKeyTappedHandler(
@@ -11,6 +13,7 @@
         public virtual void Handle(
             Do presentEditor)
         {
+            var r = this.runner;
             presentEditor?.Invoke();
         }
 
@@ -18,6 +21,16 @@
             Do<string> presentEditor,
             string name)
         {
+            var r = this.runner;
+            presentEditor?.Invoke(name);
+        }
+
+        public virtual void Handle(
+            Do<string> presentEditor,
+            LogUi ui,
+            string name)
+        {
+            var r = this.runner;
             presentEditor?.Invoke(name);
         }
 
