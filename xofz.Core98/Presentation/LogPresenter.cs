@@ -177,15 +177,14 @@
             r.Run<Navigator>(
                 nav =>
                 {
-                    Do presentEditor = () =>
-                    {
-                        nav.PresentFluidly<LogEditorPresenter>(
-                            this.Name);
-                    };
+                    Do<string> presentEditor = 
+                        nav.PresentFluidly<LogEditorPresenter>;
 
                     r.Run<AddKeyTappedHandler>(handler =>
                     {
-                        handler.Handle(presentEditor);
+                        handler.Handle(
+                            presentEditor,
+                            this.Name);
                     });
                 });
         }
@@ -204,15 +203,14 @@
             var r = this.runner;
             r.Run<Navigator>(nav =>
             {
-                Do presentStats = () =>
-                {
-                    nav.PresentFluidly<LogStatisticsPresenter>(
-                        this.Name);
-                };
+                Do<string> presentStats =
+                    nav.PresentFluidly<LogStatisticsPresenter>;
 
                 r.Run<StatisticsKeyTappedHandler>(handler =>
                 {
-                    handler.Handle(presentStats);
+                    handler.Handle(
+                        presentStats,
+                        this.Name);
                 });
             });
         }

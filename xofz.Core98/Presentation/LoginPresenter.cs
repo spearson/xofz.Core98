@@ -98,7 +98,8 @@
         /// </summary>
         public override void Stop()
         {
-            if (Interlocked.Read(ref this.setupIf1) != 1)
+            if (Interlocked.Read(
+                ref this.setupIf1) != 1)
             {
                 return;
             }

@@ -19,7 +19,7 @@
 
         /// <remarks>
         /// Requires a SetupHandler, EventSubscriber, and a Navigator
-        /// registered with the MethodWeb.
+        /// registered with the MethodRunner.
         /// Also required is a TypeChangedHandler and an AddKeyTappedHandler
         /// </remarks>
         public void Setup()
@@ -59,7 +59,7 @@
             var r = this.runner;
             r.Run<TypeChangedHandler>(handler =>
             {
-                handler.Handle(this.ui);
+                handler.Handle(this.ui, this.Name);
             });
         }
 

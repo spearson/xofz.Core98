@@ -25,6 +25,22 @@
             });
         }
 
+        public virtual void Handle(
+            LogStatisticsUi ui,
+            string name)
+        {
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
+            {
+                uiRW.Write(
+                    ui,
+                    () =>
+                    {
+                        ui.FilterType = null;
+                    });
+            });
+        }
+
         protected readonly MethodRunner runner;
     }
 }

@@ -46,7 +46,7 @@
                 w.RegisterDependency(this.accessChangedHandler);
                 w.RegisterDependency(this.kbKeyTappedHandler);
                 w.RegisterDependency(this.accessController);
-                w.RegisterDependency(this.timer, "LoginTimer");
+                w.RegisterDependency(this.timer, DependencyNames.Timer);
             }
 
             protected readonly LoginUi ui;

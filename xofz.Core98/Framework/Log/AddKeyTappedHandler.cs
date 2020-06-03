@@ -14,6 +14,13 @@
             presentEditor?.Invoke();
         }
 
+        public virtual void Handle(
+            Do<string> presentEditor,
+            string name)
+        {
+            presentEditor?.Invoke(name);
+        }
+
         protected readonly MethodRunner runner;
     }
 }

@@ -33,6 +33,25 @@
             });
         }
 
+        public virtual void Handle(
+            LogEditorUi ui,
+            string name)
+        {
+            var r = this.runner;
+            r.Run<UiReaderWriter>(uiRW =>
+            {
+                var customIsSelected
+                    = uiRW
+                          .Read(ui, () => ui.SelectedType)
+                          ?.Contains(DefaultEntryTypes.Custom)
+                      ?? false;
+                uiRW.Write(ui, () =>
+                {
+                    ui.CustomTypeVisible = customIsSelected;
+                });
+            });
+        }
+
         protected readonly MethodRunner runner;
     }
 }

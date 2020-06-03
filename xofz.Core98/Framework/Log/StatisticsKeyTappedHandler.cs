@@ -15,6 +15,14 @@
             presentStats?.Invoke();
         }
 
+        public virtual void Handle(
+            Do<string> presentStats,
+            string name)
+        {
+            var r = this.runner;
+            presentStats?.Invoke(name);
+        }
+
         protected readonly MethodRunner runner;
     }
 }

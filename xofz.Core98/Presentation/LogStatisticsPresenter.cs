@@ -109,7 +109,7 @@
             var r = this.runner;
             r.Run<ResetContentKeyTappedHandler>(handler =>
             {
-                handler.Handle(this.ui);
+                handler.Handle(this.ui, this.Name);
             });
         }
 
@@ -118,7 +118,7 @@
             var r = this.runner;
             r.Run<ResetTypeKeyTappedHandler>(handler =>
             {
-                handler.Handle(this.ui);
+                handler.Handle(this.ui, this.Name);
             });
         }
 

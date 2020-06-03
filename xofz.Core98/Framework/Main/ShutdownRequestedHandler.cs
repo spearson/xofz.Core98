@@ -16,16 +16,16 @@
             Do shutdown)
         {
             var r = this.runner;
-            var cal = AccessLevel.None;
+            var currentLevel = AccessLevel.None;
             var shutdownLevel = AccessLevel.None;
             r.Run<AccessController, SettingsHolder>(
                 (ac, s) =>
                 {
-                    cal = ac.CurrentAccessLevel;
+                    currentLevel = ac.CurrentAccessLevel;
                     shutdownLevel = s.ShutdownLevel;
                 });
 
-            if (cal >= shutdownLevel)
+            if (currentLevel >= shutdownLevel)
             {
                 shutdown?.Invoke();
                 return;
@@ -34,8 +34,7 @@
             logIn?.Invoke();
             r.Run<AccessController>(ac =>
             {
-                cal = ac.CurrentAccessLevel;
-                if (cal >= shutdownLevel)
+                if (ac.CurrentAccessLevel >= shutdownLevel)
                 {
                     shutdown?.Invoke();
                 }
