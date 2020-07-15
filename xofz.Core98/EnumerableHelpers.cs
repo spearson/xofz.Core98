@@ -1261,5 +1261,142 @@
                 }
             }
         }
+
+        public static T Single<T>(
+            IEnumerable<T> singleSource)
+        {
+            if (singleSource == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(singleSource));
+            }
+
+            T currentItem = default;
+            bool currentItemSet = false, isEmpty = true;
+            foreach (var item in singleSource)
+            {
+                if (currentItemSet)
+                {
+                    throw new InvalidOperationException(
+                        @"The source contains more than 1 item.");
+                }
+
+                currentItem = item;
+                currentItemSet = true;
+                isEmpty = false;
+            }
+
+            if (isEmpty)
+            {
+                throw new InvalidOperationException(
+                    @"The source was empty.");
+            }
+
+            return currentItem;
+        }
+
+        public static T Single<T>(
+            IEnumerable<T> source,
+            Gen<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            T matchingItem = default;
+            bool matchingItemSet = false, noMatches = true;
+            foreach (var item in source)
+            {
+                if (!predicate(item))
+                {
+                    continue;
+                }
+
+                if (matchingItemSet)
+                {
+                    throw new InvalidOperationException(
+                        @"The source contains more than 1 match.");
+                }
+
+                matchingItem = item;
+                matchingItemSet = true;
+                noMatches = false;
+            }
+
+            if (noMatches)
+            {
+                throw new InvalidOperationException(
+                    @"The source did not contain any elements which matched the predicate.");
+            }
+
+            return matchingItem;
+        }
+
+        public static T SingleOrDefault<T>(
+            IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return default;
+            }
+
+            T currentItem = default;
+            bool currentItemSet = false;
+            foreach (var item in source)
+            {
+                if (currentItemSet)
+                {
+                    throw new InvalidOperationException(
+                        @"The source contains more than 1 item.");
+                }
+
+                currentItem = item;
+                currentItemSet = true;
+            }
+
+            return currentItem;
+        }
+
+        public static T SingleOrDefault<T>(
+            IEnumerable<T> source,
+            Gen<T, bool> predicate)
+        {
+            if (source == null)
+            {
+                return default;
+            }
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate));
+            }
+
+            T matchingItem = default;
+            bool matchingItemSet = false;
+            foreach (var item in source)
+            {
+                if (!predicate(item))
+                {
+                    continue;
+                }
+
+                if (matchingItemSet)
+                {
+                    throw new InvalidOperationException(
+                        @"The source contains more than 1 match.");
+                }
+
+                matchingItem = item;
+                matchingItemSet = true;
+            }
+
+            return matchingItem;
+        }
     }
 }

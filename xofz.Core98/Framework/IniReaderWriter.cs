@@ -62,62 +62,20 @@
             string sectionName, 
             string key)
         {
-            var lines = this.readLines();
-            var headers = this.readSectionHeaders(
-                lines);
-            var targetHeader = EnumerableHelpers.FirstOrDefault(
-                headers,
-                header => header.Name == sectionName);
-            if (targetHeader == default(SectionHeader))
-            {
-                return null;
-            }
+            return this.readValueProtected(
+                sectionName,
+                key,
+                false);
+        }
 
-            if (!this
-                .readKeysInSectionProtected(
-                    lines, 
-                    targetHeader)
-                .Contains(key))
-            {
-                return null;
-            }
-
-            var targetLine = default(string);
-            int endOfKey;
-            foreach (var line in EnumerableHelpers.Skip(
-                lines,
-                targetHeader.LineNumber))
-            {
-                endOfKey = line.IndexOf('=');
-                if (line.Substring(0, endOfKey) == key)
-                {
-                    targetLine = line;
-                    break;
-                }
-            }
-
-            if (targetLine == default(string))
-            {
-                return null;
-            }
-
-            var startIndexOfValue = targetLine.IndexOf('=') + 1;
-            int valueLength;
-            var indexOfSemicolon = targetLine.IndexOf(';');
-            if (indexOfSemicolon > -1)
-            {
-                valueLength = indexOfSemicolon - startIndexOfValue;
-                goto finish;
-            }
-
-            valueLength = targetLine.Length - startIndexOfValue;
-
-            finish:
-            return targetLine
-                .Substring(
-                    startIndexOfValue, 
-                    valueLength)
-                .TrimEnd();
+        public virtual string ReadEntireValue(
+            string sectionName,
+            string key)
+        {
+            return this.readValueProtected(
+                sectionName,
+                key,
+                true);
         }
 
         public virtual void ChangeValue(
@@ -338,6 +296,69 @@
             }
 
             return keys;
+        }
+
+        protected virtual string readValueProtected(
+            string sectionName,
+            string key,
+            bool readEntireValue)
+        {
+            var lines = this.readLines();
+            var headers = this.readSectionHeaders(
+                lines);
+            var targetHeader = EnumerableHelpers.FirstOrDefault(
+                headers,
+                header => header.Name == sectionName);
+            if (targetHeader == default(SectionHeader))
+            {
+                return null;
+            }
+
+            if (!this
+                .readKeysInSectionProtected(
+                    lines,
+                    targetHeader)
+                .Contains(key))
+            {
+                return null;
+            }
+
+            string targetLine = default;
+            int endOfKey;
+            foreach (var line in EnumerableHelpers.Skip(
+                lines,
+                targetHeader.LineNumber))
+            {
+                endOfKey = line.IndexOf('=');
+                if (line.Substring(0, endOfKey) == key)
+                {
+                    targetLine = line;
+                    break;
+                }
+            }
+
+            if (targetLine == default)
+            {
+                return null;
+            }
+
+            var startIndexOfValue = targetLine.IndexOf('=') + 1;
+            int valueLength;
+            var indexOfSemicolon = targetLine.IndexOf(';');
+            if (indexOfSemicolon > -1 && !readEntireValue)
+            {
+                valueLength = indexOfSemicolon - startIndexOfValue;
+                goto finish;
+            }
+
+            valueLength = targetLine.Length - startIndexOfValue;
+
+            finish:
+            return targetLine
+                .Substring(
+                    startIndexOfValue,
+                    valueLength)
+                .TrimEnd();
         }
 
         protected readonly Gen<string[]> readLines;
