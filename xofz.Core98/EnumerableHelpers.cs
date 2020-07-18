@@ -841,18 +841,42 @@
                 return a;
             }
 
-            LinkedList<T> ll;
-            if (finiteSource is LinkedList<T> linkedList)
+            ICollection<T> c;
+            if (finiteSource is ICollection<T> collection)
             {
-                ll = linkedList;
+                c = collection;
                 goto createArray;
             }
 
-            ll = new LinkedList<T>(finiteSource);
+            c = new LinkedList<T>(finiteSource);
 
             createArray:
-            var array = new T[ll.Count];
-            ll.CopyTo(array, 0);
+            var array = new T[c.Count];
+            int indexer = 0;
+            foreach (var item in c)
+            {
+                array[indexer] = item;
+                ++indexer;
+            }
+
+            return array;
+        }
+
+        public static T[] ToArray<T>(
+            Lot<T> lot)
+        {
+            if (lot == null)
+            {
+                return new T[0];
+            }
+
+            var array = new T[lot.Count];
+            long indexer = 0;
+            foreach (var item in lot)
+            {
+                array[indexer] = item;
+                ++indexer;
+            }
 
             return array;
         }

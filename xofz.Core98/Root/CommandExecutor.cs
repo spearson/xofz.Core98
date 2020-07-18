@@ -74,6 +74,11 @@
         public virtual CommandExecutor Execute(
             Command command)
         {
+            if (command == null)
+            {
+                return this;
+            }
+
             command.Execute();
             lock (this.locker)
             {

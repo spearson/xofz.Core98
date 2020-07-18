@@ -52,6 +52,7 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\Factory.cs" />
     <Compile Include="Framework\Log\DownKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetContentKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
