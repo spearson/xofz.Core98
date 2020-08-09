@@ -41,12 +41,24 @@
         public virtual string Read(
             Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(assembly));
+            }
+
             return this.readProtected(assembly);
         }
 
         public virtual Version ReadAsVersion(
             Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(
+                    nameof(assembly));
+            }
+
             var an = new AssemblyName(assembly.FullName);
             return an.Version;
         }

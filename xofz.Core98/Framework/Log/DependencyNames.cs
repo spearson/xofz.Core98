@@ -2,6 +2,6 @@
 {
     public class DependencyNames
     {
-        public const string Lotter = @"Log" + nameof(xofz.Lotter);
+        public const string Lotter = nameof(Log) + nameof(xofz.Lotter);
     }
 }

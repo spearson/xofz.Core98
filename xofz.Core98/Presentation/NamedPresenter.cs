@@ -3,7 +3,7 @@
     using UI;
 
     public class NamedPresenter 
-        : Presenter
+        : Presenter, Nameable
     {
         public NamedPresenter(
             Ui ui, 

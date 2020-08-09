@@ -21,7 +21,8 @@
                 s,
                 () =>
                 {
-                    s.SwitchUi(this.ui);
+                    s.SwitchUi(
+                        this.ui);
                 });
         }
 

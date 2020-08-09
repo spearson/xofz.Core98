@@ -152,7 +152,10 @@
             checkLotter:
             registered = false;
             var ln = DependencyNames.Lotter;
-            w.Run<Lotter>(lotter => { registered = true; },
+            w.Run<Lotter>(lotter =>
+                {
+                    registered = true;
+                },
                 ln);
             if (!registered)
             {
@@ -161,8 +164,12 @@
                     ln);
             }
 
-            w.RegisterDependency(s, ldn);
-            w.RegisterDependency(new LinkedList<LogEntry>(), ldn);
+            w.RegisterDependency(
+                s, 
+                ldn);
+            w.RegisterDependency(
+                new LinkedList<LogEntry>(), 
+                ldn);
             w.RegisterDependency(
                 new Framework.Log.FieldHolder(),
                 ldn);

@@ -57,7 +57,9 @@
     <Compile Include="Framework\Log\ResetContentKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
+    <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
+    <Compile Include="Framework\Factories\NameableFactory.cs" />
     <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
     <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />

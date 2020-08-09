@@ -39,14 +39,15 @@
                 return false;
             }
 
+            var d = new Dependency
+            {
+                Content = dependency,
+                Name = name
+            };
+
             lock (this.locker)
             {
-                this.dependencies.Add(
-                    new Dependency
-                    {
-                        Content = dependency,
-                        Name = name
-                    });
+                this.dependencies.Add(d);
             }
 
             return true;

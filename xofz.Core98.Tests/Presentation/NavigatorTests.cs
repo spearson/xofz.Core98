@@ -5,6 +5,7 @@
     using FakeItEasy;
     using Ploeh.AutoFixture;
     using xofz.Framework;
+    using xofz.Framework.Login;
     using xofz.Presentation;
     using Xunit;
 
@@ -15,7 +16,8 @@
             protected Context()
             {
                 this.web = new MethodWeb();
-                this.navigator = new Navigator(this.web);
+                this.navigator = new Navigator(
+                    this.web);
                 this.fixture = new Fixture();
             }
 
@@ -225,7 +227,7 @@
 
                 A.CallTo(() => w.Run(
                         A<xofz.Do<LatchHolder>>.Ignored,
-                        "LoginLatch"))
+                        DependencyNames.Latch))
                     .MustHaveHappened(Repeated.Exactly.Twice);
             }
 
@@ -249,8 +251,9 @@
 
         public class TestNavigator : Navigator
         {
-            public TestNavigator(MethodWeb web)
-                : base(web)
+            public TestNavigator(
+                MethodRunner runner)
+                : base(runner)
             {
             }
 
