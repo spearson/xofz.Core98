@@ -35,6 +35,8 @@
                 new SecureStringToolSet());
             w.RegisterDependency(
                 new SettingsHolder());
+            w.RegisterDependency(
+                new TimeProvider());
         }
 
         protected readonly PasswordHolder passwords;

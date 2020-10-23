@@ -642,10 +642,10 @@
         }
 
         public static bool All<T>(
-            IEnumerable<T> finiteSource,
+            IEnumerable<T> source,
             Gen<T, bool> predicate)
         {
-            if (finiteSource == null)
+            if (source == null)
             {
                 return true;
             }
@@ -655,7 +655,7 @@
                 return true;
             }
 
-            foreach (var item in finiteSource)
+            foreach (var item in source)
             {
                 if (!predicate(item))
                 {
@@ -678,12 +678,7 @@
             var itemIsNull = item == null;
             foreach (var itemInSource in source)
             {
-                if (itemInSource == null && itemIsNull)
-                {
-                    return true;
-                }
-
-                if (item?.Equals(itemInSource) ?? false)
+                if (itemInSource?.Equals(item) ?? itemIsNull)
                 {
                     return true;
                 }
@@ -714,9 +709,9 @@
                 yield break;
             }
 
+            T t;
             foreach (var item in source)
             {
-                T t;
                 try
                 {
                     t = (T)item;
@@ -1398,7 +1393,7 @@
 
             if (predicate == null)
             {
-                throw new ArgumentNullException(nameof(predicate));
+                return default;
             }
 
             T matchingItem = default;
@@ -1421,6 +1416,105 @@
             }
 
             return matchingItem;
+        }
+
+        public static IEnumerable<T> Except<T>(
+            IEnumerable<T> finiteSource,
+            IEnumerable<T> finiteExceptions)
+        {
+            if (finiteSource == null)
+            {
+                yield break;
+            }
+
+            if (finiteExceptions == null)
+            {
+                foreach (var item in finiteSource)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
+            var set = new xofz.Framework.Lots.SetLot<T>();
+            foreach (var exception in finiteExceptions)
+            {
+                set.Add(exception);
+            }
+
+            foreach (var item in finiteSource)
+            {
+                if (set.Add(item))
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        public static IEnumerable<T> Distinct<T>(
+            IEnumerable<T> finiteSource)
+        {
+            var set = new xofz.Framework.Lots.SetLot<T>();
+            foreach (var item in finiteSource)
+            {
+                if (set.Add(item))
+                {
+                    yield return item;
+                }
+            }
+        }
+
+        public static IEnumerable<T> Union<T>(
+            IEnumerable<T> finiteSource1,
+            IEnumerable<T> finiteSource2)
+        {
+            var set = new xofz.Framework.Lots.SetLot<T>();
+            if (finiteSource1 != null)
+            {
+                foreach (var item in finiteSource1)
+                {
+                    if (set.Add(item))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+
+            if (finiteSource2 != null)
+            {
+                foreach (var item in finiteSource2)
+                {
+                    if (set.Add(item))
+                    {
+                        yield return item;
+                    }
+                }
+            }
+        }
+
+        public static IEnumerable<T> Intersect<T>(
+            IEnumerable<T> finiteSource1,
+            IEnumerable<T> finiteSource2)
+        {
+            var set = new xofz.Framework.Lots.SetLot<T>();
+            if (finiteSource1 == null || finiteSource2 == null)
+            {
+                yield break;
+            }
+
+            foreach (var item in finiteSource1)
+            {
+                set.Add(item);
+            }
+
+            foreach (var item in finiteSource2)
+            {
+                if (set.Remove(item))
+                {
+                    yield return item;
+                }
+            }
         }
     }
 }

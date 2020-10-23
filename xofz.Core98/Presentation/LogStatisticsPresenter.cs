@@ -19,10 +19,9 @@
 
         public void Setup()
         {
-            if (Interlocked.CompareExchange(
+            if (Interlocked.Exchange(
                     ref this.setupIf1, 
-                    1, 
-                    0) == 1)
+                    1) == 1)
             {
                 return;
             }
@@ -30,7 +29,9 @@
             var r = this.runner;
             r.Run<SetupHandler>(handler =>
             {
-                handler.Handle(ui, this.Name);
+                handler.Handle(
+                    this.ui, 
+                    this.Name);
             });
 
             r.Run<EventSubscriber>(subscriber =>

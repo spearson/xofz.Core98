@@ -15,10 +15,9 @@
 
         public virtual void Setup()
         {
-            if (Interlocked.CompareExchange(
+            if (Interlocked.Exchange(
                     ref this.setupIf1,
-                    1,
-                    0) == 1)
+                    1) == 1)
             {
                 return;
             }
@@ -45,14 +44,22 @@
         {
             get
             {
+                var w = this.web;
                 var cal = this.currentLevel;
                 if (cal == AccessLevel.None)
                 {
                     return System.TimeSpan.Zero;
                 }
 
-                var lt = this.loginTime;
-                return this.loginDuration - (System.DateTime.Now - lt);
+                System.DateTime
+                    lt = this.loginTime,
+                    now = System.DateTime.Now;
+                w.Run<TimeProvider>(provider =>
+                {
+                    now = provider.Now();
+                });
+
+                return this.loginDuration - (now - lt);
             }
         }
 
@@ -114,15 +121,15 @@
                 loginDurationMilliseconds = uint.MaxValue;
             }
 
+            var noAccess = AccessLevel.None;
             if (password == null)
             {
                 this.setCurrentAccessLevel(
-                    AccessLevel.None);
+                    noAccess);
                 return;
             }
 
             var w = this.web;
-            var noAccess = AccessLevel.None;
             var newLevel = noAccess;
             w.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
@@ -161,8 +168,13 @@
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
+                    var now = System.DateTime.Now;
+                    w.Run<TimeProvider>(provider =>
+                    {
+                        now = provider.Now();
+                    });
                     this.setLoginTime(
-                        System.DateTime.Now);
+                        now);
                     t.Start(loginDurationMilliseconds);
                 },
                 DependencyNames.Timer);
@@ -182,15 +194,15 @@
                 loginDurationMilliseconds = uint.MaxValue;
             }
 
+            var noAccess = AccessLevel.None;
             if (password == null)
             {
                 this.setCurrentAccessLevel(
-                    AccessLevel.None);
+                    noAccess);
                 return;
             }
 
             var w = this.web;
-            var noAccess = AccessLevel.None;
             var newLevel = noAccess;
             w.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
@@ -226,8 +238,13 @@
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
+                    var now = System.DateTime.Now;
+                    w.Run<TimeProvider>(provider =>
+                    {
+                        now = provider.Now();
+                    });
                     this.setLoginTime(
-                        System.DateTime.Now);
+                        now);
                     t.Start(loginDurationMilliseconds);
                 },
                 DependencyNames.Timer);
@@ -269,7 +286,8 @@
         {
             var h = this.timerFinished;
             h.Reset();
-            this.setCurrentAccessLevel(AccessLevel.None);
+            this.setCurrentAccessLevel(
+                AccessLevel.None);
             h.Set();
         }
 

@@ -53,10 +53,13 @@
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Factory.cs" />
+    <Compile Include="Framework\Access\TimeProvider.cs" />
     <Compile Include="Framework\Log\DownKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetContentKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
+    <Compile Include="Framework\Lots\SetLot.cs" />
+    <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />

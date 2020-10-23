@@ -82,7 +82,12 @@
     <Compile Include="Framework\Transformation\EnumerableFrontBackLoaderTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableHeartbeaterTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableInjectorTests.cs" />
+    <Compile Include="Framework\Transformation\ReverserTests.cs" />
+    <Compile Include="Presentation\EmptyPresenterTests.cs" />
+    <Compile Include="Presentation\LogEditorPresenterTests.cs" />
     <Compile Include="Presentation\LoginPresenterTests.cs" />
+    <Compile Include="Presentation\LogPresenterTests.cs" />
+    <Compile Include="Presentation\LogStatisticsPresenterTests.cs" />
     <Compile Include="Presentation\NavigatorTests.cs" />
     <Compile Include="Presentation\PopupPresenterTests.cs" />
     <Compile Include="Presentation\PresenterTests.cs" />

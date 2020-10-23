@@ -15,10 +15,9 @@
 
         public void Setup()
         {
-            if (Interlocked.CompareExchange(
+            if (Interlocked.Exchange(
                 ref this.setupIf1,
-                1,
-                0) == 1)
+                1) == 1)
             {
                 return;
             }

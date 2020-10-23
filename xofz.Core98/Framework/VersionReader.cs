@@ -6,12 +6,14 @@
 
     public class VersionReader
     {
+        public VersionReader()
+        {
+        }
+
         public VersionReader(
             Assembly executingAssembly)
         {
-            this.executingAssembly = executingAssembly ??
-                                     throw new ArgumentNullException(
-                                         nameof(executingAssembly));
+            this.executingAssembly = executingAssembly;
         }
        
         public virtual string Read()
@@ -43,8 +45,7 @@
         {
             if (assembly == null)
             {
-                throw new ArgumentNullException(
-                    nameof(assembly));
+                return null;
             }
 
             return this.readProtected(assembly);
@@ -55,8 +56,7 @@
         {
             if (assembly == null)
             {
-                throw new ArgumentNullException(
-                    nameof(assembly));
+                return null;
             }
 
             var an = new AssemblyName(assembly.FullName);
