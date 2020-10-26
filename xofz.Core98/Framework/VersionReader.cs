@@ -67,6 +67,10 @@
             Assembly assembly)
         {
             var v = this.ReadAsVersion(assembly);
+            if (v == null)
+            {
+                return null;
+            }
 
             var versionBuilder = new StringBuilder();
             versionBuilder.Append(v.Major);
