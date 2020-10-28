@@ -72,7 +72,9 @@
                         = new LinkedList<XTuple<string, string, string>>(
                             EnumerableHelpers.Select(
                                 matchingEntries,
-                                converter.Convert));
+                                entry => converter.Convert(
+                                    entry,
+                                    name)));
 
                     uiRW.WriteSync(
                         ui,

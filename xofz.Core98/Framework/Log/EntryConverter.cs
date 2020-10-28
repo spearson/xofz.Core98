@@ -15,6 +15,15 @@
         public virtual XTuple<string, string, string> Convert(
             LogEntry entry)
         {
+            return this.Convert(
+                entry,
+                null);
+        }
+
+        public virtual XTuple<string, string, string> Convert(
+            LogEntry entry,
+            string name)
+        {
             if (entry == null)
             {
                 return XTuple.Create<string, string, string>(
@@ -24,9 +33,10 @@
             var r = this.runner;
             string format = null;
             r.Run<SettingsHolder>(settings =>
-            {
-                format = settings.TimestampFormat;
-            });
+                {
+                    format = settings.TimestampFormat;
+                },
+                name);
 
             return XTuple.Create(
                 entry.Timestamp.ToString(
@@ -35,7 +45,8 @@
                 entry.Type,
                 string.Join(
                     Environment.NewLine,
-                    EnumerableHelpers.ToArray(entry.Content)));
+                    EnumerableHelpers.ToArray(
+                        entry.Content)));
         }
 
         protected readonly MethodRunner runner;

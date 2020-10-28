@@ -54,7 +54,7 @@
                     {
                         r.Run<EntryConverter>(converter =>
                         {
-                            var xt = converter.Convert(entry);
+                            var xt = converter.Convert(entry, name);
                             uiRW.Write(
                                 ui,
                                 () =>

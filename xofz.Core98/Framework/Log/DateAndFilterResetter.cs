@@ -20,12 +20,11 @@
         {
             var r = this.runner;
             r.Run<FieldHolder, UiReaderWriter>(
-                (holder, uiRW) =>
+                (fields, uiRW) =>
                 {
-                    while (Interlocked.CompareExchange(
-                               ref holder.resettingIf1,
-                               1,
-                               0) == 1)
+                    while (Interlocked.Exchange(
+                               ref fields.resettingIf1,
+                               1) == 1)
                     {
                         Thread.Sleep(0);
                     }
@@ -38,21 +37,21 @@
 
                     var lastWeek = today.Subtract(TimeSpan.FromDays(6));
                     var needsReload = true;
-                    var started = Interlocked.Read(ref holder.startedIf1) == 1;
+                    var started = Interlocked.Read(ref fields.startedIf1) == 1;
                     if (uiRW.Read(ui, () => ui.StartDate) == lastWeek
                         && uiRW.Read(ui, () => ui.EndDate) == today
                         && uiRW.Read(ui, () => ui.FilterContent) == string.Empty
                         && uiRW.Read(ui, () => ui.FilterType) == string.Empty)
                     {
                         if (started && Interlocked.Read(
-                                ref holder.startedFirstTimeIf1) == 1)
+                                ref fields.startedFirstTimeIf1) == 1)
                         {
                             needsReload = false;
                         }
                     }
 
                     Interlocked.CompareExchange(
-                        ref holder.refreshOnStartIf1, 
+                        ref fields.refreshOnStartIf1, 
                         0, 
                         1);
                     if (started && needsReload)
@@ -72,10 +71,9 @@
                         subscribe?.Invoke();
                     }
 
-                    Interlocked.CompareExchange(
-                        ref holder.resettingIf1,
-                        0,
-                        1);
+                    Interlocked.Exchange(
+                        ref fields.resettingIf1,
+                        0);
                 },
                 name);
         }

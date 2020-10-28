@@ -69,6 +69,16 @@
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\Factories\NameableFactoryTests.cs" />
     <Compile Include="Framework\FactoryTests.cs" />
+    <Compile Include="Framework\Log\AccessLevelChangedHandlerTests.cs" />
+    <Compile Include="Framework\Log\AddKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\ClearKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\CurrentWeekKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\DateAndFilterResetterTests.cs" />
+    <Compile Include="Framework\Log\DateRangeChangedHandlerTests.cs" />
+    <Compile Include="Framework\Log\DownKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\EntryConverterTests.cs" />
+    <Compile Include="Framework\Log\EntryReloaderTests.cs" />
+    <Compile Include="Framework\Log\EntryWrittenHandlerTests.cs" />
     <Compile Include="Framework\MethodWebManagerV2Tests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
     <Compile Include="Framework\ThreadSafeMethodWebTests.cs" />
@@ -88,11 +98,19 @@
     <Compile Include="Presentation\LoginPresenterTests.cs" />
     <Compile Include="Presentation\LogPresenterTests.cs" />
     <Compile Include="Presentation\LogStatisticsPresenterTests.cs" />
+    <Compile Include="Presentation\MainPresenterTests.cs" />
     <Compile Include="Presentation\NavigatorTests.cs" />
+    <Compile Include="Presentation\PopupNamedPresenterTests.cs" />
     <Compile Include="Presentation\PopupPresenterTests.cs" />
     <Compile Include="Presentation\PresenterTests.cs" />
+    <Compile Include="Presentation\ShutdownPresenterTests.cs" />
     <Compile Include="Presentation\ThreadSafeNavigatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Root\Commands\SetupAccessCommandTests.cs" />
+    <Compile Include="Root\Commands\SetupLogCommandTests.cs" />
+    <Compile Include="Root\Commands\SetupLoginCommandTests.cs" />
+    <Compile Include="Root\Commands\SetupMainCommandTests.cs" />
+    <Compile Include="Root\Commands\SetupShutdownCommandTests.cs" />
     <Compile Include="XTupleTests.cs" />
   </ItemGroup>
   <ItemGroup>

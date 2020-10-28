@@ -1,6 +1,5 @@
 ﻿namespace xofz.Tests.Framework
 {
-    using System;
     using xofz.Framework;
     using xofz.Presentation;
     using Xunit;

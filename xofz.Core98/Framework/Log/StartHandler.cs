@@ -73,7 +73,7 @@
                         {
                             foreach (var entry in refreshEntries)
                             {
-                                var xt = converter.Convert(entry);
+                                var xt = converter.Convert(entry, name);
                                 uiRW.WriteSync(
                                     ui,
                                     () =>
