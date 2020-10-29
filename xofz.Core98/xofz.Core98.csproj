@@ -59,6 +59,7 @@
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
     <Compile Include="Framework\Lots\SetLot.cs" />
+    <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />

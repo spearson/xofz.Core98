@@ -33,7 +33,11 @@
                     }
                 },
                 MethodNames.Cleanup);
-            Process.GetCurrentProcess().Kill();
+
+            r.Run<ProcessKiller>(killer =>
+            {
+                killer.Kill();
+            });
         }
 
         protected readonly MethodRunner runner;

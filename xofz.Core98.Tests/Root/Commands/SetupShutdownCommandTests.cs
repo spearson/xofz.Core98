@@ -65,6 +65,18 @@
                         null))
                     .MustHaveHappened();
             }
+
+            [Fact]
+            public void Registers_a_ProcessKiller()
+            {
+                this.command.Execute();
+
+                A
+                    .CallTo(() => this.web.RegisterDependency(
+                        A<ProcessKiller>.Ignored,
+                        null))
+                    .MustHaveHappened();
+            }
         }
     }
 }

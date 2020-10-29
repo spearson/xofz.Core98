@@ -61,6 +61,8 @@
 
             w.RegisterDependency(
                 new StartHandler(w));
+            w.RegisterDependency(
+                new ProcessKiller());
         }
 
         protected readonly Ui cleanupUi;

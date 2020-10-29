@@ -102,8 +102,10 @@
     <Compile Include="Framework\Log\StatisticsKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Log\StopHandlerTests.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Main\ShutdownRequestedHandlerTests.cs" />
     <Compile Include="Framework\MethodWebManagerV2Tests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
+    <Compile Include="Framework\Shutdown\StartHandlerTests.cs" />
     <Compile Include="Framework\ThreadSafeMethodWebTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableBreakerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableConnectorTests.cs" />
