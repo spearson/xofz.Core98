@@ -29,7 +29,7 @@
                     fs.Set(ui, name);
                 });
                 r.Run<
-                    LogStatistics, 
+                    LogStatistics,
                     SettingsHolder,
                     Labels>(
                     (stats, settings, labels) =>
@@ -52,6 +52,7 @@
                             sd.Display(ui, stats, false);
                         });
                     },
+                    name,
                     name);
             });
         }

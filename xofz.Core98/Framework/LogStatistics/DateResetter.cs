@@ -36,9 +36,9 @@
 
                     stats.Reset();
 
-                    r.Run<StatsDisplayer>(sd =>
+                    r.Run<StatsDisplayer>(displayer =>
                     {
-                        sd.Display(ui, stats, true);
+                        displayer.Display(ui, stats, true);
                     });
                 },
                 name);
