@@ -23,15 +23,13 @@
             r.Run<FieldHolder, Log, SettingsHolder>(
                 (fields, log, settings) =>
                 {
-                    Interlocked.CompareExchange(
+                    Interlocked.Exchange(
                         ref fields.startedIf1,
-                        1,
-                        0);
+                        1);
 
-                    if (Interlocked.CompareExchange(
+                    if (Interlocked.Exchange(
                             ref fields.startedFirstTimeIf1,
-                            1,
-                            0) != 1)
+                            1) != 1)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {
@@ -40,10 +38,9 @@
                         return;
                     }
 
-                    if (Interlocked.CompareExchange(
+                    if (Interlocked.Exchange(
                             ref fields.refreshOnStartIf1,
-                            0,
-                            1) == 1)
+                            0) == 1)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {

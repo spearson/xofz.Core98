@@ -79,6 +79,17 @@
     <Compile Include="Framework\Log\EntryConverterTests.cs" />
     <Compile Include="Framework\Log\EntryReloaderTests.cs" />
     <Compile Include="Framework\Log\EntryWrittenHandlerTests.cs" />
+    <Compile Include="Framework\Log\FilterCheckerTests.cs" />
+    <Compile Include="Framework\Log\FilterTextChangedHandlerTests.cs" />
+    <Compile Include="Framework\Log\NextWeekKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\PreviousWeekKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\ResetContentKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\ResetTypeKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\SetupHandlerTests.cs" />
+    <Compile Include="Framework\Log\StartHandlerTests.cs" />
+    <Compile Include="Framework\Log\StatisticsKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Log\StopHandlerTests.cs" />
+    <Compile Include="Framework\Log\UpKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\MethodWebManagerV2Tests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
     <Compile Include="Framework\ThreadSafeMethodWebTests.cs" />

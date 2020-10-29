@@ -16,9 +16,9 @@
             string name)
         {
             var r = this.runner;
-            r.Run<FieldHolder>(holder =>
+            r.Run<FieldHolder>(fields =>
                 {
-                    if (Interlocked.Read(ref holder.startedIf1) == 1)
+                    if (Interlocked.Read(ref fields.startedIf1) == 1)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {
@@ -28,7 +28,7 @@
                     }
 
                     Interlocked.CompareExchange(
-                        ref holder.refreshOnStartIf1,
+                        ref fields.refreshOnStartIf1,
                         1,
                         0);
                 },

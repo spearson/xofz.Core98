@@ -49,7 +49,9 @@
                 {
                     if (!entryType
                         ?.ToLowerInvariant()
-                        .Contains(filterType) ?? true)
+                        .Contains(
+                            filterType
+                                .ToLowerInvariant()) ?? true)
                     {
                         return;
                     }

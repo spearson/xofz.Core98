@@ -16,12 +16,11 @@
             string name)
         {
             var r = this.runner;
-            r.Run<FieldHolder>(holder =>
+            r.Run<FieldHolder>(fields =>
                 {
-                    Interlocked.CompareExchange(
-                        ref holder.startedIf1,
-                        0,
-                        1);
+                    Interlocked.Exchange(
+                        ref fields.startedIf1,
+                        0);
                 },
                 name);
         }
