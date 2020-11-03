@@ -43,11 +43,6 @@
         public virtual string Read(
             Assembly assembly)
         {
-            if (assembly == null)
-            {
-                return null;
-            }
-
             return this.readProtected(assembly);
         }
 
@@ -56,7 +51,7 @@
         {
             if (assembly == null)
             {
-                return null;
+                return new Version(0, 0, 0, 0);
             }
 
             var an = new AssemblyName(assembly.FullName);
@@ -69,7 +64,7 @@
             var v = this.ReadAsVersion(assembly);
             if (v == null)
             {
-                return null;
+                v = new Version(0, 0, 0, 0);
             }
 
             var versionBuilder = new StringBuilder();

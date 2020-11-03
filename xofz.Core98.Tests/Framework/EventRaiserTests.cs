@@ -60,6 +60,9 @@
 
             public class TE4 : TE3
             {
+                public virtual event Do<string> AnotherEvent;
+
+                public virtual event Do<string, int> Event3;
             }
 
             [Fact]
@@ -82,8 +85,37 @@
                     te4,
                     nameof(te4.AnEvent));
                 Assert.True(raised);
-
             }
+
+            [Fact]
+            public void Supports_passing_args()
+            {
+                var er = this.eventRaiser;
+                var raised = false;
+                var te4 = new TE4();
+                te4.AnotherEvent += s => raised = true;
+
+                er.Raise(
+                    te4,
+                    nameof(te4.AnotherEvent),
+                    "asdfasdfasdy");
+
+                Assert.True(
+                    raised);
+
+                raised = false;
+                te4.Event3 += (s, i) => raised = true;
+
+                er.Raise(
+                    te4,
+                    nameof(te4.Event3),
+                    "sex",
+                    4);
+
+                Assert.True(
+                    raised);
+            }
+
         }
     }
 }
