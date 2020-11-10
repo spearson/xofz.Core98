@@ -50,10 +50,9 @@
                         }
                     }
 
-                    Interlocked.CompareExchange(
+                    Interlocked.Exchange(
                         ref fields.refreshOnStartIf1, 
-                        0, 
-                        1);
+                        0);
                     if (started && needsReload)
                     {
                         unsubscribe?.Invoke();

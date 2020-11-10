@@ -27,10 +27,9 @@
                         return;
                     }
 
-                    Interlocked.CompareExchange(
+                    Interlocked.Exchange(
                         ref fields.refreshOnStartIf1,
-                        1,
-                        0);
+                        1);
                 },
                 name);
         }

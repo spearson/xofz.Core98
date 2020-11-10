@@ -64,7 +64,11 @@
             var v = this.ReadAsVersion(assembly);
             if (v == null)
             {
-                v = new Version(0, 0, 0, 0);
+                v = new Version(
+                    0, 
+                    0, 
+                    0, 
+                    0);
             }
 
             var versionBuilder = new StringBuilder();
