@@ -72,6 +72,14 @@
     <Compile Include="Framework\LogEditor\AddKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\LogEditor\SetupHandlerTests.cs" />
     <Compile Include="Framework\LogEditor\TypeChangedHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\AccessLevelChangedHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\BackspaceKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\KeyboardKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\LoginKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\SetupHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\StartHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\StopHandlerTests.cs" />
+    <Compile Include="Framework\LogIn\TimerHandlerTests.cs" />
     <Compile Include="Framework\LogStatistics\DateResetterTests.cs" />
     <Compile Include="Framework\LogStatistics\FilterSetterTests.cs" />
     <Compile Include="Framework\LogStatistics\OverallKeyTappedHandlerTests.cs" />
