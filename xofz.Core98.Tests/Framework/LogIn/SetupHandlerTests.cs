@@ -1,4 +1,4 @@
-﻿namespace xofz.Tests.Framework.LogIn
+﻿namespace xofz.Tests.Framework.Login
 {
     using FakeItEasy;
     using Ploeh.AutoFixture;

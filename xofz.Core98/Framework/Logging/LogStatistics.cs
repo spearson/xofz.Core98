@@ -104,12 +104,12 @@
 
         public virtual void Reset()
         {
-            var ts = default(DateTime);
+            DateTime ts = default;
             this.OldestTimestamp = ts;
             this.NewestTimestamp = ts;
             this.EarliestTimestamp = ts;
             this.LatestTimestamp = ts;
-            this.AvgEntriesPerDay = default(double);
+            this.AvgEntriesPerDay = default;
             this.TotalEntryCount = 0;
         }
 

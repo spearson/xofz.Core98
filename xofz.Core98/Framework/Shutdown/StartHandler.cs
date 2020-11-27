@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Shutdown
 {
-    using System.Diagnostics;
     using xofz.UI;
 
     public class StartHandler
