@@ -39,6 +39,7 @@ namespace xofz.Framework
             this.innerTimer = innerTimer;
             this.locker = locker;
             innerTimer.Elapsed += this.innerTimer_Elapsed;
+            this.shouldReset = true;
         }
 
         public virtual event Do Elapsed;
