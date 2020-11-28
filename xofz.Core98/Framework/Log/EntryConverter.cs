@@ -32,7 +32,7 @@
 
             var r = this.runner;
             string format = null;
-            r.Run<SettingsHolder>(settings =>
+            r?.Run<SettingsHolder>(settings =>
                 {
                     format = settings.TimestampFormat;
                 },

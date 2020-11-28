@@ -14,7 +14,7 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<KeyboardLoader>(loader =>
+            r?.Run<KeyboardLoader>(loader =>
             {
                 try
                 {
@@ -26,7 +26,7 @@
                 }
             });
 
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
                     ui,

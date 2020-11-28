@@ -20,7 +20,7 @@
             AccessLevel newAccessLevel)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 if (newAccessLevel == AccessLevel.None)
                 {
@@ -33,7 +33,7 @@
                 }
             });
 
-            r.Run<xofz.Framework.Timer, EventRaiser>(
+            r?.Run<xofz.Framework.Timer, EventRaiser>(
                 (t, er) =>
                 {
                     er.Raise(

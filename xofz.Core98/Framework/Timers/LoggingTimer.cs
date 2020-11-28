@@ -75,7 +75,7 @@
             System.Timers.ElapsedEventArgs e)
         {
             var r = this.runner;
-            r.Run<LogEditor>(le =>
+            r?.Run<LogEditor>(le =>
                 {
                     this.log(this, le);
                 },

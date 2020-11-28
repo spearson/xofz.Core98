@@ -18,7 +18,7 @@
             var r = this.runner;
             var response = Response.No;
             Gen<string> computeBackupLocation = null;
-            r.Run<
+            r?.Run<
                 SettingsHolder,
                 Messenger,
                 Labels,
@@ -47,7 +47,7 @@
                 return;
             }
 
-            r.Run<
+            r?.Run<
                 SettingsHolder,
                 LogEditor,
                 Labels>((settings, le, labels) =>

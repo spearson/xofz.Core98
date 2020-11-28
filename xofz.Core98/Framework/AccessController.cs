@@ -23,7 +23,7 @@
             }
 
             var w = this.web;
-            w.Run<xofz.Framework.Timer, EventSubscriber>(
+            w?.Run<xofz.Framework.Timer, EventSubscriber>(
                 (t, sub) =>
                 {
                     sub.Subscribe(
@@ -32,7 +32,7 @@
                         this.timer_Elapsed);
                 },
                 DependencyNames.Timer);
-            w.RegisterDependency(this);
+            w?.RegisterDependency(this);
         }
 
         public virtual event Do<AccessLevel> AccessLevelChanged;
@@ -54,7 +54,7 @@
                 System.DateTime
                     lt = this.loginTime,
                     now = System.DateTime.Now;
-                w.Run<TimeProvider>(provider =>
+                w?.Run<TimeProvider>(provider =>
                 {
                     now = provider.Now();
                 });
@@ -67,7 +67,7 @@
             SecureString password)
         {
             var w = this.web;
-            w.Run<Access.SettingsHolder>(settings =>
+            w?.Run<Access.SettingsHolder>(settings =>
             {
                 this.InputPassword(
                     password,
@@ -79,7 +79,7 @@
             string password)
         {
             var w = this.web;
-            w.Run<Access.SettingsHolder>(settings =>
+            w?.Run<Access.SettingsHolder>(settings =>
             {
                 this.InputPassword(
                     password,
@@ -131,7 +131,7 @@
 
             var w = this.web;
             var newLevel = noAccess;
-            w.Run<PasswordHolder, SecureStringToolSet>(
+            w?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
             {
                 var ps = holder.Passwords;
@@ -159,7 +159,7 @@
                 return;
             }
 
-            w.Run<xofz.Framework.Timer>(t =>
+            w?.Run<xofz.Framework.Timer>(t =>
                 {
                     t.AutoReset = false;
                     t.Stop();
@@ -204,7 +204,7 @@
 
             var w = this.web;
             var newLevel = noAccess;
-            w.Run<PasswordHolder, SecureStringToolSet>(
+            w?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
                 {
                     var ps = holder.Passwords;
@@ -229,7 +229,7 @@
                 return;
             }
 
-            w.Run<xofz.Framework.Timer>(t =>
+            w?.Run<xofz.Framework.Timer>(t =>
                 {
                     t.AutoReset = false;
                     t.Stop();

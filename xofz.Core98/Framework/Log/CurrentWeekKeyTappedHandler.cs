@@ -17,7 +17,7 @@
             Do subscribe)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter, TimeProvider>(
+            r?.Run<UiReaderWriter, TimeProvider>(
                 (uiRW, timeProvider) =>
                 {
                     var currentDay = timeProvider.Now().Date;

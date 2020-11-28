@@ -18,7 +18,7 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<SecureStringToolSet, UiReaderWriter>(
+            r?.Run<SecureStringToolSet, UiReaderWriter>(
                 (ssts, uiRW) =>
             {
                 var currentPw = ssts.Decode(uiRW.Read(

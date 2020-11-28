@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<LogStatistics>(stats =>
+            r?.Run<LogStatistics>(stats =>
                 {
                     r.Run<FilterSetter>(
                         setter => setter.Set(

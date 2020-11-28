@@ -19,7 +19,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<FieldHolder, UiReaderWriter>(
+            r?.Run<FieldHolder, UiReaderWriter>(
                 (fields, uiRW) =>
                 {
                     while (Interlocked.Exchange(

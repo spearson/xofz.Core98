@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 var start = uiRW.Read(
                     ui,

@@ -17,7 +17,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<LogStatistics, UiReaderWriter>(
+            r?.Run<LogStatistics, UiReaderWriter>(
                 (stats, uiRW) =>
                 {
                     var today = DateTime.Today;

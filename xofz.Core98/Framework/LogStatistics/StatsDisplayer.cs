@@ -19,7 +19,7 @@
             bool reset)
         {
             var r = this.runner;
-            r.Run<LogStatistics>(stats =>
+            r?.Run<LogStatistics>(stats =>
                 {
                     this.Display(ui, stats, reset);
                 },
@@ -32,7 +32,7 @@
             bool reset)
         {
             var r = this.runner;
-            r.Run<SettingsHolder, Labels>(
+            r?.Run<SettingsHolder, Labels>(
                 (settings, labels) =>
                 {
                     var defaultInfo = reset

@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<Log.SettingsHolder>(settings =>
+            r?.Run<Log.SettingsHolder>(settings =>
                 {
                     if (settings.ResetOnStart)
                     {
@@ -28,7 +28,7 @@
                 },
                 name);
 
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 var contentFilter = uiRW.Read(
                     ui, 

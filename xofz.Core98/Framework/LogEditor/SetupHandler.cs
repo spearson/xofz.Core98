@@ -29,7 +29,7 @@
                 });
 
             var r = this.runner;
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
                     ui,
@@ -43,7 +43,7 @@
 
             if (ui is LogEditorUiV2 v2)
             {
-                r.Run<LabelApplier>(applier =>
+                r?.Run<LabelApplier>(applier =>
                 {
                     applier.Apply(v2);
                 });

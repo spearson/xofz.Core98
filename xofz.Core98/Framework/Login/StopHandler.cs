@@ -19,7 +19,7 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<
+            r?.Run<
                 UiReaderWriter,
                 SettingsHolder>(
                 (uiRW, settings) =>

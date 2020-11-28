@@ -15,7 +15,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<SettingsHolder, UiReaderWriter>(
+            r?.Run<SettingsHolder, UiReaderWriter>(
                 (settings, uiRW) =>
                 {
                     var addKeyVisible = settings.EditLevel == AccessLevel.None;
@@ -49,7 +49,7 @@
 
             if (ui is LogUiV2 v2)
             {
-                r.Run<LabelApplier>(applier =>
+                r?.Run<LabelApplier>(applier =>
                 {
                     applier.Apply(v2);
                 });
@@ -57,7 +57,7 @@
 
             if (ui is LogUiV3 v3)
             {
-                r.Run<CurrentWeekKeyTappedHandler>(handler =>
+                r?.Run<CurrentWeekKeyTappedHandler>(handler =>
                 {
                     handler.Handle(
                         v3,

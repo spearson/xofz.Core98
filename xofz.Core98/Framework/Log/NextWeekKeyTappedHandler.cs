@@ -17,7 +17,7 @@
             Do subscribe)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 const short daysToAdd = 7;
                 var newStartDate = uiRW.Read(

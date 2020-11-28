@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<SettingsHolder, UiReaderWriter>(
+            r?.Run<SettingsHolder, UiReaderWriter>(
                 (settings, uiRW) =>
                 {
                     var akv = newLevel >= settings.EditLevel;

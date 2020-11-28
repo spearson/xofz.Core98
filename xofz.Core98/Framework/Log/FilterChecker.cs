@@ -22,7 +22,7 @@
 
             var r = this.runner;
             var passed = false;
-            r.Run<UiReaderWriter>(uiRW =>
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 var start = uiRW.Read(
                     ui,

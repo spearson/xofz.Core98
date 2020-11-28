@@ -20,7 +20,7 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<Labels, UiReaderWriter>(
+            r?.Run<Labels, UiReaderWriter>(
                 (labels, uiRW) =>
             {
                 uiRW.Write(

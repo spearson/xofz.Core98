@@ -20,7 +20,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<FieldHolder, Log, SettingsHolder>(
+            r?.Run<FieldHolder, Log, SettingsHolder>(
                 (fields, log, settings) =>
                 {
                     Interlocked.Exchange(

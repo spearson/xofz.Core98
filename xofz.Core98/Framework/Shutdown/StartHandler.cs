@@ -13,7 +13,7 @@
         public virtual void Handle()
         {
             var r = this.runner;
-            r.Run<Do>(cleanup =>
+            r?.Run<Do>(cleanup =>
                 {
                     var uiFound = false;
                     r.Run<Ui, UiReaderWriter>(
@@ -33,7 +33,7 @@
                 },
                 MethodNames.Cleanup);
 
-            r.Run<ProcessKiller>(killer =>
+            r?.Run<ProcessKiller>(killer =>
             {
                 killer.Kill();
             });

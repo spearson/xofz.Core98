@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<FieldHolder>(holder =>
+            r?.Run<FieldHolder>(holder =>
                 {
                     if (Interlocked.Read(ref holder.startedIf1) == 1)
                     {

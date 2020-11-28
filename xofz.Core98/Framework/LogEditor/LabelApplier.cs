@@ -14,7 +14,7 @@
             LogEditorUiV2 ui)
         {
             var r = this.runner;
-            r.Run<Labels, UiReaderWriter>((labels, uiRW) =>
+            r?.Run<Labels, UiReaderWriter>((labels, uiRW) =>
             {
                 uiRW.Write(
                     ui,

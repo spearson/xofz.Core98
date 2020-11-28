@@ -20,7 +20,7 @@
             LogEntry entry)
         {
             var r = this.runner;
-            r.Run<FieldHolder, UiReaderWriter, FilterChecker>(
+            r?.Run<FieldHolder, UiReaderWriter, FilterChecker>(
                 (holder, uiRW, checker) =>
                 {
                     var today = DateTime.Today;

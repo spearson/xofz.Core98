@@ -21,7 +21,7 @@
             LoginUi ui)
         {
             var r = this.runner;
-            r.Run<
+            r?.Run<
                 AccessController, 
                 SettingsHolder,
                 Labels>(

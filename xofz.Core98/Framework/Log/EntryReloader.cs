@@ -17,7 +17,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<Log, UiReaderWriter, EntryConverter>(
+            r?.Run<Log, UiReaderWriter, EntryConverter>(
                 (log, uiRW, converter) =>
                 {
                     var start = uiRW.Read(ui, () => ui.StartDate);

@@ -15,14 +15,14 @@
             string name)
         {
             var r = this.runner;
-            r.Run<DateResetter>(dr =>
+            r?.Run<DateResetter>(dr =>
             {
                 dr.Reset(ui, name);
             });
 
             if (ui is LogStatisticsUiV2 v2)
             {
-                r.Run<LabelApplier>(applier =>
+                r?.Run<LabelApplier>(applier =>
                 {
                     applier.Apply(v2);
                 });

@@ -26,7 +26,7 @@
             string logName)
         {
             var r = this.runner;
-            r.Run<LogEditor, UiReaderWriter>(
+            r?.Run<LogEditor, UiReaderWriter>(
                 (le, uiRW) =>
                 {
                     var customIsSelected =

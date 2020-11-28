@@ -15,7 +15,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter, KeyPresser>(
+            r?.Run<UiReaderWriter, KeyPresser>(
                 (uiRW, presser) =>
                 {
                     uiRW.Write(

@@ -16,7 +16,7 @@
             string name)
         {
             var r = this.runner;
-            r.Run<LogStatistics, UiReaderWriter>(
+            r?.Run<LogStatistics, UiReaderWriter>(
                 (stats, uiRW) =>
                 {
                     stats.FilterContent = uiRW.Read(

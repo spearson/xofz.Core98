@@ -14,7 +14,7 @@
             LoginUiV2 ui)
         {
             var r = this.runner;
-            r.Run<UiReaderWriter, Labels>((uiRW, labels) =>
+            r?.Run<UiReaderWriter, Labels>((uiRW, labels) =>
             {
                 uiRW.Write(
                     ui,
