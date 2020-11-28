@@ -44,19 +44,16 @@
             var s = this.settings;
             if (s == null)
             {
-                w.RegisterDependency(
-                    new SettingsHolder
-                    {
-                        ShutdownLevel = AccessLevel.None
-                    });
+                w?.RegisterDependency(
+                    new SettingsHolder());
                 goto registerHandlers;
             }
 
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 s);
 
             registerHandlers:
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new ShutdownRequestedHandler(w));
         }
 

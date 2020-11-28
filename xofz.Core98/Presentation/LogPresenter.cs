@@ -21,21 +21,22 @@
 
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                 ref this.setupIf1,
-                1) == 1)
+                one) == one)
             {
                 return;
             }
 
             var r = this.runner;
             var name = this.Name;
-            r.Run<SetupHandler>(handler =>
+            r?.Run<SetupHandler>(handler =>
             {
                 handler.Handle(this.ui, name);
             });
 
-            r.Run<EventSubscriber>(sub =>
+            r?.Run<EventSubscriber>(sub =>
             {
                 sub.Subscribe(
                     this.ui,
@@ -102,21 +103,16 @@
                 }
             });
 
-            r.Run<Navigator>(nav =>
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 
         public override void Start()
         {
-            if (Interlocked.Read(ref this.setupIf1) != 1)
-            {
-                return;
-            }
-
             base.Start();
 
             var r = this.runner;
-            r.Run<EventSubscriber>(sub =>
+            r?.Run<EventSubscriber>(sub =>
             {
                 Do unsubscribe = () =>
                 {
@@ -155,7 +151,7 @@
         public override void Stop()
         {
             var r = this.runner;
-            r.Run<StopHandler>(handler =>
+            r?.Run<StopHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -164,7 +160,7 @@
         private void ui_DateRangeChanged()
         {
             var r = this.runner;
-            r.Run<DateRangeChangedHandler>(handler =>
+            r?.Run<DateRangeChangedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -173,7 +169,7 @@
         private void ui_AddKeyTapped()
         {
             var r = this.runner;
-            r.Run<Navigator>(
+            r?.Run<Navigator>(
                 nav =>
                 {
                     Do<string> presentEditor =
@@ -192,7 +188,7 @@
         private void ui_ClearKeyTapped()
         {
             var r = this.runner;
-            r.Run<ClearKeyTappedHandler>(handler =>
+            r?.Run<ClearKeyTappedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -203,7 +199,7 @@
         private void ui_StatisticsKeyTapped()
         {
             var r = this.runner;
-            r.Run<Navigator>(nav =>
+            r?.Run<Navigator>(nav =>
             {
                 Do<string> presentStats =
                     nav.PresentFluidly<LogStatisticsPresenter>;
@@ -221,7 +217,7 @@
         private void ui_FilterTextChanged()
         {
             var r = this.runner;
-            r.Run<FilterTextChangedHandler>(handler =>
+            r?.Run<FilterTextChangedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -233,7 +229,7 @@
             LogEntry e)
         {
             var r = this.runner;
-            r.Run<EntryWrittenHandler>(handler =>
+            r?.Run<EntryWrittenHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -246,7 +242,7 @@
             AccessLevel newAccessLevel)
         {
             var r = this.runner;
-            r.Run<AccessLevelChangedHandler>(handler =>
+            r?.Run<AccessLevelChangedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -258,7 +254,7 @@
         private void v3_PreviousWeekKeyTapped()
         {
             var r = this.runner;
-            r.Run<EventSubscriber>(sub =>
+            r?.Run<EventSubscriber>(sub =>
             {
                 Do unsubscribe = () =>
                 {
@@ -276,7 +272,7 @@
                         this.ui_DateRangeChanged);
                 };
 
-                r.Run<PreviousWeekKeyTappedHandler>(handler =>
+                r?.Run<PreviousWeekKeyTappedHandler>(handler =>
                 {
                     handler.Handle(
                         this.ui as LogUiV3,
@@ -290,7 +286,7 @@
         private void v3_CurrentWeekKeyTapped()
         {
             var r = this.runner;
-            r.Run<EventSubscriber>(sub =>
+            r?.Run<EventSubscriber>(sub =>
             {
                 Do unsubscribe = () =>
                 {
@@ -322,7 +318,7 @@
         private void v3_NextWeekKeyTapped()
         {
             var r = this.runner;
-            r.Run<EventSubscriber>(sub =>
+            r?.Run<EventSubscriber>(sub =>
             {
                 Do unsubscribe = () =>
                 {
@@ -354,7 +350,7 @@
         private void v3_DownKeyTapped()
         {
             var r = this.runner;
-            r.Run<DownKeyTappedHandler>(handler =>
+            r?.Run<DownKeyTappedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui as LogUiV3,
@@ -365,7 +361,7 @@
         private void v3_UpKeyTapped()
         {
             var r = this.runner;
-            r.Run<UpKeyTappedHandler>(handler =>
+            r?.Run<UpKeyTappedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui as LogUiV3,
@@ -376,7 +372,7 @@
         private void v3_ResetContentKeyTapped()
         {
             var r = this.runner;
-            r.Run<ResetContentKeyTappedHandler>(handler =>
+            r?.Run<ResetContentKeyTappedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui as LogUiV3,
@@ -387,7 +383,7 @@
         private void v3_ResetTypeKeyTapped()
         {
             var r = this.runner;
-            r.Run<ResetTypeKeyTappedHandler>(handler =>
+            r?.Run<ResetTypeKeyTappedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui as LogUiV3,

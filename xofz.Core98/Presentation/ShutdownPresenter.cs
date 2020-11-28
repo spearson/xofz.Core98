@@ -16,21 +16,23 @@
 
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                 ref this.setupIf1,
-                1) == 1)
+                one) == one)
             {
                 return;
             }
 
-            this.runner.Run<Navigator>(
-                nav => nav.RegisterPresenter(this));
+            var r = this.runner;
+            r?.Run<Navigator>(nav => 
+                nav.RegisterPresenter(this));
         }
 
         public override void Start()
         {
             var r = this.runner;
-            r.Run<StartHandler>(handler =>
+            r?.Run<StartHandler>(handler =>
             {
                 handler.Handle();
             });

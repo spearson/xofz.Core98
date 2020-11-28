@@ -19,22 +19,23 @@
 
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                     ref this.setupIf1, 
-                    1) == 1)
+                    one) == one)
             {
                 return;
             }
 
             var r = this.runner;
-            r.Run<SetupHandler>(handler =>
+            r?.Run<SetupHandler>(handler =>
             {
                 handler.Handle(
                     this.ui, 
                     this.Name);
             });
 
-            r.Run<EventSubscriber>(subscriber =>
+            r?.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -58,21 +59,16 @@
                     this.ui_ResetTypeKeyTapped);
             });
             
-            r.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav => 
                 nav.RegisterPresenter(this));
         }
 
         public override void Start()
         {
-            if (Interlocked.Read(
-                    ref this.setupIf1) != 1)
-            {
-                return;
-            }
-
             base.Start();
+
             var r = this.runner;
-            r.Run<Navigator>(nav =>
+            r?.Run<Navigator>(nav =>
             {
                 var name = this.Name;
                 Gen<LogUi> readLogUi = () => nav.GetUi<LogPresenter, LogUi>(
@@ -90,7 +86,7 @@
         private void ui_RangeKeyTapped()
         {
             var r = this.runner;
-            r.Run<RangeKeyTappedHandler>(handler =>
+            r?.Run<RangeKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -99,7 +95,7 @@
         private void ui_OverallKeyTapped()
         {
             var r = this.runner;
-            r.Run<OverallKeyTappedHandler>(handler =>
+            r?.Run<OverallKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -108,7 +104,7 @@
         private void ui_ResetContentKeyTapped()
         {
             var r = this.runner;
-            r.Run<ResetContentKeyTappedHandler>(handler =>
+            r?.Run<ResetContentKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -117,7 +113,7 @@
         private void ui_ResetTypeKeyTapped()
         {
             var r = this.runner;
-            r.Run<ResetTypeKeyTappedHandler>(handler =>
+            r?.Run<ResetTypeKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });

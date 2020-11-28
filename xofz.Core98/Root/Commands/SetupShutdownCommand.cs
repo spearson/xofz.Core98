@@ -46,7 +46,7 @@
             var ui = this.cleanupUi;
             if (ui != null)
             {
-                w.RegisterDependency(
+                w?.RegisterDependency(
                     ui,
                     UiNames.Cleanup);
             }
@@ -54,14 +54,14 @@
             var c = this.cleanup;
             if (c != null)
             {
-                w.RegisterDependency(
+                w?.RegisterDependency(
                     c,
                     MethodNames.Cleanup);
             }
 
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new StartHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new ProcessKiller());
         }
 

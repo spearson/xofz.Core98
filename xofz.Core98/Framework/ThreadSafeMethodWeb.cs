@@ -1,6 +1,7 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
+    using EH = xofz.EnumerableHelpers;
 
     public class ThreadSafeMethodWeb
         : MethodWeb
@@ -45,7 +46,7 @@
                 Name = name
             };
 
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 this.dependencies.Add(d);
             }
@@ -56,9 +57,10 @@
         public virtual bool Unregister<T>(
             string name = null)
         {
-            var ds = this.dependencies;
+            var ds = this.dependencies
+                ?? new LinkedList<Dependency>();
             var unregistered = false;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 foreach (var d in ds)
                 {
@@ -86,11 +88,12 @@
             T t;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (this.tryGet(
-                        d.Content,
-                        d.Name,
+                        d?.Content,
+                        d?.Name,
                         dependencyName,
                         out t))
                     {
@@ -120,15 +123,16 @@
                 uFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -185,15 +189,16 @@
                 vFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -266,15 +271,16 @@
                 wFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound && wFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -363,15 +369,16 @@
                 xFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound && wFound && xFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -476,7 +483,8 @@
                 yFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound)
@@ -484,8 +492,8 @@
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -606,7 +614,8 @@
                 zFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound && zFound)
@@ -614,8 +623,8 @@
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -754,7 +763,8 @@
                 aaFound = false;
             lock (this.locker)
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound && zFound && aaFound)
@@ -762,8 +772,8 @@
                         goto invoke;
                     }
 
-                    var name = d.Name;
-                    var content = d.Content;
+                    var name = d?.Name;
+                    var content = d?.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(

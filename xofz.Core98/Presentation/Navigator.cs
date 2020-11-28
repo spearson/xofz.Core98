@@ -5,9 +5,15 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Lots;
+    using EH = xofz.EnumerableHelpers;
 
     public class Navigator
     {
+        public Navigator()
+            : this((MethodRunner)null)
+        {
+        }
+
         public Navigator(
             MethodRunner runner)
             : this(
@@ -15,7 +21,7 @@
                   p =>
                   {
                       ThreadPool.QueueUserWorkItem(
-                          o => p.Start());
+                          o => p?.Start());
                   })
         {
         }
@@ -48,15 +54,15 @@
                 return false;
             }
 
-            this.presenters.Add(presenter);
+            this.presenters?.Add(presenter);
             return true;
         }
 
         public virtual bool IsRegistered<T>()
             where T : Presenter
         {
-            return EnumerableHelpers.Any(
-                EnumerableHelpers.OfType<T>(
+            return EH.Any(
+                EH.OfType<T>(
                     this.presenters));
         }
 
@@ -64,8 +70,8 @@
             string name)
             where T : NamedPresenter
         {
-            return EnumerableHelpers.Any(
-                EnumerableHelpers.OfType<T>(
+            return EH.Any(
+                EH.OfType<T>(
                     this.presenters),
                 p => p.Name == name);
         }
@@ -74,7 +80,7 @@
             where T : Presenter
         {
             var ps = this.presenters;
-            var presenter = EnumerableHelpers.FirstOrDefault(
+            var presenter = EH.FirstOrDefault(
                 ps,
                 p => p is T);
             if (presenter == null)
@@ -84,7 +90,7 @@
 
             foreach (var p in ps)
             {
-                p.Stop();
+                p?.Stop();
             }
 
             this.startPresenter?.Invoke(presenter);
@@ -95,7 +101,7 @@
             where T : NamedPresenter
         {
             var ps = this.presenters;
-            var matchingPresenters = EnumerableHelpers.OfType<T>(ps);
+            var matchingPresenters = EH.OfType<T>(ps);
             foreach (var presenter in matchingPresenters)
             {
                 if (presenter.Name != name)
@@ -105,7 +111,7 @@
 
                 foreach (var p in ps)
                 {
-                    p.Stop();
+                    p?.Stop();
                 }
 
                 this.startPresenter?.Invoke(presenter);
@@ -116,7 +122,7 @@
         public virtual void PresentFluidly<T>()
             where T : Presenter
         {
-            var presenter = EnumerableHelpers.FirstOrDefault(
+            var presenter = EH.FirstOrDefault(
                 this.presenters,
                 p => p is T);
             if (presenter == null)
@@ -131,7 +137,7 @@
             string name)
             where T : NamedPresenter
         {
-            var matchingPresenters = EnumerableHelpers.OfType<T>(
+            var matchingPresenters = EH.OfType<T>(
                 this.presenters);
             foreach (var presenter in matchingPresenters)
             {
@@ -147,29 +153,31 @@
 
         public virtual void LoginFluidly()
         {
+            const string latchName =
+                Framework.Login.DependencyNames.Latch;
             var r = this.runner;
-            r.Run<LatchHolder>(
+            r?.Run<LatchHolder>(
                 latch =>
                 {
-                    latch.Latch.Reset();
+                    latch.Latch?.Reset();
                 },
-                Framework.Login.DependencyNames.Latch);
+                latchName);
             this.PresentFluidly<LoginPresenter>();
-            r.Run<LatchHolder>(
+            r?.Run<LatchHolder>(
                 latch =>
                 {
-                    latch.Latch.WaitOne();
+                    latch.Latch?.WaitOne();
                 },
-                Framework.Login.DependencyNames.Latch);
+                latchName);
         }
 
         public virtual void StopPresenter<T>()
             where T : Presenter
         {
-            foreach (var presenter in EnumerableHelpers
-                .OfType<T>(this.presenters))
+            foreach (var presenter in EH.OfType<T>(
+                this.presenters))
             {
-                presenter.Stop();
+                presenter?.Stop();
                 break;
             }
         }
@@ -179,12 +187,12 @@
             where T : NamedPresenter
         {
             foreach (var presenter in
-                EnumerableHelpers.Where(
-                    EnumerableHelpers.OfType<T>(
+                EH.Where(
+                    EH.OfType<T>(
                         this.presenters),
                     p => p.Name == name))
             {
-                presenter.Stop();
+                presenter?.Stop();
                 break;
             }
         }
@@ -196,7 +204,7 @@
         {
             Lot<Presenter> matchingPresenters
                 = new LinkedListLot<Presenter>(
-                    EnumerableHelpers.Where(
+                    EH.Where(
                         this.presenters,
                         p => p is TPresenter));
             if (matchingPresenters.Count < 1)
@@ -207,7 +215,7 @@
             if (presenterName == null)
             {
                 return this.getUiProtected<TUi>(
-                    EnumerableHelpers.First(
+                    EH.First(
                         matchingPresenters),
                     fieldName);
             }
@@ -235,8 +243,10 @@
             string fieldName)
         {
             return (TUi)presenter
-                .GetType()
-                .GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic)
+                ?.GetType()
+                .GetField(
+                    fieldName,
+                    BindingFlags.Instance | BindingFlags.NonPublic)
                 ?.GetValue(presenter);
         }
 

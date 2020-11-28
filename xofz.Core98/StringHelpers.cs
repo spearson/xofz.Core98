@@ -9,11 +9,6 @@
             string s)
             where T : struct
         {
-            if (s == null)
-            {
-                return default;
-            }
-
             try
             {
                 return (T)Enum.Parse(typeof(T), s);

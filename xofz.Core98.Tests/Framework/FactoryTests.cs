@@ -24,16 +24,10 @@
                 var f = this.factory;
                 var web = f.Create<MethodWebV2>();
                 var nav = f.Create<NavigatorV2>(web);
+                var nav2 = f.Create<NavigatorV2>();
                 Assert.NotNull(web);
                 Assert.NotNull(nav);
-            }
-
-            [Fact]
-            public void Fails_to_create_NavigatorV2_without_web()
-            {
-                var f = this.factory;
-                var nav = f.Create<NavigatorV2>();
-                Assert.Null(nav);
+                Assert.NotNull(nav2);
             }
         }
     }

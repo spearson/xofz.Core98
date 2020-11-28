@@ -10,10 +10,9 @@
             MethodRunner runner)
         {
             this.runner = runner;
-            this.logName = null;
             this.log = (lt, le) =>
             {
-                le.AddEntry(
+                le?.AddEntry(
                     DefaultEntryTypes.Information,
                     new[]
                     {
@@ -29,7 +28,6 @@
         {
             this.log = log;
             this.runner = runner;
-            this.logName = null;
         }
 
         public virtual string LogName

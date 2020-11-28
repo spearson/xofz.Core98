@@ -12,13 +12,33 @@ namespace xofz.Framework
         : IDisposable
     {
         public Timer()
+            : this(new System.Timers.Timer(), new object())
         {
-            this.shouldReset = true;
+        }
 
-            this.innerTimer = new System.Timers.Timer();
-            this.innerTimer.Elapsed += this.innerTimer_Elapsed;
+        protected Timer(
+            System.Timers.Timer innerTimer)
+            : this(innerTimer, new object())
+        {
+        }
 
-            this.locker = new object();
+        protected Timer(
+            object locker)
+            : this(new System.Timers.Timer(), locker)
+        {
+        }
+
+        protected Timer(
+            System.Timers.Timer innerTimer,
+            object locker)
+        {
+            innerTimer = innerTimer
+                         ?? new System.Timers.Timer();
+            locker = locker
+                     ?? new object();
+            this.innerTimer = innerTimer;
+            this.locker = locker;
+            innerTimer.Elapsed += this.innerTimer_Elapsed;
         }
 
         public virtual event Do Elapsed;
@@ -39,35 +59,40 @@ namespace xofz.Framework
         public virtual void Start(
             long intervalMilliseconds)
         {
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 if (this.started)
                 {
                     return;
                 }
 
-                if (intervalMilliseconds > int.MaxValue)
+                const int max = int.MaxValue;
+                if (intervalMilliseconds > max)
                 {
-                    intervalMilliseconds = int.MaxValue;
+                    intervalMilliseconds = max;
                 }
 
                 var it = this.innerTimer;
-                it.Interval = intervalMilliseconds;
-                it.Start();
+                if (it != null)
+                {
+                    it.Interval = intervalMilliseconds;
+                }
+                
+                it?.Start();
                 this.started = true;
             }
         }
 
         public virtual void Stop()
         {
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 if (!this.started)
                 {
                     return;
                 }
 
-                this.innerTimer.Stop();
+                this.innerTimer?.Stop();
                 this.started = false;
             }
         }
@@ -89,8 +114,7 @@ namespace xofz.Framework
             this.Elapsed?.Invoke();
         }
 
-        protected bool shouldReset;
-        protected bool started;
+        protected bool started, shouldReset;
         protected readonly System.Timers.Timer innerTimer;
         protected readonly object locker;
     }

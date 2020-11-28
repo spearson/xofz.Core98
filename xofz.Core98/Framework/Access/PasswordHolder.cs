@@ -134,16 +134,19 @@
         protected static AccessLevel nextLevel(
             long counter)
         {
+            const int max = int.MaxValue;
+            const int min = int.MinValue;
+
             int enumValue;
-            if (counter > int.MaxValue)
+            if (counter > max)
             {
-                enumValue = int.MaxValue;
+                enumValue = max;
                 goto checkDef;
             }
 
-            if (counter < int.MinValue)
+            if (counter < min)
             {
-                enumValue = int.MinValue;
+                enumValue = min;
                 goto checkDef;
             }
 

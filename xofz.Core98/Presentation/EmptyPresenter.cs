@@ -15,15 +15,16 @@
 
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                 ref this.setupIf1,
-                1) == 1)
+                one) == one)
             {
                 return;
             }
 
             var r = this.runner;
-            r.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav => 
                 nav.RegisterPresenter(this));
         }
 

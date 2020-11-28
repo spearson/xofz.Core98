@@ -22,15 +22,16 @@
         /// </summary>
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                     ref this.setupIf1, 
-                    1) == 1)
+                    one) == one)
             {
                 return;
             }
 
             var r = this.runner;
-            r.Run<EventSubscriber>(subscriber =>
+            r?.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -65,12 +66,12 @@
                     DependencyNames.Timer);
             });
 
-            r.Run<SetupHandler>(handler =>
+            r?.Run<SetupHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
 
-            r.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav => 
                 nav.RegisterPresenter(this));
         }
 
@@ -79,14 +80,8 @@
         /// </summary>
         public override void Start()
         {
-            if (Interlocked.Read(
-                    ref this.setupIf1) != 1)
-            {
-                return;
-            }
-
             var r = this.runner;
-            r.Run<StartHandler>(handler =>
+            r?.Run<StartHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -97,14 +92,8 @@
         /// </summary>
         public override void Stop()
         {
-            if (Interlocked.Read(
-                ref this.setupIf1) != 1)
-            {
-                return;
-            }
-
             var r = this.runner;
-            r.Run<StopHandler>(handler =>
+            r?.Run<StopHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -113,7 +102,7 @@
         private void ui_BackspaceKeyTapped()
         {
             var r = this.runner;
-            r.Run<BackspaceKeyTappedHandler>(handler =>
+            r?.Run<BackspaceKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -122,7 +111,7 @@
         private void ui_LoginKeyTapped()
         {
             var r = this.runner;
-            r.Run<LoginKeyTappedHandler>(handler =>
+            r?.Run<LoginKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -131,7 +120,7 @@
         private void timer_Elapsed()
         {
             var r = this.runner;
-            r.Run<TimerHandler>(handler =>
+            r?.Run<TimerHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
@@ -141,7 +130,7 @@
             AccessLevel newAccessLevel)
         {
             var r = this.runner;
-            r.Run<AccessLevelChangedHandler>(handler =>
+            r?.Run<AccessLevelChangedHandler>(handler =>
             {
                 handler.Handle(
                     this.ui,
@@ -152,7 +141,7 @@
         private void ui_KeyboardKeyTapped()
         {
             var r = this.runner;
-            r.Run<KeyboardKeyTappedHandler>(handler =>
+            r?.Run<KeyboardKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });

@@ -1,12 +1,14 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
+    using EH = xofz.EnumerableHelpers;
 
     public class MethodWeb
         : MethodRunnerV2
     {
         public MethodWeb()
-            : this(new LinkedList<Dependency>())
+            : this(
+                new LinkedList<Dependency>())
         {
         }
 
@@ -25,7 +27,13 @@
                 return false;
             }
 
-            this.dependencies.Add(
+            var ds = this.dependencies;
+            if (ds == null)
+            {
+                return false;
+            }
+
+            ds.Add(
                 new Dependency
                 {
                     Content = dependency,
@@ -40,11 +48,12 @@
         {
             var ds = this.dependencies;
             T t;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (this.tryGet(
-                    d.Content,
-                    d.Name,
+                    d?.Content,
+                    d?.Name,
                     dependencyName,
                     out t))
                 {
@@ -71,15 +80,16 @@
             bool
                 tFound = false,
                 uFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound)
                 {
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -133,15 +143,16 @@
                 tFound = false,
                 uFound = false,
                 vFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound)
                 {
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -211,15 +222,16 @@
                 uFound = false,
                 vFound = false,
                 wFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound)
                 {
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -305,15 +317,16 @@
                 vFound = false,
                 wFound = false,
                 xFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound)
                 {
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -415,15 +428,16 @@
                 wFound = false,
                 xFound = false,
                 yFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound)
                 {
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -541,7 +555,8 @@
                 xFound = false,
                 yFound = false,
                 zFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound &&
                     zFound)
@@ -549,8 +564,8 @@
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(
@@ -686,7 +701,8 @@
                 yFound = false,
                 zFound = false,
                 aaFound = false;
-            foreach (var d in ds)
+            foreach (var d in ds
+                              ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound &&
                     zFound && aaFound)
@@ -694,8 +710,8 @@
                     goto invoke;
                 }
 
-                var name = d.Name;
-                var content = d.Content;
+                var name = d?.Name;
+                var content = d?.Content;
                 if (!tFound)
                 {
                     if (this.tryGet(

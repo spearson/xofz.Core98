@@ -11,17 +11,22 @@
             params object[] dependencies)
         {
             var ds = dependencies;
-            if (ds == null ||
-                ds.Length < 1 ||
-                !typeof(Nameable).IsAssignableFrom(typeof(T)))
+            if (ds == null)
+            {
+                return base.Create<T>();
+            }
+
+            var l = ds.Length;
+            if (l < 1 || !typeof(Nameable).IsAssignableFrom(typeof(T)))
             {
                 return base.Create<T>(ds);
             }
 
-            var t = base.Create<T>(EH.ToArray(
-                EH.Take(
-                    ds,
-                    ds.Length - 1)));
+            var t = base.Create<T>(
+                EH.ToArray(
+                    EH.Take(
+                        ds,
+                        l - 1)));
             if (t is Nameable n &&
                 EH.Last(ds) is string name)
             {

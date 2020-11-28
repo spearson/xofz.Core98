@@ -32,8 +32,10 @@
             ICollection<Command> executedCommands,
             object locker)
         {
-            this.executedCommands = executedCommands;
-            this.locker = locker;
+            this.executedCommands = executedCommands
+                ?? new LinkedList<Command>();
+            this.locker = locker
+                ?? new object();
         }
 
         public virtual T Get<T>()
@@ -41,7 +43,8 @@
         {
             lock (this.locker)
             {
-                foreach (var command in this.executedCommands)
+                foreach (var command in this.executedCommands
+                                        ?? EnumerableHelpers.Empty<Command>())
                 {
                     if (command is T t)
                     {
@@ -59,7 +62,8 @@
             var commands = new LinkedListLot<T>();
             lock (this.locker)
             {
-                foreach (var command in this.executedCommands)
+                foreach (var command in this.executedCommands
+                                        ?? EnumerableHelpers.Empty<Command>())
                 {
                     if (command is T t)
                     {
@@ -82,7 +86,7 @@
             command.Execute();
             lock (this.locker)
             {
-                this.executedCommands.Add(command);
+                this.executedCommands?.Add(command);
             }
 
             return this;

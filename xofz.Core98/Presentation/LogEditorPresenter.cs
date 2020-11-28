@@ -24,20 +24,21 @@
         /// </remarks>
         public void Setup()
         {
+            const long one = 1;
             if (Interlocked.Exchange(
                 ref this.setupIf1,
-                1) == 1)
+                one) == one)
             {
                 return;
             }
 
             var r = this.runner;
-            r.Run<SetupHandler>(handler =>
+            r?.Run<SetupHandler>(handler =>
             {
                 handler.Handle(this.ui);
             });
 
-            r.Run<EventSubscriber>(subscriber =>
+            r?.Run<EventSubscriber>(subscriber =>
             {
                 subscriber.Subscribe(
                     this.ui,
@@ -49,14 +50,14 @@
                     this.ui_AddKeyTapped);
             });
 
-            r.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav => 
                 nav.RegisterPresenter(this));
         }
 
         private void ui_TypeChanged()
         {
             var r = this.runner;
-            r.Run<TypeChangedHandler>(handler =>
+            r?.Run<TypeChangedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });
@@ -65,7 +66,7 @@
         private void ui_AddKeyTapped()
         {
             var r = this.runner;
-            r.Run<AddKeyTappedHandler>(handler =>
+            r?.Run<AddKeyTappedHandler>(handler =>
             {
                 handler.Handle(this.ui, this.Name);
             });

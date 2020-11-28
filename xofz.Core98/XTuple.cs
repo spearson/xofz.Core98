@@ -27,13 +27,16 @@ namespace xofz
             protected set => this.two = value;
         }
 
+        protected const long oneL = 1;
+        protected const long zeroL = 0;
+
         public virtual void AtomicGet(
             out T item1,
             out U item2)
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -42,7 +45,7 @@ namespace xofz
             item2 = this.Item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -51,7 +54,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -60,7 +63,7 @@ namespace xofz
             this.Item2 = item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public override bool Equals(
@@ -130,13 +133,16 @@ namespace xofz
             protected set => this.three = value;
         }
 
+        protected const long oneL = 1;
+        protected const long zeroL = 0;
+
         public virtual void AtomicGet(
             out T item1,
             out U item2)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -145,7 +151,7 @@ namespace xofz
             item2 = this.Item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -153,8 +159,8 @@ namespace xofz
             U item2)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -163,7 +169,7 @@ namespace xofz
             this.Item2 = item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -171,8 +177,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -181,7 +187,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -189,8 +195,8 @@ namespace xofz
             V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -199,7 +205,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -207,8 +213,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -217,7 +223,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -226,7 +232,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -235,7 +241,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -244,8 +250,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -255,7 +261,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -264,8 +270,8 @@ namespace xofz
             V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -275,7 +281,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public override bool Equals(
@@ -361,13 +367,16 @@ namespace xofz
             protected set => this.four = value;
         }
 
+        protected const long oneL = 1;
+        protected const long zeroL = 0;
+
         public virtual void AtomicGet(
             out T item1,
             out U item2)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -376,7 +385,7 @@ namespace xofz
             item2 = this.Item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -384,8 +393,8 @@ namespace xofz
             U item2)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -394,7 +403,7 @@ namespace xofz
             this.Item2 = item2;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -402,8 +411,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -412,7 +421,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -420,8 +429,8 @@ namespace xofz
             V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -430,7 +439,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -438,8 +447,8 @@ namespace xofz
             out W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -448,7 +457,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -456,8 +465,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -466,7 +475,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -474,8 +483,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -484,7 +493,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -492,8 +501,8 @@ namespace xofz
             V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -502,7 +511,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -510,8 +519,8 @@ namespace xofz
             out W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -520,7 +529,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -528,8 +537,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -538,7 +547,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -547,7 +556,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -556,7 +565,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -564,8 +573,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -574,7 +583,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -583,8 +592,8 @@ namespace xofz
             out V item3)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -594,7 +603,7 @@ namespace xofz
             item3 = this.Item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -604,7 +613,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -614,7 +623,7 @@ namespace xofz
             this.Item3 = item3;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -623,8 +632,8 @@ namespace xofz
             out W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -634,7 +643,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -643,8 +652,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -654,7 +663,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -663,8 +672,8 @@ namespace xofz
             out W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -674,7 +683,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -684,7 +693,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -694,7 +703,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -703,8 +712,8 @@ namespace xofz
             out W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -714,7 +723,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -723,8 +732,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -734,7 +743,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1,
-                0);
+                zeroL);
         }
 
         public virtual void AtomicGet(
@@ -745,7 +754,7 @@ namespace xofz
         {
             while (Interlocked.Exchange(
                        ref this.settingOrGettingIf1,
-                       1) == 1)
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -756,7 +765,7 @@ namespace xofz
             item4 = this.Item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public virtual void AtomicSet(
@@ -766,8 +775,8 @@ namespace xofz
             W item4)
         {
             while (Interlocked.Exchange(
-                       ref this.settingOrGettingIf1, 
-                       1) == 1)
+                       ref this.settingOrGettingIf1,
+                       oneL) == oneL)
             {
                 continue;
             }
@@ -778,7 +787,7 @@ namespace xofz
             this.Item4 = item4;
             Interlocked.Exchange(
                 ref this.settingOrGettingIf1, 
-                0);
+                zeroL);
         }
 
         public override bool Equals(

@@ -17,7 +17,8 @@
             : this(
                 ui,
                 web,
-                TimeSpan.FromMinutes(loginDurationMinutes))
+                TimeSpan.FromMinutes(
+                    loginDurationMinutes))
         {
         }
 
@@ -43,48 +44,48 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new xofz.Framework.Timer(),
                 DependencyNames.Timer);
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new SettingsHolder
                 {
                     Duration = this.loginDuration
                 });
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new LatchHolder
                 {
                     Latch = new ManualResetEvent(true)
                 },
                 DependencyNames.Latch);
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new KeyboardLoader());
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new SetupHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new StartHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new StopHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new BackspaceKeyTappedHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new LoginKeyTappedHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new TimerHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new AccessLevelChangedHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new KeyboardKeyTappedHandler(w));
-            w.RegisterDependency(
+            w?.RegisterDependency(
                 new LabelApplier(w));
             var registered = false;
-            w.Run<Labels>(labels =>
+            w?.Run<Labels>(labels =>
             {
                 registered = true;
             });
             if (!registered)
             {
-                w.RegisterDependency(
+                w?.RegisterDependency(
                     new Labels());
             }
         }

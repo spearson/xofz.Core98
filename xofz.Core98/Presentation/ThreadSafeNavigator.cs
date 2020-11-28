@@ -4,10 +4,15 @@ namespace xofz.Presentation
     using System.Collections.Generic;
     using xofz.Framework;
     using xofz.Framework.Lots;
+    using EH = xofz.EnumerableHelpers;
 
     public class ThreadSafeNavigator 
         : Navigator
     {
+        public ThreadSafeNavigator()
+        {
+        }
+
         public ThreadSafeNavigator(
             MethodRunner runner)
             : base(runner)
@@ -69,7 +74,7 @@ namespace xofz.Presentation
 
             lock (this.locker)
             {
-                this.presenters.Add(presenter);
+                this.presenters?.Add(presenter);
             }
 
             return true;
@@ -79,8 +84,8 @@ namespace xofz.Presentation
         {
             lock (this.locker)
             {
-                return EnumerableHelpers.Any(
-                    EnumerableHelpers.OfType<T>(
+                return EH.Any(
+                    EH.OfType<T>(
                         this.presenters));
             }
         }
@@ -90,8 +95,8 @@ namespace xofz.Presentation
         {
             lock (this.locker)
             {
-                return EnumerableHelpers.Any(
-                    EnumerableHelpers.OfType<T>(
+                return EH.Any(
+                    EH.OfType<T>(
                         this.presenters),
                     p => p.Name == name);
             }
@@ -104,7 +109,7 @@ namespace xofz.Presentation
             var unregistered = false;
             lock (this.locker)
             {
-                foreach (var p in EnumerableHelpers.OfType<T>(ps))
+                foreach (var p in EH.OfType<T>(ps))
                 {
                     ps.Remove(p);
                     unregistered = true;
@@ -123,7 +128,7 @@ namespace xofz.Presentation
             var unregistered = false;
             lock (this.locker)
             {
-                foreach (var p in EnumerableHelpers.OfType<T>(ps))
+                foreach (var p in EH.OfType<T>(ps))
                 {
                     if (p.Name != name)
                     {
@@ -145,7 +150,7 @@ namespace xofz.Presentation
             Presenter presenter;
             lock (this.locker)
             {
-                presenter = EnumerableHelpers.FirstOrDefault(
+                presenter = EH.FirstOrDefault(
                     ps,
                     p => p is T);
             }
@@ -173,7 +178,7 @@ namespace xofz.Presentation
             NamedPresenter np;
             lock (this.locker)
             {
-                var matchingPresenters = EnumerableHelpers.OfType<T>(ps);
+                var matchingPresenters = EH.OfType<T>(ps);
                 foreach (var presenter in matchingPresenters)
                 {
                     if (presenter.Name != name)
@@ -201,7 +206,7 @@ namespace xofz.Presentation
             Presenter presenter;
             lock (this.locker)
             {
-                presenter = EnumerableHelpers.FirstOrDefault(
+                presenter = EH.FirstOrDefault(
                     this.presenters,
                     p => p is T);
             }
@@ -220,7 +225,7 @@ namespace xofz.Presentation
             NamedPresenter np;
             lock (this.locker)
             {
-                var matchingPresenters = EnumerableHelpers.OfType<T>(
+                var matchingPresenters = EH.OfType<T>(
                     this.presenters);
                 foreach (var presenter in matchingPresenters)
                 {
@@ -243,8 +248,8 @@ namespace xofz.Presentation
         {
             lock (this.locker)
             {
-                foreach (var presenter in EnumerableHelpers
-                    .OfType<T>(this.presenters))
+                foreach (var presenter in EH.OfType<T>(
+                    this.presenters))
                 {
                     presenter.Stop();
                     break;
@@ -258,8 +263,8 @@ namespace xofz.Presentation
             lock (this.locker)
             {
                 foreach (var presenter in
-                    EnumerableHelpers.Where(
-                        EnumerableHelpers.OfType<T>(
+                    EH.Where(
+                        EH.OfType<T>(
                             this.presenters),
                         p => p.Name == name))
                 {
@@ -278,7 +283,7 @@ namespace xofz.Presentation
             {
                 matchingPresenters
                     = new LinkedListLot<Presenter>(
-                        EnumerableHelpers.Where(
+                        EH.Where(
                             this.presenters,
                             p => p is TPresenter));
             }
@@ -291,7 +296,7 @@ namespace xofz.Presentation
             if (presenterName == null)
             {
                 return this.getUiProtected<TUi>(
-                    EnumerableHelpers.First(
+                    EH.First(
                         matchingPresenters),
                     fieldName);
             }

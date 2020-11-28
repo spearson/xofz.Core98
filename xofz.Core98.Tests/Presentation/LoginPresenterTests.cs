@@ -35,7 +35,6 @@
                 this.timer = A.Fake<Timer>();
 
                 var w = this.web;
-                this.subscriber = new EventSubscriber();
                 w.RegisterDependency(this.setupHandler);
                 w.RegisterDependency(this.navigator);
                 w.RegisterDependency(this.startHandler);
@@ -191,17 +190,6 @@
         public class When_Start_is_called : Context
         {
             [Fact]
-            public void Does_not_call_StartHandler_Handle_if_not_setup()
-            {
-                var p = this.presenter;
-
-                p.Start();
-
-                A.CallTo(() => this.startHandler.Handle(this.ui))
-                    .MustNotHaveHappened();
-            }
-
-            [Fact]
             public void If_setup_calls_StartHandler_Handle()
             {
                 var p = this.presenter;
@@ -216,18 +204,6 @@
 
         public class When_Stop_is_called : Context
         {
-
-            [Fact]
-            public void Does_not_call_StopHandler_Handle_if_not_setup()
-            {
-                var p = this.presenter;
-
-                p.Stop();
-
-                A.CallTo(() => this.stopHandler.Handle(this.ui))
-                    .MustNotHaveHappened();
-            }
-
             [Fact]
             public void If_setup_calls_StopHandler_Handle()
             {

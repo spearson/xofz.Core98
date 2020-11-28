@@ -6,6 +6,10 @@
     public class NavigatorV2
         : ThreadSafeNavigator
     {
+        public NavigatorV2()
+        {
+        }
+
         public NavigatorV2(
             MethodRunner runner) 
             : base(runner)
