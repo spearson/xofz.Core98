@@ -20,7 +20,7 @@
 
             foreach (var line in untrimmedLines)
             {
-                yield return line.Trim();
+                yield return line?.Trim();
             }
         }
     }

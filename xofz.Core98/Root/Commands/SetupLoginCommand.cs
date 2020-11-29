@@ -35,6 +35,7 @@
         public override void Execute()
         {
             this.registerDependencies();
+
             new LoginPresenter(
                     this.ui,
                     this.web)

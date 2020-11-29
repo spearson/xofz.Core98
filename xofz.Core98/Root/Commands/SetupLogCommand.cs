@@ -109,7 +109,7 @@
                     .Setup();
             }
 
-            if (s.StatisticsEnabled)
+            if (s?.StatisticsEnabled ?? false)
             {
                 new LogStatisticsPresenter(
                         this.statsUi,

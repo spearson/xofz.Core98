@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using xofz.Framework.Lots;
+    using EH = xofz.EnumerableHelpers;
 
     public class EnumerableSplicer
     {
@@ -14,7 +15,7 @@
             }
 
             var sources = new IEnumerable<T>[collections.Length];
-            var indexCounter = 0;
+            long indexCounter = 0;
             foreach (var collection in collections)
             {
                 sources[indexCounter] = collection;
@@ -33,7 +34,7 @@
             }
 
             var sources = new IEnumerable<T>[lots.Length];
-            var indexCounter = 0;
+            long indexCounter = 0;
             foreach (var lot in lots)
             {
                 sources[indexCounter] = lot;
@@ -52,44 +53,49 @@
                 return result;
             }
 
-            if (sources.Length < 1)
+            var l = sources.Length;
+            if (l < 1)
             {
                 return result;
             }
 
-            var lists = new List<T>[sources.Length];
+            var lists = new List<T>[l];
             // first, enumerate all the items into separate lists
-            for (var i = 0; i < sources.Length; ++i)
+            for (long i = 0; i < l; ++i)
             {
-                lists[i] = new List<T>(sources[i]);
+                lists[i] = new List<T>(
+                    sources[i]);
             }
 
             // then, splice the lists together
             result = new ListLot<T>(
-                EnumerableHelpers.Sum(
+                EH.Sum(
                     lists,
-                    l => l.Count));
-            var smallestCount = EnumerableHelpers.Min(
-                EnumerableHelpers.Select(
+                    list => list.Count));
+            var smallestCount = EH.Min(
+                EH.Select(
                 lists,
-                l => l.Count));
+                list => list.Count));
 
             for (var i = 0; i < smallestCount; ++i)
             {
                 var currentIndex = i;
                 result.AddRange(
-                    EnumerableHelpers.Select(
+                    EH.Select(
                         lists,
-                        l => l[currentIndex]));
+                        list => list[currentIndex]));
             }
 
-            var remainingLists = new LinkedList<List<T>>();
-            foreach (var l in lists)
+            ICollection<ICollection<T>> remainingLists = 
+                new LinkedList<ICollection<T>>();
+            foreach (var list in lists)
             {
-                l.RemoveRange(0, smallestCount);
-                if (l.Count > 0)
+                list.RemoveRange(
+                    0, 
+                    smallestCount);
+                if (list.Count > 0)
                 {
-                    remainingLists.AddLast(l);
+                    remainingLists.Add(list);
                 }
             }
 
@@ -101,7 +107,7 @@
             result.AddRange(
                 this.Splice(
                     // ReSharper disable once CoVariantArrayConversion
-                    EnumerableHelpers.ToArray(
+                    EH.ToArray(
                         remainingLists)));
 
             return result;
