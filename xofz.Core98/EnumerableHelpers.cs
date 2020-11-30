@@ -1516,5 +1516,34 @@
                 }
             }
         }
+
+        public static T ElementAt<T>(
+            IEnumerable<T> source,
+            long index)
+        {
+            const byte zero = 0;
+            if (source == null)
+            {
+                return default;
+            }
+
+            if (index < zero)
+            {
+                return default;
+            }
+
+            long indexer = zero;
+            foreach (var item in source)
+            {
+                if (indexer == index)
+                {
+                    return item;
+                }
+
+                ++indexer;
+            }
+
+            return default;
+        }
     }
 }
