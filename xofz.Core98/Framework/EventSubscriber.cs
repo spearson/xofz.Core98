@@ -11,7 +11,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -24,7 +24,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -38,7 +38,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -51,7 +51,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -64,7 +64,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -77,7 +77,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -90,7 +90,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.AddEventHandler(
                     publisher,
                     handler);
@@ -103,7 +103,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -116,7 +116,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -130,7 +130,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -143,7 +143,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -156,7 +156,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -169,7 +169,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);
@@ -182,7 +182,7 @@
         {
             publisher
                 ?.GetType()
-                .GetEvent(eventName)
+                ?.GetEvent(eventName)
                 ?.RemoveEventHandler(
                     publisher,
                     handler);

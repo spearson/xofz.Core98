@@ -86,6 +86,7 @@
     <Compile Include="Framework\Login\TimerHandlerTests.cs" />
     <Compile Include="Framework\LogStatistics\DateResetterTests.cs" />
     <Compile Include="Framework\LogStatistics\FilterSetterTests.cs" />
+    <Compile Include="Framework\LogStatistics\LabelApplierTests.cs" />
     <Compile Include="Framework\LogStatistics\OverallKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\LogStatistics\RangeKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\LogStatistics\ResetContentKeyTappedHandlerTests.cs" />

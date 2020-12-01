@@ -19,17 +19,17 @@
                 rng.GetBytes(buffer);
                 var nextChar = (char)buffer[0];
 
-                if (nextChar >= '0' && nextChar <= '9')
+                if (nextChar >= zero && nextChar <= nine)
                 {
                     goto addChar;
                 }
 
-                if (nextChar >= 'A' && nextChar <= 'Z')
+                if (nextChar >= capA && nextChar <= capZ)
                 {
                     goto addChar;
                 }
 
-                if (nextChar >= 'a' && nextChar <= 'z')
+                if (nextChar >= a && nextChar <= z)
                 {
                     goto addChar;
                 }
@@ -58,17 +58,17 @@
                 rng.GetBytes(buffer);
                 var nextChar = (char)buffer[0];
 
-                if (nextChar >= '0' && nextChar <= '9')
+                if (nextChar >= zero && nextChar <= nine)
                 {
                     goto addChar;
                 }
 
-                if (nextChar >= 'A' && nextChar <= 'Z')
+                if (nextChar >= capA && nextChar <= capZ)
                 {
                     goto addChar;
                 }
 
-                if (nextChar >= 'a' && nextChar <= 'z')
+                if (nextChar >= a && nextChar <= z)
                 {
                     goto addChar;
                 }
@@ -86,5 +86,9 @@
 
             return s;
         }
+
+        protected const char a = 'a', z = 'z';
+        protected const char capA = 'A', capZ = 'Z';
+        protected const char zero = '0', nine = '9';
     }
 }

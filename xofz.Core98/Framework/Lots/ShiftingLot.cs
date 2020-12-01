@@ -9,17 +9,27 @@
         public ShiftingLot(
             long capacity)
         {
-            if (capacity < 0)
+            const byte zero = 0;
+            if (capacity < zero)
             {
-                capacity = 0;
+                capacity = zero;
             }
 
             this.capacity = capacity;
             this.linkedList = new LinkedList<T>();
         }
 
-        public virtual T this[long index] => this.currentArray[index];
-        
+        public virtual T this[long index]
+        {
+            get
+            {
+                var a = this.currentArray;
+                return a == null 
+                    ? default 
+                    : a[index];
+            }
+        }
+
         public virtual long MaxSize => this.capacity;
 
         public virtual long CurrentSize => this.linkedList.Count;

@@ -57,12 +57,12 @@
         public virtual bool Unregister<T>(
             string name = null)
         {
-            var ds = this.dependencies
-                ?? new LinkedList<Dependency>();
+            var ds = this.dependencies;
             var unregistered = false;
             lock (this.locker ?? new object())
             {
-                foreach (var d in ds)
+                foreach (var d in ds
+                                  ?? EH.Empty<Dependency>())
                 {
                     if (this.tryGet(
                         d.Content,
@@ -70,7 +70,7 @@
                         name,
                         out T _))
                     {
-                        ds.Remove(d);
+                        ds?.Remove(d);
                         unregistered = true;
                         break;
                     }

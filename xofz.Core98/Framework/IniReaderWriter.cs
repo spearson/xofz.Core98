@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
+    using EH = xofz.EnumerableHelpers;
 
     public class IniReaderWriter
     {
@@ -14,7 +15,7 @@
                     : new string[0],
                 lines => File.WriteAllLines(
                     filePath,
-                    EnumerableHelpers.ToArray(lines)))
+                    EH.ToArray(lines)))
         {
         }
 
@@ -29,7 +30,7 @@
         public virtual ICollection<string> ReadSectionNames()
         {
             return new LinkedList<string>(
-                EnumerableHelpers.Select(
+                EH.Select(
                     this.readSectionHeaders(
                         this.readLines()),
                     header => header.Name));
@@ -50,7 +51,7 @@
             
             var headers = this.readSectionHeaders(
                 lines);
-            var targetHeader = EnumerableHelpers.FirstOrDefault(
+            var targetHeader = EH.FirstOrDefault(
                 headers,
                 h => h.Name == sectionName);
             return this.readKeysInSectionProtected(
@@ -94,7 +95,7 @@
             }
 
             var sectionHeaders = this.readSectionHeaders(lines);
-            var targetHeader = default(SectionHeader);
+            SectionHeader targetHeader = default;
             var nextHeaderCounter = 1;
             foreach (var header in sectionHeaders)
             {
@@ -106,7 +107,7 @@
 
                 ++nextHeaderCounter;
             }
-            if (targetHeader == default(SectionHeader))
+            if (targetHeader == default)
             {
                 return;
             }
@@ -117,39 +118,45 @@
                 return;
             }
 
-            var nextHeader = EnumerableHelpers.FirstOrDefault(
-                EnumerableHelpers.Skip(
+            var nextHeader = EH.FirstOrDefault(
+                EH.Skip(
                     sectionHeaders,
                     nextHeaderCounter));
             var startOfSection = targetHeader.LineNumber;
             var endOfSection = lines.Length;
-            if (nextHeader != default(SectionHeader))
+            if (nextHeader != default)
             {
                 endOfSection = nextHeader.LineNumber - 1;
             }
 
             for (var i = startOfSection; i < endOfSection; ++i)
             {
-                if (!lines[i].StartsWith(key))
+                var line = lines[i];
+                if (line == null)
+                {
+                    continue;
+                }
+
+                if (!line.StartsWith(key))
                 {
                     continue;
                 }
 
                 var sb = new StringBuilder(
-                    lines[i]);
-                var valueIndex = lines[i].IndexOf('=') + 1;
-                var indexOfComment = lines[i].IndexOf(';');
+                    line);
+                var valueIndex = line.IndexOf('=') + 1;
+                var indexOfComment = line.IndexOf(';');
                 if (indexOfComment < 0)
                 {
                     sb.Replace(
-                        lines[i].Substring(
+                        line.Substring(
                             valueIndex),
                         newValue);
                 }
                 else
                 {
                     sb.Replace(
-                        lines[i].Substring(
+                        line.Substring(
                             valueIndex,
                             indexOfComment - valueIndex),
                         newValue);
@@ -225,14 +232,14 @@
             SectionHeader targetHeader)
         {
             ICollection<string> keys = new LinkedList<string>();
-            if (targetHeader == default(SectionHeader))
+            if (targetHeader == default)
             {
                 return keys;
             }
 
             var headers = this.readSectionHeaders(lines);
-            if (!EnumerableHelpers.Contains(
-                EnumerableHelpers.Select(
+            if (!EH.Contains(
+                EH.Select(
                     headers,
                     header => header.Name),
                 targetHeader.Name))
@@ -242,8 +249,8 @@
                         
             var lineNumber = targetHeader.LineNumber;
             int lastLineIndex;
-            if (EnumerableHelpers.Last(
-                EnumerableHelpers.Select(
+            if (EH.Last(
+                EH.Select(
                     headers,
                     header => header.Name)) == targetHeader.Name)
             {
@@ -262,8 +269,8 @@
                 ++headerCounter;
             }
 
-            var nextHeader = EnumerableHelpers.FirstOrDefault(
-                EnumerableHelpers.Skip(
+            var nextHeader = EH.FirstOrDefault(
+                EH.Skip(
                     headers, headerCounter));
             lastLineIndex = nextHeader?.LineNumber - 1
                 ?? lines.Length - 1;
@@ -306,10 +313,10 @@
             var lines = this.readLines();
             var headers = this.readSectionHeaders(
                 lines);
-            var targetHeader = EnumerableHelpers.FirstOrDefault(
+            var targetHeader = EH.FirstOrDefault(
                 headers,
                 header => header.Name == sectionName);
-            if (targetHeader == default(SectionHeader))
+            if (targetHeader == default)
             {
                 return null;
             }
@@ -325,7 +332,7 @@
 
             string targetLine = default;
             int endOfKey;
-            foreach (var line in EnumerableHelpers.Skip(
+            foreach (var line in EH.Skip(
                 lines,
                 targetHeader.LineNumber))
             {

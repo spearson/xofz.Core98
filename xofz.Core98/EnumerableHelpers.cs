@@ -1540,7 +1540,10 @@
                     return item;
                 }
 
-                ++indexer;
+                checked
+                {
+                    ++indexer;
+                }
             }
 
             return default;
