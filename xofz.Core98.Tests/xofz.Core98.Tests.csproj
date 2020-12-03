@@ -106,6 +106,7 @@
     <Compile Include="Framework\Log\EntryWrittenHandlerTests.cs" />
     <Compile Include="Framework\Log\FilterCheckerTests.cs" />
     <Compile Include="Framework\Log\FilterTextChangedHandlerTests.cs" />
+    <Compile Include="Framework\Log\LabelApplierTests.cs" />
     <Compile Include="Framework\Log\NextWeekKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Log\PreviousWeekKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Log\ResetContentKeyTappedHandlerTests.cs" />
