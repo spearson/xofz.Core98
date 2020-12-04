@@ -70,6 +70,7 @@
     <Compile Include="Framework\Factories\NameableFactoryTests.cs" />
     <Compile Include="Framework\FactoryTests.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\LogEditor\LabelApplierTests.cs" />
     <Compile Include="Framework\LogEditor\SetupHandlerTests.cs" />
     <Compile Include="Framework\LogEditor\TypeChangedHandlerTests.cs" />
     <Compile Include="Framework\Logging\LogEntryTests.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Framework\Login\AccessLevelChangedHandlerTests.cs" />
     <Compile Include="Framework\Login\BackspaceKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Login\KeyboardKeyTappedHandlerTests.cs" />
+    <Compile Include="Framework\Login\LabelApplierTests.cs" />
     <Compile Include="Framework\Login\LoginKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Login\SetupHandlerTests.cs" />
     <Compile Include="Framework\Login\StartHandlerTests.cs" />
