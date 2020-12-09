@@ -51,7 +51,11 @@
         {
             if (assembly == null)
             {
-                return new Version(0, 0, 0, 0);
+                return new Version(
+                    zero, 
+                    zero, 
+                    zero, 
+                    zero);
             }
 
             var an = new AssemblyName(assembly.FullName);
@@ -65,10 +69,10 @@
             if (v == null)
             {
                 v = new Version(
-                    0, 
-                    0, 
-                    0, 
-                    0);
+                    zero, 
+                    zero, 
+                    zero, 
+                    zero);
             }
 
             var versionBuilder = new StringBuilder();
@@ -84,5 +88,6 @@
         }
 
         protected readonly Assembly executingAssembly;
+        protected const byte zero = 0;
     }
 }
