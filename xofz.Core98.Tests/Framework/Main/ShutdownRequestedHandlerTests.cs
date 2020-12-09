@@ -83,13 +83,14 @@
             [Fact]
             public void If_authed_after_login_invokes_shutdown()
             {
-                this.settings.ShutdownLevel = AccessLevel.Level1;
+                const AccessLevel shutdownLevel = AccessLevel.Level1;
+                this.settings.ShutdownLevel = shutdownLevel;
                 A
                     .CallTo(() => this.logIn.Invoke())
                     .Invokes(
                         () => A
                             .CallTo(() => this.accessController.CurrentAccessLevel)
-                            .Returns(AccessLevel.Level1));
+                            .Returns(shutdownLevel));
 
                 this.handler.Handle(
                     this.ui,

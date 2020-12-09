@@ -116,9 +116,9 @@
                 return;
             }
 
-            if (loginDurationMilliseconds > uint.MaxValue)
+            if (loginDurationMilliseconds > max)
             {
-                loginDurationMilliseconds = uint.MaxValue;
+                loginDurationMilliseconds = max;
             }
 
             var noAccess = AccessLevel.None;
@@ -297,5 +297,6 @@
         protected System.TimeSpan loginDuration;
         protected readonly ManualResetEvent timerFinished;
         protected readonly MethodWeb web;
+        protected const long max = uint.MaxValue;
     }
 }
