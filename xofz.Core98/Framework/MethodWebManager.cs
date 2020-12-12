@@ -23,7 +23,7 @@
             return new LinkedListLot<string>(
                 EH.Select(
                     this.webs,
-                    nmwh => nmwh.Name));
+                    nmwh => nmwh?.Name));
         }
 
         public virtual bool AddWeb(
@@ -38,7 +38,7 @@
             var ws = this.webs;
             var alreadyAddedWeb = EH.FirstOrDefault(
                 ws,
-                nmwh => ReferenceEquals(web, nmwh.Web));
+                nmwh => ReferenceEquals(web, nmwh?.Web));
             if (alreadyAddedWeb != null)
             {
                 return false;
@@ -46,7 +46,7 @@
 
             if (EH.Contains(
                 EH.Select(
-                    ws, nmwh => nmwh.Name),
+                    ws, nmwh => nmwh?.Name),
                 name))
             {
                 return false;
@@ -67,7 +67,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return null;
@@ -84,7 +84,7 @@
         {
             var targetWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName);
+                nmwh => nmwh?.Name == webName);
 
             var innerWeb = targetWeb?.Web as T;
             if (innerWeb == null)
@@ -103,7 +103,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return default;
@@ -120,7 +120,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -143,7 +143,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -169,7 +169,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -198,7 +198,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -230,7 +230,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -265,7 +265,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(
@@ -304,7 +304,7 @@
         {
             var innerWeb = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh.Name == webName)?.Web;
+                nmwh => nmwh?.Name == webName)?.Web;
             if (innerWeb == null)
             {
                 return XTuple.Create(

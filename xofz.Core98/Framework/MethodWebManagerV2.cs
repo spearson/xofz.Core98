@@ -35,11 +35,11 @@
         public override Lot<string> WebNames()
         {
             var ll = new LinkedListLot<string>();
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 foreach (var name in EH.Select(
                     this.webs,
-                    nmwh => nmwh.Name))
+                    nmwh => nmwh?.Name))
                 {
                     ll.AddLast(name);
                 }
@@ -59,12 +59,12 @@
 
             ICollection<NamedMethodWebHolder> ws;
             NamedMethodWebHolder alreadyAddedWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 ws = this.webs;
                 alreadyAddedWeb = EH.FirstOrDefault(
                     ws,
-                    nmwh => ReferenceEquals(web, nmwh.Web));
+                    nmwh => ReferenceEquals(web, nmwh?.Web));
             }
 
             if (alreadyAddedWeb != null)
@@ -72,11 +72,11 @@
                 return false;
             }
 
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 if (EH.Contains(
                     EH.Select(
-                        ws, nmwh => nmwh.Name),
+                        ws, nmwh => nmwh?.Name),
                     name))
                 {
                     return false;
@@ -98,11 +98,11 @@
             string webName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -120,11 +120,11 @@
             string webName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web as T;
@@ -142,12 +142,12 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
                     ws,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
 
                 if (targetWeb == null)
                 {
@@ -166,11 +166,11 @@
             string dependencyName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -191,11 +191,11 @@
             string uName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -219,11 +219,11 @@
             string vName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -251,11 +251,11 @@
             string wName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -286,11 +286,11 @@
             string xName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -324,11 +324,11 @@
             string yName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -365,11 +365,11 @@
             string zName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
@@ -410,11 +410,11 @@
             string aaName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker)
+            lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh.Name == webName);
+                    nmwh => nmwh?.Name == webName);
             }
 
             var innerWeb = targetWeb?.Web;
