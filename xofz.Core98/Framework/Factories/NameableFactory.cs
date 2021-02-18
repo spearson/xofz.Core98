@@ -17,23 +17,25 @@
             }
 
             var l = ds.Length;
-            if (l < 1 || !typeof(Nameable).IsAssignableFrom(typeof(T)))
+            if (l < one || !typeof(Nameable).IsAssignableFrom(typeof(T)))
             {
                 return base.Create<T>(ds);
             }
 
-            var t = base.Create<T>(
+            var possibleNameable = base.Create<T>(
                 EH.ToArray(
                     EH.Take(
                         ds,
-                        l - 1)));
-            if (t is Nameable n &&
+                        l - one)));
+            if (possibleNameable is Nameable n &&
                 EH.Last(ds) is string name)
             {
                 n.Name = name;
             }
 
-            return t;
+            return possibleNameable;
         }
+
+        protected const byte one = 1;
     }
 }

@@ -11,10 +11,23 @@
         {
             protected Context()
             {
-                this.fixture = new Fixture();
+                var f = new Fixture();
+                this.fixture = f;
+                this.manifestObject = () => f.Create<object>();
             }
 
             protected readonly Fixture fixture;
+            protected readonly Gen<object> manifestObject;
+        }
+
+        public class When_Empty_is_called : Context
+        {
+            [Fact]
+            public void Not_null()
+            {
+                Assert.NotNull(
+                    EH.Empty<object>());
+            }
         }
 
         public class When_ToArray_is_called : Context
@@ -31,98 +44,144 @@
             }
 
             [Fact]
-            public virtual void Items_in_original_collection_same_with_array()
+            public void Items_in_original_collection_same_with_array()
             {
-                var f = this.fixture;
-                var items = new List<object>
+                var mf = this.manifestObject;
+                var sourceList = new List<object>
                 {
-                    f.Create<object>(),
-                    f.Create<object>(),
-                    f.Create<object>(),
-                    f.Create<object>(),
-                    f.Create<object>()
+                    mf(),
+                    mf(),
+                    mf(),
+                    mf(),
+                    mf()
                 };
 
-                var array = EH.ToArray(
-                    items);
+                var endArray = EH.ToArray(
+                    sourceList);
+                var endArrayLength = endArray.Length;
+                var sourceListCount = sourceList.Count;
                 Assert.Equal(
-                    items.Count, 
-                    array.Length);
-                for (var i = 0; i < array.Length && i < items.Count; ++i)
+                    sourceListCount, 
+                    endArrayLength);
+                for (
+                    var indexer = zero; 
+                    indexer < endArrayLength && indexer < sourceListCount;
+                    ++indexer)
                 {
                     Assert.Same(
-                        items[i], 
-                        array[i]);
+                        sourceList[indexer], 
+                        endArray[indexer]);
                 }
             }
         }
 
         public class When_ElementAt_is_called : Context
         {
-            public When_ElementAt_is_called()
-            {
-                this.source = new LinkedList<long>();
-
-                var s = this.source;
-                s.Add(
-                    this.fixture.Create<long>());
-                s.Add(
-                    this.fixture.Create<long>());
-                s.Add(
-                    this.fixture.Create<long>());
-                s.Add(
-                    this.fixture.Create<long>());
-                s.Add(
-                    this.fixture.Create<long>());
-            }
-
             [Fact]
             public void Returns_default_if_source_null()
             {
-                this.source = null;
+                IEnumerable<object> source = null;
 
                 Assert.Equal(
                     default,
                     EH.ElementAt(
-                        this.source,
-                        0));
+                        source,
+                        zero));
             }
 
             [Fact]
             public void Returns_default_if_index_negative()
             {
+                IEnumerable<object> source = null;
+
                 Assert.Equal(
                     default,
                     EH.ElementAt(
-                        this.source,
-                        -1));
+                        source,
+                        -one));
             }
 
             [Fact]
             public void Returns_default_if_index_out_of_range()
             {
+                IEnumerable<object> source = EH.Empty<object>();
+
                 Assert.Equal(
                     default,
                     EH.ElementAt(
-                        this.source,
-                        -1));
+                        source,
+                        -one));
             }
 
             [Fact]
             public void Otherwise_returns_the_magic_element()
             {
-                var bingo = this.fixture.Create<long>();
-                this.source.Add(
-                    bingo);
+                var magicElement = this.fixture.Create<object>();
+                IEnumerable<object> source = new[]
+                {
+                    null,
+                    magicElement
+                };
 
                 Assert.Equal(
-                    bingo,
+                    magicElement,
                     EH.ElementAt(
-                        this.source,
-                        this.source.Count - 1));
+                        source,
+                        one));
             }
-
-            protected ICollection<long> source;
         }
+
+        public class When_Insert_is_called : Context
+        {
+            [Fact]
+            public void Inserts_at_correct_index()
+            {
+                var f = this.fixture;
+                var itemToInsert = f.Create<long>();
+                Gen<long> manifestLong = () => f.Create<long>();
+                var longArray = new long[]
+                {
+                    manifestLong(),
+                    manifestLong(),
+                    manifestLong(),
+                };
+
+                Assert.Equal(
+                    EH.Prepend(
+                        longArray,
+                        itemToInsert),
+                    EH.Insert(
+                        longArray,
+                        itemToInsert,
+                        zero));
+
+                const byte three = 3;
+                Assert.Equal(
+                    EH.Append(
+                        longArray,
+                        itemToInsert),
+                    EH.Insert(
+                        longArray,
+                        itemToInsert,
+                        three));
+
+                const byte two = 2;
+                Assert.Equal(
+                        new[]
+                        {
+                            longArray[zero],
+                            itemToInsert,
+                            longArray[one],
+                            longArray[two]
+                        },
+                    EH.Insert(
+                        longArray,
+                        itemToInsert,
+                        one));
+            }
+        }
+
+        protected const byte zero = 0;
+        protected const byte one = 1;
     }
 }

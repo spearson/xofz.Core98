@@ -34,18 +34,19 @@
 
         public override Lot<string> WebNames()
         {
-            var ll = new LinkedListLot<string>();
+            var lll = new LinkedListLot<string>();
             lock (this.locker ?? new object())
             {
-                foreach (var name in EH.Select(
+                foreach (var webName in EH.Select(
                     this.webs,
                     nmwh => nmwh?.Name))
                 {
-                    ll.AddLast(name);
+                    lll.AddLast(
+                        webName);
                 }
             }
 
-            return ll;
+            return lll;
         }
 
         public override bool AddWeb(
@@ -76,13 +77,14 @@
             {
                 if (EH.Contains(
                     EH.Select(
-                        ws, nmwh => nmwh?.Name),
+                        ws, 
+                        nmwh => nmwh?.Name),
                     name))
                 {
                     return false;
                 }
 
-                ws.Add(
+                ws?.Add(
                     new NamedMethodWebHolder
                     {
                         Web = web,
@@ -97,44 +99,45 @@
             Do<MethodWeb> accessor = null,
             string webName = null)
         {
-            NamedMethodWebHolder targetWeb;
+            MethodWeb targetWeb;
             lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
-                    nmwh => nmwh?.Name == webName);
+                    nmwh => nmwh?.Name == webName)?.Web;
             }
 
-            var innerWeb = targetWeb?.Web;
-            if (innerWeb == null)
+            if (targetWeb == null)
             {
                 return null;
             }
 
-            accessor?.Invoke(innerWeb);
-            return innerWeb;
+            accessor?.Invoke(targetWeb);
+            return targetWeb;
         }
 
         public override T AccessWeb<T>(
             Do<T> accessor = null,
             string webName = null)
         {
-            NamedMethodWebHolder targetWeb;
+            ICollection<NamedMethodWebHolder> ws;
+            T targetWeb;
             lock (this.locker ?? new object())
             {
+                ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
-                    this.webs,
-                    nmwh => nmwh?.Name == webName);
+                    ws,
+                    nmwh => nmwh?.Name == webName)?.Web as T;
             }
 
-            var innerWeb = targetWeb?.Web as T;
-            if (innerWeb == null)
+            if (targetWeb == null)
             {
-                return null;
+                return targetWeb;
             }
 
-            accessor?.Invoke(innerWeb);
-            return innerWeb;
+            accessor?.Invoke(
+                targetWeb);
+            return targetWeb;
         }
 
         public virtual bool RemoveWeb(
@@ -145,7 +148,7 @@
             lock (this.locker ?? new object())
             {
                 ws = this.webs;
-                targetWeb = EH.FirstOrDefault(
+                targetWeb = EH.FirstOrNull(
                     ws,
                     nmwh => nmwh?.Name == webName);
 
@@ -165,22 +168,25 @@
             string webName = null,
             string dependencyName = null)
         {
-            NamedMethodWebHolder targetWeb;
+            ICollection<NamedMethodWebHolder> ws;
+            MethodWeb targetWeb;
             lock (this.locker ?? new object())
             {
-                targetWeb = EH.FirstOrDefault(
-                    this.webs,
-                    nmwh => nmwh?.Name == webName);
+                ws = this.webs;
+                targetWeb = EH
+                    .FirstOrNull(
+                        ws,
+                        nmwh => nmwh?.Name == webName)
+                    ?.Web;
             }
 
-            var innerWeb = targetWeb?.Web;
-            if (innerWeb == null)
+            if (targetWeb == null)
             {
                 return default;
             }
 
-            return innerWeb.Run(
-                engine, 
+            return targetWeb.Run(
+                engine,
                 dependencyName);
         }
 
@@ -190,23 +196,26 @@
             string tName = null,
             string uName = null)
         {
-            NamedMethodWebHolder targetWeb;
+            ICollection<NamedMethodWebHolder> ws;
+            MethodWeb targetWeb;
             lock (this.locker ?? new object())
             {
-                targetWeb = EH.FirstOrDefault(
-                    this.webs,
-                    nmwh => nmwh?.Name == webName);
+                ws = this.webs;
+                targetWeb = EH
+                    .FirstOrDefault(
+                        ws,
+                        nmwh => nmwh?.Name == webName)
+                    ?.Web;
             }
 
-            var innerWeb = targetWeb?.Web;
-            if (innerWeb == null)
+            if (targetWeb == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return innerWeb.Run(
+            return targetWeb.Run(
                 engine,
                 tName,
                 uName);
@@ -218,16 +227,18 @@
             string tName = null, string uName = null,
             string vName = null)
         {
-            NamedMethodWebHolder targetWeb;
+            ICollection<NamedMethodWebHolder> ws;
+            MethodWeb targetWeb;
             lock (this.locker ?? new object())
             {
+                ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
-                    this.webs,
-                    nmwh => nmwh?.Name == webName);
+                    ws,
+                    nmwh => nmwh?.Name == webName)
+                    ?.Web;
             }
 
-            var innerWeb = targetWeb?.Web;
-            if (innerWeb == null)
+            if (targetWeb == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -235,7 +246,7 @@
                     default(V));
             }
 
-            return innerWeb.Run(
+            return targetWeb.Run(
                 engine,
                 tName,
                 uName,

@@ -4,8 +4,9 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
+    using EH = xofz.EnumerableHelpers;
 
-    public static class EnumerableHelpers
+    public class EnumerableHelpers
     {
         public static IEnumerable<T> Empty<T>()
         {
@@ -98,7 +99,7 @@
                 yield break;
             }
 
-            var index = 0;
+            var index = zero;
             foreach (var item in source)
             {
                 if (predicateWithIndex(item, index))
@@ -127,7 +128,7 @@
                 yield break;
             }
 
-            long index = 0;
+            long index = zero;
             foreach (var item in source)
             {
                 if (predicateWithIndex(item, index))
@@ -151,18 +152,15 @@
                 yield break;
             }
 
-            long currentIndex = 0;
+            uint skipIndex = one;
             foreach (var item in source)
-            {
-                checked
-                {
-                    ++currentIndex;
-                }
-                
-                if (currentIndex > skipCount)
+            {               
+                if (skipIndex > skipCount)
                 {
                     yield return item;
                 }
+
+                ++skipIndex;
             }
         }
 
@@ -175,21 +173,22 @@
                 yield break;
             }
 
-            if (takeCount < 1)
+            if (takeCount < one)
             {
                 yield break;
             }
 
-            long takeCounter = 0;
+            uint takeIndex = one;
             foreach (var item in source)
-            {
-                ++takeCounter;
-                if (takeCounter > takeCount)
+            {                
+                if (takeIndex > takeCount)
                 {
                     yield break;
                 }
 
                 yield return item;
+
+                ++takeIndex;
             }
         }
 
@@ -232,7 +231,7 @@
                 yield break;
             }
 
-            long index = 0;
+            long index = zero;
             foreach (var item in source)
             {
                 if (!predicateWithIndex(item, index))
@@ -241,6 +240,7 @@
                 }
 
                 yield return item;
+
                 checked
                 {
                     ++index;
@@ -257,15 +257,15 @@
                 yield break;
             }
 
-            if (takeCount < 1)
+            if (takeCount < one)
             {
                 yield break;
             }
 
             foreach (var item in
-                EnumerableHelpers.Reverse(
-                    EnumerableHelpers.Take(
-                        EnumerableHelpers.Reverse(
+                EH.Reverse(
+                    EH.Take(
+                        EH.Reverse(
                             finiteSource),
                         takeCount)))
             {
@@ -300,16 +300,16 @@
         }
 
         public static IEnumerable<T> Append<T>(
-            IEnumerable<T> finiteSource,
+            IEnumerable<T> source,
             T appendee)
         {
-            if (finiteSource == null)
+            if (source == null)
             {
                 yield return appendee;
                 yield break;
             }
 
-            foreach (var item in finiteSource)
+            foreach (var item in source)
             {
                 yield return item;
             }
@@ -345,7 +345,7 @@
                 yield break;
             }
 
-            if (insertionIndex < 0)
+            if (insertionIndex < one)
             {
                 yield return itemToInsert;
                 foreach (var item in source)
@@ -356,15 +356,15 @@
                 yield break;
             }
 
-            long indexer = 0;
+            long indexer = one;
             foreach (var item in source)
             {
+                yield return item;
+
                 if (indexer == insertionIndex)
                 {
                     yield return itemToInsert;
                 }
-
-                yield return item;
 
                 checked
                 {
@@ -479,6 +479,54 @@
             }
 
             return default;
+        }
+
+        public static T FirstOrNull<T>(
+            IEnumerable<T> finiteSource)
+            where T : class
+        {
+            if (finiteSource == null)
+            {
+                return null;
+            }
+
+            foreach (var item in finiteSource)
+            {
+                return item ?? null;
+            }
+
+            return null;
+        }
+
+        public static T FirstOrNull<T>(
+            IEnumerable<T> finiteSource,
+            Gen<T, bool> predicate)
+            where T : class
+        {
+            T nullItem = null;
+            if (finiteSource == nullItem)
+            {
+                return nullItem;
+            }
+
+            if (predicate == null)
+            {
+                return nullItem;
+            }
+
+            const bool 
+                truth = true;
+            foreach (var item in finiteSource)
+            {
+                if (!predicate?.Invoke(item) ?? truth)
+                {
+                    continue;
+                }
+
+                return item;
+            }
+
+            return nullItem;
         }
 
         public static T Last<T>(
@@ -1548,5 +1596,7 @@
 
             return default;
         }
+
+        protected const byte zero = 0, one = 1;
     }
 }

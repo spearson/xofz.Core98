@@ -24,6 +24,12 @@
             : Context
         {
             [Fact]
+            public void Does_not_throw_on_null_argument()
+            {
+                this.nf.Create<object>(null);
+            }
+
+            [Fact]
             public void Sets_Name_of_NamedPresenter()
             {
                 var nameToSet = this.fixture.Create<string>();
