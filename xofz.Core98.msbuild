@@ -24,9 +24,9 @@
       AssemblyDescription="Core library for building desktop applications for Windows 98 and above"
       AssemblyCompany="x(z)"
       AssemblyProduct="x(z) Core98"
-      AssemblyCopyright="Copyright (c) Sam Pearson, Microsoft"
+      AssemblyCopyright="Copyright (c) x(z)"
       ComVisible="false"
-      Guid="1111"
+      Guid="2A428598-6312-4E45-9D63-32170108B91E"
       AssemblyVersion="$(Version)"
       AssemblyFileVersion="$(Version)"
       CLSCompliant="true" />
