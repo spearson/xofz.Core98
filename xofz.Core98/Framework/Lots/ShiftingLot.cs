@@ -9,7 +9,6 @@
         public ShiftingLot(
             long capacity)
         {
-            const byte zero = 0;
             if (capacity < zero)
             {
                 capacity = zero;
@@ -24,9 +23,12 @@
             get
             {
                 var a = this.currentArray;
-                return a == null 
-                    ? default 
-                    : a[index];
+                if (a == null)
+                {
+                    return default;
+                }
+
+                return a[index];
             }
         }
 
@@ -38,47 +40,61 @@
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.linkedList.GetEnumerator();
+            return this.linkedList?.GetEnumerator()
+                   ?? EnumerableHelpers
+                       .Empty<T>()
+                       .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             IEnumerable<T> source = this;
-            return source.GetEnumerator();
+            return source?.GetEnumerator()
+                ?? EnumerableHelpers
+                    .Empty<T>()
+                    .GetEnumerator();
         }
 
         public virtual void ShiftRight(
             T input)
         {
             var ll = this.linkedList;
-            ll.AddFirst(input);
+            ll?.AddFirst(input);
             var c = this.capacity;
 
-            while (ll.Count > c)
+            while (ll?.Count > c)
             {
                 ll.RemoveLast();
             }
 
-            var array = new T[ll.Count];
-            ll.CopyTo(array, 0);
-            this.setCurrentArray(array);
+            var array = new T[
+                ll?.Count ?? zero];
+            ll?.CopyTo(
+                array, 
+                zero);
+            this.setCurrentArray(
+                array);
         }
 
         public virtual void ShiftLeft(
             T input)
         {
             var ll = this.linkedList;
-            ll.AddLast(input);
+            ll?.AddLast(input);
             var c = this.capacity;
 
-            while (ll.Count > c)
+            while (ll?.Count > c)
             {
                 ll.RemoveFirst();
             }
 
-            var array = new T[ll.Count];
-            ll.CopyTo(array, 0);
-            this.setCurrentArray(array);
+            var array = new T[
+                ll?.Count ?? zero];
+            ll?.CopyTo(
+                array, 
+                zero);
+            this.setCurrentArray(
+                array);
         }
 
         protected virtual void setCurrentArray(
@@ -90,5 +106,6 @@
         protected T[] currentArray;
         protected readonly long capacity;
         protected readonly LinkedList<T> linkedList;
+        protected const byte zero = 0;
     }
 }

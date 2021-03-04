@@ -19,9 +19,15 @@
             r?.Run<LogStatistics>(stats =>
                 {
                     r.Run<FilterSetter>(
-                        setter => setter.Set(
-                            ui, name));
+                        setter =>
+                        {
+                            setter.Set(
+                                ui,
+                                name);
+                        });
+
                     stats.ComputeOverall();
+
                     r.Run<UiReaderWriter, Labels>(
                         (uiRW, labels) =>
                         {
@@ -29,12 +35,22 @@
                                 ui,
                                 () =>
                                 {
+                                    if (ui == null)
+                                    {
+                                        return;
+                                    }
+
                                     ui.Title = labels.Overall;
                                 });
                         });
+
                     r.Run<StatsDisplayer>(sd =>
                     {
-                        sd.Display(ui, stats, false);
+                        const bool falsity = false;
+                        sd.Display(
+                            ui, 
+                            stats, 
+                            falsity);
                     });
                 },
                 name);

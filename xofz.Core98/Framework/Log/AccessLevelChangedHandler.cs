@@ -25,6 +25,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.AddKeyVisible = akv;
                             ui.ClearKeyVisible = ckv;
                         });

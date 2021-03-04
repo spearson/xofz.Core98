@@ -29,12 +29,17 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.CurrentPassword = cp;
-                            ui.Hide();
+                            ui?.Hide();
                         });
                     r.Run<LatchHolder>(latch =>
                         {
-                            latch.Latch.Set();
+                            latch.Latch?.Set();
                         },
                         DependencyNames.Latch);
                 });

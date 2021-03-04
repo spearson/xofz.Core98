@@ -18,25 +18,34 @@
             var r = this.runner;
             r?.Run<UiReaderWriter>(uiRW =>
             {
-                var start = uiRW.Read(
-                    ui,
-                    () => ui.StartDate);
-                var end = uiRW.Read(
-                    ui,
-                    () => ui.EndDate);
                 r.Run<FilterSetter>(fs =>
                 {
                     fs.Set(ui, name);
                 });
+
                 r.Run<
                     LogStatistics,
                     SettingsHolder,
                     Labels>(
                     (stats, settings, labels) =>
                     {
-                        var df = settings.DateFormat;
+                        var startNullable = uiRW.Read(
+                            ui,
+                            () => ui?.StartDate);
+                        var endNullable = uiRW.Read(
+                            ui,
+                            () => ui?.EndDate);
+                        if (startNullable == null || endNullable == null)
+                        {
+                            return;
+                        }
+
+                        var start = startNullable.Value;
+                        var end = endNullable.Value;
                         stats.ComputeRange(
                             start, end);
+
+                        var df = settings.DateFormat;
                         var typeInfo = labels.Range(
                             start,
                             end,
@@ -45,8 +54,14 @@
                             ui,
                             () =>
                             {
+                                if (ui == null)
+                                {
+                                    return;
+                                }
+
                                 ui.Title = typeInfo;
                             });
+
                         r.Run<StatsDisplayer>(sd =>
                         {
                             sd.Display(ui, stats, false);

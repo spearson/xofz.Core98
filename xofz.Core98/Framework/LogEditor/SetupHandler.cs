@@ -35,6 +35,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.Types = types;
                         ui.SelectedType = defaultType;
                         ui.CustomTypeVisible = false;

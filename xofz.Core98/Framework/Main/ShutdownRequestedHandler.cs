@@ -16,8 +16,8 @@
             Do shutdown)
         {
             var r = this.runner;
-            var currentLevel = AccessLevel.None;
-            var shutdownLevel = AccessLevel.None;
+            var currentLevel = zeroAccess;
+            var shutdownLevel = zeroAccess;
             r?.Run<AccessController, SettingsHolder>(
                 (ac, s) =>
                 {
@@ -42,5 +42,6 @@
         }
 
         protected readonly MethodRunner runner;
+        protected const AccessLevel zeroAccess = AccessLevel.None;
     }
 }

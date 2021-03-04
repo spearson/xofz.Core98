@@ -20,14 +20,15 @@
             r?.Run<Log, UiReaderWriter, EntryConverter>(
                 (log, uiRW, converter) =>
                 {
-                    var start = uiRW.Read(ui, () => ui.StartDate);
-                    var end = uiRW.Read(ui, () => ui.EndDate);
+                    var start = uiRW.Read(ui, () => ui?.StartDate);
+                    var end = uiRW.Read(ui, () => ui?.EndDate);
                     var filterContent = uiRW.Read(
                         ui,
-                        () => ui.FilterContent);
+                        () => ui?.FilterContent);
                     var filterType = uiRW.Read(
                         ui,
-                        () => ui.FilterType);
+                        () => ui?.FilterType);
+                    const string emptyString = @"";
 
                     // first, begin reading all entries
                     var matchingEntries = log.ReadEntries();
@@ -36,7 +37,7 @@
                     matchingEntries = EnumerableHelpers.Where(
                         matchingEntries,
                         e => e.Timestamp >= start
-                             && e.Timestamp < end.AddDays(1));
+                             && e.Timestamp < end?.AddDays(1));
 
                     // third, match on content
                     if (!StringHelpers.NullOrWhiteSpace(filterContent))
@@ -47,9 +48,9 @@
                                 e.Content,
                                 s => s
                                          ?.ToLowerInvariant()
-                                         .Contains(
-                                             filterContent
-                                                 .ToLowerInvariant()) ??
+                                         ?.Contains(
+                                             filterContent?.ToLowerInvariant()
+                                             ?? emptyString) ??
                                      false));
                     }
 
@@ -58,8 +59,12 @@
                     {
                         matchingEntries = EnumerableHelpers.Where(
                             matchingEntries,
-                            e => e.Type?.ToLowerInvariant()
-                                     .Contains(filterType.ToLowerInvariant()) ??
+                            e => e
+                                     ?.Type
+                                     ?.ToLowerInvariant()
+                                     ?.Contains(
+                                         filterType?.ToLowerInvariant()
+                                         ?? emptyString) ??
                                  false);
                     }
 
@@ -80,6 +85,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.Entries = uiEntries;
                         });
                     r.Run<ICollection<LogEntry>>(

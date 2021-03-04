@@ -20,20 +20,27 @@
             var r = this.runner;
             r?.Run<SecureStringToolSet, UiReaderWriter>(
                 (ssts, uiRW) =>
-            {
+                {
+                    const byte one = 1;
                 var currentPw = ssts.Decode(uiRW.Read(
                     ui,
-                    () => ui.CurrentPassword));
+                    () => ui?.CurrentPassword));
                 var newPw = StringHelpers.RemoveEndChars(
                     currentPw,
-                    1);
+                    one);
                 var securePw = ssts.Encode(
                     newPw);
-                uiRW.Write(ui,
+                uiRW.Write(
+                    ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.CurrentPassword = securePw;
-                        ui.FocusPassword();
+                        ui?.FocusPassword();
                     });
             });
         }

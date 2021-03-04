@@ -167,7 +167,7 @@
         {
             ICollection<NamedManagerHolder> ms;
             NamedManagerHolder targetManager;
-            bool done = false;
+            bool removed;
             lock (this.locker ?? new object())
             {
                 ms = this.managers;
@@ -175,10 +175,10 @@
                     ms,
                     nmh => nmh?.Name == managerName);
 
-                done = ms.Remove(targetManager);
+                removed = ms.Remove(targetManager);
             }
 
-            return done;
+            return removed;
         }
 
         public virtual T Locate<T>(
@@ -214,7 +214,9 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U));
             }
 
             return w.Run(
@@ -237,7 +239,10 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V));
             }
 
             return w.Run(
@@ -262,7 +267,11 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W));
             }
 
             return w.Run(
@@ -289,7 +298,12 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X));
             }
 
             return w.Run(
@@ -318,7 +332,13 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y));
             }
 
             return w.Run(
@@ -349,7 +369,14 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y),
+                    default(Z));
             }
 
             return w.Run(
@@ -383,7 +410,15 @@
 
             if (w == null)
             {
-                return default;
+                return XTuple.Create(
+                    default(T),
+                    default(U),
+                    default(V),
+                    default(W),
+                    default(X),
+                    default(Y),
+                    default(Z),
+                    default(AA));
             }
 
             return w.Run(
@@ -416,7 +451,7 @@
                     }
 
                     webs?.Add(
-                        new NamedWeb()
+                        new NamedWeb
                         {
                             Web = w,
                             Name = webName
@@ -449,7 +484,7 @@
             return EH
                 .FirstOrDefault(
                     targetManager?.Webs,
-                    w => w.Name == webName)
+                    w => w?.Name == webName)
                 ?.Web;
         }
 

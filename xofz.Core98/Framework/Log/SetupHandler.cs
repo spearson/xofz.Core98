@@ -18,17 +18,24 @@
             r?.Run<SettingsHolder, UiReaderWriter>(
                 (settings, uiRW) =>
                 {
-                    var addKeyVisible = settings.EditLevel == AccessLevel.None;
-                    var clearKeyVisible = settings.ClearLevel == AccessLevel.None;
+                    const AccessLevel zeroAccess = AccessLevel.None;
+                    var addKeyVisible = settings.EditLevel == zeroAccess;
+                    var clearKeyVisible = settings.ClearLevel == zeroAccess;
                     var statisticsKeyVisible = settings.StatisticsEnabled;
 
+                    const string emptyString = @"";
                     uiRW.WriteSync(ui, () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.AddKeyVisible = addKeyVisible;
                         ui.ClearKeyVisible = clearKeyVisible;
                         ui.StatisticsKeyVisible = statisticsKeyVisible;
-                        ui.FilterType = string.Empty;
-                        ui.FilterContent = string.Empty;
+                        ui.FilterType = emptyString;
+                        ui.FilterContent = emptyString;
                     });
 
                     r.Run<TimeProvider>(provider =>
@@ -40,6 +47,11 @@
                             ui,
                             () =>
                             {
+                                if (ui == null)
+                                {
+                                    return;
+                                }
+
                                 ui.EndDate = today;
                                 ui.StartDate = lastWeek;
                             });

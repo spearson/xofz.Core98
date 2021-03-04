@@ -26,65 +26,118 @@
                 return;
             }
 
-            this.queue = new Queue<T>(finiteSource);
+            if (finiteSource is QueueLot<T> lot)
+            {
+                this.queue = lot.queue
+                             ?? new Queue<T>();
+                return;
+            }
+
+            this.queue = new Queue<T>(
+                finiteSource);
         }
 
-        public virtual long Count => this.queue.Count;
+        public QueueLot(
+            IEnumerator<T> finiteEnumerator)
+        {
+            var q = new Queue<T>();
+
+            if (finiteEnumerator == null)
+            {
+                this.queue = q;
+                return;
+            }
+
+            while (finiteEnumerator.MoveNext())
+            {
+                q?.Enqueue(
+                    finiteEnumerator.Current);
+            }
+
+            this.queue = q;
+        }
+
+        public virtual long Count => this.queue?.Count
+                                     ?? nOne;
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.queue.GetEnumerator();
+            return this.queue?.GetEnumerator()
+                ?? EnumerableHelpers
+                    .Empty<T>()
+                    .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             IEnumerable<T> source = this;
-            return source.GetEnumerator();
+            return source?.GetEnumerator()
+                   ?? EnumerableHelpers
+                       .Empty<T>()
+                       .GetEnumerator(); ;
         }
 
         public virtual T[] ToArray()
         {
-            return this.queue.ToArray();
+            return this.queue?.ToArray();
         }
 
         public virtual T Peek()
         {
-            return this.queue.Peek();
+            var q = this.queue;
+            if (q == null)
+            {
+                return default;
+            }
+
+            return q.Peek();
         }
 
         public virtual T Dequeue()
         {
-            return this.queue.Dequeue();
+            var q = this.queue;
+            if (q == null)
+            {
+                return default;
+            }
+
+            return q.Dequeue();
         }
 
         public virtual bool Contains(
             T item)
         {
-            return this.queue.Contains(item);
+            return this.queue?.Contains(
+                item) ?? falsity;
         }
 
         public virtual void Clear()
         {
-            this.queue.Clear();
+            this.queue?.Clear();
         }
 
         public virtual void CopyTo(
             T[] array)
         {
-            this.queue.CopyTo(array, 0);
+            const byte zero = 0;
+            this.queue?.CopyTo(
+                array, 
+                zero);
         }
 
         public virtual void Enqueue(
             T item)
         {
-            this.queue.Enqueue(item);
+            this.queue?.Enqueue(item);
         }
 
         public virtual void TrimExcess()
         {
-            this.queue.TrimExcess();
+            this.queue?.TrimExcess();
         }
 
         protected readonly Queue<T> queue;
+        protected const short nOne = -1;
+        protected const bool falsity = false;
     }
 }

@@ -30,7 +30,10 @@
             {
                 uiRW.Write(
                     ui,
-                    ui.FocusPassword);
+                    () =>
+                    {
+                        ui?.FocusPassword();
+                    });
             });
         }
 

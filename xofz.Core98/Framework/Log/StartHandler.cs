@@ -75,7 +75,7 @@
                                     ui,
                                     () =>
                                     {
-                                        ui.AddToTop(xt);
+                                        ui?.AddToTop(xt);
                                     });
                             }
                         },

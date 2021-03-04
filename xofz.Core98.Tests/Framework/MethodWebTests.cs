@@ -468,7 +468,7 @@
 
                 w.Run<int, long, byte, short, string>((i, l, b, s, ss) =>
                 {
-                    outputter.WriteLine(ss);
+                    this.outputter.WriteLine(ss);
                     ran = true;
                 });
 
@@ -500,7 +500,7 @@
 
                 w.Run<int, long, string, byte, short, string>((i, l, ss1, b, s, ss2) =>
                 {
-                    outputter.WriteLine(ss2);
+                    this.outputter.WriteLine(ss2);
                     ran = true;
                 });
 
@@ -534,7 +534,7 @@
                 w.Run<int, long, SampleDependencyContract, string, byte, short,
                     string>((i, l, sampleDep, ss1, b, s, ss2) =>
                 {
-                    outputter.WriteLine(ss2);
+                    this.outputter.WriteLine(ss2);
                     ran = true;
                 });
 
@@ -570,7 +570,7 @@
                     string, AnotherDependency>(
                     (i, l, sampleDep, ss1, b, s, ss2, anotherDep) =>
                 {
-                    outputter.WriteLine(ss2);
+                    this.outputter.WriteLine(ss2);
                     ran = true;
                 });
 

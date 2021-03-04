@@ -20,6 +20,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.PasswordLabel = labels.Password;
                         ui.TimeRemainingLabel = labels.TimeRemaining;
                         ui.BackspaceKeyLabel = labels.BackspaceKey;

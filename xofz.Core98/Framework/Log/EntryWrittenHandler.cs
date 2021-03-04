@@ -19,6 +19,7 @@
             string name,
             LogEntry entry)
         {
+            const byte one = 1;
             var r = this.runner;
             r?.Run<FieldHolder, UiReaderWriter, FilterChecker>(
                 (holder, uiRW, checker) =>
@@ -29,15 +30,15 @@
                         today = provider.Now().Date;
                     });
 
-                    if (uiRW.Read(ui, () => ui.EndDate) < today)
+                    if (uiRW.Read(ui, () => ui?.EndDate) < today)
                     {
                         return;
                     }
 
-                    if (Interlocked.Read(ref holder.startedIf1) != 1)
+                    if (Interlocked.Read(ref holder.startedIf1) != one)
                     {
                         if (Interlocked.Read(ref holder.startedFirstTimeIf1) ==
-                            1 && checker.PassesFilters(ui, entry))
+                            one && checker.PassesFilters(ui, entry))
                         {
                             r.Run<ICollection<LogEntry>>(
                                 refreshEntries =>
@@ -59,7 +60,7 @@
                                 ui,
                                 () =>
                                 {
-                                    ui.AddToTop(xt);
+                                    ui?.AddToTop(xt);
                                 });
                         });
                     }

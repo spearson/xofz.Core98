@@ -20,6 +20,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.FilterContent = null;
                     });
             });
@@ -36,6 +41,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.FilterContent = null;
                     });
             });

@@ -30,12 +30,18 @@
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return ((IEnumerable<T>)this.array).GetEnumerator();
+            return ((IEnumerable<T>)this.array)
+                .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.array.GetEnumerator();
+            IEnumerable<T> source = this;
+
+            return source?.GetEnumerator()
+                ?? EnumerableHelpers
+                    .Empty<T>()
+                    .GetEnumerator();
         }
 
         public virtual bool Contains(
@@ -56,5 +62,6 @@
         }
 
         protected readonly T[] array;
+        protected const short nOne = -1;
     }
 }

@@ -18,12 +18,14 @@
             r?.Run<UiReaderWriter, KeyPresser>(
                 (uiRW, presser) =>
                 {
+                    const string keySymbolToPress = @"{PGDN}";
                     uiRW.Write(
                         ui,
                         () =>
                         {
-                            ui.FocusEntries();
-                            presser.Press(@"{PGDN}");
+                            ui?.FocusEntries();
+
+                            presser.Press(keySymbolToPress);
                         });
                 });
         }

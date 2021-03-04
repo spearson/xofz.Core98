@@ -43,22 +43,12 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
-            var ui = this.cleanupUi;
-            if (ui != null)
-            {
-                w?.RegisterDependency(
-                    ui,
+            w?.RegisterDependency(
+                    this.cleanupUi,
                     UiNames.Cleanup);
-            }
-
-            var c = this.cleanup;
-            if (c != null)
-            {
-                w?.RegisterDependency(
-                    c,
+            w?.RegisterDependency(
+                    this.cleanup,
                     MethodNames.Cleanup);
-            }
-
             w?.RegisterDependency(
                 new StartHandler(w));
             w?.RegisterDependency(

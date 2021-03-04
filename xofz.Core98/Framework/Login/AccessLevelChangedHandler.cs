@@ -22,23 +22,29 @@
             var r = this.runner;
             r?.Run<UiReaderWriter>(uiRW =>
             {
-                if (newAccessLevel == AccessLevel.None)
+                const AccessLevel zeroAccess = AccessLevel.None;
+                if (newAccessLevel == zeroAccess)
                 {
                     uiRW.Write(
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.CurrentPassword = null;
                         });
                 }
             });
 
             r?.Run<xofz.Framework.Timer, EventRaiser>(
-                (t, er) =>
+                (timer, er) =>
                 {
                     er.Raise(
-                        t,
-                        nameof(t.Elapsed));
+                        timer,
+                        nameof(timer.Elapsed));
                 },
                 DependencyNames.Timer);
         }

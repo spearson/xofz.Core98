@@ -24,6 +24,7 @@
                 this.name = this.fixture.Create<string>();
                 this.fields = new FieldHolder();
                 this.uiRW = new UiReaderWriter();
+                this.delayer = A.Fake<Delayer>();
                 this.provider = A.Fake<TimeProvider>();
                 this.reloader = A.Fake<EntryReloader>();
                 this.now = this.fixture.Create<DateTime>();
@@ -40,6 +41,8 @@
                     this.provider);
                 w.RegisterDependency(
                     this.reloader);
+                w.RegisterDependency(
+                    this.delayer);
 
                 A
                     .CallTo(() => this.provider.Now())
@@ -55,6 +58,7 @@
             protected readonly string name;
             protected readonly FieldHolder fields;
             protected readonly UiReaderWriter uiRW;
+            protected readonly Delayer delayer;
             protected readonly TimeProvider provider;
             protected readonly EntryReloader reloader;
             protected readonly DateTime now;

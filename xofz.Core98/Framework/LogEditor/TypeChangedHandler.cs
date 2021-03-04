@@ -23,11 +23,16 @@
             {
                 var customIsSelected
                     = uiRW
-                          .Read(ui, () => ui.SelectedType)
+                          .Read(ui, () => ui?.SelectedType)
                           ?.Contains(DefaultEntryTypes.Custom)
-                      ?? false;
+                      ?? falsity;
                 uiRW.Write(ui, () =>
                 {
+                    if (ui == null)
+                    {
+                        return;
+                    }
+
                     ui.CustomTypeVisible = customIsSelected;
                 });
             });
@@ -42,16 +47,22 @@
             {
                 var customIsSelected
                     = uiRW
-                          .Read(ui, () => ui.SelectedType)
+                          .Read(ui, () => ui?.SelectedType)
                           ?.Contains(DefaultEntryTypes.Custom)
-                      ?? false;
+                      ?? falsity;
                 uiRW.Write(ui, () =>
                 {
+                    if (ui == null)
+                    {
+                        return;
+                    }
+
                     ui.CustomTypeVisible = customIsSelected;
                 });
             });
         }
 
         protected readonly MethodRunner runner;
+        protected const bool falsity = false;
     }
 }

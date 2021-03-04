@@ -19,37 +19,53 @@
             var r = this.runner;
             r?.Run<UiReaderWriter>(uiRW =>
             {
-                const short daysToAdd = -7;
+                const short minusSeven = -7;
                 var newStartDate = uiRW.Read(
                         ui,
-                        () => ui.StartDate)
-                    .AddDays(daysToAdd);
+                        () => ui?.StartDate)
+                    ?.AddDays(minusSeven);
                 var newEndDate = uiRW.Read(
                         ui,
-                        () => ui.EndDate)
-                    .AddDays(daysToAdd);
+                        () => ui?.EndDate)
+                    ?.AddDays(minusSeven);
 
                 unsubscribe?.Invoke();
 
-                uiRW.WriteSync(
-                    ui,
-                    () =>
-                    {
-                        ui.StartDate = newStartDate;
-                        ui.EndDate = newEndDate;
-                    });
+                r.Run<TimeProvider>(provider =>
+                {
+                    var now = provider.Now();
+                    var past = now.AddDays(minusSeven);
 
-                r.Run<LogStatisticsUi>(statsUi =>
-                    {
-                        uiRW.Write(
-                            statsUi,
-                            () =>
+                    uiRW.WriteSync(
+                        ui,
+                        () =>
+                        {
+                            if (ui == null)
                             {
-                                statsUi.StartDate = newStartDate;
-                                statsUi.EndDate = newEndDate;
-                            });
-                    },
-                    name);
+                                return;
+                            }
+
+                            ui.StartDate = newStartDate ?? past;
+                            ui.EndDate = newEndDate ?? now;
+                        });
+                    
+                    r.Run<LogStatisticsUi>(statsUi =>
+                        {
+                            uiRW.Write(
+                                statsUi,
+                                () =>
+                                {
+                                    if (statsUi == null)
+                                    {
+                                        return;
+                                    }
+
+                                    statsUi.StartDate = newStartDate ?? past;
+                                    statsUi.EndDate = newEndDate ?? now;
+                                });
+                        },
+                        name);
+                });
 
                 subscribe?.Invoke();
 

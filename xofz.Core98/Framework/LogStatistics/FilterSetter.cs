@@ -21,10 +21,10 @@
                 {
                     stats.FilterContent = uiRW.Read(
                         ui,
-                        () => ui.FilterContent);
+                        () => ui?.FilterContent);
                     stats.FilterType = uiRW.Read(
                         ui,
-                        () => ui.FilterType);
+                        () => ui?.FilterType);
                 },
                 name);
         }

@@ -12,27 +12,88 @@
         }
 
         public DictionaryLot(
-            IDictionary<TKey, TValue> dictionary)
+            IEnumerable<KeyValuePair<TKey, TValue>> finiteSource)
         {
-            if (dictionary == null)
+            if (finiteSource == null)
             {
-                dictionary = new Dictionary<TKey, TValue>();
+                this.dictionary = new Dictionary<TKey, TValue>();
+                return;
             }
 
-            this.dictionary = dictionary;
+            if (finiteSource is IDictionary<TKey, TValue> d)
+            {
+                this.dictionary = d;
+                return;
+            }
+
+            if (finiteSource is DictionaryLot<TKey, TValue> lot)
+            {
+                this.dictionary = lot.dictionary
+                                  ?? new Dictionary<TKey, TValue>();
+                return;
+            }
+
+            var dict = new Dictionary<TKey, TValue>();
+            foreach (var item in finiteSource)
+            {
+                dict.Add(
+                    item.Key,
+                    item.Value);
+            }
+
+            this.dictionary = dict;
         }
 
-        public virtual long Count => this.dictionary.Count;
+        public DictionaryLot(
+            IEnumerator<KeyValuePair<TKey, TValue>> finiteEnumerator)
+        {
+            var d = new Dictionary<TKey, TValue>();
 
-        public virtual TValue this[TKey key] => this.dictionary[key];
+            if (finiteEnumerator == null)
+            {
+                this.dictionary = d;
+                return;
+            }
 
-        public virtual ICollection<TKey> Keys => this.dictionary.Keys;
+            while (finiteEnumerator.MoveNext())
+            {
+                var c = finiteEnumerator.Current;
+                d?.Add(
+                    c.Key,
+                    c.Value);
+            }
 
-        public virtual ICollection<TValue> Values => this.dictionary.Values;
+            this.dictionary = d;
+        }
+
+        public virtual long Count => this.dictionary?.Count ?? nOne;
+
+        public virtual TValue this[TKey key]
+        {
+            get
+            {
+                var d = this.dictionary;
+                if (d == null)
+                {
+                    return default;
+                }
+
+                return d[key];
+            }
+        }
+
+        public virtual ICollection<TKey> Keys => 
+            this.dictionary?.Keys ?? new LinkedList<TKey>();
+
+        public virtual ICollection<TValue> Values => 
+            this.dictionary?.Values ?? new LinkedList<TValue>();
 
         public virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return this.dictionary.GetEnumerator();
+            return this.dictionary?.GetEnumerator()
+                   ?? EnumerableHelpers
+                       .Empty<KeyValuePair<TKey, TValue>>()
+                       .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -43,29 +104,44 @@
         public virtual bool ContainsKey(
             TKey key)
         {
-            return this.dictionary.ContainsKey(key);
+            return this.dictionary?.ContainsKey(key)
+                ?? falsity;
         }
 
         public virtual bool TryGetValue(
             TKey key,
             out TValue value)
         {
-            return this.dictionary.TryGetValue(key, out value);
-        }
+            var d = this.dictionary;
+            if (d == null)
+            {
+                value = default;
+                return falsity;
+            }
 
-        public virtual bool Remove(
-            TKey key)
-        {
-            return this.dictionary.Remove(key);
+            return d.TryGetValue(
+                key, 
+                out value);
         }
 
         public virtual void Add(
             TKey key,
             TValue value)
         {
-            this.dictionary.Add(key, value);
+            this.dictionary?.Add(
+                key,
+                value);
+        }
+
+        public virtual bool Remove(
+            TKey key)
+        {
+            return this.dictionary?.Remove(key)
+                ?? falsity;
         }
 
         protected readonly IDictionary<TKey, TValue> dictionary;
+        protected const short nOne = -1;
+        protected const bool falsity = false;
     }
 }

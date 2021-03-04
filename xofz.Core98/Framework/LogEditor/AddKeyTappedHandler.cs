@@ -26,32 +26,40 @@
             string logName)
         {
             var r = this.runner;
+            const bool falsity = false;
             r?.Run<LogEditor, UiReaderWriter>(
                 (le, uiRW) =>
                 {
                     var customIsSelected =
                         uiRW
-                            .Read(ui, () => ui.SelectedType)
+                            .Read(
+                                ui, 
+                                () => ui?.SelectedType)
                             ?.Contains(DefaultEntryTypes
                                 .Custom)
-                        ?? false;
+                        ?? falsity;
                     var type = customIsSelected
-                        ? uiRW.Read(ui, () => ui.CustomType)
-                        : uiRW.Read(ui, () => ui.SelectedType);
+                        ? uiRW.Read(ui, () => ui?.CustomType)
+                        : uiRW.Read(ui, () => ui?.SelectedType);
                     le.AddEntry(
                         type,
                         uiRW.Read(
                             ui,
-                            () => ui.Content));
+                            () => ui?.Content));
 
                     uiRW.Write(
-                        ui, () =>
+                        ui, 
+                        () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.Content = null;
                             ui.SelectedType = DefaultEntryTypes.Information;
-                            ui.Hide();
+                            ui?.Hide();
                         });
-
                 },
                 logName);
         }

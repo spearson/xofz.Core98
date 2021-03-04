@@ -20,6 +20,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.StartLabelLabel = labels.StartLabel;
                         ui.EndLabelLabel = labels.EndLabel;
                         ui.ClearKeyLabel = labels.ClearKey;

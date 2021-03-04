@@ -31,6 +31,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.StartDate = newStartDate;
                             ui.EndDate = newEndDate;
                         });
@@ -41,6 +46,11 @@
                                 statsUi,
                                 () =>
                                 {
+                                    if (statsUi == null)
+                                    {
+                                        return;
+                                    }
+
                                     statsUi.StartDate = newStartDate;
                                     statsUi.EndDate = newEndDate;
                                 });

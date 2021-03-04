@@ -27,6 +27,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.TimeRemaining = labels.NotLoggedIn;
                         ui.KeyboardKeyVisible = false;
                     });
@@ -37,6 +42,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.KeyboardKeyVisible = true;
                         });
                 });
@@ -48,6 +58,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.CurrentAccessLevel = cal;
                         });
                 });
@@ -63,7 +78,8 @@
 
                 r.Run<xofz.Framework.Timer>(t =>
                     {
-                        t.Start(1000);
+                        const short timerInterval = 1000;
+                        t.Start(timerInterval);
                     },
                     DependencyNames.Timer);
             });

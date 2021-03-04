@@ -32,7 +32,7 @@
             {
                 var contentFilter = uiRW.Read(
                     ui, 
-                    () => ui.FilterContent);
+                    () => ui?.FilterContent);
                 if (string.IsNullOrEmpty(contentFilter))
                 {
                     var logUi = readLogUi?.Invoke();
@@ -43,7 +43,7 @@
 
                     contentFilter = uiRW.Read(
                         logUi,
-                        () => logUi.FilterContent);
+                        () => logUi?.FilterContent);
                     uiRW.WriteSync(
                         ui,
                         () =>

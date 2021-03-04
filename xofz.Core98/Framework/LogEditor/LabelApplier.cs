@@ -20,6 +20,11 @@
                     ui,
                     () =>
                     {
+                        if (ui == null)
+                        {
+                            return;
+                        }
+
                         ui.EntryTypeLabelLabel = labels.EntryTypeLabel;
                         ui.EntryContentLabelLabel = labels.EntryContentLabel;
                         ui.AddKeyLabel = labels.AddKey;

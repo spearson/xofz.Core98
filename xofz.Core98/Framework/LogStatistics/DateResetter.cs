@@ -26,19 +26,31 @@
                         today = provider.Now().Date;
                     });
 
+                    const byte six = 6;
                     var lastWeek = today.Subtract(
-                        TimeSpan.FromDays(6));
-                    uiRW.WriteSync(ui, () =>
-                    {
-                        ui.StartDate = lastWeek;
-                        ui.EndDate = today;
-                    });
+                        TimeSpan.FromDays(six));
+                    uiRW.WriteSync(
+                        ui,
+                        () =>
+                        {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
+                            ui.StartDate = lastWeek;
+                            ui.EndDate = today;
+                        });
 
                     stats.Reset();
 
                     r.Run<StatsDisplayer>(displayer =>
                     {
-                        displayer.Display(ui, stats, true);
+                        const bool truth = true;
+                        displayer.Display(
+                            ui, 
+                            stats, 
+                            truth);
                     });
                 },
                 name);

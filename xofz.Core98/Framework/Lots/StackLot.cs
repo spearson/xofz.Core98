@@ -12,10 +12,10 @@
         }
 
         public StackLot(
-            int capacity)
+            long capacity)
         {
             this.stack = new Stack<T>(
-                capacity);
+                (int)capacity);
         }
 
         public StackLot(
@@ -36,33 +36,66 @@
             this.stack = new Stack<T>(finiteSource);
         }
 
-        public virtual long Count => this.stack.Count;
+        public StackLot(
+            IEnumerator<T> finiteEnumerator)
+        {
+            var s = new Stack<T>();
+            while (finiteEnumerator?.MoveNext()
+                   ?? falsity)
+            {
+                s?.Push(
+                    finiteEnumerator.Current);
+            }
+
+            this.stack = s;
+        }
+
+        public virtual long Count => this.stack?.Count
+                                     ?? nOne;
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.stack.GetEnumerator();
+            return this.stack?.GetEnumerator()
+                ?? EnumerableHelpers
+                    .Empty<T>()
+                    .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             IEnumerable<T> source = this;
 
-            return source.GetEnumerator();
+            return source?.GetEnumerator()
+                   ?? EnumerableHelpers
+                       .Empty<T>()
+                       .GetEnumerator(); ;
         }
 
         public virtual T[] ToArray()
         {
-            return this.stack.ToArray();
+            return this.stack?.ToArray();
         }
 
         public virtual T Peek()
         {
-            return this.stack.Peek();
+            var s = this.stack;
+            if (s == null)
+            {
+                return default;
+            }
+
+            return s.Peek();
         }
 
         public virtual T Pop()
         {
-            return this.stack.Pop();
+            var s = this.stack;
+            if (s == null)
+            {
+                return default;
+            }
+
+            return s.Pop();
         }
 
         public virtual bool Contains(
@@ -75,26 +108,32 @@
 
         public virtual void Clear()
         {
-            this.stack.Clear();
+            this.stack?.Clear();
         }
 
         public virtual void CopyTo(
             T[] array)
         {
-            this.stack.CopyTo(array, 0);
+            const byte zero = 0;
+            this.stack?.CopyTo(
+                array, 
+                zero);
         }
 
         public virtual void Push(
             T item)
         {
-            this.stack.Push(item);
+            this.stack?.Push(
+                item);
         }
 
         public virtual void TrimExcess()
         {
-            this.stack.TrimExcess();
+            this.stack?.TrimExcess();
         }
 
         protected readonly Stack<T> stack;
+        protected const short nOne = -1;
+        protected const bool falsity = false;
     }
 }

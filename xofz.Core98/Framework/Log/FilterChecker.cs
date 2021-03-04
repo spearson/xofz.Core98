@@ -26,32 +26,31 @@
             {
                 var start = uiRW.Read(
                     ui,
-                    () => ui.StartDate);
+                    () => ui?.StartDate);
                 var end = uiRW.Read(
                     ui,
-                    () => ui.EndDate);
+                    () => ui?.EndDate);
                 if (entry.Timestamp < start)
                 {
                     return;
                 }
 
-                if (entry.Timestamp > end.AddDays(1))
+                if (entry.Timestamp > end?.AddDays(1))
                 {
                     return;
                 }
 
                 var filterType = uiRW.Read(
                     ui,
-                    () => ui.FilterType);
+                    () => ui?.FilterType);
                 filterType = filterType?.ToLowerInvariant();
-                var entryType = entry.Type;
+                var entryType = entry?.Type;
                 if (filterType != null)
                 {
                     if (!entryType
                         ?.ToLowerInvariant()
-                        .Contains(
-                            filterType
-                                .ToLowerInvariant()) ?? true)
+                        .Contains(filterType
+                                ?.ToLowerInvariant()) ?? true)
                     {
                         return;
                     }
@@ -59,17 +58,17 @@
 
                 var filterContent = uiRW.Read(
                     ui,
-                    () => ui.FilterContent);
+                    () => ui?.FilterContent);
                 filterContent = filterContent?.ToLowerInvariant();
-                var entryContent = entry.Content;
+                var entryContent = entry?.Content;
                 if (filterContent != null)
                 {
                     if (EnumerableHelpers.All(
                         entryContent,
                         s => !s
                                  ?.ToLowerInvariant()
-                                 .Contains(filterContent.ToLowerInvariant()) ??
-                             true))
+                                 ?.Contains(filterContent
+                                     ?.ToLowerInvariant()) ?? true))
                     {
                         return;
                     }

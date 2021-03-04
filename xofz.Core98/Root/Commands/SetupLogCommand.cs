@@ -125,11 +125,25 @@
         {
             var w = this.web;
             var s = this.settings ??
-                new SettingsHolder();
+                    new SettingsHolder();
             var ldn = s.LogDependencyName;
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
             var registered = false;
+
+            w?.Run<Delayer>(log =>
+                {
+                    registered = true;
+                });
+            if (registered)
+            {
+                goto checkLog;
+            }
+
+            w?.RegisterDependency(
+                new Delayer());
+
+            checkLog:
             w?.Run<Log>(log =>
                 {
                     registered = true;

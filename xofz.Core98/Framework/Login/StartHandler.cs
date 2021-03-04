@@ -25,14 +25,14 @@
                     settings =>
                     {
                         settings.CurrentPassword = uiRW.Read(
-                            ui, () => ui.CurrentPassword);
+                            ui, () => ui?.CurrentPassword);
                     });
 
                 uiRW.WriteSync(ui, () =>
                 {
                     try
                     {
-                        ui.Display();
+                        ui?.Display();
                     }
                     catch
                     {

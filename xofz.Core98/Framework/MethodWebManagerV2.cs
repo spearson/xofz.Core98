@@ -145,6 +145,7 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             NamedMethodWebHolder targetWeb;
+            bool removed;
             lock (this.locker ?? new object())
             {
                 ws = this.webs;
@@ -152,15 +153,10 @@
                     ws,
                     nmwh => nmwh?.Name == webName);
 
-                if (targetWeb == null)
-                {
-                    return false;
-                }
-
-                ws.Remove(targetWeb);
+                removed = ws.Remove(targetWeb);
             }
 
-            return true;
+            return removed;
         }
 
         public override T RunWeb<T>(

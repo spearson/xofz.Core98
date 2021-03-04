@@ -57,8 +57,9 @@
         public virtual bool Unregister<T>(
             string name = null)
         {
+            const bool falsity = false;
             var ds = this.dependencies;
-            var unregistered = false;
+            var unregistered = falsity;
             lock (this.locker ?? new object())
             {
                 foreach (var d in ds
@@ -70,8 +71,8 @@
                         name,
                         out T _))
                     {
-                        ds?.Remove(d);
-                        unregistered = true;
+                        unregistered = ds?.Remove(d) 
+                                       ?? falsity;
                         break;
                     }
                 }

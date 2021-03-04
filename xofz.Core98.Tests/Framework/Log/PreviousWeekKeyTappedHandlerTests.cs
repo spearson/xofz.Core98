@@ -23,6 +23,7 @@
                 this.unsubscribe = A.Fake<Do>();
                 this.subscribe = A.Fake<Do>();
                 this.uiRW = new UiReaderWriter();
+                this.provider = new TimeProvider();
                 this.statsUi = A.Fake<LogStatisticsUi>();
                 this.raiser = A.Fake<EventRaiser>();
 
@@ -34,6 +35,8 @@
                     this.name);
                 w.RegisterDependency(
                     this.raiser);
+                w.RegisterDependency(
+                    this.provider);
 
                 this.ui.StartDate = this.fixture.Create<DateTime>();
                 this.ui.EndDate = this.fixture.Create<DateTime>();
@@ -47,6 +50,7 @@
             protected readonly Do unsubscribe;
             protected readonly Do subscribe;
             protected readonly UiReaderWriter uiRW;
+            protected readonly TimeProvider provider;
             protected readonly LogStatisticsUi statsUi;
             protected readonly EventRaiser raiser;
         }

@@ -27,7 +27,7 @@
             }
             catch
             {
-                return null;
+                return default;
             }
         }
     }

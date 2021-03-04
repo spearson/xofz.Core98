@@ -29,13 +29,13 @@
                 {
                     var securePw = uiRW.Read(
                         ui,
-                        () => ui.CurrentPassword);
-                    var previousCal = ac.CurrentAccessLevel;
+                        () => ui?.CurrentPassword);
+                    var previousLevel = ac.CurrentAccessLevel;
                     ac.InputPassword(
                         securePw,
                         settings.Duration);
-                    var newCal = ac.CurrentAccessLevel;
-                    if (previousCal == newCal)
+                    var newLevel = ac.CurrentAccessLevel;
+                    if (previousLevel == newLevel)
                     {
                         r.Run<xofz.Framework.Timer, EventRaiser>(
                             (t, er) =>
@@ -45,7 +45,8 @@
                             DependencyNames.Timer);
                     }
 
-                    if (newCal > AccessLevel.None)
+                    const AccessLevel zeroAccess = AccessLevel.None;
+                    if (newLevel > zeroAccess)
                     {
                         settings.CurrentPassword = securePw;
                         r.Run<StopHandler>(handler =>
@@ -57,7 +58,10 @@
 
                     uiRW.Write(
                         ui,
-                        ui.FocusPassword);
+                        () =>
+                        {
+                            ui?.FocusPassword();
+                        });
                 });
         }
 

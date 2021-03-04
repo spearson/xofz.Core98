@@ -17,12 +17,22 @@
             this.collection = collection;
         }
 
-        public virtual long Count => this.collection?.Count ?? -1;
+        public virtual long Count
+        {
+            get
+            {
+                const short nOne = -1;
+                return this.collection?.Count
+                       ?? nOne;
+            }
+        }
 
         public IEnumerator<T> GetEnumerator()
         {
             return this.collection?.GetEnumerator()
-                   ?? EnumerableHelpers.Empty<T>().GetEnumerator();
+                   ?? EnumerableHelpers
+                       .Empty<T>()
+                       .GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -36,7 +46,7 @@
             var c = this.collection;
             if (c == null)
             {
-                return false;
+                return falsity;
             }
 
             var itemIsNull = item == null;
@@ -44,7 +54,7 @@
             {
                 if (t?.Equals(item) ?? itemIsNull)
                 {
-                    return false;
+                    return falsity;
                 }
             }
 
@@ -55,27 +65,20 @@
         public virtual bool Contains(
             T item)
         {
-            var c = this.collection;
-            if (c == null)
-            {
-                return false;
-            }
-
-            return c.Contains(item);
+            return this.collection?.Contains(
+                       item)
+                   ?? falsity;
         }
 
         public virtual bool Remove(
             T item)
         {
-            var c = this.collection;
-            if (c == null)
-            {
-                return false;
-            }
-
-            return c.Remove(item);
+            return this.collection?.Remove(
+                       item)
+                   ?? falsity;
         }
 
         protected readonly ICollection<T> collection;
+        protected const bool falsity = false;
     }
 }

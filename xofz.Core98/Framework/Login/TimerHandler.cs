@@ -68,6 +68,11 @@
                         ui,
                         () =>
                         {
+                            if (ui == null)
+                            {
+                                return;
+                            }
+
                             ui.CurrentAccessLevel = cal;
                             ui.TimeRemaining = timeRemaining;
                         });

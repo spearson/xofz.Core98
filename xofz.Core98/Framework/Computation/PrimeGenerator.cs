@@ -10,8 +10,8 @@
                 new PrimeTester(),
                 new LinkedListLot<long>(new long[]
                 {
-                    2,
-                    3
+                    firstPrimality,
+                    secondPrime
                 }))
         {
         }
@@ -30,8 +30,8 @@
                 tester,
                 new LinkedListLot<long>(new long[]
                 {
-                    2,
-                    3
+                    firstPrimality,
+                    secondPrime
                 }))
         {
         }
@@ -47,7 +47,7 @@
                 finiteSet = new LinkedListLot<long>(
                     new long[]
                     {
-                        2, 3
+                        firstPrimality, secondPrime
                     });
             }
 
@@ -85,18 +85,25 @@
         protected virtual long collectPrime()
         {
             var ll = this.currentLinkedList;
-            ll.AddLast(ll.Last.Value + 2);
+            var lastNode = ll?.Last;
+            ll?.AddLast(
+                lastNode?.Value + firstPrimality 
+                ?? firstPrimality);
             while (!this.tester.RelativelyPrime(ll, true))
             {
-                var node = ll.Last;
-                ll.RemoveLast();
-                ll.AddLast(node.Value + 2);
+                var node = ll?.Last;
+                ll?.RemoveLast();
+                ll?.AddLast(
+                    node?.Value + firstPrimality
+                    ?? firstPrimality);
             }
 
-            return ll.Last.Value;
+            return ll?.Last?.Value ?? firstPrimality;
         }
 
         protected readonly LinkedListLot<long> currentLinkedList;
         protected readonly PrimeTester tester;
+        protected const byte firstPrimality = 2;
+        protected const byte secondPrime = 3;
     }
 }

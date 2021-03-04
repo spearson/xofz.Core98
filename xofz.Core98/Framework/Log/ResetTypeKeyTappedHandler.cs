@@ -19,7 +19,10 @@
             {
                 uiRW.Write(
                     ui,
-                    ui.ResetTypeFilter);
+                    () =>
+                    {
+                        ui?.ResetTypeFilter();
+                    });
             });
         }
 

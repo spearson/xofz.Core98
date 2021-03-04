@@ -10,14 +10,17 @@
             MethodWeb web)
         {
             this.web = web;
-            this.timerFinished = new ManualResetEvent(true);
+            const bool truth = true;
+            this.timerFinished = 
+                new ManualResetEvent(truth);
         }
 
         public virtual void Setup()
         {
+            const byte one = 1;
             if (Interlocked.Exchange(
                     ref this.setupIf1,
-                    1) == 1)
+                    one) == one)
             {
                 return;
             }
@@ -46,7 +49,7 @@
             {
                 var w = this.web;
                 var cal = this.currentLevel;
-                if (cal == AccessLevel.None)
+                if (cal == zeroAccess)
                 {
                     return System.TimeSpan.Zero;
                 }
@@ -111,7 +114,7 @@
             SecureString password,
             long loginDurationMilliseconds)
         {
-            if (loginDurationMilliseconds < 0)
+            if (loginDurationMilliseconds < min)
             {
                 return;
             }
@@ -121,16 +124,15 @@
                 loginDurationMilliseconds = max;
             }
 
-            var noAccess = AccessLevel.None;
             if (password == null)
             {
                 this.setCurrentAccessLevel(
-                    noAccess);
+                    zeroAccess);
                 return;
             }
 
             var w = this.web;
-            var newLevel = noAccess;
+            var newLevel = zeroAccess;
             w?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
             {
@@ -153,18 +155,19 @@
                 }
             });
 
-            if (newLevel == noAccess)
+            if (newLevel == zeroAccess)
             {
-                this.setCurrentAccessLevel(noAccess);
+                this.setCurrentAccessLevel(zeroAccess);
                 return;
             }
 
             w?.Run<xofz.Framework.Timer>(t =>
                 {
-                    t.AutoReset = false;
+                    t.AutoReset = falsity;
                     t.Stop();
-                    this.timerFinished.WaitOne();
-                    this.setCurrentAccessLevel(newLevel);
+                    this.timerFinished?.WaitOne();
+                    this.setCurrentAccessLevel(
+                        newLevel);
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
@@ -175,7 +178,8 @@
                     });
                     this.setLoginTime(
                         now);
-                    t.Start(loginDurationMilliseconds);
+                    t.Start(
+                        loginDurationMilliseconds);
                 },
                 DependencyNames.Timer);
         }
@@ -184,26 +188,25 @@
             string password,
             long loginDurationMilliseconds)
         {
-            if (loginDurationMilliseconds < 0)
+            if (loginDurationMilliseconds < min)
             {
                 return;
             }
 
-            if (loginDurationMilliseconds > uint.MaxValue)
+            if (loginDurationMilliseconds > max)
             {
-                loginDurationMilliseconds = uint.MaxValue;
+                loginDurationMilliseconds = max;
             }
 
-            var noAccess = AccessLevel.None;
             if (password == null)
             {
                 this.setCurrentAccessLevel(
-                    noAccess);
+                    zeroAccess);
                 return;
             }
 
             var w = this.web;
-            var newLevel = noAccess;
+            var newLevel = zeroAccess;
             w?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
                 {
@@ -223,18 +226,20 @@
                     }
                 });
 
-            if (newLevel == noAccess)
+            if (newLevel == zeroAccess)
             {
-                this.setCurrentAccessLevel(noAccess);
+                this.setCurrentAccessLevel(
+                    zeroAccess);
                 return;
             }
 
             w?.Run<xofz.Framework.Timer>(t =>
                 {
-                    t.AutoReset = false;
+                    t.AutoReset = falsity;
                     t.Stop();
-                    this.timerFinished.WaitOne();
-                    this.setCurrentAccessLevel(newLevel);
+                    this.timerFinished?.WaitOne();
+                    this.setCurrentAccessLevel(
+                        newLevel);
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
@@ -284,11 +289,11 @@
 
         protected virtual void timer_Elapsed()
         {
-            var h = this.timerFinished;
-            h.Reset();
+            var finished = this.timerFinished;
+            finished?.Reset();
             this.setCurrentAccessLevel(
-                AccessLevel.None);
-            h.Set();
+                zeroAccess);
+            finished?.Set();
         }
 
         protected long setupIf1;
@@ -297,6 +302,9 @@
         protected System.TimeSpan loginDuration;
         protected readonly ManualResetEvent timerFinished;
         protected readonly MethodWeb web;
-        protected const long max = uint.MaxValue;
+        protected const AccessLevel zeroAccess = AccessLevel.None;
+        protected const long max = uint.MaxValue;        
+        protected const byte min = 0;
+        protected const bool falsity = false;
     }
 }
