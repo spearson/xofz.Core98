@@ -55,7 +55,7 @@
         {
             if (web == null)
             {
-                return false;
+                return falsity;
             }
 
             ICollection<NamedMethodWebHolder> ws;
@@ -70,7 +70,7 @@
 
             if (alreadyAddedWeb != null)
             {
-                return false;
+                return falsity;
             }
 
             lock (this.locker ?? new object())
@@ -81,7 +81,7 @@
                         nmwh => nmwh?.Name),
                     name))
                 {
-                    return false;
+                    return falsity;
                 }
 
                 ws?.Add(
@@ -92,7 +92,7 @@
                     });
             }
 
-            return true;
+            return truth;
         }
 
         public override MethodWeb AccessWeb(

@@ -59,12 +59,9 @@
             MethodWebManager manager,
             string name = null)
         {
-            const bool
-                truth = true,
-                falseness = false;
             if (manager == null)
             {
-                return falseness;
+                return falsity;
             }
 
             ICollection<NamedManagerHolder> ms;
@@ -81,7 +78,7 @@
 
             if (alreadyAddedManager != null)
             {
-                return falseness;
+                return falsity;
             }
 
             NamedManagerHolder sameNameHolder = null;
@@ -99,7 +96,7 @@
 
                 if (sameNameHolder != null)
                 {
-                    return falseness;
+                    return falsity;
                 }
 
                 ms?.Add(newHolder);
@@ -490,6 +487,9 @@
 
         protected readonly ICollection<NamedManagerHolder> managers;
         protected readonly object locker;
+        protected const bool
+            truth = true,
+            falsity = false;
 
         protected class NamedManagerHolder
         {

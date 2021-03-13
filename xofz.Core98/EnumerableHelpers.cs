@@ -417,10 +417,10 @@
                 throw new ArgumentNullException(nameof(predicate));
             }
 
-            var empty = true;
+            var empty = truth;
             foreach (var item in source)
             {
-                empty = false;
+                empty = falsity;
                 if (predicate(item))
                 {
                     return item;
@@ -514,8 +514,6 @@
                 return nullItem;
             }
 
-            const bool 
-                truth = true;
             foreach (var item in finiteSource)
             {
                 if (!predicate?.Invoke(item) ?? truth)
@@ -541,10 +539,10 @@
             }
 
             T lastItem = default;
-            bool lastChanged = false;
+            bool lastChanged = falsity;
             foreach (var item in finiteSource)
             {
-                lastChanged = true;
+                lastChanged = truth;
                 lastItem = item;
             }
 
@@ -577,14 +575,14 @@
             }
 
             T lastItem = default;
-            bool empty = true;
-            bool lastChanged = false;
+            bool empty = truth;
+            bool lastChanged = falsity;
             foreach (var item in finiteSource)
             {
-                empty = false;
+                empty = falsity;
                 if (predicate(item))
                 {
-                    lastChanged = true;
+                    lastChanged = truth;
                     lastItem = item;
                 }                
             }
@@ -653,15 +651,15 @@
         {
             if (source == null)
             {
-                return false;
+                return falsity;
             }
 
             foreach (var item in source)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         public static bool Any<T>(
@@ -670,23 +668,23 @@
         {
             if (source == null)
             {
-                return false;
+                return falsity;
             }
 
             if (predicate == null)
             {
-                return false;
+                return falsity;
             }
 
             foreach (var item in source)
             {
                 if (predicate(item))
                 {
-                    return true;
+                    return truth;
                 }
             }
 
-            return false;
+            return falsity;
         }
 
         public static bool All<T>(
@@ -695,23 +693,23 @@
         {
             if (source == null)
             {
-                return true;
+                return truth;
             }
 
             if (predicate == null)
             {
-                return true;
+                return truth;
             }
 
             foreach (var item in source)
             {
                 if (!predicate(item))
                 {
-                    return false;
+                    return falsity;
                 }
             }
 
-            return true;
+            return truth;
         }
 
         public static bool Contains<T>(
@@ -720,7 +718,7 @@
         {
             if (source == null)
             {
-                return false;
+                return falsity;
             }
 
             var itemIsNull = item == null;
@@ -728,11 +726,11 @@
             {
                 if (itemInSource?.Equals(item) ?? itemIsNull)
                 {
-                    return true;
+                    return truth;
                 }
             }
 
-            return false;
+            return falsity;
         }
 
         public static IEnumerable<T> Cast<T>(
@@ -948,7 +946,7 @@
                 finiteSource,
                 keySelector,
                 Comparer<TKey>.Default,
-                false);
+                falsity);
         }
 
         public static ICollection<T> OrderBy<T, TKey>(
@@ -960,7 +958,7 @@
                 finiteSource,
                 keySelector,
                 comparer,
-                false);
+                falsity);
         }
 
         public static ICollection<T> OrderByDescending<T, TKey>(
@@ -971,7 +969,7 @@
                 finiteSource,
                 keySelector,
                 Comparer<TKey>.Default,
-                true);
+                truth);
         }
 
         public static ICollection<T> OrderByDescending<T, TKey>(
@@ -983,7 +981,7 @@
                 finiteSource,
                 keySelector,
                 comparer,
-                true);
+                truth);
         }
 
         private static ICollection<T> orderBy<T, TKey>(
@@ -1187,10 +1185,10 @@
             }
 
             var min = int.MaxValue;
-            var minChanged = false;
+            var minChanged = falsity;
             foreach (var item in finiteSource)
             {
-                minChanged = true;
+                minChanged = truth;
                 if (item < min)
                 {
                     min = item;
@@ -1214,10 +1212,10 @@
             }
 
             var min = long.MaxValue;
-            var minChanged = false;
+            var minChanged = falsity;
             foreach (var item in finiteSource)
             {
-                minChanged = true;
+                minChanged = truth;
                 if (item < min)
                 {
                     min = item;
@@ -1339,7 +1337,7 @@
             }
 
             T currentItem = default;
-            bool currentItemSet = false, isEmpty = true;
+            bool currentItemSet = falsity, isEmpty = truth;
             foreach (var item in singleSource)
             {
                 if (currentItemSet)
@@ -1349,8 +1347,8 @@
                 }
 
                 currentItem = item;
-                currentItemSet = true;
-                isEmpty = false;
+                currentItemSet = truth;
+                isEmpty = falsity;
             }
 
             if (isEmpty)
@@ -1377,7 +1375,7 @@
             }
 
             T matchingItem = default;
-            bool matchingItemSet = false, noMatches = true;
+            bool matchingItemSet = falsity, noMatches = truth;
             foreach (var item in source)
             {
                 if (!predicate(item))
@@ -1392,8 +1390,8 @@
                 }
 
                 matchingItem = item;
-                matchingItemSet = true;
-                noMatches = false;
+                matchingItemSet = truth;
+                noMatches = falsity;
             }
 
             if (noMatches)
@@ -1414,7 +1412,7 @@
             }
 
             T currentItem = default;
-            bool currentItemSet = false;
+            bool currentItemSet = falsity;
             foreach (var item in source)
             {
                 if (currentItemSet)
@@ -1424,7 +1422,7 @@
                 }
 
                 currentItem = item;
-                currentItemSet = true;
+                currentItemSet = truth;
             }
 
             return currentItem;
@@ -1445,7 +1443,7 @@
             }
 
             T matchingItem = default;
-            bool matchingItemSet = false;
+            bool matchingItemSet = falsity;
             foreach (var item in source)
             {
                 if (!predicate(item))
@@ -1460,7 +1458,7 @@
                 }
 
                 matchingItem = item;
-                matchingItemSet = true;
+                matchingItemSet = truth;
             }
 
             return matchingItem;
@@ -1569,7 +1567,6 @@
             IEnumerable<T> source,
             long index)
         {
-            const byte zero = 0;
             if (source == null)
             {
                 return default;
@@ -1597,6 +1594,11 @@
             return default;
         }
 
-        protected const byte zero = 0, one = 1;
+        protected const byte
+            zero = 0,
+            one = 1;
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

@@ -16,9 +16,8 @@
                 ms = this.managers;
                 ll = new ListLot<NamedManagerHolder>(
                     ms);
+                ll.Sort();
             }
-
-            ll.Sort();
 
             const byte zero = 0;
             try

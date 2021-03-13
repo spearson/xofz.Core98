@@ -32,7 +32,7 @@
         {
             if (web == null)
             {
-                return false;
+                return falsity;
             }
 
             var ws = this.webs;
@@ -43,7 +43,7 @@
                     nmwh?.Web));
             if (alreadyAddedWeb != null)
             {
-                return false;
+                return falsity;
             }
 
             if (EH.Contains(
@@ -51,7 +51,7 @@
                     ws, nmwh => nmwh?.Name),
                 name))
             {
-                return false;
+                return falsity;
             }
 
             ws.Add(
@@ -60,7 +60,7 @@
                     Web = web,
                     Name = name
                 });
-            return true;
+            return truth;
         }
 
         public virtual MethodWeb AccessWeb(
@@ -342,5 +342,9 @@
 
             public virtual string Name { get; set; }
         }
+
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

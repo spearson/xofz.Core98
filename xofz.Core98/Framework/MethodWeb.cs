@@ -24,13 +24,13 @@
         {
             if (dependency == null)
             {
-                return false;
+                return falsity;
             }
 
             var ds = this.dependencies;
             if (ds == null)
             {
-                return false;
+                return falsity;
             }
 
             ds.Add(
@@ -39,7 +39,7 @@
                     Content = dependency,
                     Name = name
                 });
-            return true;
+            return truth;
         }
 
         public virtual T Run<T>(
@@ -78,8 +78,8 @@
             T t = default;
             U u = default;
             bool
-                tFound = false,
-                uFound = false;
+                tFound = falsity,
+                uFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -98,7 +98,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -111,7 +111,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                     }
                 }
             }
@@ -140,9 +140,9 @@
             U u = default;
             V v = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -161,7 +161,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -174,7 +174,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -187,7 +187,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                     }
                 }
             }
@@ -218,10 +218,10 @@
             V v = default;
             W w = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false,
-                wFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity,
+                wFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -240,7 +240,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -253,7 +253,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -266,7 +266,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                         continue;
                     }
                 }
@@ -279,7 +279,7 @@
                         wName,
                         out w))
                     {
-                        wFound = true;
+                        wFound = truth;
                     }
                 }
             }
@@ -312,11 +312,11 @@
             W w = default;
             X x = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false,
-                wFound = false,
-                xFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity,
+                wFound = falsity,
+                xFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -335,7 +335,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -348,7 +348,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -361,7 +361,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                         continue;
                     }
                 }
@@ -374,7 +374,7 @@
                         wName,
                         out w))
                     {
-                        wFound = true;
+                        wFound = truth;
                         continue;
                     }
                 }
@@ -387,7 +387,7 @@
                         xName,
                         out x))
                     {
-                        xFound = true;
+                        xFound = truth;
                     }
                 }
             }
@@ -422,12 +422,12 @@
             X x = default;
             Y y = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false,
-                wFound = false,
-                xFound = false,
-                yFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity,
+                wFound = falsity,
+                xFound = falsity,
+                yFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -446,7 +446,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -459,7 +459,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -472,7 +472,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                         continue;
                     }
                 }
@@ -485,7 +485,7 @@
                         wName,
                         out w))
                     {
-                        wFound = true;
+                        wFound = truth;
                         continue;
                     }
                 }
@@ -498,7 +498,7 @@
                         xName,
                         out x))
                     {
-                        xFound = true;
+                        xFound = truth;
                         continue;
                     }
                 }
@@ -511,7 +511,7 @@
                         yName,
                         out y))
                     {
-                        yFound = true;
+                        yFound = truth;
                     }
                 }
             }
@@ -548,13 +548,13 @@
             Y y = default;
             Z z = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false,
-                wFound = false,
-                xFound = false,
-                yFound = false,
-                zFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity,
+                wFound = falsity,
+                xFound = falsity,
+                yFound = falsity,
+                zFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -574,7 +574,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -587,7 +587,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -600,7 +600,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                         continue;
                     }
                 }
@@ -613,7 +613,7 @@
                         wName,
                         out w))
                     {
-                        wFound = true;
+                        wFound = truth;
                         continue;
                     }
                 }
@@ -626,7 +626,7 @@
                         xName,
                         out x))
                     {
-                        xFound = true;
+                        xFound = truth;
                         continue;
                     }
                 }
@@ -639,7 +639,7 @@
                         yName,
                         out y))
                     {
-                        yFound = true;
+                        yFound = truth;
                         continue;
                     }
                 }
@@ -652,7 +652,7 @@
                         zName,
                         out z))
                     {
-                        zFound = true;
+                        zFound = truth;
                     }
                 }
             }
@@ -693,14 +693,14 @@
             Z z = default;
             AA aa = default;
             bool
-                tFound = false,
-                uFound = false,
-                vFound = false,
-                wFound = false,
-                xFound = false,
-                yFound = false,
-                zFound = false,
-                aaFound = false;
+                tFound = falsity,
+                uFound = falsity,
+                vFound = falsity,
+                wFound = falsity,
+                xFound = falsity,
+                yFound = falsity,
+                zFound = falsity,
+                aaFound = falsity;
             foreach (var d in ds
                               ?? EH.Empty<Dependency>())
             {
@@ -720,7 +720,7 @@
                         tName,
                         out t))
                     {
-                        tFound = true;
+                        tFound = truth;
                         continue;
                     }
                 }
@@ -733,7 +733,7 @@
                         uName,
                         out u))
                     {
-                        uFound = true;
+                        uFound = truth;
                         continue;
                     }
                 }
@@ -746,7 +746,7 @@
                         vName,
                         out v))
                     {
-                        vFound = true;
+                        vFound = truth;
                         continue;
                     }
                 }
@@ -759,7 +759,7 @@
                         wName,
                         out w))
                     {
-                        wFound = true;
+                        wFound = truth;
                         continue;
                     }
                 }
@@ -772,7 +772,7 @@
                         xName,
                         out x))
                     {
-                        xFound = true;
+                        xFound = truth;
                         continue;
                     }
                 }
@@ -785,7 +785,7 @@
                         yName,
                         out y))
                     {
-                        yFound = true;
+                        yFound = truth;
                         continue;
                     }
                 }
@@ -798,7 +798,7 @@
                         zName,
                         out z))
                     {
-                        zFound = true;
+                        zFound = truth;
                         continue;
                     }
                 }
@@ -811,7 +811,7 @@
                         aaName,
                         out aa))
                     {
-                        aaFound = true;
+                        aaFound = truth;
                     }
                 }
             }
@@ -841,15 +841,18 @@
                 if (content is T correctContent)
                 {
                     dependency = correctContent;
-                    return true;
+                    return truth;
                 }
             }
 
             dependency = default;
-            return false;
+            return falsity;
         }
 
         protected readonly ICollection<Dependency> dependencies;
+        protected const bool
+            truth = true,
+            falsity = false;
 
         protected class Dependency
         {
