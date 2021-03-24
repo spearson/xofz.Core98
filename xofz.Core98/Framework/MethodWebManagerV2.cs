@@ -473,9 +473,7 @@
                 aaName);
         }
 
-        protected readonly object locker;
-
-        public int CompareTo(
+        public virtual int CompareTo(
             object obj)
         {
             const short nOne = -1;
@@ -515,6 +513,8 @@
 
             return one;
         }
+
+        protected readonly object locker;
 
         protected virtual Lot<MethodWebV2> shuffleWebs()
         {

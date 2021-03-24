@@ -893,7 +893,7 @@
             return XTuple.Create(t, u, v, w, x, y, z, aa);
         }
 
-        public int CompareTo(
+        public virtual int CompareTo(
             object obj)
         {
             const short nOne = -1;
