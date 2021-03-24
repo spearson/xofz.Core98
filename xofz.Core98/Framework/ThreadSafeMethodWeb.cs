@@ -1,10 +1,10 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
-    using EH = xofz.EnumerableHelpers;
+    using EH = EnumerableHelpers;
 
     public class ThreadSafeMethodWeb
-        : MethodWeb
+        : MethodWeb, System.IComparable
     {
         public ThreadSafeMethodWeb()
         {
@@ -70,7 +70,7 @@
                         name,
                         out T _))
                     {
-                        unregistered = ds?.Remove(d) 
+                        unregistered = ds?.Remove(d)
                                        ?? falsity;
                         break;
                     }
@@ -891,6 +891,47 @@
             method?.Invoke(t, u, v, w, x, y, z, aa);
 
             return XTuple.Create(t, u, v, w, x, y, z, aa);
+        }
+
+        public int CompareTo(
+            object obj)
+        {
+            const short nOne = -1;
+            const byte one = 1;
+            if (obj is null)
+            {
+                return one;
+            }
+
+            if (obj is ThreadSafeMethodWeb otherWeb)
+            {
+                const byte zero = 0;
+                if (ReferenceEquals(this, otherWeb))
+                {
+                    return zero;
+                }
+
+                long?
+                    thisCount,
+                    otherCount;
+                lock (this.locker ?? new object())
+                {
+                    thisCount = this?.dependencies?.Count;
+                }
+
+                lock (otherWeb.locker ?? new object())
+                {
+                    otherCount = otherWeb?.dependencies?.Count;
+                }
+
+                return thisCount > otherCount
+                    ? one
+                    : otherCount > thisCount
+                        ? nOne
+                        : zero;
+            }
+
+            return one;
         }
 
         protected readonly object locker;

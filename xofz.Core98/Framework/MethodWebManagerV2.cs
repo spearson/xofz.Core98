@@ -5,7 +5,7 @@
     using EH = EnumerableHelpers;
 
     public class MethodWebManagerV2
-        : MethodWebManager
+        : MethodWebManager, System.IComparable
     {
         public MethodWebManagerV2()
         {
@@ -30,6 +30,28 @@
             : base(webs)
         {
             this.locker = locker;
+        }
+
+        public virtual MethodWebV2 Shuffle()
+        {
+            var matchingWebs = this.shuffleWebs();
+            return EH.FirstOrDefault(
+                matchingWebs);
+        }
+
+        public virtual T Shuffle<T>()
+            where T : MethodWebV2
+        {
+            foreach (var web in this.shuffleWebs()
+                                ?? EH.Empty<MethodWebV2>())
+            {
+                if (web is T matchingWeb)
+                {
+                    return matchingWeb;
+                }
+            }
+
+            return default;
         }
 
         public override Lot<string> WebNames()
@@ -77,7 +99,7 @@
             {
                 if (EH.Contains(
                     EH.Select(
-                        ws, 
+                        ws,
                         nmwh => nmwh?.Name),
                     name))
                 {
@@ -103,8 +125,9 @@
             lock (this.locker ?? new object())
             {
                 targetWeb = EH.FirstOrDefault(
-                    this.webs,
-                    nmwh => nmwh?.Name == webName)?.Web;
+                        this.webs,
+                        nmwh => nmwh?.Name == webName)?.
+                    Web;
             }
 
             if (targetWeb == null)
@@ -126,8 +149,9 @@
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
-                    ws,
-                    nmwh => nmwh?.Name == webName)?.Web as T;
+                        ws,
+                        nmwh => nmwh?.Name == webName)?.
+                    Web as T;
             }
 
             if (targetWeb == null)
@@ -169,11 +193,10 @@
             lock (this.locker ?? new object())
             {
                 ws = this.webs;
-                targetWeb = EH
-                    .FirstOrNull(
+                targetWeb = EH.FirstOrNull(
                         ws,
-                        nmwh => nmwh?.Name == webName)
-                    ?.Web;
+                        nmwh => nmwh?.Name == webName)?.
+                    Web;
             }
 
             if (targetWeb == null)
@@ -197,11 +220,10 @@
             lock (this.locker ?? new object())
             {
                 ws = this.webs;
-                targetWeb = EH
-                    .FirstOrDefault(
+                targetWeb = EH.FirstOrDefault(
                         ws,
-                        nmwh => nmwh?.Name == webName)
-                    ?.Web;
+                        nmwh => nmwh?.Name == webName)?.
+                    Web;
             }
 
             if (targetWeb == null)
@@ -220,7 +242,8 @@
         public override XTuple<T, U, V> RunWeb<T, U, V>(
             Do<T, U, V> engine = null,
             string webName = null,
-            string tName = null, string uName = null,
+            string tName = null,
+            string uName = null,
             string vName = null)
         {
             ICollection<NamedMethodWebHolder> ws;
@@ -229,9 +252,9 @@
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
-                    ws,
-                    nmwh => nmwh?.Name == webName)
-                    ?.Web;
+                        ws,
+                        nmwh => nmwh?.Name == webName)?.
+                    Web;
             }
 
             if (targetWeb == null)
@@ -451,5 +474,68 @@
         }
 
         protected readonly object locker;
+
+        public int CompareTo(
+            object obj)
+        {
+            const short nOne = -1;
+            const byte one = 1;
+            if (obj is null)
+            {
+                return one;
+            }
+
+            if (obj is MethodWebManagerV2 otherManager)
+            {
+                const byte zero = 0;
+                if (ReferenceEquals(this, otherManager))
+                {
+                    return zero;
+                }
+
+                long?
+                    thisCount,
+                    otherCount;
+                lock (this.locker ?? new object())
+                {
+                    thisCount = this?.webs?.Count;
+                }
+
+                lock (otherManager.locker ?? new object())
+                {
+                    otherCount = otherManager?.webs?.Count;
+                }
+
+                return thisCount > otherCount
+                    ? one
+                    : otherCount > thisCount
+                        ? nOne
+                        : zero;
+            }
+
+            return one;
+        }
+
+        protected virtual Lot<MethodWebV2> shuffleWebs()
+        {
+            ICollection<NamedMethodWebHolder> ws;
+            var matchingWebs = new ListLot<MethodWebV2>();
+
+            lock (this.locker ?? new object())
+            {
+                ws = this.webs;
+                foreach (var webHolder in ws
+                                          ?? EH.Empty<NamedMethodWebHolder>())
+                {
+                    if (webHolder?.Web is MethodWebV2 webV2)
+                    {
+                        matchingWebs.Add(webV2);
+                    }
+                }
+            }
+
+            matchingWebs.Sort();
+            return matchingWebs;
+        }
     }
 }
