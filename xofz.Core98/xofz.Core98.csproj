@@ -157,12 +157,12 @@
     <Compile Include="Framework\MethodRunnerV2.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\MethodWebManagerV2.cs" />
-    <Compile Include="Framework\MethodWebV2.cs" />
+    <Compile Include="Framework\ThreadSafeMethodWeb.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Shutdown\MethodNames.cs" />
     <Compile Include="Framework\Shutdown\UiNames.cs" />
     <Compile Include="Framework\Synchronizer.cs" />
-    <Compile Include="Framework\ThreadSafeMethodWeb.cs" />
+    <Compile Include="Framework\MethodWebV2.cs" />
     <Compile Include="Framework\MethodWebManager.cs" />
     <Compile Include="Framework\Shutdown\StartHandler.cs" />
     <Compile Include="Framework\MethodRunner.cs" />

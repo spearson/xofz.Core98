@@ -67,12 +67,12 @@
         public override int CompareTo(
             object obj)
         {
-            const short nOne = -1;
-            const byte
-                zero = 0,
-                one = 1;
             if (obj is ShufflingWeb other)
             {
+                const byte
+                    zero = 0,
+                    one = 1;
+                const short nOne = -1;
                 var thisBuffer = new byte[one];
                 var otherBuffer = new byte[one];
                 this?.randomGen?.GetBytes(thisBuffer);
@@ -87,7 +87,7 @@
                         : zero;
             }
 
-            return one;
+            return base.CompareTo(obj);
         }
 
         protected readonly RNGCryptoServiceProvider randomGen;
