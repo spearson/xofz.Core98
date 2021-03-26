@@ -7,21 +7,22 @@
     public class ManagerLocatorV2
         : ManagerLocator
     {
-        public virtual MethodWebManagerV2 Shuffle()
+        public virtual MethodWebManager Shuffle()
         {
             var matchingManagers = this.shuffleManagers();
             return EH.FirstOrDefault(
-                matchingManagers);
+                    matchingManagers)?.
+                Manager;
         }
 
         public virtual T Shuffle<T>()
-            where T : MethodWebManagerV2
+            where T : MethodWebManager
         {
 
-            foreach (var manager in this.shuffleManagers()
-                                ?? EH.Empty<MethodWebManagerV2>())
+            foreach (var managerHolder in this.shuffleManagers()
+                                          ?? EH.Empty<NamedManagerHolder>())
             {
-                if (manager is T matchingManager)
+                if (managerHolder?.Manager is T matchingManager)
                 {
                     return matchingManager;
                 }
@@ -30,11 +31,10 @@
             return default;
         }
 
-        protected virtual Lot<MethodWebManagerV2> shuffleManagers()
+        protected virtual Lot<NamedManagerHolder> shuffleManagers()
         {
             ICollection<NamedManagerHolder> ms;
-            ListLot<MethodWebManagerV2> matchingManagers
-                = new ListLot<MethodWebManagerV2>();
+            var matchingManagers = new ListLot<ShufflingObject>();
 
             lock (this.locker ?? new object())
             {
@@ -42,15 +42,23 @@
                 foreach (var managerHolder in ms ??
                                               EH.Empty<NamedManagerHolder>())
                 {
-                    if (managerHolder?.Manager is MethodWebManagerV2 managerV2)
-                    {
-                        matchingManagers.Add(managerV2);
-                    }
+                    matchingManagers?.Add(
+                        new ShufflingObject(
+                            new NamedManagerHolder
+                            {
+                                Manager = managerHolder?.Manager,
+                                Name = managerHolder?.Name,
+                                Webs = managerHolder?.Webs
+                            }));
                 }
             }
 
-            matchingManagers.Sort();
-            return matchingManagers;
+            matchingManagers?.Sort();
+
+            return new LinkedListLot<NamedManagerHolder>(
+                EH.Select(
+                    matchingManagers,
+                    so => so.O as NamedManagerHolder));
         }
     }
 }

@@ -4,12 +4,19 @@
     using xofz.Framework.Lots;
 
     public sealed class LinkedListLotter 
-        : Lotter
+        : LotterV2
     {
         Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> source)
         {
             return new LinkedListLot<T>(
+                source);
+        }
+
+        public ICollection<T> Collect<T>(
+            IEnumerable<T> source)
+        {
+            return new List<T>(
                 source);
         }
     }

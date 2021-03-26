@@ -8,27 +8,24 @@
     {
         public ShufflingManager()
         {
-            this.randomGen = new RNGCryptoServiceProvider();
         }
 
         protected ShufflingManager(
             ICollection<NamedMethodWebHolder> webs)
             : base(webs)
         {
-            this.randomGen = new RNGCryptoServiceProvider();
         }
 
         protected ShufflingManager(
             object locker)
             : base(locker)
         {
-            this.randomGen = new RNGCryptoServiceProvider();
         }
 
+        [System.Obsolete]
         protected ShufflingManager(
             RNGCryptoServiceProvider randomGen)
         {
-            this.randomGen = randomGen;
         }
 
         protected ShufflingManager(
@@ -36,60 +33,53 @@
             object locker)
             : base(webs, locker)
         {
-            this.randomGen = new RNGCryptoServiceProvider();
         }
 
+        [System.Obsolete]
         protected ShufflingManager(
             ICollection<NamedMethodWebHolder> webs,
             RNGCryptoServiceProvider randomGen)
             : base(webs)
         {
-            this.randomGen = randomGen;
         }
 
+        [System.Obsolete]
         protected ShufflingManager(
             RNGCryptoServiceProvider randomGen,
             object locker)
             : base(locker)
         {
-            this.randomGen = randomGen;
         }
 
+        [System.Obsolete]
         protected ShufflingManager(
             RNGCryptoServiceProvider randomGen,
             ICollection<NamedMethodWebHolder> webs,
             object locker)
             : base(webs, locker)
         {
-            this.randomGen = randomGen;
         }
 
         public override int CompareTo(
             object obj)
         {
-            const short nOne = -1;
-            const byte
-                zero = 0,
-                one = 1;
-            if (obj is ShufflingManager other)
+            if (obj is ShufflingManager otherM)
             {
-                var thisBuffer = new byte[one];
-                var otherBuffer = new byte[one];
-                this?.randomGen?.GetBytes(thisBuffer);
-                other?.randomGen?.GetBytes(otherBuffer);
-
-                var thisNumber = thisBuffer[zero];
-                var otherNumber = otherBuffer[zero];
-                return thisNumber > otherNumber
-                    ? one
-                    : otherNumber > thisNumber
-                        ? nOne
-                        : zero;
+                var soThis = new ShufflingObject(this);
+                var soOther = new ShufflingObject(otherM);
+                return soThis.CompareTo(soOther);
             }
 
-            return one;
+            if (obj is ShufflingObject otherO)
+            {
+                var soThis = new ShufflingObject(this);
+                return soThis.CompareTo(otherO);
+            }
+
+            return base.CompareTo(obj);
         }
 
+        [System.Obsolete(@"This field does nothing.  Check ShufflingObject out.")]
         protected readonly RNGCryptoServiceProvider randomGen;
     }
 }

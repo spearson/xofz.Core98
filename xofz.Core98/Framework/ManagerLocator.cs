@@ -38,6 +38,25 @@
             this.locker = locker;
         }
 
+        public virtual IEnumerable<XTuple<MethodWebManager, string>> ViewManagers()
+        {
+            IEnumerable<XTuple<MethodWebManager, string>> ms;
+            lock (this.locker ?? new object())
+            {
+                ms = new LinkedListLot<XTuple<MethodWebManager, string>>(
+                    EH.Select(
+                        this.managers,
+                        man =>
+                        {
+                            return XTuple.Create(
+                                man?.Manager,
+                                man?.Name);
+                        }));
+            }
+
+            return ms;
+        }
+
         public virtual Lot<string> ManagerNames()
         {
             var lll = new LinkedListLot<string>();

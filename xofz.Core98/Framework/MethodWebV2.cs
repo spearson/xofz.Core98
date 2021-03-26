@@ -1,6 +1,8 @@
 ﻿namespace xofz.Framework
 {
+    using System;
     using System.Collections.Generic;
+    using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
     public class MethodWebV2
@@ -29,6 +31,58 @@
             : base(dependencies)
         {
             this.locker = locker;
+        }
+
+        protected MethodWebV2(
+            MethodWeb copy,
+            LotterV2 lotter)
+            : base(lotter.Collect(
+                EH.Select(
+                    copy.ViewDependencies(),
+                    xT =>
+                    {
+                        return new Dependency
+                        {
+                            Content = xT.Item1,
+                            Name = xT.Item2
+                        };
+                    })))
+        {
+            this.locker = new object();
+        }
+
+        public override IEnumerable<XTuple<object, string>> ViewDependencies()
+        {
+            IEnumerable<XTuple<object, string>> ds;
+            lock (this.locker ?? new object())
+            {
+                ds = new LinkedListLot<XTuple<object, string>>(
+                    base.ViewDependencies());
+            }
+
+            return ds;
+        }
+
+        public virtual object Shuffle()
+        {
+            return EH.FirstOrDefault(
+                    this.shuffleDependencies())?.
+                Content;
+        }
+
+        public virtual T Shuffle<T>()
+        {
+            var shuffled = this.shuffleDependencies();
+            foreach (var shuffledDependency in shuffled ??
+                                               EH.Empty<Dependency>())
+            {
+                if (shuffledDependency?.Content is T matchingContent)
+                {
+                    return matchingContent;
+                }
+            }
+
+            return default;
         }
 
         public override bool RegisterDependency(
@@ -902,11 +956,11 @@
                 return one;
             }
 
-            if (obj is MethodWebV2 otherWeb)
+            if (obj is MethodWebV2 other)
             {
                 const short minusOne = -1;
                 const byte zero = 0;
-                if (ReferenceEquals(this, otherWeb))
+                if (ReferenceEquals(this, other))
                 {
                     return zero;
                 }
@@ -919,9 +973,9 @@
                     thisCount = this?.dependencies?.Count;
                 }
 
-                lock (otherWeb.locker ?? new object())
+                lock (other.locker ?? new object())
                 {
-                    otherCount = otherWeb?.dependencies?.Count;
+                    otherCount = other?.dependencies?.Count;
                 }
 
                 return thisCount > otherCount
@@ -932,6 +986,35 @@
             }
 
             return one;
+        }
+
+        protected virtual Lot<Dependency> shuffleDependencies()
+        {
+            ICollection<Dependency> ds;
+            var matchingDependencies = new ListLot<ShufflingObject>();
+
+            lock (this.locker ?? new object())
+            {
+                ds = this.dependencies;
+                foreach (var dependency in ds
+                                           ?? EH.Empty<Dependency>())
+                {
+                    matchingDependencies?.Add(
+                        new ShufflingObject(
+                            new Dependency
+                            {
+                                Content = dependency?.Content,
+                                Name = dependency?.Name
+                            }));
+                }
+            }
+
+            matchingDependencies?.Sort();
+
+            return new LinkedListLot<Dependency>(
+                EH.Select(
+                    matchingDependencies,
+                    so => so.O as Dependency));
         }
 
         protected readonly object locker;

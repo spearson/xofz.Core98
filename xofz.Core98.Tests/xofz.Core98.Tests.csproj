@@ -157,6 +157,7 @@
     <Compile Include="Root\Commands\SetupLoginCommandTests.cs" />
     <Compile Include="Root\Commands\SetupMainCommandTests.cs" />
     <Compile Include="Root\Commands\SetupShutdownCommandTests.cs" />
+    <Compile Include="ShufflingObjectTests.cs" />
     <Compile Include="XTupleTests.cs" />
   </ItemGroup>
   <ItemGroup>

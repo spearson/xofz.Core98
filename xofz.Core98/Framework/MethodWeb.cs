@@ -18,6 +18,18 @@
             this.dependencies = dependencies;
         }
 
+        public virtual IEnumerable<XTuple<object, string>> ViewDependencies()
+        {
+            return EH.Select(
+                this.dependencies,
+                dep =>
+                {
+                    return XTuple.Create(
+                        dep.Content,
+                        dep.Name);
+                });
+        }
+
         public virtual bool RegisterDependency(
             object dependency,
             string name = null)

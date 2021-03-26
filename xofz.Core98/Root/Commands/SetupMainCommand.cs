@@ -9,18 +9,6 @@
     public class SetupMainCommand 
         : Command
     {
-        [Obsolete(@"Bad ctor.")]
-        public SetupMainCommand(
-            MainUi ui,
-            MethodWeb web,
-            AccessLevel shutdownLevel = AccessLevel.None)
-            : this(ui, web, new SettingsHolder
-            {
-                ShutdownLevel = shutdownLevel
-            })
-        {
-        }
-
         public SetupMainCommand(
             MainUi ui,
             MethodWeb web,

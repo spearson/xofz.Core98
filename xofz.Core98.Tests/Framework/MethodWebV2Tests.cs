@@ -1,5 +1,7 @@
 ﻿namespace xofz.Tests.Framework
 {
+    using Ploeh.AutoFixture;
+    using xofz.Framework.Lots;
     using Xunit;
 
     public class MethodWebV2Tests
@@ -9,9 +11,11 @@
             protected Context()
             {
                 this.v2 = new xofz.Framework.MethodWebV2();
+                this.fixture = new Fixture();
             }
 
             protected xofz.Framework.MethodWebV2 v2;
+            protected readonly Fixture fixture;
             protected const bool
                 truth = true,
                 falsity = false;
@@ -811,6 +815,88 @@
             protected const string name6 = nameof(name6);
             protected const string name7 = nameof(name7);
             protected const string name8 = nameof(name8);
+        }
+
+        public class When_generic_Shuffle_is_called : Context
+        {
+            [Fact]
+            public void Shuffles_correctly()
+            {
+                var l = this.fixture.Create<long>();
+                var toShuffle = new[]
+                {
+                    new object(),
+                    new object(),
+                    l,
+                    new object()
+                };
+
+                foreach (var item in toShuffle)
+                {
+                    this.v2.RegisterDependency(
+                        item);
+                }
+
+                var shufflee = this.v2.Shuffle<long>();
+
+                Assert.Equal(
+                    l,
+                    shufflee);
+
+                var shufflee2 = this.v2.Shuffle<object>();
+
+                Assert.Contains(
+                    shufflee2,
+                    toShuffle);
+            }
+        }
+
+        public class When_Shuffle_is_called : Context
+        {
+            [Fact]
+            public void Shuffles_correctly()
+            {
+                var s = this.fixture.Create<short>();
+                var toShuffle = new[]
+                {
+                    s,
+                    new object(),
+                    new object(),
+                    new object()
+                };
+
+                foreach (var item in toShuffle)
+                {
+                    this.v2.RegisterDependency(
+                        item);
+                }
+
+                var shufflee = this.v2.Shuffle();
+
+                Assert.Contains(
+                    shufflee,
+                    toShuffle);
+            }
+        }
+
+        public class When_ViewDependencies_is_called : Context
+        {
+            [Fact]
+            public void Count_lines_up()
+            {
+                const byte depCount = 0x9;
+                for (var i = 0; i < depCount; ++i)
+                {
+                    this.v2.RegisterDependency(
+                        new object());
+                }
+
+                var lll = new LinkedListLot<XTuple<object, string>>(
+                    this.v2.ViewDependencies());
+                Assert.Equal(
+                    depCount,
+                    lll.Count);
+            }
         }
     }
 }

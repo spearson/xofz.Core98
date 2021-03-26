@@ -82,7 +82,7 @@
                 m.AddWeb(
                     new MethodWebV2());
                 m.AddWeb(
-                    this.webV3, 
+                    this.webV3,
                     webV3Name);
             }
 
@@ -103,31 +103,6 @@
                 Assert.Same(
                     default(WebV3),
                     this.manager.Shuffle<WebV3>());
-            }
-
-            [Fact]
-            public void Returns_web_with_least_deps()
-            {
-                var m = this.manager;
-                const string testName = nameof(testName);
-                var testWeb = new MethodWebV2();
-                m.AddWeb(
-                    testWeb,
-                    testName);
-                m.AccessWeb(web =>
-                    {
-                        web.RegisterDependency(
-                            new object());
-                    }, webV3Name);
-                m.AccessWeb(web =>
-                {
-                    web.RegisterDependency(
-                        new object());
-                });
-
-                Assert.Same(
-                    testWeb,
-                    m.Shuffle<MethodWebV2>());
             }
 
             protected readonly MethodWeb webV3;
@@ -163,27 +138,6 @@
                 Assert.Same(
                     default(MethodWebV2),
                     this.manager.Shuffle<MethodWebV2>());
-            }
-
-            [Fact]
-            public void Returns_web_with_least_deps()
-            {
-                var m = this.manager;
-                const string testName = nameof(testName);
-                var testWeb = new WebV3();
-                m.AddWeb(
-                    testWeb,
-                    testName);
-                m.AccessWeb(web =>
-                    {
-                        web.RegisterDependency(
-                            new object());
-                    },
-                    webV2Name);
-
-                Assert.Same(
-                    testWeb,
-                    m.Shuffle<MethodWebV2>());
             }
 
             protected readonly MethodWeb webV2;

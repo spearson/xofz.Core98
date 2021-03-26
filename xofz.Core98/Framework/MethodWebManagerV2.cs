@@ -32,26 +32,16 @@
             this.locker = locker;
         }
 
-        public virtual MethodWebV2 Shuffle()
+        public override IEnumerable<XTuple<MethodWeb, string>> ViewWebs()
         {
-            var matchingWebs = this.shuffleWebs();
-            return EH.FirstOrDefault(
-                matchingWebs);
-        }
-
-        public virtual T Shuffle<T>()
-            where T : MethodWebV2
-        {
-            foreach (var web in this.shuffleWebs()
-                                ?? EH.Empty<MethodWebV2>())
+            IEnumerable<XTuple<MethodWeb, string>> ws;
+            lock (this.locker)
             {
-                if (web is T matchingWeb)
-                {
-                    return matchingWeb;
-                }
+                ws = new LinkedListLot<XTuple<MethodWeb, string>>(
+                    base.ViewWebs());
             }
 
-            return default;
+            return ws;
         }
 
         public override Lot<string> WebNames()
@@ -117,6 +107,25 @@
             return truth;
         }
 
+        public virtual bool RemoveWeb(
+            string webName)
+        {
+            ICollection<NamedMethodWebHolder> ws;
+            NamedMethodWebHolder targetWeb;
+            bool removed;
+            lock (this.locker ?? new object())
+            {
+                ws = this.webs;
+                targetWeb = EH.FirstOrNull(
+                    ws,
+                    nmwh => nmwh?.Name == webName);
+
+                removed = ws.Remove(targetWeb);
+            }
+
+            return removed;
+        }
+
         public override MethodWeb AccessWeb(
             Do<MethodWeb> accessor = null,
             string webName = null)
@@ -164,23 +173,27 @@
             return targetWeb;
         }
 
-        public virtual bool RemoveWeb(
-            string webName)
+        public virtual MethodWeb Shuffle()
         {
-            ICollection<NamedMethodWebHolder> ws;
-            NamedMethodWebHolder targetWeb;
-            bool removed;
-            lock (this.locker ?? new object())
-            {
-                ws = this.webs;
-                targetWeb = EH.FirstOrNull(
-                    ws,
-                    nmwh => nmwh?.Name == webName);
+            var matchingWebs = this.shuffleWebs();
+            return EH.FirstOrDefault(
+                    matchingWebs)?.
+                Web;
+        }
 
-                removed = ws.Remove(targetWeb);
+        public virtual T Shuffle<T>()
+            where T : MethodWeb
+        {
+            foreach (var webHolder in this.shuffleWebs()
+                                      ?? EH.Empty<NamedMethodWebHolder>())
+            {
+                if (webHolder?.Web is T matchingWeb)
+                {
+                    return matchingWeb;
+                }
             }
 
-            return removed;
+            return default;
         }
 
         public override T RunWeb<T>(
@@ -516,10 +529,10 @@
 
         protected readonly object locker;
 
-        protected virtual Lot<MethodWebV2> shuffleWebs()
+        protected virtual Lot<NamedMethodWebHolder> shuffleWebs()
         {
             ICollection<NamedMethodWebHolder> ws;
-            var matchingWebs = new ListLot<MethodWebV2>();
+            var matchingWebs = new ListLot<ShufflingObject>();
 
             lock (this.locker ?? new object())
             {
@@ -527,15 +540,22 @@
                 foreach (var webHolder in ws
                                           ?? EH.Empty<NamedMethodWebHolder>())
                 {
-                    if (webHolder?.Web is MethodWebV2 webV2)
-                    {
-                        matchingWebs.Add(webV2);
-                    }
+                    matchingWebs?.Add(
+                        new ShufflingObject(
+                            new NamedMethodWebHolder
+                            {
+                                Web = webHolder?.Web,
+                                Name = webHolder?.Name
+                            }));
                 }
             }
 
-            matchingWebs.Sort();
-            return matchingWebs;
+            matchingWebs?.Sort();
+
+            return new LinkedListLot<NamedMethodWebHolder>(
+                EH.Select(
+                    matchingWebs,
+                    so => so.O as NamedMethodWebHolder));
         }
     }
 }

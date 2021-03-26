@@ -67,9 +67,11 @@
     <Compile Include="Framework\ShufflingWeb.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
+    <Compile Include="LotterV2.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
+    <Compile Include="ShufflingObject.cs" />
     <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
     <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
