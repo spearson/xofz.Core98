@@ -1,20 +1,41 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Security.Cryptography;
 
     public class ShufflingObject
-        : System.IComparable
+        : ShufflingObject<object>
     {
         public ShufflingObject()
-            : this(
-                new RNGCryptoServiceProvider(),
-                new object())
+            : base(new object())
         {
         }
 
         public ShufflingObject(
             object o)
+            : base(o)
+        {
+        }
+
+        protected ShufflingObject(
+            RNGCryptoServiceProvider randomGen,
+            object o)
+            : base(randomGen, o)
+        {
+        }
+    }
+
+    public class ShufflingObject<T>
+        : System.IComparable
+    {
+        public ShufflingObject()
+            : this(
+                new RNGCryptoServiceProvider(),
+                default)
+        {
+        }
+
+        public ShufflingObject(
+            T o)
             : this(
                 new RNGCryptoServiceProvider(),
                 o)
@@ -23,13 +44,13 @@
 
         protected ShufflingObject(
             RNGCryptoServiceProvider randomGen,
-            object o)
+            T o)
         {
             this.randomGen = randomGen;
             this.ob = o;
         }
 
-        public virtual Object O
+        public virtual T O
         {
             get => this.ob;
 
@@ -46,11 +67,11 @@
         public virtual int CompareTo(
             object obj)
         {
-            const short nOne = -1;
+            const short minusOne = -1;
             const byte
                 zero = 0,
                 one = 1;
-            if (obj is ShufflingObject other)
+            if (obj is ShufflingObject<T> other)
             {
                 var thisBuffer = new byte[one];
                 var otherBuffer = new byte[one];
@@ -62,14 +83,14 @@
                 return thisNumber > otherNumber
                     ? one
                     : otherNumber > thisNumber
-                        ? nOne
+                        ? minusOne
                         : zero;
             }
 
             return one;
         }
 
-        protected object ob;
+        protected T ob;
         protected RNGCryptoServiceProvider randomGen;
     }
 }
