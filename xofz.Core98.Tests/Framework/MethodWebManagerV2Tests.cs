@@ -14,11 +14,7 @@
             }
 
             protected readonly MethodWebManagerV2 manager;
-            protected const string webV3Name = nameof(webV3Name);
 
-            protected class WebV3 : MethodWebV2
-            {
-            }
         }
 
         public class When_stressed : Context
@@ -73,75 +69,6 @@
             }
         }
 
-        public class When_generic_Shuffle_is_called : Context
-        {
-            public When_generic_Shuffle_is_called()
-            {
-                this.webV3 = new WebV3();
-                var m = this.manager;
-                m.AddWeb(
-                    new MethodWebV2());
-                m.AddWeb(
-                    this.webV3,
-                    webV3Name);
-            }
 
-            [Fact]
-            public void If_types_match_returns_the_web()
-            {
-                Assert.Same(
-                    this.webV3,
-                    this.manager.Shuffle<WebV3>());
-            }
-
-            [Fact]
-            public void Otherwise_returns_default()
-            {
-                var m = this.manager;
-                m.RemoveWeb(webV3Name);
-
-                Assert.Same(
-                    default(WebV3),
-                    this.manager.Shuffle<WebV3>());
-            }
-
-            protected readonly MethodWeb webV3;
-        }
-
-        public class When_Shuffle_is_called : Context
-        {
-            public When_Shuffle_is_called()
-            {
-                this.webV2 = new MethodWebV2();
-                var m = this.manager;
-                m.AddWeb(
-                    new MethodWeb());
-                m.AddWeb(
-                    this.webV2,
-                    webV2Name);
-            }
-
-            [Fact]
-            public void If_types_match_returns_the_web()
-            {
-                Assert.Same(
-                    this.webV2,
-                    this.manager.Shuffle<MethodWebV2>());
-            }
-
-            [Fact]
-            public void Otherwise_returns_default()
-            {
-                var m = this.manager;
-                m.RemoveWeb(webV2Name);
-
-                Assert.Same(
-                    default(MethodWebV2),
-                    this.manager.Shuffle<MethodWebV2>());
-            }
-
-            protected readonly MethodWeb webV2;
-            protected const string webV2Name = nameof(webV2Name);
-        }
     }
 }

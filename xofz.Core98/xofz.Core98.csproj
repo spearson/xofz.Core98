@@ -62,9 +62,11 @@
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
     <Compile Include="Framework\Lots\SetLot.cs" />
     <Compile Include="Framework\ManagerLocator.cs" />
-    <Compile Include="Framework\ManagerLocatorV2.cs" />
-    <Compile Include="Framework\ShufflingManager.cs" />
-    <Compile Include="Framework\ShufflingWeb.cs" />
+    <Compile Include="Framework\ManagerLocators\ShufflingManagerLocator.cs" />
+    <Compile Include="Framework\MethodWebManagers\CopyManager.cs" />
+    <Compile Include="Framework\MethodWebManagers\ShufflingManager.cs" />
+    <Compile Include="Framework\MethodWebs\CopyWeb.cs" />
+    <Compile Include="Framework\MethodWebs\ShufflingWeb.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="LotterV2.cs" />
@@ -159,7 +161,7 @@
     <Compile Include="Framework\MethodRunnerV2.cs" />
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\MethodWebManagerV2.cs" />
-    <Compile Include="Framework\ThreadSafeMethodWeb.cs" />
+    <Compile Include="Framework\MethodWebs\ThreadSafeMethodWeb.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Shutdown\MethodNames.cs" />
     <Compile Include="Framework\Shutdown\UiNames.cs" />

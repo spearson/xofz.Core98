@@ -38,10 +38,11 @@
             this.locker = locker;
         }
 
+        [System.Obsolete]
         public virtual IEnumerable<XTuple<MethodWebManager, string>> ViewManagers()
         {
             IEnumerable<XTuple<MethodWebManager, string>> ms;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ms = new LinkedListLot<XTuple<MethodWebManager, string>>(
                     EH.Select(
@@ -60,7 +61,7 @@
         public virtual Lot<string> ManagerNames()
         {
             var lll = new LinkedListLot<string>();
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 foreach (var managerName in EH.Select(
                     this.managers,
@@ -85,7 +86,7 @@
 
             ICollection<NamedManagerHolder> ms;
             NamedManagerHolder alreadyAddedManager;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ms = this.managers;
                 alreadyAddedManager = EH.FirstOrDefault(
@@ -100,30 +101,40 @@
                 return falsity;
             }
 
-            NamedManagerHolder sameNameHolder = null;
+            NamedManagerHolder sameNameHolder;
             var newHolder = new NamedManagerHolder
             {
                 Manager = manager,
                 Name = name
             };
 
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 sameNameHolder = EH.FirstOrDefault(
                         ms,
                         nmh => nmh?.Name == name);
-
-                if (sameNameHolder != null)
-                {
-                    return falsity;
-                }
-
-                ms?.Add(newHolder);
             }
+
+            if (sameNameHolder != null)
+            {
+                return falsity;
+            }
+
+            this.add(newHolder);
 
             this.harvestWebs(newHolder);
 
             return truth;
+        }
+
+        protected virtual void add(
+            NamedManagerHolder managerHolder)
+        {
+            lock (this.locker)
+            {
+                this.managers?.Add(
+                    managerHolder);
+            }
         }
 
         public virtual MethodWebManager AccessManager(
@@ -131,7 +142,7 @@
             string managerName = null)
         {
             NamedManagerHolder targetManager;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetManager = EH.FirstOrDefault(
                     this.managers,
@@ -157,7 +168,7 @@
             where T : MethodWebManager
         {
             NamedManagerHolder targetManager;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetManager = EH.FirstOrDefault(
                     this.managers,
@@ -184,7 +195,7 @@
             ICollection<NamedManagerHolder> ms;
             NamedManagerHolder targetManager;
             bool removed;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ms = this.managers;
                 targetManager = EH.FirstOrDefault(
@@ -489,7 +500,7 @@
         {
             NamedManagerHolder targetManager;
             ICollection<NamedManagerHolder> ms;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ms = this.managers;
                 targetManager = EH.FirstOrDefault(

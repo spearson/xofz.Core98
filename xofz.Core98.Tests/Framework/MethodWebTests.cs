@@ -578,26 +578,5 @@
                 Assert.True(ran);
             }
         }
-
-        public class When_ViewDependencies_is_called : Context
-        {
-            [Fact]
-            public void Count_lines_up()
-            {
-                var w = this.web;
-                const byte depCount = 0x9;
-                for (var i = 0; i < depCount; ++i)
-                {
-                    w.RegisterDependency(
-                        new object());
-                }
-
-                var lll = new LinkedListLot<XTuple<object, string>>(
-                    w.ViewDependencies());
-                Assert.Equal(
-                    depCount,
-                    lll.Count);
-            }
-        }
     }
 }

@@ -5,7 +5,7 @@
     using EH = EnumerableHelpers;
 
     public class MethodWebManagerV2
-        : MethodWebManager, System.IComparable
+        : MethodWebManager
     {
         public MethodWebManagerV2()
         {
@@ -32,6 +32,7 @@
             this.locker = locker;
         }
 
+        [System.Obsolete]
         public override IEnumerable<XTuple<MethodWeb, string>> ViewWebs()
         {
             IEnumerable<XTuple<MethodWeb, string>> ws;
@@ -47,7 +48,7 @@
         public override Lot<string> WebNames()
         {
             var lll = new LinkedListLot<string>();
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 foreach (var webName in EH.Select(
                     this.webs,
@@ -72,7 +73,7 @@
 
             ICollection<NamedMethodWebHolder> ws;
             NamedMethodWebHolder alreadyAddedWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 alreadyAddedWeb = EH.FirstOrDefault(
@@ -85,7 +86,7 @@
                 return falsity;
             }
 
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 if (EH.Contains(
                     EH.Select(
@@ -95,16 +96,25 @@
                 {
                     return falsity;
                 }
-
-                ws?.Add(
-                    new NamedMethodWebHolder
-                    {
-                        Web = web,
-                        Name = name
-                    });
             }
 
+            this.add(
+                new NamedMethodWebHolder
+                {
+                    Web = web,
+                    Name = name
+                });
+
             return truth;
+        }
+
+        protected override void add(
+            NamedMethodWebHolder webHolder)
+        {
+            lock (this.locker)
+            {
+                this.webs?.Add(webHolder);
+            }
         }
 
         public virtual bool RemoveWeb(
@@ -113,7 +123,7 @@
             ICollection<NamedMethodWebHolder> ws;
             NamedMethodWebHolder targetWeb;
             bool removed;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrNull(
@@ -131,7 +141,7 @@
             string webName = null)
         {
             MethodWeb targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                         this.webs,
@@ -154,7 +164,7 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             T targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
@@ -173,28 +183,7 @@
             return targetWeb;
         }
 
-        public virtual MethodWeb Shuffle()
-        {
-            var matchingWebs = this.shuffleWebs();
-            return EH.FirstOrDefault(
-                    matchingWebs)?.
-                Web;
-        }
-
-        public virtual T Shuffle<T>()
-            where T : MethodWeb
-        {
-            foreach (var webHolder in this.shuffleWebs()
-                                      ?? EH.Empty<NamedMethodWebHolder>())
-            {
-                if (webHolder?.Web is T matchingWeb)
-                {
-                    return matchingWeb;
-                }
-            }
-
-            return default;
-        }
+        
 
         public override T RunWeb<T>(
             Do<T> engine = null,
@@ -203,7 +192,7 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             MethodWeb targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrNull(
@@ -230,7 +219,7 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             MethodWeb targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
@@ -261,7 +250,7 @@
         {
             ICollection<NamedMethodWebHolder> ws;
             MethodWeb targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 targetWeb = EH.FirstOrDefault(
@@ -294,7 +283,7 @@
             string wName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
@@ -329,7 +318,7 @@
             string xName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
@@ -367,7 +356,7 @@
             string yName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
@@ -408,7 +397,7 @@
             string zName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
@@ -453,7 +442,7 @@
             string aaName = null)
         {
             NamedMethodWebHolder targetWeb;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 targetWeb = EH.FirstOrDefault(
                     this.webs,
@@ -486,76 +475,6 @@
                 aaName);
         }
 
-        public virtual int CompareTo(
-            object obj)
-        {
-            const short nOne = -1;
-            const byte one = 1;
-            if (obj is null)
-            {
-                return one;
-            }
-
-            if (obj is MethodWebManagerV2 otherManager)
-            {
-                const byte zero = 0;
-                if (ReferenceEquals(this, otherManager))
-                {
-                    return zero;
-                }
-
-                long?
-                    thisCount,
-                    otherCount;
-                lock (this.locker ?? new object())
-                {
-                    thisCount = this?.webs?.Count;
-                }
-
-                lock (otherManager.locker ?? new object())
-                {
-                    otherCount = otherManager?.webs?.Count;
-                }
-
-                return thisCount > otherCount
-                    ? one
-                    : otherCount > thisCount
-                        ? nOne
-                        : zero;
-            }
-
-            return one;
-        }
-
         protected readonly object locker;
-
-        protected virtual Lot<NamedMethodWebHolder> shuffleWebs()
-        {
-            ICollection<NamedMethodWebHolder> ws;
-            var matchingWebs = new ListLot<ShufflingObject>();
-
-            lock (this.locker ?? new object())
-            {
-                ws = this.webs;
-                foreach (var webHolder in ws
-                                          ?? EH.Empty<NamedMethodWebHolder>())
-                {
-                    matchingWebs?.Add(
-                        new ShufflingObject(
-                            new NamedMethodWebHolder
-                            {
-                                Web = webHolder?.Web,
-                                Name = webHolder?.Name
-                            }));
-                }
-            }
-
-            matchingWebs?.Sort();
-
-            return new LinkedListLot<NamedMethodWebHolder>(
-                EH.Select(
-                    matchingWebs,
-                    so => so.O as NamedMethodWebHolder));
-        }
     }
 }

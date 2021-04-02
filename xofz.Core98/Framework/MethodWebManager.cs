@@ -18,6 +18,7 @@
             this.webs = webs;
         }
 
+        [System.Obsolete]
         public virtual IEnumerable<XTuple<MethodWeb, string>> ViewWebs()
         {
             return EH.Select(
@@ -66,13 +67,19 @@
                 return falsity;
             }
 
-            ws.Add(
+            this.add(
                 new NamedMethodWebHolder
                 {
                     Web = web,
                     Name = name
                 });
             return truth;
+        }
+
+        protected virtual void add(
+            NamedMethodWebHolder webHolder)
+        {
+            this.webs?.Add(webHolder);
         }
 
         public virtual MethodWeb AccessWeb(

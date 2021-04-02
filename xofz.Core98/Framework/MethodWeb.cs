@@ -18,6 +18,7 @@
             this.dependencies = dependencies;
         }
 
+        [System.Obsolete]
         public virtual IEnumerable<XTuple<object, string>> ViewDependencies()
         {
             return EH.Select(
@@ -39,13 +40,7 @@
                 return falsity;
             }
 
-            var ds = this.dependencies;
-            if (ds == null)
-            {
-                return falsity;
-            }
-
-            ds.Add(
+            this.register(
                 new Dependency
                 {
                     Content = dependency,
@@ -54,13 +49,19 @@
             return truth;
         }
 
+        protected virtual void register(
+            Dependency dependency)
+        {
+            this.dependencies?.Add(
+                dependency);
+        }
+
         public virtual T Run<T>(
             Do<T> method = null,
             string dependencyName = null)
         {
-            var ds = this.dependencies;
             T t;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (this.tryGet(
@@ -86,13 +87,12 @@
             string tName = null,
             string uName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             bool
                 tFound = falsity,
                 uFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound)
@@ -147,7 +147,6 @@
             string uName = null,
             string vName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -155,7 +154,7 @@
                 tFound = falsity,
                 uFound = falsity,
                 vFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound)
@@ -224,7 +223,6 @@
             string vName = null,
             string wName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -234,7 +232,7 @@
                 uFound = falsity,
                 vFound = falsity,
                 wFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound)
@@ -317,7 +315,6 @@
             string wName = null,
             string xName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -329,7 +326,7 @@
                 vFound = falsity,
                 wFound = falsity,
                 xFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound)
@@ -418,15 +415,14 @@
         }
 
         public virtual XTuple<T, U, V, W, X, Y> Run<T, U, V, W, X, Y>(
-            Do<T, U, V, W, X, Y> method = null, 
+            Do<T, U, V, W, X, Y> method = null,
             string tName = null,
-            string uName = null, 
-            string vName = null, 
+            string uName = null,
+            string vName = null,
             string wName = null,
-            string xName = null, 
+            string xName = null,
             string yName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -440,7 +436,7 @@
                 wFound = falsity,
                 xFound = falsity,
                 yFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound)
@@ -535,7 +531,7 @@
 
             return XTuple.Create(t, u, v, w, x, y);
 
-        invoke:
+            invoke:
             method?.Invoke(t, u, v, w, x, y);
 
             return XTuple.Create(t, u, v, w, x, y);
@@ -551,7 +547,6 @@
             string yName = null,
             string zName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -567,7 +562,7 @@
                 xFound = falsity,
                 yFound = falsity,
                 zFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound &&
@@ -695,7 +690,6 @@
             string zName = null,
             string aaName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -713,7 +707,7 @@
                 yFound = falsity,
                 zFound = falsity,
                 aaFound = falsity;
-            foreach (var d in ds
+            foreach (var d in this.dependencies
                               ?? EH.Empty<Dependency>())
             {
                 if (tFound && uFound && vFound && wFound && xFound && yFound &&

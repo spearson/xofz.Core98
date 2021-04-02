@@ -1,5 +1,6 @@
 ﻿namespace xofz.Tests.Framework
 {
+    using System.Threading;
     using Ploeh.AutoFixture;
     using xofz.Framework.Lots;
     using Xunit;
@@ -817,85 +818,34 @@
             protected const string name8 = nameof(name8);
         }
 
-        public class When_generic_Shuffle_is_called : Context
+        public class Sync_tests 
+            : Context
         {
             [Fact]
-            public void Shuffles_correctly()
+            public void Does_not_throw_when_going_hard()
             {
-                var l = this.fixture.Create<long>();
-                var toShuffle = new[]
+                var w = this.v2;
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    new object(),
-                    new object(),
-                    l,
-                    new object()
-                };
+                    for (short i = 0; i < 0xFFF; ++i)
+                    {
+                        w.Run<object>();
+                        w.RegisterDependency(new object());
+                        w.Run<object>();
+                    }
+                });
 
-                foreach (var item in toShuffle)
+                ThreadPool.QueueUserWorkItem(state =>
                 {
-                    this.v2.RegisterDependency(
-                        item);
-                }
+                    for (short i = 0; i < 0xFFF; ++i)
+                    {
+                        w.Run<object>();
+                        w.Run<object>();
+                        w.Unregister<object>();
+                    }
+                });
 
-                var shufflee = this.v2.Shuffle<long>();
-
-                Assert.Equal(
-                    l,
-                    shufflee);
-
-                var shufflee2 = this.v2.Shuffle<object>();
-
-                Assert.Contains(
-                    shufflee2,
-                    toShuffle);
-            }
-        }
-
-        public class When_Shuffle_is_called : Context
-        {
-            [Fact]
-            public void Shuffles_correctly()
-            {
-                var s = this.fixture.Create<short>();
-                var toShuffle = new[]
-                {
-                    s,
-                    new object(),
-                    new object(),
-                    new object()
-                };
-
-                foreach (var item in toShuffle)
-                {
-                    this.v2.RegisterDependency(
-                        item);
-                }
-
-                var shufflee = this.v2.Shuffle();
-
-                Assert.Contains(
-                    shufflee,
-                    toShuffle);
-            }
-        }
-
-        public class When_ViewDependencies_is_called : Context
-        {
-            [Fact]
-            public void Count_lines_up()
-            {
-                const byte depCount = 0x9;
-                for (var i = 0; i < depCount; ++i)
-                {
-                    this.v2.RegisterDependency(
-                        new object());
-                }
-
-                var lll = new LinkedListLot<XTuple<object, string>>(
-                    this.v2.ViewDependencies());
-                Assert.Equal(
-                    depCount,
-                    lll.Count);
+                Thread.Sleep(0xFF);
             }
         }
     }

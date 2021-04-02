@@ -1,11 +1,11 @@
-﻿namespace xofz.Framework
+﻿namespace xofz.Framework.ManagerLocators
 {
     using System.Collections.Generic;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
-    public class ManagerLocatorV2
-        : ManagerLocator
+    public class ShufflingManagerLocator
+        : ManagerLocator, System.IComparable
     {
         public virtual MethodWebManager Shuffle()
         {
@@ -59,6 +59,15 @@
                 EH.Select(
                     matchingManagers,
                     so => so.O as NamedManagerHolder));
+        }
+
+        public virtual int CompareTo(
+            object obj)
+        {
+            var soThis = new ShufflingObject(this);
+            var soOther = new ShufflingObject(obj);
+
+            return soThis.CompareTo(soOther);
         }
     }
 }

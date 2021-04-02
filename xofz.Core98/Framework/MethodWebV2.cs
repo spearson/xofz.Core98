@@ -1,12 +1,11 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Collections.Generic;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
     public class MethodWebV2
-        : MethodWeb, System.IComparable
+        : MethodWeb
     {
         public MethodWebV2()
         {
@@ -33,6 +32,7 @@
             this.locker = locker;
         }
 
+        [System.Obsolete]
         protected MethodWebV2(
             MethodWeb copy,
             LotterV2 lotter)
@@ -51,6 +51,7 @@
             this.locker = new object();
         }
 
+        [System.Obsolete]
         public override IEnumerable<XTuple<object, string>> ViewDependencies()
         {
             IEnumerable<XTuple<object, string>> ds;
@@ -63,49 +64,14 @@
             return ds;
         }
 
-        public virtual object Shuffle()
+        protected override void register(
+            Dependency dependency)
         {
-            return EH.FirstOrDefault(
-                    this.shuffleDependencies())?.
-                Content;
-        }
-
-        public virtual T Shuffle<T>()
-        {
-            var shuffled = this.shuffleDependencies();
-            foreach (var shuffledDependency in shuffled ??
-                                               EH.Empty<Dependency>())
+            lock (this.locker)
             {
-                if (shuffledDependency?.Content is T matchingContent)
-                {
-                    return matchingContent;
-                }
+                this.dependencies?.Add(
+                    dependency);
             }
-
-            return default;
-        }
-
-        public override bool RegisterDependency(
-            object dependency,
-            string name = null)
-        {
-            if (dependency == null)
-            {
-                return falsity;
-            }
-
-            var d = new Dependency
-            {
-                Content = dependency,
-                Name = name
-            };
-
-            lock (this.locker ?? new object())
-            {
-                this.dependencies.Add(d);
-            }
-
-            return truth;
         }
 
         public virtual bool Unregister<T>(
@@ -113,7 +79,7 @@
         {
             var ds = this.dependencies;
             var unregistered = falsity;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 foreach (var d in ds
                                   ?? EH.Empty<Dependency>())
@@ -945,76 +911,6 @@
             method?.Invoke(t, u, v, w, x, y, z, aa);
 
             return XTuple.Create(t, u, v, w, x, y, z, aa);
-        }
-
-        public virtual int CompareTo(
-            object obj)
-        {
-            const byte one = 1;
-            if (obj is null)
-            {
-                return one;
-            }
-
-            if (obj is MethodWebV2 other)
-            {
-                const short minusOne = -1;
-                const byte zero = 0;
-                if (ReferenceEquals(this, other))
-                {
-                    return zero;
-                }
-
-                long?
-                    thisCount,
-                    otherCount;
-                lock (this.locker ?? new object())
-                {
-                    thisCount = this?.dependencies?.Count;
-                }
-
-                lock (other.locker ?? new object())
-                {
-                    otherCount = other?.dependencies?.Count;
-                }
-
-                return thisCount > otherCount
-                    ? one
-                    : otherCount > thisCount
-                        ? minusOne
-                        : zero;
-            }
-
-            return one;
-        }
-
-        protected virtual Lot<Dependency> shuffleDependencies()
-        {
-            ICollection<Dependency> ds;
-            var matchingDependencies = new ListLot<ShufflingObject>();
-
-            lock (this.locker ?? new object())
-            {
-                ds = this.dependencies;
-                foreach (var dependency in ds
-                                           ?? EH.Empty<Dependency>())
-                {
-                    matchingDependencies?.Add(
-                        new ShufflingObject(
-                            new Dependency
-                            {
-                                Content = dependency?.Content,
-                                Name = dependency?.Name
-                            }));
-                }
-            }
-
-            matchingDependencies?.Sort();
-
-            return new LinkedListLot<Dependency>(
-                EH.Select(
-                    matchingDependencies,
-                    so => so.O as Dependency));
         }
 
         protected readonly object locker;
