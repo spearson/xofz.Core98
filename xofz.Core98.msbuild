@@ -1,22 +1,36 @@
-<Project DefaultTargets="WriteAssemblyInfo;Build;Test;Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project
+  DefaultTargets="WriteAssemblyInfo;Build;Test;Zip;Deploy"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   
 
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" />
+  <Import
+    Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"
+  />
 
 
   <PropertyGroup>
     <!-- TeamCity environment variable name -->
     <Version>$(BUILD_NUMBER)</Version>
     <ProjectName>xofz.Core98</ProjectName>
+    <TestProjectName>$(ProjectName).Tests</TestProjectName>
     <BuildFolder>$(ProjectName)\bin\Release</BuildFolder>
+    <TestBuildFolder>$(TestProjectName)\bin\Release</TestBuildFolder>
+    <LicenseFilePath>$(BuildFolder)\ms-PL.txt</LicenseFilePath>
+    <!-- TeamCity environment variable name -->
     <WorkingFolder>$(teamcity_build_workingDir)</WorkingFolder>
-    <!-- This folder has all of its files deleted before copying the build output to it -->
-    <DeployFolder>H:\Dropbox\Libraries\$(ProjectName)</DeployFolder>
-    <DeployFolder2>H:\OneDrive\Libraries\$(ProjectName)</DeployFolder2>
+    <ZipFolder>$(BuildFolder)\$(ProjectName)</ZipFolder>
+    <ZipFileName>$(ProjectName)-v$(Version).zip</ZipFileName>
+    <LibFolder>H:\Dropbox\Libraries</LibFolder>
+    <LibFolder2>H:\OneDrive\Libraries</LibFolder2>
+    <VersionFilePath>$(BuildFolder)\version-$(Version).txt</VersionFilePath>
+    <!-- These folders have all of their files deleted before copying the build output to it -->
+    <DeployFolder>$(LibFolder)\$(ProjectName)</DeployFolder>
+    <DeployFolder2>$(LibFolder2)\$(ProjectName)</DeployFolder2>
   </PropertyGroup>
 
 
-  <Target Name="WriteAssemblyInfo">
+  <Target
+    Name="WriteAssemblyInfo">
     <AssemblyInfo
       CodeLanguage="CS" 
       OutputFile="$(ProjectName)\Properties\AssemblyInfo.cs"
@@ -29,36 +43,136 @@
       Guid="2A428598-6312-4E45-9D63-32170108B91E"
       AssemblyVersion="$(Version)"
       AssemblyFileVersion="$(Version)"
-      CLSCompliant="true" />
+      CLSCompliant="true"
+    />
   </Target>
 
 
-  <Target Name="Build" DependsOnTargets="WriteAssemblyInfo">
-    <RemoveDir Directories="$(BuildFolder)" />
-    <MSBuild Projects="$(ProjectName).sln" Targets="Build" Properties="Configuration=Release;Platform=Any CPU" />
+  <Target
+    Name="Build"
+    DependsOnTargets="WriteAssemblyInfo">
+    <RemoveDir
+      Directories="$(BuildFolder)"
+    />
+    <MSBuild
+      Projects="$(ProjectName).sln"
+      Targets="Build"
+      Properties="Configuration=Release;Platform=Any CPU"
+    />
   </Target>
 
 
-  <UsingTask AssemblyFile="H:\Dropbox\Libraries\xUnit\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
-  <Target Name="Test" DependsOnTargets="Build">
-    <xunit Assemblies="$(ProjectName).Tests\bin\Release\$(ProjectName).Tests.dll" />
+  <UsingTask
+    AssemblyFile="$(LibFolder2)\xUnit\xunit.runner.msbuild.dll"
+    TaskName="Xunit.Runner.MSBuild.xunit"
+  />
+  <Target
+    Name="Test"
+    DependsOnTargets="Build">
+    <xunit
+      Assemblies="$(TestBuildFolder)\$(TestProjectName).dll"
+    />
   </Target>
-
-
-  <Target Name="Deploy" DependsOnTargets="Test">
+  
+  
+  <Target 
+    Name="Zip" 
+    DependsOnTargets="Test">
+    <MakeDir 
+      Directories="$(ZipFolder)" 
+      Condition="!Exists('$(ZipFolder)')"
+    />
     <ItemGroup>
-      <FilesToDelete Include="$(DeployFolder)\*.*" />
-      <FilesToDelete Include="$(DeployFolder2)\*.*" />
+       <FilesToDelete
+         Include="$(ZipFolder)\*.*"
+       />
     </ItemGroup>
-    <Delete Files="@(FilesToDelete)" />
-    <Move SourceFiles="$(BuildFolder)\version.txt" DestinationFiles="$(BuildFolder)\version-$(Version).txt" />
+    <Delete
+      Files="$(FilesToDelete)"
+    />
+    <Move 
+      SourceFiles="$(BuildFolder)\version.txt" 
+      DestinationFiles="$(VersionFilePath)" 
+    />
     <ItemGroup>
-      <FilesToCopy Include="$(BuildFolder)\$(ProjectName).dll" />
-      <FilesToCopy Include="$(BuildFolder)\$(ProjectName).pdb" />
-      <FilesToCopy Include="$(BuildFolder)\version-$(Version).txt" />
-      <FilesToCopy Include="$(WorkingFolder)\ms-PL.txt" />
+      <FilesToCopy
+        Include="$(BuildFolder)\$(ProjectName).dll"
+      />
+      <FilesToCopy
+        Include="$(BuildFolder)\$(ProjectName).pdb"
+      />
+      <FilesToCopy
+        Include="$(VersionFilePath)"
+      />
+      <FilesToCopy
+        Include="$(LicenseFilePath)"
+      />
+    </ItemGroup>    
+    <Copy
+      SourceFiles="@(FilesToCopy)"
+      DestinationFolder="$(ZipFolder)"
+    />
+    <ItemGroup>
+      <FilesToZip
+        Include="$(ZipFolder)\*.*"
+      />
     </ItemGroup>
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder)" />
-    <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(DeployFolder2)" />
+    <Zip 
+      ZipFileName="$(ProjectName)-v$(Version).zip" 
+      WorkingDirectory="$(BuildFolder)"
+      Files="@(FilesToZip)"
+    />
+  </Target>
+
+
+  <Target
+    Name="Deploy"
+    DependsOnTargets="Zip">
+    <ItemGroup>
+      <FilesToDelete
+        Include="$(DeployFolder)\*.*"
+      />
+      <FilesToDelete
+        Include="$(DeployFolder2)\*.*"
+      />
+    </ItemGroup>
+    <Delete
+      Files="@(FilesToDelete)"
+    />
+    <ItemGroup>
+      <FilesToCopy
+        Include="$(BuildFolder)\$(ProjectName).dll"
+      />
+      <FilesToCopy
+        Include="$(BuildFolder)\$(ProjectName).pdb"
+      />
+      <FilesToCopy
+        Include="$(VersionFilePath)"
+      />
+      <FilesToCopy
+        Include="$(LicenseFilePath)"
+      />
+    </ItemGroup>
+    <ItemGroup>
+      <ZipFile
+        Include="$(ZipFileName)"
+      />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(FilesToCopy)"
+      DestinationFolder="$(DeployFolder)"
+    />
+    <Copy
+      SourceFiles="@(FilesToCopy)"
+      DestinationFolder="$(DeployFolder2)"
+    />
+    <Copy
+      SourceFiles="@(ZipFile)"
+      DestinationFolder="$(LibFolder)"
+    />
+    <Copy
+      SourceFiles="@(ZipFile)"
+      DestinationFolder="$(LibFolder2)"
+    />
   </Target>
 </Project>
