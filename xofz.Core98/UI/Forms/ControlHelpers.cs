@@ -13,20 +13,52 @@
                 return;
             }
 
-            if (container == null)
+            var controls = container?.Controls;
+            if (controls == null)
             {
                 return;
             }
 
-            var controls = container.Controls;
-            if (controls.Count == 1 &&
-                ReferenceEquals(control, controls[0]))
+            long controlCount;
+            Control otherControl;
+            const byte
+                zero = 0,
+                one = 1;
+            try
+            {
+                controlCount = controls.Count;
+                otherControl = controls[zero];
+            }
+            catch
+            {
+                controlCount = zero;
+                otherControl = null;
+            }
+
+            if (controlCount == one &&
+                ReferenceEquals(
+                    control, 
+                    otherControl))
             {
                 return;
             }
 
-            controls.Clear();
-            controls.Add(control);
+            controls?.Clear();
+            controls?.Add(control);
+        }
+
+        public static void SafeReplaceV2(
+            Control control,
+            Control container)
+        {
+            if (control == null)
+            {
+                return;
+            }
+
+            var controls = container?.Controls;
+            controls?.Clear();
+            controls?.Add(control);
         }
     }
 }

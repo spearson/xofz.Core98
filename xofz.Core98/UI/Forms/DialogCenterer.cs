@@ -34,7 +34,8 @@ namespace xofz.UI.Forms
         protected virtual void findDialog()
         {
             var tc = this.tryCount;
-            if (tc < 0)
+            const byte zero = 0;
+            if (tc < zero)
             {
                 return;
             }
@@ -50,7 +51,8 @@ namespace xofz.UI.Forms
 
             ++tc;
             this.setTryCount(tc);
-            if (tc < 10)
+            const byte maxTryCount = 10;
+            if (tc < maxTryCount)
             {
                 this.owner.BeginInvoke(
                     (Do)this.findDialog);
@@ -64,7 +66,7 @@ namespace xofz.UI.Forms
             // Check if <windowHandle> is a dialog
             var sb = new StringBuilder(260);
             GetClassName(windowHandle, sb, sb.Capacity);
-            if (sb.ToString() != "#32770")
+            if (sb.ToString() != @"#32770")
             {
                 return true;
             }
@@ -84,7 +86,8 @@ namespace xofz.UI.Forms
 
         void IDisposable.Dispose()
         {
-            this.setTryCount(-1);
+            const short minusOne = -1;
+            this.setTryCount(minusOne);
         }
 
         protected virtual void setTryCount(

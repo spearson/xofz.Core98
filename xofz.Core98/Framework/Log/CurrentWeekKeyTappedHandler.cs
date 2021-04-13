@@ -20,9 +20,9 @@
             r?.Run<UiReaderWriter, TimeProvider>(
                 (uiRW, timeProvider) =>
                 {
-                    var currentDay = timeProvider.Now().Date;
                     const short daysToAdd = -6;
-                    var newEndDate = currentDay;
+                    var newEndDate = timeProvider.Now().
+                        Date;
                     var newStartDate = newEndDate
                         .AddDays(daysToAdd);
                     unsubscribe?.Invoke();

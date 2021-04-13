@@ -43,6 +43,17 @@
                         ui.ContentColumnHeaderLabel =
                             labels.ContentColumnHeader;
                     });
+
+                if (ui is LogUiV4 v4)
+                {
+                    uiRW.Write(
+                        v4,
+                        () =>
+                        {
+                            v4.OldestKeyLabel = labels.OldestKey;
+                            v4.NewestKeyLabel = labels.NewestKey;
+                        });
+                }
             });
         }
 

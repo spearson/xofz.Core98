@@ -427,6 +427,30 @@
             }
 
             registered = false;
+            w?.Run<NewestKeyTappedHandler>(
+                applier =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w?.RegisterDependency(
+                    new NewestKeyTappedHandler(w));
+            }
+
+            registered = false;
+            w?.Run<OldestKeyTappedHandler>(
+                applier =>
+                {
+                    registered = true;
+                });
+            if (!registered)
+            {
+                w?.RegisterDependency(
+                    new OldestKeyTappedHandler(w));
+            }
+
+            registered = false;
             w?.Run<KeyPresser>(
                 presser =>
                 {

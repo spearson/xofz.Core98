@@ -101,6 +101,18 @@
                         nameof(v3.ResetTypeKeyTapped),
                         this.v3_ResetTypeKeyTapped);
                 }
+
+                if (this.ui is LogUiV4 v4)
+                {
+                    sub.Subscribe(
+                        v4,
+                        nameof(v4.NewestKeyTapped),
+                        this.v4_NewestKeyTapped);
+                    sub.Subscribe(
+                        v4,
+                        nameof(v4.OldestKeyTapped),
+                        this.v4_OldestKeyTapped);
+                }
             });
 
             r?.Run<Navigator>(nav =>
@@ -388,6 +400,70 @@
                 handler.Handle(
                     this.ui as LogUiV3,
                     this.Name);
+            });
+        }
+
+        private void v4_OldestKeyTapped()
+        {
+            var r = this.runner;
+            r?.Run<EventSubscriber>(sub =>
+            {
+                Do unsubscribe = () =>
+                {
+                    sub.Unsubscribe(
+                        this.ui,
+                        nameof(this.ui.DateRangeChanged),
+                        this.ui_DateRangeChanged);
+                };
+
+                Do subscribe = () =>
+                {
+                    sub.Subscribe(
+                        this.ui,
+                        nameof(this.ui.DateRangeChanged),
+                        this.ui_DateRangeChanged);
+                };
+
+                r.Run<OldestKeyTappedHandler>(handler =>
+                {
+                    handler.Handle(
+                        this.ui as LogUiV4,
+                        this.Name,
+                        unsubscribe,
+                        subscribe);
+                });
+            });
+        }
+
+        private void v4_NewestKeyTapped()
+        {
+            var r = this.runner;
+            r?.Run<EventSubscriber>(sub =>
+            {
+                Do unsubscribe = () =>
+                {
+                    sub.Unsubscribe(
+                        this.ui,
+                        nameof(this.ui.DateRangeChanged),
+                        this.ui_DateRangeChanged);
+                };
+
+                Do subscribe = () =>
+                {
+                    sub.Subscribe(
+                        this.ui,
+                        nameof(this.ui.DateRangeChanged),
+                        this.ui_DateRangeChanged);
+                };
+
+                r.Run<NewestKeyTappedHandler>(handler =>
+                {
+                    handler.Handle(
+                        this.ui as LogUiV4,
+                        this.Name,
+                        unsubscribe,
+                        subscribe);
+                });
             });
         }
 

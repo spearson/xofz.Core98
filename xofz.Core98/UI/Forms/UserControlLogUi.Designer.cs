@@ -53,6 +53,8 @@
             this.previousWeekKey = new System.Windows.Forms.Button();
             this.nextWeekKey = new System.Windows.Forms.Button();
             this.currentWeekKey = new System.Windows.Forms.Button();
+            this.oldestKey = new System.Windows.Forms.Button();
+            this.newestKey = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.entriesGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,13 +124,13 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.entriesGrid.DefaultCellStyle = dataGridViewCellStyle3;
-            this.entriesGrid.Location = new System.Drawing.Point(0, 281);
+            this.entriesGrid.Location = new System.Drawing.Point(0, 320);
             this.entriesGrid.Margin = new System.Windows.Forms.Padding(0);
             this.entriesGrid.Name = "entriesGrid";
             this.entriesGrid.ReadOnly = true;
             this.entriesGrid.RowHeadersVisible = false;
             this.entriesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.entriesGrid.Size = new System.Drawing.Size(600, 219);
+            this.entriesGrid.Size = new System.Drawing.Size(600, 180);
             this.entriesGrid.TabIndex = 14;
             // 
             // timestampColumn
@@ -231,7 +233,7 @@
             // filterContentLabel
             // 
             this.filterContentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterContentLabel.Location = new System.Drawing.Point(3, 222);
+            this.filterContentLabel.Location = new System.Drawing.Point(3, 257);
             this.filterContentLabel.Name = "filterContentLabel";
             this.filterContentLabel.Size = new System.Drawing.Size(149, 20);
             this.filterContentLabel.TabIndex = 9;
@@ -241,7 +243,7 @@
             // filterTypeLabel
             // 
             this.filterTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterTypeLabel.Location = new System.Drawing.Point(29, 254);
+            this.filterTypeLabel.Location = new System.Drawing.Point(29, 289);
             this.filterTypeLabel.Name = "filterTypeLabel";
             this.filterTypeLabel.Size = new System.Drawing.Size(123, 20);
             this.filterTypeLabel.TabIndex = 10;
@@ -253,7 +255,7 @@
             this.filterTypeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filterTypeTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterTypeTextBox.Location = new System.Drawing.Point(158, 252);
+            this.filterTypeTextBox.Location = new System.Drawing.Point(158, 287);
             this.filterTypeTextBox.Name = "filterTypeTextBox";
             this.filterTypeTextBox.Size = new System.Drawing.Size(204, 26);
             this.filterTypeTextBox.TabIndex = 12;
@@ -264,7 +266,7 @@
             this.filterContentTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.filterContentTextBox.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.filterContentTextBox.Location = new System.Drawing.Point(158, 220);
+            this.filterContentTextBox.Location = new System.Drawing.Point(158, 255);
             this.filterContentTextBox.Name = "filterContentTextBox";
             this.filterContentTextBox.Size = new System.Drawing.Size(373, 26);
             this.filterContentTextBox.TabIndex = 10;
@@ -279,7 +281,7 @@
             this.resetContentKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.resetContentKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetContentKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetContentKey.Location = new System.Drawing.Point(534, 217);
+            this.resetContentKey.Location = new System.Drawing.Point(534, 252);
             this.resetContentKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetContentKey.Name = "resetContentKey";
             this.resetContentKey.Size = new System.Drawing.Size(66, 31);
@@ -297,7 +299,7 @@
             this.resetTypeKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
             this.resetTypeKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetTypeKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetTypeKey.Location = new System.Drawing.Point(365, 249);
+            this.resetTypeKey.Location = new System.Drawing.Point(365, 284);
             this.resetTypeKey.Margin = new System.Windows.Forms.Padding(0);
             this.resetTypeKey.Name = "resetTypeKey";
             this.resetTypeKey.Size = new System.Drawing.Size(66, 31);
@@ -374,9 +376,47 @@
             this.currentWeekKey.UseVisualStyleBackColor = true;
             this.currentWeekKey.Click += new System.EventHandler(this.currentWeekKey_Click);
             // 
+            // oldestKey
+            // 
+            this.oldestKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.oldestKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.oldestKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.oldestKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.oldestKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.oldestKey.Location = new System.Drawing.Point(153, 221);
+            this.oldestKey.Margin = new System.Windows.Forms.Padding(0);
+            this.oldestKey.Name = "oldestKey";
+            this.oldestKey.Size = new System.Drawing.Size(75, 31);
+            this.oldestKey.TabIndex = 100;
+            this.oldestKey.Text = "Oldest";
+            this.oldestKey.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.oldestKey.UseVisualStyleBackColor = true;
+            this.oldestKey.Click += new System.EventHandler(this.oldestKey_Click);
+            // 
+            // newestKey
+            // 
+            this.newestKey.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.newestKey.AutoSize = true;
+            this.newestKey.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.newestKey.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Lime;
+            this.newestKey.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.newestKey.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.newestKey.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.newestKey.Location = new System.Drawing.Point(373, 221);
+            this.newestKey.Margin = new System.Windows.Forms.Padding(0);
+            this.newestKey.Name = "newestKey";
+            this.newestKey.Size = new System.Drawing.Size(75, 31);
+            this.newestKey.TabIndex = 101;
+            this.newestKey.Text = "Newest";
+            this.newestKey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.newestKey.UseVisualStyleBackColor = true;
+            this.newestKey.Click += new System.EventHandler(this.newestKey_Click);
+            // 
             // UserControlLogUi
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Controls.Add(this.newestKey);
+            this.Controls.Add(this.oldestKey);
             this.Controls.Add(this.currentWeekKey);
             this.Controls.Add(this.nextWeekKey);
             this.Controls.Add(this.previousWeekKey);
@@ -396,6 +436,7 @@
             this.Controls.Add(this.startLabel);
             this.Controls.Add(this.endDatePicker);
             this.Controls.Add(this.startDatePicker);
+            this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "UserControlLogUi";
             this.Size = new System.Drawing.Size(600, 500);
             ((System.ComponentModel.ISupportInitialize)(this.entriesGrid)).EndInit();
@@ -428,5 +469,7 @@
         protected System.Windows.Forms.Button previousWeekKey;
         protected System.Windows.Forms.Button nextWeekKey;
         protected System.Windows.Forms.Button currentWeekKey;
+        protected System.Windows.Forms.Button oldestKey;
+        protected System.Windows.Forms.Button newestKey;
     }
 }

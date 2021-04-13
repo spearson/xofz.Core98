@@ -120,9 +120,12 @@
     <Compile Include="Framework\Log\UpKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\Main\ShutdownRequestedHandlerTests.cs" />
     <Compile Include="Framework\ManagerLocatorTests.cs" />
+    <Compile Include="Framework\MethodRunnerTests.cs" />
+    <Compile Include="Framework\MethodRunnerV2Tests.cs" />
     <Compile Include="Framework\MethodWebManagerV2Tests.cs" />
     <Compile Include="Framework\MethodWebTests.cs" />
     <Compile Include="Framework\MethodWebV2Tests.cs" />
+    <Compile Include="Framework\MultiWebRunnerTests.cs" />
     <Compile Include="Framework\ShufflingManagerTests.cs" />
     <Compile Include="Framework\ShufflingWebTests.cs" />
     <Compile Include="Framework\Shutdown\StartHandlerTests.cs" />

@@ -57,6 +57,8 @@
     <Compile Include="Framework\Access\TimeProvider.cs" />
     <Compile Include="Framework\Locator.cs" />
     <Compile Include="Framework\Log\DownKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\NewestKeyTappedHandler.cs" />
+    <Compile Include="Framework\Log\OldestKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetContentKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Framework\MethodWebs\ShufflingWeb.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
+    <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="LotterV2.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
@@ -162,7 +165,6 @@
     <Compile Include="Framework\MethodWeb.cs" />
     <Compile Include="Framework\MethodWebManagerV2.cs" />
     <Compile Include="Framework\MethodWebs\ThreadSafeMethodWeb.cs" />
-    <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Shutdown\MethodNames.cs" />
     <Compile Include="Framework\Shutdown\UiNames.cs" />
     <Compile Include="Framework\Synchronizer.cs" />
@@ -213,6 +215,7 @@
     <Compile Include="UI\LogStatisticsUiV2.cs" />
     <Compile Include="UI\LogUiV2.cs" />
     <Compile Include="UI\LogUiV3.cs" />
+    <Compile Include="UI\LogUiV4.cs" />
     <Compile Include="UI\ToggleUiV2.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />

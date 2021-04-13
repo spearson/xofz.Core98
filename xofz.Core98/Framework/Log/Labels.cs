@@ -64,5 +64,11 @@
 
         public virtual string ContentColumnHeader { get; set; }
             = @"Content";
+
+        public virtual string NewestKey { get; set; }
+            = @"Newest";
+
+        public virtual string OldestKey { get; set; }
+            = @"Oldest";
     }
 }

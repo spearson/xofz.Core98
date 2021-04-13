@@ -6,7 +6,7 @@
     using System.Windows.Forms;
 
     public partial class UserControlLogUi 
-        : UserControlUi, LogUiV3
+        : UserControlUi, LogUiV4
     {
         public UserControlLogUi()
         {
@@ -334,6 +334,33 @@
             }
         }
 
+        string LogUiV4.NewestKeyLabel
+        {
+            get => this.newestKey.Text;
+
+            set => this.newestKey.Text = value;
+        }
+
+        string LogUiV4.OldestKeyLabel
+        {
+            get => this.oldestKey.Text;
+            set => this.oldestKey.Text = value;
+        }
+
+        bool LogUiV4.NewestKeyDisabled
+        {
+            get => !this.newestKey.Enabled;
+
+            set => this.newestKey.Enabled = !value;
+        }
+
+        bool LogUiV4.OldestKeyDisabled
+        {
+            get => !this.oldestKey.Enabled;
+
+            set => this.oldestKey.Enabled = !value;
+        }
+
         protected virtual void addKey_Click(
             object sender, 
             EventArgs e)
@@ -533,6 +560,36 @@
                 o => cwkt.Invoke());
         }
 
+        protected virtual void oldestKey_Click(
+            object sender,
+            EventArgs e)
+        {
+            var okt = this.OldestKeyTapped;
+            if (okt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(
+                o => okt.Invoke());
+        }
+
+        protected virtual void newestKey_Click(
+            object sender,
+            EventArgs e)
+        {
+            var nkt = this.NewestKeyTapped;
+            if (nkt == null)
+            {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(
+                o => nkt.Invoke());
+        }
+
         protected TextBox activeFilterTextBox;
+        public virtual event Do NewestKeyTapped;
+        public virtual event Do OldestKeyTapped;
     }
 }
