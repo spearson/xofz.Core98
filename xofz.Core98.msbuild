@@ -128,6 +128,14 @@
   <Target
     Name="Deploy"
     DependsOnTargets="Zip">
+    <MakeDir 
+      Directories="$(DeployFolder)" 
+      Condition="!Exists('$(DeployFolder)')"
+    />
+    <MakeDir 
+      Directories="$(DeployFolder2)" 
+      Condition="!Exists('$(DeployFolder2)')"
+    />
     <ItemGroup>
       <FilesToDelete
         Include="$(DeployFolder)\*.*"
