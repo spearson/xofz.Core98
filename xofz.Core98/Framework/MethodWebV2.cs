@@ -32,38 +32,6 @@
             this.locker = locker;
         }
 
-        [System.Obsolete]
-        protected MethodWebV2(
-            MethodWeb copy,
-            LotterV2 lotter)
-            : base(lotter.Collect(
-                EH.Select(
-                    copy.ViewDependencies(),
-                    xT =>
-                    {
-                        return new Dependency
-                        {
-                            Content = xT.Item1,
-                            Name = xT.Item2
-                        };
-                    })))
-        {
-            this.locker = new object();
-        }
-
-        [System.Obsolete]
-        public override IEnumerable<XTuple<object, string>> ViewDependencies()
-        {
-            IEnumerable<XTuple<object, string>> ds;
-            lock (this.locker ?? new object())
-            {
-                ds = new LinkedListLot<XTuple<object, string>>(
-                    base.ViewDependencies());
-            }
-
-            return ds;
-        }
-
         protected override void register(
             Dependency dependency)
         {

@@ -18,19 +18,6 @@
             this.webs = webs;
         }
 
-        [System.Obsolete]
-        public virtual IEnumerable<XTuple<MethodWeb, string>> ViewWebs()
-        {
-            return EH.Select(
-                this.webs,
-                webHolder =>
-                {
-                    return XTuple.Create(
-                        webHolder.Web,
-                        webHolder.Name);
-                });
-        }
-
         public virtual Lot<string> WebNames()
         {
             return new LinkedListLot<string>(

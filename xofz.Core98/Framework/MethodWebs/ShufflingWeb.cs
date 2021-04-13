@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.MethodWebs
 {
     using System.Collections.Generic;
-    using System.Security.Cryptography;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
@@ -24,49 +23,10 @@
         {
         }
 
-        [System.Obsolete]
-        protected ShufflingWeb(
-            RNGCryptoServiceProvider randomGen)
-        {
-        }
-
         protected ShufflingWeb(
             ICollection<Dependency> dependencies,
             object locker)
             : base(dependencies, locker)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingWeb(
-            ICollection<Dependency> dependencies,
-            RNGCryptoServiceProvider randomGen)
-            : base(dependencies)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingWeb(
-            RNGCryptoServiceProvider randomGen,
-            object locker)
-            : base(locker)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingWeb(
-            RNGCryptoServiceProvider randomGen,
-            ICollection<Dependency> dependencies,
-            object locker)
-            : base(dependencies, locker)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingWeb(
-            MethodWeb copy,
-            LotterV2 lotter)
-            : base(copy, lotter)
         {
         }
 
@@ -124,19 +84,6 @@
                 EH.Select(
                     matchingDependencies,
                     so => so.O as Dependency));
-        }
-
-        [System.Obsolete(@"This field does nothing.  Check ShufflingObject out.")]
-        protected readonly RNGCryptoServiceProvider randomGen;
-
-        [System.Obsolete]
-        protected class ShufflingDependency
-            : ShufflingObject
-        {
-            public virtual object Content { get; set; }
-
-            public virtual string Name { get; set; }
-
         }
     }
 }

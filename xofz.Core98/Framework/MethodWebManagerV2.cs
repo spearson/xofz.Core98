@@ -32,19 +32,6 @@
             this.locker = locker;
         }
 
-        [System.Obsolete]
-        public override IEnumerable<XTuple<MethodWeb, string>> ViewWebs()
-        {
-            IEnumerable<XTuple<MethodWeb, string>> ws;
-            lock (this.locker)
-            {
-                ws = new LinkedListLot<XTuple<MethodWeb, string>>(
-                    base.ViewWebs());
-            }
-
-            return ws;
-        }
-
         public override Lot<string> WebNames()
         {
             var lll = new LinkedListLot<string>();

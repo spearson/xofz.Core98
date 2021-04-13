@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.MethodWebManagers
 {
     using System.Collections.Generic;
-    using System.Security.Cryptography;
     using xofz.Framework.Lots;
 
     public class ShufflingManager
@@ -23,38 +22,7 @@
         {
         }
 
-        [System.Obsolete]
         protected ShufflingManager(
-            RNGCryptoServiceProvider randomGen)
-        {
-        }
-
-        protected ShufflingManager(
-            ICollection<NamedMethodWebHolder> webs,
-            object locker)
-            : base(webs, locker)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingManager(
-            ICollection<NamedMethodWebHolder> webs,
-            RNGCryptoServiceProvider randomGen)
-            : base(webs)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingManager(
-            RNGCryptoServiceProvider randomGen,
-            object locker)
-            : base(locker)
-        {
-        }
-
-        [System.Obsolete]
-        protected ShufflingManager(
-            RNGCryptoServiceProvider randomGen,
             ICollection<NamedMethodWebHolder> webs,
             object locker)
             : base(webs, locker)
@@ -121,8 +89,5 @@
                     matchingWebs,
                     so => so.O as NamedMethodWebHolder));
         }
-
-        [System.Obsolete(@"This field does nothing.  Check ShufflingObject out.")]
-        protected readonly RNGCryptoServiceProvider randomGen;
     }
 }

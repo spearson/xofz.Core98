@@ -64,10 +64,13 @@
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
     <Compile Include="Framework\Lots\SetLot.cs" />
     <Compile Include="Framework\ManagerLocator.cs" />
+    <Compile Include="Framework\ManagerLocators\DeetManagerLocator.cs" />
     <Compile Include="Framework\ManagerLocators\ShufflingManagerLocator.cs" />
     <Compile Include="Framework\MethodWebManagers\CopyManager.cs" />
+    <Compile Include="Framework\MethodWebManagers\DeetManager.cs" />
     <Compile Include="Framework\MethodWebManagers\ShufflingManager.cs" />
     <Compile Include="Framework\MethodWebs\CopyWeb.cs" />
+    <Compile Include="Framework\MethodWebs\DeetWeb.cs" />
     <Compile Include="Framework\MethodWebs\ShufflingWeb.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
