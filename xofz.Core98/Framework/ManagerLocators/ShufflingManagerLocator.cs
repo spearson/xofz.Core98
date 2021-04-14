@@ -33,13 +33,11 @@
 
         protected virtual Lot<NamedManagerHolder> shuffleManagers()
         {
-            ICollection<NamedManagerHolder> ms;
             var matchingManagers = new ListLot<ShufflingObject>();
 
             lock (this.locker ?? new object())
             {
-                ms = this.managers;
-                foreach (var managerHolder in ms ??
+                foreach (var managerHolder in this.managers ??
                                               EH.Empty<NamedManagerHolder>())
                 {
                     matchingManagers?.Add(
@@ -47,8 +45,7 @@
                             new NamedManagerHolder
                             {
                                 Manager = managerHolder?.Manager,
-                                Name = managerHolder?.Name,
-                                Webs = managerHolder?.Webs
+                                Name = managerHolder?.Name
                             }));
                 }
             }

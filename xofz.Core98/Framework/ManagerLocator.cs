@@ -1,11 +1,10 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
-    using EH = xofz.EnumerableHelpers;
     using xofz.Framework.Lots;
+    using EH = EnumerableHelpers;
 
     public class ManagerLocator
-        : Locator
     {
         public ManagerLocator()
             : this(
@@ -82,12 +81,6 @@
             }
 
             NamedManagerHolder sameNameHolder;
-            var newHolder = new NamedManagerHolder
-            {
-                Manager = manager,
-                Name = name
-            };
-
             lock (this.locker)
             {
                 sameNameHolder = EH.FirstOrDefault(
@@ -100,10 +93,12 @@
                 return falsity;
             }
 
-            this.add(newHolder);
-
-            this.harvestWebs(newHolder);
-
+            this.add(
+                new NamedManagerHolder
+                {
+                    Manager = manager,
+                    Name = name
+                });
             return truth;
         }
 
@@ -136,9 +131,6 @@
             }
 
             accessor?.Invoke(innerManager);
-
-            this.harvestWebs(targetManager);
-
             return innerManager;
         }
 
@@ -155,17 +147,13 @@
                     nmh => nmh?.Name == managerName);
             }
 
-            var innerManager = targetManager?.Manager as T ?? null;
+            var innerManager = targetManager?.Manager as T;
             if (innerManager == null)
             {
                 return innerManager;
             }
 
             accessor?.Invoke(innerManager);
-
-            this.harvestWebs(
-                targetManager);
-
             return innerManager;
         }
 
@@ -181,8 +169,8 @@
                 targetManager = EH.FirstOrDefault(
                     ms,
                     nmh => nmh?.Name == managerName);
-
-                removed = ms.Remove(targetManager);
+                removed = ms?.Remove(targetManager)
+                    ?? falsity;
             }
 
             return removed;
@@ -194,17 +182,23 @@
             string webName = null,
             string dependencyName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return default;
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 dependencyName);
         }
 
@@ -215,19 +209,25 @@
             string tName = null,
             string uName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName);
         }
@@ -240,11 +240,16 @@
             string uName = null,
             string vName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -252,8 +257,9 @@
                     default(V));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName);
@@ -268,11 +274,16 @@
             string vName = null,
             string wName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -281,8 +292,9 @@
                     default(W));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName,
@@ -299,11 +311,16 @@
             string wName = null,
             string xName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -313,8 +330,9 @@
                     default(X));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName,
@@ -333,11 +351,16 @@
             string xName = null,
             string yName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -348,8 +371,9 @@
                     default(Y));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName,
@@ -370,11 +394,16 @@
             string yName = null,
             string zName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -386,8 +415,9 @@
                     default(Z));
             }
 
-            return w.Run(
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName,
@@ -411,11 +441,16 @@
             string zName = null,
             string aaName = null)
         {
-            var w = this.reachWeb(
-                locableName,
-                webName);
+            NamedManagerHolder holder;
+            lock (this.locker)
+            {
+                holder = EH.FirstOrDefault(
+                    this.managers,
+                    nmh => nmh.Name == locableName);
+            }
 
-            if (w == null)
+            var manager = holder?.Manager;
+            if (manager == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -426,10 +461,11 @@
                     default(Y),
                     default(Z),
                     default(AA));
-            }
-
-            return w.Run(
+            } 
+            
+            return manager.RunWeb(
                 locat,
+                webName,
                 tName,
                 uName,
                 vName,
@@ -438,61 +474,6 @@
                 yName,
                 zName,
                 aaName);
-        }
-
-        protected virtual void harvestWebs(
-            NamedManagerHolder targetHolder)
-        {
-            ICollection<NamedWeb> webs
-                = new LinkedList<NamedWeb>();
-            var manager = targetHolder?.Manager;
-
-            foreach (var webName in manager?.WebNames()
-                ?? EH.Empty<string>())
-            {
-                manager?.AccessWeb(w =>
-                {
-                    if (w == null)
-                    {
-                        return;
-                    }
-
-                    webs?.Add(
-                        new NamedWeb
-                        {
-                            Web = w,
-                            Name = webName
-                        });
-                });
-            }
-
-            if (targetHolder == null)
-            {
-                return;
-            }
-
-            targetHolder.Webs = webs;
-        }
-
-        protected virtual MethodWeb reachWeb(
-            string locableName = null,
-            string webName = null)
-        {
-            NamedManagerHolder targetManager;
-            ICollection<NamedManagerHolder> ms;
-            lock (this.locker)
-            {
-                ms = this.managers;
-                targetManager = EH.FirstOrDefault(
-                        ms,
-                        nmh => nmh?.Name == locableName);
-            }
-
-            return EH
-                .FirstOrDefault(
-                    targetManager?.Webs,
-                    w => w?.Name == webName)
-                ?.Web;
         }
 
         protected readonly ICollection<NamedManagerHolder> managers;
@@ -504,15 +485,6 @@
         protected class NamedManagerHolder
         {
             public virtual MethodWebManager Manager { get; set; }
-
-            public virtual ICollection<NamedWeb> Webs { get; set; }
-
-            public virtual string Name { get; set; }
-        }
-
-        protected class NamedWeb
-        {
-            public virtual MethodWeb Web { get; set; }
 
             public virtual string Name { get; set; }
         }

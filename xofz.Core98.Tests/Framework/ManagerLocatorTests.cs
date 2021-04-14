@@ -13,17 +13,17 @@
                 var l = this.locator;
                 l.AddManager(
                     new MethodWebManagerV2(),
-                    name);
+                    managerName);
                 l.AccessManager(mwm =>
                 {
                     mwm.AddWeb(
                         new MethodWebV2());
                 },
-                name);
+                managerName);
             }
 
             protected readonly ManagerLocator locator;
-            protected const string name = nameof(Locator);
+            protected const string managerName = nameof(MethodWebManager);
         }
 
         public class When_ManagerNames_is_called : Context
@@ -32,7 +32,7 @@
             public void Returns_the_manager_names()
             {
                 Assert.Contains(
-                    name,
+                    managerName,
                     this.locator.ManagerNames());
             }
         }
@@ -63,7 +63,7 @@
                 {
                     accessed = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     accessed);
@@ -87,7 +87,7 @@
                             mwmV2.WebNames()?.Count ?? zero);
                         accessed = true;
                     },
-                    name);
+                    managerName);
 
                 Assert.True(accessed);
             }
@@ -105,7 +105,7 @@
                         ?? zero);
 
                 this.locator.RemoveManager(
-                        name);
+                        managerName);
 
                 Assert.Equal(
                     zero,
@@ -129,7 +129,7 @@
                             new object());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -137,7 +137,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -161,7 +161,7 @@
                             new long());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -169,7 +169,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -195,7 +195,7 @@
                             new int());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -203,7 +203,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -231,7 +231,7 @@
                             new object());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -239,7 +239,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -269,7 +269,7 @@
                             new byte());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -277,7 +277,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -309,7 +309,7 @@
                             new object());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -317,7 +317,7 @@
                 {
                     located = true;
                 },
-                name);
+                managerName);
 
                 Assert.True(
                     located);
@@ -351,7 +351,7 @@
                             new byte());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -360,7 +360,7 @@
                     {
                         located = true;
                     },
-                    name);
+                    managerName);
 
                 Assert.True(
                     located);
@@ -396,7 +396,7 @@
                             new long());
                     });
                 },
-                name);
+                managerName);
 
 
                 bool located = false;
@@ -405,7 +405,7 @@
                     {
                         located = true;
                     },
-                    name);
+                    managerName);
 
                 Assert.True(
                     located);
