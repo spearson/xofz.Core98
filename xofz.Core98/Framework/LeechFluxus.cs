@@ -4,88 +4,89 @@
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
-    public class ManagerLocator
+    public class LeechFluxus
+        : Fluxus
     {
-        public ManagerLocator()
+        public LeechFluxus()
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new LinkedList<NamedLeechHolder>(),
                 new object())
         {
         }
 
-        protected ManagerLocator(
-            ICollection<NamedManagerHolder> managers)
+        protected LeechFluxus(
+            ICollection<NamedLeechHolder> leeches)
             : this(
-                managers,
+                leeches,
                 new object())
         {
         }
 
-        protected ManagerLocator(
+        protected LeechFluxus(
             object locker)
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new LinkedList<NamedLeechHolder>(),
                 locker)
         {
         }
 
-        protected ManagerLocator(
-            ICollection<NamedManagerHolder> managers,
+        protected LeechFluxus(
+            ICollection<NamedLeechHolder> leeches,
             object locker)
         {
-            this.managers = managers;
+            this.leeches = leeches;
             this.locker = locker;
         }
 
-        public virtual Lot<string> ManagerNames()
+        public virtual Lot<string> LeechNames()
         {
             var lll = new LinkedListLot<string>();
             lock (this.locker)
             {
-                foreach (var managerName in EH.Select(
-                    this.managers,
-                    nmh => nmh?.Name))
+                foreach (var leechName in EH.Select(
+                    this.leeches,
+                    leechHolder => leechHolder?.Name))
                 {
                     lll.AddLast(
-                        managerName);
+                        leechName);
                 }
             }
 
             return lll;
         }
 
-        public virtual bool AddManager(
-            MethodWebManager manager,
+        public virtual bool AddLeech(
+            LocatorLeech leech,
             string name = null)
         {
-            if (manager == null)
+            if (leech == null)
             {
                 return falsity;
             }
 
-            ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder alreadyAddedManager;
+            ICollection<NamedLeechHolder> ls;
+            NamedLeechHolder alreadyAddedLeech;
             lock (this.locker)
             {
-                ms = this.managers;
-                alreadyAddedManager = EH.FirstOrDefault(
-                    ms,
-                    nmh => ReferenceEquals(
-                        manager,
-                        nmh?.Manager));
+                ls = this.leeches;
+                alreadyAddedLeech = EH.FirstOrDefault(
+                    ls,
+                    leechHolder => ReferenceEquals(
+                        leech,
+                        leechHolder?.Leech));
             }
 
-            if (alreadyAddedManager != null)
+            if (alreadyAddedLeech != null)
             {
                 return falsity;
             }
 
-            NamedManagerHolder sameNameHolder;
+            NamedLeechHolder sameNameHolder;
             lock (this.locker)
             {
                 sameNameHolder = EH.FirstOrDefault(
-                        ms,
-                        nmh => nmh?.Name == name);
+                        ls,
+                        leechHolder => leechHolder?.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -94,162 +95,172 @@
             }
 
             this.add(
-                new NamedManagerHolder
+                new NamedLeechHolder
                 {
-                    Manager = manager,
+                    Leech = leech,
                     Name = name
                 });
             return truth;
         }
 
         protected virtual void add(
-            NamedManagerHolder holder)
+            NamedLeechHolder holder)
         {
             lock (this.locker)
             {
-                this.managers?.Add(
+                this.leeches?.Add(
                     holder);
             }
         }
 
-        public virtual MethodWebManager AccessManager(
-            Do<MethodWebManager> accessor = null,
-            string managerName = null)
+        public virtual LocatorLeech AccessLeech(
+            Do<LocatorLeech> accessor = null,
+            string leechName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    this.leeches,
+                    nmh => nmh?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
-                return manager;
+                return leech;
             }
 
-            accessor?.Invoke(manager);
-            return manager;
+            accessor?.Invoke(leech);
+            return leech;
         }
 
-        public virtual T AccessManager<T>(
+        public virtual T AccessLeech<T>(
             Do<T> accessor = null,
-            string managerName = null)
-            where T : MethodWebManager
+            string leechName = null)
+            where T : LocatorLeech
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager as T;
-            if (manager == null)
+            var leech = targetHolder?.Leech as T;
+            if (leech == null)
             {
-                return manager;
+                return leech;
             }
 
-            accessor?.Invoke(manager);
-            return manager;
+            accessor?.Invoke(leech);
+            return leech;
         }
 
-        public virtual bool RemoveManager(
-            string managerName)
+        public virtual bool RemoveLeech(
+            string leechName)
         {
-            ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder targetHolder;
+            ICollection<NamedLeechHolder> ls;
+            NamedLeechHolder targetHolder;
             bool removed;
             lock (this.locker)
             {
-                ms = this.managers;
+                ls = this.leeches;
                 targetHolder = EH.FirstOrDefault(
-                    ms,
-                    managerHolder => managerHolder?.Name == managerName);
-                removed = ms?.Remove(targetHolder)
+                    ls,
+                    leechHolder => leechHolder?.Name == leechName);
+                removed = ls?.Remove(targetHolder)
                     ?? falsity;
             }
 
             return removed;
         }
 
-        public virtual T Locate<T>(
-            Do<T> locat = null,
+        public virtual T Flux<T>(
+            Do<T> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string dependencyName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return default;
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 dependencyName);
         }
 
-        public virtual XTuple<T, U> Locate<T, U>(
-            Do<T, U> locat = null,
+        public virtual XTuple<T, U> Flux<T, U>(
+            Do<T, U> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
             string uName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName);
         }
 
-        public virtual XTuple<T, U, V> Locate<T, U, V>(
-            Do<T, U, V> locat = null,
+        public virtual XTuple<T, U, V> Flux<T, U, V>(
+            Do<T, U, V> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
             string uName = null,
             string vName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -257,16 +268,20 @@
                     default(V));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
                 vName);
         }
 
-        public virtual XTuple<T, U, V, W> Locate<T, U, V, W>(
-            Do<T, U, V, W> locat,
+        public virtual XTuple<T, U, V, W> Flux<T, U, V, W>(
+            Do<T, U, V, W> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -274,16 +289,16 @@
             string vName = null,
             string wName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -292,8 +307,10 @@
                     default(W));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -301,8 +318,10 @@
                 wName);
         }
 
-        public virtual XTuple<T, U, V, W, X> Locate<T, U, V, W, X>(
-            Do<T, U, V, W, X> locat = null,
+        public virtual XTuple<T, U, V, W, X> Flux<T, U, V, W, X>(
+            Do<T, U, V, W, X> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -311,16 +330,16 @@
             string wName = null,
             string xName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -330,8 +349,10 @@
                     default(X));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -340,8 +361,10 @@
                 xName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y> Locate<T, U, V, W, X, Y>(
-            Do<T, U, V, W, X, Y> locat = null,
+        public virtual XTuple<T, U, V, W, X, Y> Flux<T, U, V, W, X, Y>(
+            Do<T, U, V, W, X, Y> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -351,16 +374,16 @@
             string xName = null,
             string yName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -371,8 +394,10 @@
                     default(Y));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -382,8 +407,10 @@
                 yName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y, Z> Locate<T, U, V, W, X, Y, Z>(
-            Do<T, U, V, W, X, Y, Z> locat = null,
+        public virtual XTuple<T, U, V, W, X, Y, Z> Flux<T, U, V, W, X, Y, Z>(
+            Do<T, U, V, W, X, Y, Z> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -394,16 +421,16 @@
             string yName = null,
             string zName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -415,8 +442,10 @@
                     default(Z));
             }
 
-            return manager.RunWeb(
-                locat,
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -427,9 +456,11 @@
                 zName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y, Z, AA> Locate<T, U, V, W, X, Y,
+        public virtual XTuple<T, U, V, W, X, Y, Z, AA> Flux<T, U, V, W, X, Y,
             Z, AA>(
-            Do<T, U, V, W, X, Y, Z, AA> locat = null,
+            Do<T, U, V, W, X, Y, Z, AA> fluxor = null,
+            string leechName = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -441,16 +472,16 @@
             string zName = null,
             string aaName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLeechHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.leeches,
+                    leechHolder => leechHolder?.Name == leechName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var leech = targetHolder?.Leech;
+            if (leech == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -461,10 +492,12 @@
                     default(Y),
                     default(Z),
                     default(AA));
-            } 
-            
-            return manager.RunWeb(
-                locat,
+            }
+
+            return leech.Siphon(
+                fluxor,
+                locatorName,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -476,15 +509,15 @@
                 aaName);
         }
 
-        protected readonly ICollection<NamedManagerHolder> managers;
+        protected readonly ICollection<NamedLeechHolder> leeches;
         protected readonly object locker;
         protected const bool
             truth = true,
             falsity = false;
 
-        protected class NamedManagerHolder
+        protected class NamedLeechHolder
         {
-            public virtual MethodWebManager Manager { get; set; }
+            public virtual LocatorLeech Leech { get; set; }
 
             public virtual string Name { get; set; }
         }

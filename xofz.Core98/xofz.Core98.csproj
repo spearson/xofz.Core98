@@ -55,6 +55,7 @@
     <Compile Include="Framework\Delayer.cs" />
     <Compile Include="Framework\Factory.cs" />
     <Compile Include="Framework\Access\TimeProvider.cs" />
+    <Compile Include="Framework\Fluxus.cs" />
     <Compile Include="Framework\Locator.cs" />
     <Compile Include="Framework\Log\DownKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\NewestKeyTappedHandler.cs" />
@@ -63,15 +64,18 @@
     <Compile Include="Framework\Log\ResetTypeKeyTappedHandler.cs" />
     <Compile Include="Framework\Log\UpKeyTappedHandler.cs" />
     <Compile Include="Framework\Lots\SetLot.cs" />
+    <Compile Include="Framework\LeechFluxus.cs" />
     <Compile Include="Framework\ManagerLocator.cs" />
     <Compile Include="Framework\ManagerLocators\DeetManagerLocator.cs" />
     <Compile Include="Framework\ManagerLocators\ShufflingManagerLocator.cs" />
+    <Compile Include="Framework\LocatorLeech.cs" />
     <Compile Include="Framework\MethodWebManagers\CopyManager.cs" />
     <Compile Include="Framework\MethodWebManagers\DeetManager.cs" />
     <Compile Include="Framework\MethodWebManagers\ShufflingManager.cs" />
     <Compile Include="Framework\MethodWebs\CopyWeb.cs" />
     <Compile Include="Framework\MethodWebs\DeetWeb.cs" />
     <Compile Include="Framework\MethodWebs\ShufflingWeb.cs" />
+    <Compile Include="Framework\Leech.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />

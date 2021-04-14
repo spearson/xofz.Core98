@@ -23,7 +23,7 @@
             return new LinkedListLot<string>(
                 EH.Select(
                     this.webs,
-                    nmwh => nmwh?.Name));
+                    webHolder => webHolder?.Name));
         }
 
         public virtual bool AddWeb(
@@ -38,9 +38,9 @@
             var ws = this.webs;
             var alreadyAddedWeb = EH.FirstOrDefault(
                 ws,
-                nmwh => ReferenceEquals(
+                webHolder => ReferenceEquals(
                     web,
-                    nmwh?.Web));
+                    webHolder?.Web));
             if (alreadyAddedWeb != null)
             {
                 return falsity;
@@ -48,7 +48,8 @@
 
             if (EH.Contains(
                 EH.Select(
-                    ws, nmwh => nmwh?.Name),
+                    ws, 
+                    webHolder => webHolder?.Name),
                 name))
             {
                 return falsity;
@@ -64,25 +65,28 @@
         }
 
         protected virtual void add(
-            NamedMethodWebHolder webHolder)
+            NamedMethodWebHolder holder)
         {
-            this.webs?.Add(webHolder);
+            this.webs?.Add(
+                holder);
         }
 
         public virtual MethodWeb AccessWeb(
             Do<MethodWeb> accessor = null,
             string webName = null)
         {
-            var innerWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (innerWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return null;
             }
 
-            accessor?.Invoke(innerWeb);
-            return innerWeb;
+            accessor?.Invoke(web);
+            return web;
         }
 
         public virtual T AccessWeb<T>(
@@ -90,18 +94,18 @@
             string webName = null)
             where T : MethodWeb
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName);
+                webHolder => webHolder?.Name == webName);
 
-            var innerWeb = targetWeb?.Web as T;
-            if (innerWeb == null)
+            var web = targetHolder?.Web as T;
+            if (web == null)
             {
                 return null;
             }
 
-            accessor?.Invoke(innerWeb);
-            return innerWeb;
+            accessor?.Invoke(web);
+            return web;
         }
 
         public virtual T RunWeb<T>(
@@ -109,15 +113,17 @@
             string webName = null,
             string dependencyName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return default;
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine, 
                 dependencyName);
         }
@@ -128,17 +134,19 @@
             string tName = null,
             string uName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName);
@@ -151,10 +159,12 @@
             string uName = null,
             string vName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -162,7 +172,7 @@
                     default(V));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,
@@ -177,10 +187,12 @@
             string vName = null,
             string wName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -189,7 +201,7 @@
                     default(W));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,
@@ -206,10 +218,12 @@
             string wName = null,
             string xName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -219,7 +233,7 @@
                     default(X));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,
@@ -238,10 +252,12 @@
             string xName = null,
             string yName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -252,7 +268,7 @@
                     default(Y));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,
@@ -273,10 +289,13 @@
             string yName = null,
             string zName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder
+                = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+
+            var web = targetHolder?.Web;
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -288,7 +307,7 @@
                     default(Z));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,
@@ -312,10 +331,12 @@
             string zName = null,
             string aaName = null)
         {
-            var targetWeb = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrDefault(
                 this.webs,
-                nmwh => nmwh?.Name == webName)?.Web;
-            if (targetWeb == null)
+                webHolder => webHolder?.Name == webName);
+            var web = targetHolder?.Web;
+
+            if (web == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -328,7 +349,7 @@
                     default(AA));
             }
 
-            return targetWeb.Run(
+            return web.Run(
                 engine,
                 tName,
                 uName,

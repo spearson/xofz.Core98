@@ -4,88 +4,89 @@
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
-    public class ManagerLocator
+    public class LocatorLeech
+        : Leech
     {
-        public ManagerLocator()
+        public LocatorLeech()
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new LinkedList<NamedLocatorHolder>(),
                 new object())
         {
         }
 
-        protected ManagerLocator(
-            ICollection<NamedManagerHolder> managers)
+        protected LocatorLeech(
+            ICollection<NamedLocatorHolder> locators)
             : this(
-                managers,
+                locators,
                 new object())
         {
         }
 
-        protected ManagerLocator(
+        protected LocatorLeech(
             object locker)
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new LinkedList<NamedLocatorHolder>(),
                 locker)
         {
         }
 
-        protected ManagerLocator(
-            ICollection<NamedManagerHolder> managers,
+        protected LocatorLeech(
+            ICollection<NamedLocatorHolder> locators,
             object locker)
         {
-            this.managers = managers;
+            this.locators = locators;
             this.locker = locker;
         }
 
-        public virtual Lot<string> ManagerNames()
+        public virtual Lot<string> LocatorNames()
         {
             var lll = new LinkedListLot<string>();
             lock (this.locker)
             {
-                foreach (var managerName in EH.Select(
-                    this.managers,
-                    nmh => nmh?.Name))
+                foreach (var locatorName in EH.Select(
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name))
                 {
                     lll.AddLast(
-                        managerName);
+                        locatorName);
                 }
             }
 
             return lll;
         }
 
-        public virtual bool AddManager(
-            MethodWebManager manager,
+        public virtual bool AddLocator(
+            ManagerLocator locator,
             string name = null)
         {
-            if (manager == null)
+            if (locator == null)
             {
                 return falsity;
             }
 
-            ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder alreadyAddedManager;
+            ICollection<NamedLocatorHolder> ls;
+            NamedLocatorHolder alreadyAddedLocator;
             lock (this.locker)
             {
-                ms = this.managers;
-                alreadyAddedManager = EH.FirstOrDefault(
-                    ms,
-                    nmh => ReferenceEquals(
-                        manager,
-                        nmh?.Manager));
+                ls = this.locators;
+                alreadyAddedLocator = EH.FirstOrDefault(
+                    ls,
+                    locatorHolder => ReferenceEquals(
+                        locator,
+                        locatorHolder?.Locator));
             }
 
-            if (alreadyAddedManager != null)
+            if (alreadyAddedLocator != null)
             {
                 return falsity;
             }
 
-            NamedManagerHolder sameNameHolder;
+            NamedLocatorHolder sameNameHolder;
             lock (this.locker)
             {
                 sameNameHolder = EH.FirstOrDefault(
-                        ms,
-                        nmh => nmh?.Name == name);
+                        ls,
+                        locatorHolder => locatorHolder?.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -94,162 +95,167 @@
             }
 
             this.add(
-                new NamedManagerHolder
+                new NamedLocatorHolder
                 {
-                    Manager = manager,
+                    Locator = locator,
                     Name = name
                 });
             return truth;
         }
 
         protected virtual void add(
-            NamedManagerHolder holder)
+            NamedLocatorHolder holder)
         {
             lock (this.locker)
             {
-                this.managers?.Add(
+                this.locators?.Add(
                     holder);
             }
         }
 
-        public virtual MethodWebManager AccessManager(
-            Do<MethodWebManager> accessor = null,
-            string managerName = null)
+        public virtual ManagerLocator AccessLocator(
+            Do<ManagerLocator> accessor = null,
+            string locatorName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
-                return manager;
+                return locator;
             }
 
-            accessor?.Invoke(manager);
-            return manager;
+            accessor?.Invoke(locator);
+            return locator;
         }
 
-        public virtual T AccessManager<T>(
+        public virtual T AccessLocator<T>(
             Do<T> accessor = null,
-            string managerName = null)
-            where T : MethodWebManager
+            string locatorName = null)
+            where T : ManagerLocator
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager as T;
-            if (manager == null)
+            var locator = targetHolder?.Locator as T;
+            if (locator == null)
             {
-                return manager;
+                return locator;
             }
 
-            accessor?.Invoke(manager);
-            return manager;
+            accessor?.Invoke(locator);
+            return locator;
         }
 
-        public virtual bool RemoveManager(
-            string managerName)
+        public virtual bool RemoveLocator(
+            string locatorName)
         {
-            ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder targetHolder;
+            ICollection<NamedLocatorHolder> ls;
+            NamedLocatorHolder targetHolder;
             bool removed;
             lock (this.locker)
             {
-                ms = this.managers;
+                ls = this.locators;
                 targetHolder = EH.FirstOrDefault(
-                    ms,
-                    managerHolder => managerHolder?.Name == managerName);
-                removed = ms?.Remove(targetHolder)
+                    ls,
+                    locatorHolder => locatorHolder?.Name == locatorName);
+                removed = ls?.Remove(targetHolder)
                     ?? falsity;
             }
 
             return removed;
         }
 
-        public virtual T Locate<T>(
-            Do<T> locat = null,
+        public virtual T Siphon<T>(
+            Do<T> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string dependencyName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return default;
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 dependencyName);
         }
 
-        public virtual XTuple<T, U> Locate<T, U>(
-            Do<T, U> locat = null,
+        public virtual XTuple<T, U> Siphon<T, U>(
+            Do<T, U> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
             string uName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
                     default(U));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName);
         }
 
-        public virtual XTuple<T, U, V> Locate<T, U, V>(
-            Do<T, U, V> locat = null,
+        public virtual XTuple<T, U, V> Siphon<T, U, V>(
+            Do<T, U, V> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
             string uName = null,
             string vName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -257,16 +263,18 @@
                     default(V));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
                 vName);
         }
 
-        public virtual XTuple<T, U, V, W> Locate<T, U, V, W>(
-            Do<T, U, V, W> locat,
+        public virtual XTuple<T, U, V, W> Siphon<T, U, V, W>(
+            Do<T, U, V, W> siphon,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -274,16 +282,16 @@
             string vName = null,
             string wName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -292,8 +300,9 @@
                     default(W));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -301,8 +310,9 @@
                 wName);
         }
 
-        public virtual XTuple<T, U, V, W, X> Locate<T, U, V, W, X>(
-            Do<T, U, V, W, X> locat = null,
+        public virtual XTuple<T, U, V, W, X> Siphon<T, U, V, W, X>(
+            Do<T, U, V, W, X> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -311,16 +321,16 @@
             string wName = null,
             string xName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -330,8 +340,9 @@
                     default(X));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -340,8 +351,9 @@
                 xName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y> Locate<T, U, V, W, X, Y>(
-            Do<T, U, V, W, X, Y> locat = null,
+        public virtual XTuple<T, U, V, W, X, Y> Siphon<T, U, V, W, X, Y>(
+            Do<T, U, V, W, X, Y> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -351,16 +363,16 @@
             string xName = null,
             string yName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -371,8 +383,9 @@
                     default(Y));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -382,8 +395,9 @@
                 yName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y, Z> Locate<T, U, V, W, X, Y, Z>(
-            Do<T, U, V, W, X, Y, Z> locat = null,
+        public virtual XTuple<T, U, V, W, X, Y, Z> Siphon<T, U, V, W, X, Y, Z>(
+            Do<T, U, V, W, X, Y, Z> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -394,16 +408,16 @@
             string yName = null,
             string zName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -415,8 +429,9 @@
                     default(Z));
             }
 
-            return manager.RunWeb(
-                locat,
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -427,9 +442,10 @@
                 zName);
         }
 
-        public virtual XTuple<T, U, V, W, X, Y, Z, AA> Locate<T, U, V, W, X, Y,
+        public virtual XTuple<T, U, V, W, X, Y, Z, AA> Siphon<T, U, V, W, X, Y,
             Z, AA>(
-            Do<T, U, V, W, X, Y, Z, AA> locat = null,
+            Do<T, U, V, W, X, Y, Z, AA> siphon = null,
+            string locatorName = null,
             string locableName = null,
             string webName = null,
             string tName = null,
@@ -441,16 +457,16 @@
             string zName = null,
             string aaName = null)
         {
-            NamedManagerHolder targetHolder;
+            NamedLocatorHolder targetHolder;
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrDefault(
-                    this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    this.locators,
+                    locatorHolder => locatorHolder?.Name == locatorName);
             }
 
-            var manager = targetHolder?.Manager;
-            if (manager == null)
+            var locator = targetHolder?.Locator;
+            if (locator == null)
             {
                 return XTuple.Create(
                     default(T),
@@ -461,10 +477,11 @@
                     default(Y),
                     default(Z),
                     default(AA));
-            } 
-            
-            return manager.RunWeb(
-                locat,
+            }
+
+            return locator.Locate(
+                siphon,
+                locableName,
                 webName,
                 tName,
                 uName,
@@ -476,15 +493,15 @@
                 aaName);
         }
 
-        protected readonly ICollection<NamedManagerHolder> managers;
+        protected readonly ICollection<NamedLocatorHolder> locators;
         protected readonly object locker;
         protected const bool
             truth = true,
             falsity = false;
 
-        protected class NamedManagerHolder
+        protected class NamedLocatorHolder
         {
-            public virtual MethodWebManager Manager { get; set; }
+            public virtual ManagerLocator Locator { get; set; }
 
             public virtual string Name { get; set; }
         }
