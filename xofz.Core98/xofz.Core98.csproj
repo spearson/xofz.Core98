@@ -52,6 +52,7 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\UiMaker.cs" />
     <Compile Include="Framework\Delayer.cs" />
     <Compile Include="Framework\Factory.cs" />
     <Compile Include="Framework\Access\TimeProvider.cs" />
@@ -76,14 +77,17 @@
     <Compile Include="Framework\MethodWebs\DeetWeb.cs" />
     <Compile Include="Framework\MethodWebs\ShufflingWeb.cs" />
     <Compile Include="Framework\Leech.cs" />
+    <Compile Include="Framework\Axioses\Safer.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
     <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />
+    <Compile Include="Framework\Axioses\Inanimator.cs" />
     <Compile Include="LotterV2.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
     <Compile Include="ShufflingObject.cs" />
+    <Compile Include="Axios.cs" />
     <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
     <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />

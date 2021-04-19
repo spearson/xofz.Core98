@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.ManagerLocators
 {
-    using System.Collections.Generic;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
