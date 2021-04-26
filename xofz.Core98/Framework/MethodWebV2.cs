@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
-    using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
     public class MethodWebV2

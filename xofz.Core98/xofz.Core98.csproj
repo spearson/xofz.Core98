@@ -48,10 +48,12 @@
     <Compile Include="Framework\Access\SettingsHolder.cs" />
     <Compile Include="Framework\Access\DependencyNames.cs" />
     <Compile Include="Framework\AlphanumericGen.cs" />
+    <Compile Include="Framework\Axiom.cs" />
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\Subjugate.cs" />
     <Compile Include="Framework\UiMaker.cs" />
     <Compile Include="Framework\Delayer.cs" />
     <Compile Include="Framework\Factory.cs" />
