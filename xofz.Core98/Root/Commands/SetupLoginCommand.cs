@@ -79,10 +79,10 @@
                 new KeyboardKeyTappedHandler(w));
             w?.RegisterDependency(
                 new LabelApplier(w));
-            var registered = false;
+            var registered = falsity;
             w?.Run<Labels>(labels =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -94,5 +94,8 @@
         protected readonly LoginUi ui;
         protected readonly MethodWeb web;
         protected readonly TimeSpan loginDuration;
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

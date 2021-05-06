@@ -23,7 +23,7 @@
             this.shell = shell;
             settings = settings
                 ?? new SettingsHolder();
-            settings.StatisticsEnabled = false;
+            settings.StatisticsEnabled = falsity;
             this.settings = settings;
             this.web = web;
         }
@@ -39,7 +39,7 @@
             this.shell = shell;
             settings = settings
                        ?? new SettingsHolder();
-            settings.StatisticsEnabled = true;
+            settings.StatisticsEnabled = truth;
             this.settings = settings;
             this.statsUi = statsUi;
             this.web = web;
@@ -57,7 +57,7 @@
             this.editUi = editUi;
             settings = settings
                        ?? new SettingsHolder();
-            settings.StatisticsEnabled = false;
+            settings.StatisticsEnabled = falsity;
             this.settings = settings;
             this.web = web;
         }
@@ -76,7 +76,7 @@
             this.statsUi = statsUi;
             settings = settings
                        ?? new SettingsHolder();
-            settings.StatisticsEnabled = true;
+            settings.StatisticsEnabled = truth;
             this.settings = settings;
             this.web = web;
         }
@@ -109,7 +109,7 @@
                     .Setup();
             }
 
-            if (s?.StatisticsEnabled ?? false)
+            if (s?.StatisticsEnabled ?? falsity)
             {
                 new LogStatisticsPresenter(
                         this.statsUi,
@@ -129,11 +129,11 @@
             var ldn = s.LogDependencyName;
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
-            var registered = false;
+            var registered = falsity;
 
             w?.Run<Delayer>(log =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (registered)
             {
@@ -144,9 +144,10 @@
                 new Delayer());
 
             checkLog:
+            registered = falsity;
             w?.Run<Log>(log =>
                 {
-                    registered = true;
+                    registered = truth;
                 },
                 ldn);
             if (registered)
@@ -173,11 +174,11 @@
                 ldn);
 
             checkLotter:
-            registered = false;
+            registered = falsity;
             var ln = DependencyNames.Lotter;
             w?.Run<Lotter>(lotter =>
                 {
-                    registered = true;
+                    registered = truth;
                 },
                 ln);
             if (!registered)
@@ -212,10 +213,10 @@
                     ldn);
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.EntryReloader>(reloader =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -223,10 +224,10 @@
                     new Framework.Log.EntryReloader(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.EntryConverter>(converter =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -234,10 +235,10 @@
                     new Framework.Log.EntryConverter(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.FilterChecker>(converter =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -245,10 +246,10 @@
                     new Framework.Log.FilterChecker(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.DateAndFilterResetter>(resetter =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -256,11 +257,11 @@
                     new Framework.Log.DateAndFilterResetter(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.TimeProvider>(
                 provider =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -268,10 +269,10 @@
                     new Framework.Log.TimeProvider());
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.SetupHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -279,10 +280,10 @@
                     new Framework.Log.SetupHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.StartHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -290,10 +291,10 @@
                     new Framework.Log.StartHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Framework.Log.AddKeyTappedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -301,10 +302,10 @@
                     new Framework.Log.AddKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<AccessLevelChangedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -312,10 +313,10 @@
                     new AccessLevelChangedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<DateRangeChangedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -323,10 +324,10 @@
                     new DateRangeChangedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<FilterTextChangedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -334,10 +335,10 @@
                     new FilterTextChangedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<StatisticsKeyTappedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -345,10 +346,10 @@
                     new StatisticsKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<ClearKeyTappedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -356,10 +357,10 @@
                     new ClearKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<EntryWrittenHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -367,10 +368,10 @@
                     new EntryWrittenHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<Labels>(labels =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -378,10 +379,10 @@
                     new Labels());
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<LabelApplier>(applier =>
             {
-                registered = true;
+                registered = truth;
             });
 
             if (!registered)
@@ -390,11 +391,11 @@
                     new LabelApplier(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<PreviousWeekKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -402,11 +403,11 @@
                     new PreviousWeekKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<CurrentWeekKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -414,11 +415,11 @@
                     new CurrentWeekKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<NextWeekKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -426,11 +427,11 @@
                     new NextWeekKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<NewestKeyTappedHandler>(
                 applier =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -438,11 +439,11 @@
                     new NewestKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<OldestKeyTappedHandler>(
                 applier =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -450,11 +451,11 @@
                     new OldestKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<KeyPresser>(
                 presser =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -462,11 +463,11 @@
                     new GeneralKeyPresser());
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<DownKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -474,11 +475,11 @@
                     new DownKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<UpKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -486,11 +487,11 @@
                     new UpKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<ResetContentKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -498,11 +499,11 @@
                     new ResetContentKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<ResetTypeKeyTappedHandler>(
                 handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
             if (!registered)
             {
@@ -510,10 +511,10 @@
                     new ResetTypeKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<xofz.Framework.LogEditor.SetupHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -521,10 +522,10 @@
                     new xofz.Framework.LogEditor.SetupHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<xofz.Framework.LogEditor.TypeChangedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -532,10 +533,10 @@
                     new xofz.Framework.LogEditor.TypeChangedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<xofz.Framework.LogEditor.AddKeyTappedHandler>(handler =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -543,10 +544,10 @@
                     new xofz.Framework.LogEditor.AddKeyTappedHandler(w));
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<xofz.Framework.LogEditor.Labels>(labels =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -554,10 +555,10 @@
                     new xofz.Framework.LogEditor.Labels());
             }
 
-            registered = false;
+            registered = falsity;
             w?.Run<xofz.Framework.LogEditor.LabelApplier>(applier =>
             {
-                registered = true;
+                registered = truth;
             });
             if (!registered)
             {
@@ -567,11 +568,11 @@
 
             if (se)
             {
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.SetupHandler>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -580,11 +581,11 @@
                             SetupHandler(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.StartHandler>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -592,11 +593,11 @@
                         new xofz.Framework.LogStatistics.StartHandler(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.
                     ResetContentKeyTappedHandler>(handler =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
                 if (!registered)
                 {
@@ -605,11 +606,11 @@
                             ResetContentKeyTappedHandler(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.ResetTypeKeyTappedHandler>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -618,10 +619,10 @@
                             ResetTypeKeyTappedHandler(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.StatsDisplayer>(sd =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
                 if (!registered)
                 {
@@ -629,10 +630,10 @@
                         new xofz.Framework.LogStatistics.StatsDisplayer(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.FilterSetter>(fs =>
                 {
-                    registered = true;
+                    registered = truth;
                 });
                 if (!registered)
                 {
@@ -640,11 +641,11 @@
                         new xofz.Framework.LogStatistics.FilterSetter(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.OverallKeyTappedHandler>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -653,11 +654,11 @@
                             OverallKeyTappedHandler(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.RangeKeyTappedHandler>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -667,11 +668,11 @@
                 }
 
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.DateResetter>(
                     handler =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -680,11 +681,11 @@
                             DateResetter(w));
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.Labels>(
                     labels =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -693,11 +694,11 @@
                             Labels());
                 }
 
-                registered = false;
+                registered = falsity;
                 w?.Run<xofz.Framework.LogStatistics.LabelApplier>(
                     applier =>
                     {
-                        registered = true;
+                        registered = truth;
                     });
                 if (!registered)
                 {
@@ -714,5 +715,8 @@
         protected readonly LogStatisticsUi statsUi;
         protected readonly SettingsHolder settings;
         protected readonly MethodWeb web;
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }
