@@ -90,6 +90,7 @@
     <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Axioses\Inanimator.cs" />
+    <Compile Include="Framework\UiReaderWriters\NullUiReaderWriter.cs" />
     <Compile Include="LotterV2.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
@@ -195,7 +196,7 @@
     <Compile Include="Framework\Transformation\EnumerablePartitioner.cs" />
     <Compile Include="GetArray.cs" />
     <Compile Include="Presentation\Navigator.cs" />
-    <Compile Include="Presentation\NavigatorV2.cs" />
+    <Compile Include="Presentation\ThreadSafeNavigator.cs" />
     <Compile Include="SecureStringToolSet.cs" />
     <Compile Include="Framework\Timer.cs" />
     <Compile Include="Framework\Timers\LoggingTimer.cs" />
@@ -246,7 +247,7 @@
     <Compile Include="Presentation\LogStatisticsPresenter.cs" />
     <Compile Include="Presentation\MainPresenter.cs" />
     <Compile Include="Presentation\NamedPresenter.cs" />
-    <Compile Include="Presentation\ThreadSafeNavigator.cs" />
+    <Compile Include="Presentation\NavigatorV2.cs" />
     <Compile Include="Presentation\PopupNamedPresenter.cs" />
     <Compile Include="Presentation\PopupPresenter.cs" />
     <Compile Include="Presentation\Presenter.cs" />
@@ -355,6 +356,7 @@
   <ItemGroup>
     <None Include="core98.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterResolveReferences">
     <ItemGroup>

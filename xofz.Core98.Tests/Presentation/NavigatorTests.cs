@@ -222,7 +222,7 @@
                 // and once to wait on it to get set again
                 var w = A.Fake<MethodWeb>();
                 var n = new Navigator(w);
-                
+
                 n.LoginFluidly();
 
                 A.CallTo(() => w.Run(

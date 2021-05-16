@@ -13,6 +13,11 @@
             yield break;
         }
 
+        public static IEnumerable<T> Null<T>()
+        {
+            return null;
+        }
+
         public static IEnumerable<TResult> Select<T, TResult>(
             IEnumerable<T> source,
             Gen<T, TResult> selector)

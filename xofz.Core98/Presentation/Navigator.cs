@@ -207,7 +207,8 @@
                     EH.Where(
                         this.presenters,
                         p => p is TPresenter));
-            if (matchingPresenters.Count < 1)
+            const byte one = 1;
+            if (matchingPresenters.Count < one)
             {
                 return default;
             }

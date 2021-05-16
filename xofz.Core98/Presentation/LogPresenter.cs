@@ -1,10 +1,10 @@
 ﻿namespace xofz.Presentation
 {
     using System.Threading;
-    using Framework;
-    using UI;
+    using xofz.Framework;
     using xofz.Framework.Log;
     using xofz.Framework.Logging;
+    using xofz.UI;
 
     public sealed class LogPresenter
         : NamedPresenter
