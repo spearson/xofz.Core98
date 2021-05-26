@@ -63,5 +63,24 @@
                     unsubscribed);
             }
         }
+
+        public class When_Raise_is_called : Context
+        {
+            [Fact]
+            public void Raises_Raised()
+            {
+                bool raised = false;
+                this.raiser.Process(
+                    () =>
+                    {
+                        raised = true;
+                    });
+
+                this.raiser.Raise();
+
+                Assert.True(
+                    raised);
+            }
+        }
     }
 }

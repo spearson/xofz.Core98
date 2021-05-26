@@ -26,5 +26,10 @@
                     this,
                     behavior);
         }
+
+        public virtual void Raise()
+        {
+            this.Raised?.Invoke();
+        }
     }
 }
