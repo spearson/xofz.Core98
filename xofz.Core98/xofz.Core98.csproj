@@ -60,6 +60,7 @@
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Subjugate.cs" />
+    <Compile Include="Framework\Axioses\Raiser.cs" />
     <Compile Include="Framework\UiMaker.cs" />
     <Compile Include="Framework\Delayer.cs" />
     <Compile Include="Framework\Factory.cs" />

@@ -64,6 +64,7 @@
     <Compile Include="AccessLevelTests.cs" />
     <Compile Include="EnumerableHelpersTests.cs" />
     <Compile Include="Framework\AxiomTests.cs" />
+    <Compile Include="Framework\Axioses\RaiserTests.cs" />
     <Compile Include="Framework\BinaryTranslatorTests.cs" />
     <Compile Include="Framework\Computation\QuickSorterTests.cs" />
     <Compile Include="Framework\EventRaiserTests.cs" />
