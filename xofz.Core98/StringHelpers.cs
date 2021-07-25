@@ -28,7 +28,7 @@
                 return null;
             }
 
-            if (count < 1)
+            if (count < one)
             {
                 return s;
             }
@@ -37,7 +37,7 @@
             return count >= l
                 ? string.Empty
                 : s.Substring(
-                    0,
+                    zero,
                     l - count);
         }
 
@@ -46,18 +46,18 @@
         {
             if (s == null)
             {
-                return true;
+                return truth;
             }
 
             foreach (var c in s)
             {
                 if (!char.IsWhiteSpace(c))
                 {
-                    return false;
+                    return falsity;
                 }
             }
 
-            return true;
+            return truth;
         }
 
         public static IEnumerable<string> Chunks(
@@ -69,14 +69,14 @@
                 yield break;
             }
 
-            if (chunkSize < 1)
+            if (chunkSize < one)
             {
                 yield return s;
             }
 
             var l = s.Length;
             int i;
-            for (i = 0; i < l - chunkSize; i += chunkSize)
+            for (i = zero; i < l - chunkSize; i += chunkSize)
             {
                 yield return s.Substring(i, chunkSize);
             }
@@ -86,5 +86,12 @@
                 yield return s.Substring(i, l - i);
             }
         }
+
+        private const byte 
+            zero = 0,
+            one = 1;
+        private const bool 
+            falsity = false,
+            truth = true;
     }
 }
