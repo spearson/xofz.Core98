@@ -59,6 +59,9 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
+    <Compile Include="Framework\Leeches\UnsyncLeech.cs" />
+    <Compile Include="Framework\ManagerLocators\UnsyncLocator.cs" />
     <Compile Include="Framework\Subjugate.cs" />
     <Compile Include="Framework\Axioses\Raiser.cs" />
     <Compile Include="Framework\UiMaker.cs" />
