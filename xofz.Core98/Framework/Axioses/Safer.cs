@@ -15,5 +15,19 @@
                 // fizzle
             }
         }
+
+        public virtual void Process(
+            Do behavior,
+            Do onCatch)
+        {
+            try
+            {
+                behavior?.Invoke();
+            }
+            catch
+            {
+                onCatch?.Invoke();
+            }
+        }
     }
 }

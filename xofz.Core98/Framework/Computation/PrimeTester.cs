@@ -12,7 +12,7 @@
         {
             if (finiteSource == null)
             {
-                return true;
+                return truth;
             }
 
             if (finiteSource is Lot<long> lot)
@@ -31,9 +31,12 @@
             Lot<long> lot, 
             bool onlyCheckLast)
         {
-            if (lot.Count < 1)
+            const byte one = 1;
+            const byte zero = 0;
+            
+            if (lot?.Count < one)
             {
-                return true;
+                return truth;
             }
 
             var ll = lot as LinkedListLot<long>
@@ -47,32 +50,36 @@
                     ll,
                     n => n <= squareRoot))
                 {
-                    if (numberToCheck % number == 0)
+                    if (numberToCheck % number == zero)
                     {
-                        return false;
+                        return falsity;
                     }
                 }
 
-                return true;
+                return truth;
             }
 
             while (true)
             {
                 var lowestNumber = ll.First.Value;
                 ll.RemoveFirst();
-                if (ll.Count < 1)
+                if (ll.Count < one)
                 {
-                    return true;
+                    return truth;
                 }
 
                 foreach (var number in ll)
                 {
-                    if (number % lowestNumber == 0)
+                    if (number % lowestNumber == zero)
                     {
-                        return false;
+                        return falsity;
                     }
                 }
             }
         }
+
+        protected const bool 
+            truth = true,
+            falsity = false;
     }
 }

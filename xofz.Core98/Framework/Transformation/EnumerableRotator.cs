@@ -8,7 +8,7 @@
         public virtual Lot<T> Rotate<T>(
             IEnumerable<T> finiteSource, 
             int cycles, 
-            bool goRight = true)
+            bool goRight = truth)
         {
             var ll = new LinkedListLot<T>();
             if (finiteSource == null)
@@ -48,5 +48,7 @@
 
             return lot;
         }
+
+        protected const bool truth = true;
     }
 }

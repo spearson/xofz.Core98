@@ -12,7 +12,7 @@
             if (e == null)
             {
                 logEditor?.AddEntry(
-                    DefaultEntryTypes.Error,
+                    ErrorType,
                     new[]
                     {
                         @"An unhandled exception occurred, "
@@ -25,7 +25,7 @@
             if (eo == null)
             {
                 logEditor?.AddEntry(
-                    DefaultEntryTypes.Error,
+                    ErrorType,
                     new[]
                     {
                         @"An unhandled exception occurred, "
@@ -38,7 +38,7 @@
             if (ex == null)
             {
                 logEditor?.AddEntry(
-                    DefaultEntryTypes.Error,
+                    ErrorType,
                     new[]
                     {
                         @"An unhandled exception occurred, but the exception "
@@ -80,10 +80,11 @@
             }
 
             logEditor?.AddEntry(
-                DefaultEntryTypes.Error,
+                ErrorType,
                 content.ToArray());
         }
 
         protected const string StackTraceHeader = @"Stack trace:";
+        protected const string ErrorType = DefaultEntryTypes.Error;
     }
 }

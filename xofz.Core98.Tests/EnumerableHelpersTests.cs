@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Ploeh.AutoFixture;
     using Xunit;
+    using Xunit.Abstractions;
     using EH = xofz.EnumerableHelpers;
 
     public class EnumerableHelpersTests
@@ -22,12 +23,29 @@
 
         public class When_Empty_is_called : Context
         {
+            public When_Empty_is_called(
+                ITestOutputHelper outputter)
+            {
+                this.outputter = outputter;
+            }
+
             [Fact]
             public void Not_null()
             {
                 Assert.NotNull(
                     EH.Empty<object>());
             }
+
+            [Fact]
+            public void Type_test()
+            {
+                var empty = EH.Empty<object>();
+
+                this.outputter.WriteLine(
+                    empty.GetType().ToString());
+            }
+
+            protected readonly ITestOutputHelper outputter;
         }
 
         public class When_ToArray_is_called : Context
