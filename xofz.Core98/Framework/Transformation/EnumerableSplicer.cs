@@ -15,7 +15,7 @@
             }
 
             var sources = new IEnumerable<T>[collections.Length];
-            long indexCounter = 0;
+            long indexCounter = zero;
             foreach (var collection in collections)
             {
                 sources[indexCounter] = collection;
@@ -34,7 +34,7 @@
             }
 
             var sources = new IEnumerable<T>[lots.Length];
-            long indexCounter = 0;
+            long indexCounter = zero;
             foreach (var lot in lots)
             {
                 sources[indexCounter] = lot;
@@ -45,26 +45,26 @@
         }
 
         public virtual Lot<T> Splice<T>(
-            IEnumerable<T>[] sources)
+            IEnumerable<T>[] finiteSources)
         {
             var result = new ListLot<T>();
-            if (sources == null)
+            if (finiteSources == null)
             {
                 return result;
             }
 
-            var l = sources.Length;
-            if (l < 1)
+            var l = finiteSources.Length;
+            if (l < one)
             {
                 return result;
             }
 
             var lists = new List<T>[l];
             // first, enumerate all the items into separate lists
-            for (long i = 0; i < l; ++i)
+            for (long i = zero; i < l; ++i)
             {
                 lists[i] = new List<T>(
-                    sources[i]);
+                    finiteSources[i]);
             }
 
             // then, splice the lists together
@@ -77,7 +77,7 @@
                 lists,
                 list => list.Count));
 
-            for (var i = 0; i < smallestCount; ++i)
+            for (var i = zero; i < smallestCount; ++i)
             {
                 var currentIndex = i;
                 result.AddRange(
@@ -91,15 +91,15 @@
             foreach (var list in lists)
             {
                 list.RemoveRange(
-                    0, 
+                    zero, 
                     smallestCount);
-                if (list.Count > 0)
+                if (list.Count > zero)
                 {
                     remainingLists.Add(list);
                 }
             }
 
-            if (remainingLists.Count < 1)
+            if (remainingLists.Count < one)
             {
                 return result;
             }
@@ -112,5 +112,51 @@
 
             return result;
         }
+
+        public virtual IEnumerable<T> SpliceV2<T>(
+            IEnumerable<IEnumerable<T>> sources)
+        {
+            if (sources == null)
+            {
+                yield break;
+            }
+
+            ICollection<IEnumerator<T>> enumerators
+                = new LinkedList<IEnumerator<T>>();
+            foreach (var source in sources)
+            {
+                var enumerator = source?.GetEnumerator();
+                if (enumerator == null)
+                {
+                    continue;
+                }
+
+                enumerators.Add(enumerator);
+            }
+
+            bool reachedOne;
+
+            splice:
+            reachedOne = false;
+            foreach (var enumerator in enumerators)
+            {
+                if (!enumerator.MoveNext())
+                {
+                    continue;
+                }
+
+                reachedOne = true;
+                yield return enumerator.Current;
+            }
+
+            if (reachedOne)
+            {
+                goto splice;
+            }
+        }
+
+        protected const byte
+            zero = 0,
+            one = 1;
     }
 }
