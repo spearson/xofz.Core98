@@ -2,113 +2,77 @@
 {
     using System.Collections.Generic;
     using xofz.Framework.Lots;
-    using EH = xofz.EnumerableHelpers;
 
     public class EnumerableSplicer
     {
         public virtual Lot<T> Splice<T>(
             ICollection<T>[] collections)
         {
+            var result = new LinkedListLot<T>();
             if (collections == null)
             {
-                return Lot.Empty<T>();
+                return result;
             }
 
-            var sources = new IEnumerable<T>[collections.Length];
-            long indexCounter = zero;
-            foreach (var collection in collections)
+            var source = this.SpliceV2(
+                collections);
+            if (source == null)
             {
-                sources[indexCounter] = collection;
-                ++indexCounter;
+                return result;
             }
 
-            return this.Splice(sources);
+            foreach (var item in source)
+            {
+                result.AddLast(item);
+            }
+
+            return result;
         }
 
         public virtual Lot<T> Splice<T>(
             Lot<T>[] lots)
         {
+            var result = new LinkedListLot<T>();
             if (lots == null)
             {
-                return Lot.Empty<T>();
+                return result;
             }
 
-            var sources = new IEnumerable<T>[lots.Length];
-            long indexCounter = zero;
-            foreach (var lot in lots)
+            var source = this.SpliceV2(
+                lots);
+            if (source == null)
             {
-                sources[indexCounter] = lot;
-                ++indexCounter;
+                return result;
             }
 
-            return this.Splice(sources);
+            foreach (var item in source)
+            {
+                result.AddLast(item);
+            }
+
+            return result;
         }
 
         public virtual Lot<T> Splice<T>(
             IEnumerable<T>[] finiteSources)
         {
-            var result = new ListLot<T>();
+            var result = new LinkedListLot<T>();
             if (finiteSources == null)
             {
                 return result;
             }
 
-            var l = finiteSources.Length;
-            if (l < one)
+            var source = this.SpliceV2(
+                finiteSources);
+            if (source == null)
             {
                 return result;
             }
 
-            var lists = new List<T>[l];
-            // first, enumerate all the items into separate lists
-            for (long i = zero; i < l; ++i)
+            foreach (var item in source)
             {
-                lists[i] = new List<T>(
-                    finiteSources[i]);
+                result.AddLast(item);
             }
-
-            // then, splice the lists together
-            result = new ListLot<T>(
-                EH.Sum(
-                    lists,
-                    list => list.Count));
-            var smallestCount = EH.Min(
-                EH.Select(
-                lists,
-                list => list.Count));
-
-            for (var i = zero; i < smallestCount; ++i)
-            {
-                var currentIndex = i;
-                result.AddRange(
-                    EH.Select(
-                        lists,
-                        list => list[currentIndex]));
-            }
-
-            ICollection<ICollection<T>> remainingLists = 
-                new LinkedList<ICollection<T>>();
-            foreach (var list in lists)
-            {
-                list.RemoveRange(
-                    zero, 
-                    smallestCount);
-                if (list.Count > zero)
-                {
-                    remainingLists.Add(list);
-                }
-            }
-
-            if (remainingLists.Count < one)
-            {
-                return result;
-            }
-
-            result.AddRange(
-                this.Splice(
-                    // ReSharper disable once CoVariantArrayConversion
-                    EH.ToArray(
-                        remainingLists)));
 
             return result;
         }
