@@ -153,6 +153,11 @@
             {
                 goto splice;
             }
+
+            foreach (var enumerator in enumerators)
+            {
+                enumerator.Dispose();
+            }
         }
 
         protected const byte
