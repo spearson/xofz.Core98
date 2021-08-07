@@ -13,18 +13,19 @@
                 yield break;
             }
 
-            if (kickPoint < 1)
+            const byte one = 1;
+            if (kickPoint < one)
             {
                 yield break;
             }
 
-            long kickCounter = 0;
+            long kickCounter = zero;
             foreach (var item in source)
             {
                 ++kickCounter;
                 if (kickCounter == kickPoint)
                 {
-                    kickCounter = 0;
+                    kickCounter = zero;
                     continue;
                 }
 
@@ -51,7 +52,7 @@
                 yield break;
             }
 
-            long kickCounter = 0;
+            long kickCounter = zero;
             foreach (var item in source)
             {
                 checked
@@ -77,5 +78,8 @@
                 yield return item;
             }
         }
+
+        protected const byte
+            zero = 0;
     }
 }

@@ -84,12 +84,13 @@
 
         protected virtual long collectPrime()
         {
+            const bool truth = true;
             var ll = this.currentLinkedList;
             var lastNode = ll?.Last;
             ll?.AddLast(
                 lastNode?.Value + firstPrimality 
                 ?? firstPrimality);
-            while (!this.tester.RelativelyPrime(ll, true))
+            while (!this.tester.RelativelyPrime(ll, truth))
             {
                 var node = ll?.Last;
                 ll?.RemoveLast();

@@ -21,15 +21,18 @@
                 ll.AddLast(item);
             }
 
+            const byte
+                zero = 0,
+                one = 1;
             Lot<T> lot = ll;
-            if (lot.Count < 1)
+            if (lot.Count < one)
             {
                 return lot;
             }
 
             if (goRight)
             {
-                for (var i = 0; i < cycles; ++i)
+                for (int i = zero; i < cycles; ++i)
                 {
                     var node = ll.Last;
                     ll.RemoveLast();
@@ -39,7 +42,7 @@
                 return lot;
             }
 
-            for (var i = 0; i < cycles; ++i)
+            for (int i = zero; i < cycles; ++i)
             {
                 var node = ll.First;
                 ll.RemoveFirst();

@@ -34,7 +34,7 @@
 
             foreach (var item in source)
             {
-                fieldReference.Add(item);
+                fieldReference?.Add(item);
                 yield return item;
             }
         }
@@ -60,7 +60,7 @@
 
             foreach (var item in finiteSource)
             {
-                fieldReference.Add(item);
+                fieldReference?.Add(item);
             }
 
             return fieldReference;

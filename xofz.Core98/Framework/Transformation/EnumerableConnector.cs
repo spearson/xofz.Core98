@@ -6,17 +6,21 @@
     public class EnumerableConnector
     {
         public virtual Lot<T> Connect<T>(
-            params IEnumerable<T>[] sources)
+            params IEnumerable<T>[] finiteSources)
         {
             var connection = new LinkedListLot<T>();
-            if (sources == null)
+            if (finiteSources == null)
             {
                 return connection;
             }
-           
-            for (var i = 0; i < sources.Length; ++i)
+
+            const byte zero = 0;
+            var l = finiteSources.Length;
+            for (int sourceIndex = zero;
+                sourceIndex < l;
+                ++sourceIndex)
             {
-                var source = sources[i];
+                var source = finiteSources[sourceIndex];
                 if (source == null)
                 {
                     continue;

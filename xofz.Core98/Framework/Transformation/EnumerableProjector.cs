@@ -10,20 +10,20 @@
         {
             if (finiteSource == null)
             {
-                return new T[0][];
+                return new T[zero][];
             }
 
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Sqrt(queue.Count) + 1);
+            var magnitude = (int)(Math.Sqrt(queue.Count) + one);
             var jagged2 = new T[magnitude][];
-            for (var i = 0; i < magnitude; ++i)
+            for (int i = zero; i < magnitude; ++i)
             {
                 jagged2[i] = new T[magnitude];
             }
 
-            int counter1 = 0, counter2 = 0;
+            int counter1 = zero, counter2 = zero;
             T item;
-            while (queue.Count > 0)
+            while (queue.Count > zero)
             {
                 item = queue.Dequeue();
                 jagged2[counter1][counter2] = item;
@@ -34,7 +34,7 @@
                 }
 
                 ++counter1;
-                counter2 = 0;
+                counter2 = zero;
             }
 
             return jagged2;
@@ -45,24 +45,25 @@
         {
             if (finiteSource == null)
             {
-                return new T[0][][];
+                return new T[zero][][];
             }
 
+            const byte three = 3;
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)3) + 1);
+            var magnitude = (int)(Math.Pow(queue.Count, one / (double)three) + one);
             var jagged3 = new T[magnitude][][];
-            for (var i = 0; i < magnitude; ++i)
+            for (int i = zero; i < magnitude; ++i)
             {
                 jagged3[i] = new T[magnitude][];
-                for (var j = 0; j < magnitude; ++j)
+                for (int j = zero; j < magnitude; ++j)
                 {
                     jagged3[i][j] = new T[magnitude];
                 }
             }
 
-            int counter1 = 0, counter2 = 0, counter3 = 0;
+            int counter1 = zero, counter2 = zero, counter3 = zero;
             T item;
-            while (queue.Count > 0)
+            while (queue.Count > zero)
             {
                 item = queue.Dequeue();
                 jagged3[counter1][counter2][counter3] = item;
@@ -73,7 +74,7 @@
                 }
 
                 ++counter2;
-                counter3 = 0;
+                counter3 = zero;
 
                 if (counter2 < jagged3[counter1].Length)
                 {
@@ -81,7 +82,7 @@
                 }
 
                 ++counter1;
-                counter2 = 0;
+                counter2 = zero;
             }
 
             return jagged3;
@@ -92,28 +93,32 @@
         {
             if (finiteSource == null)
             {
-                return new T[0][][][];
+                return new T[zero][][][];
             }
 
+            const byte four = 4;
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Pow(queue.Count, 1 / (double)4) + 1);
+            var magnitude = (int)(Math.Pow(queue.Count, one / (double)four) + one);
             var jagged4 = new T[magnitude][][][];
-            for (var i = 0; i < magnitude; ++i)
+            for (int i = zero; i < magnitude; ++i)
             {
                 jagged4[i] = new T[magnitude][][];
-                for (var j = 0; j < magnitude; ++j)
+                for (int j = zero; j < magnitude; ++j)
                 {
                     jagged4[i][j] = new T[magnitude][];
-                    for (var k = 0; k < magnitude; ++k)
+                    for (int k = zero; k < magnitude; ++k)
                     {
                         jagged4[i][j][k] = new T[magnitude];
                     }
                 }
             }
 
-            int counter1 = 0, counter2 = 0, counter3 = 0, counter4 = 0;
+            int counter1 = zero,
+                counter2 = zero,
+                counter3 = zero,
+                counter4 = zero;
             T item;
-            while (queue.Count > 0)
+            while (queue.Count > zero)
             {
                 item = queue.Dequeue();
                 jagged4[counter1][counter2][counter3][counter4] = item;
@@ -124,7 +129,7 @@
                 }
 
                 ++counter3;
-                counter4 = 0;
+                counter4 = zero;
 
                 if (counter3 < jagged4[counter1][counter2].Length)
                 {
@@ -132,7 +137,7 @@
                 }
 
                 ++counter2;
-                counter3 = 0;
+                counter3 = zero;
 
                 if (counter2 < jagged4[counter1].Length)
                 {
@@ -140,10 +145,14 @@
                 }
 
                 ++counter1;
-                counter2 = 0;
+                counter2 = zero;
             }
 
             return jagged4;
         }
+
+        protected const byte
+            zero = 0,
+            one = 1;
     }
 }

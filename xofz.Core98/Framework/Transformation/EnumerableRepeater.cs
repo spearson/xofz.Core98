@@ -9,13 +9,16 @@
             IEnumerable<T> source,
             int times)
         {
+            const byte
+                zero = 0,
+                one = 1;
             var collection = new LinkedListLot<T>();
             if (source == null)
             {
                 return collection;
             }
 
-            if (times < 1)
+            if (times < one)
             {
                 return collection;
             }
@@ -26,7 +29,7 @@
             }
 
             var result = new ListLot<T>();
-            for (var i = 0; i < times; ++i)
+            for (int i = zero; i < times; ++i)
             {
                 result.AddRange(collection);
             }

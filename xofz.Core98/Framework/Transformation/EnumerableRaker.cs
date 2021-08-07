@@ -25,7 +25,7 @@
                 yield break;
             }
 
-            long counter = 0;
+            long counter = zero;
             foreach (var rakePoint in rakePoints)
             {
                 while (counter < rakePoint)
@@ -35,7 +35,7 @@
                 }
 
                 yield return e.Current;
-                counter = 0;
+                counter = zero;
             }
 
             while (e.MoveNext())
@@ -67,7 +67,7 @@
                 yield break;
             }
 
-            var counter = 0;
+            int counter = zero;
             foreach (var pp in passPoints)
             {
                 while (counter < pp)
@@ -77,7 +77,7 @@
                     ++counter;
                 }
 
-                counter = 0;
+                counter = zero;
             }
 
             while (e.MoveNext())
@@ -87,5 +87,7 @@
 
             e.Dispose();
         }
+
+        protected const byte zero = 0;
     }
 }

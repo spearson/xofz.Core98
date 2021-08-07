@@ -77,7 +77,7 @@
             var r = this.runner;
             r?.Run<LogEditor>(le =>
                 {
-                    this.log(this, le);
+                    this.log?.Invoke(this, le);
                 },
                 this.LogName);
 

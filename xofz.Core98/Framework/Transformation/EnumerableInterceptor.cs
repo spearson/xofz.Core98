@@ -11,7 +11,7 @@
         {
             if (source == null)
             {
-                if (interceptionPoint < 1)
+                if (interceptionPoint < one)
                 {
                     yield return interception;
                 }
@@ -19,7 +19,7 @@
                 yield break;
             }
 
-            long indexer = 0;
+            long indexer = zero;
             foreach (var item in source)
             {
                 if (indexer == interceptionPoint)
@@ -41,11 +41,11 @@
             ICollection<T> interception,
             long interceptionPoint)
         {
-            long indexer = 0;
+            long indexer = zero;
             var nullInterception = interception == null;
             if (source == null)
             {
-                if (interceptionPoint < 1)
+                if (interceptionPoint < one)
                 {
                     if (nullInterception)
                     {
@@ -110,7 +110,7 @@
                 yield break;
             }
 
-            long indexer = 0;
+            long indexer = zero;
             using (var interceptionsEnumerator = interceptions.GetEnumerator())
             {
                 foreach (var item in source)
@@ -130,5 +130,9 @@
                 }
             }
         }
+
+        protected const byte
+            zero = 0,
+            one = 1;
     }
 }

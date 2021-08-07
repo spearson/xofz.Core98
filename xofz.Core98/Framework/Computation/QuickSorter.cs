@@ -11,18 +11,24 @@
         {
             if (finiteSource == null)
             {
-                return new T[0];
+                return new T[zero];
             }
 
             if (finiteSource is T[] array)
             {
-                this.Sort(array, 0, array.Length - 1);
+                this.Sort(
+                    array, 
+                    zero, 
+                    array.Length - one);
                 return array;
             }
 
             var sourceArray = EnumerableHelpers.ToArray(
                 finiteSource);
-            this.Sort(sourceArray, 0, sourceArray.Length - 1);
+            this.Sort(
+                sourceArray, 
+                zero, 
+                sourceArray.Length - one);
 
             return sourceArray;
         }
@@ -37,8 +43,8 @@
 
             this.Sort(
                 array,
-                0,
-                array.Length - 1);
+                zero,
+                array.Length - one);
         }
 
         public virtual void Sort<T>(
@@ -52,12 +58,12 @@
                 return;
             }
 
-            if (left < 0)
+            if (left < zero)
             {
                 return;
             }
 
-            if (right < 0)
+            if (right < zero)
             {
                 return;
             }
@@ -67,12 +73,12 @@
                 return;
             }
 
-            if (left > array.Length - 1)
+            if (left > array.Length - one)
             {
                 return;
             }
 
-            if (right > array.Length - 1)
+            if (right > array.Length - one)
             {
                 return;
             }
@@ -88,16 +94,16 @@
                 pivotIndex = left + right;
             }
 
-            pivotIndex >>= 1;
+            pivotIndex >>= one;
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].CompareTo(pivot) < 0)
+                while (array[lowIndex].CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
                 }
 
-                while (array[highIndex].CompareTo(pivot) > 0)
+                while (array[highIndex].CompareTo(pivot) > zero)
                 {
                     --highIndex;
                 }
@@ -153,7 +159,10 @@
 
             var sourceArray = EnumerableHelpers.ToArray(
                 finiteSource);
-            this.Sort(sourceArray, 0, sourceArray.Length - 1);
+            this.Sort(
+                sourceArray, 
+                zero, 
+                sourceArray.Length - one);
 
             return sourceArray;
         }
@@ -166,7 +175,10 @@
                 return;
             }
 
-            this.Sort(array, 0, array.Length - 1);
+            this.Sort(
+                array, 
+                zero, 
+                array.Length - one);
         }
 
         public virtual void Sort(
@@ -179,12 +191,12 @@
                 return;
             }
 
-            if (left < 0)
+            if (left < zero)
             {
                 return;
             }
 
-            if (right < 0)
+            if (right < zero)
             {
                 return;
             }
@@ -194,12 +206,12 @@
                 return;
             }
 
-            if (left > array.Length - 1)
+            if (left > array.Length - one)
             {
                 return;
             }
 
-            if (right > array.Length - 1)
+            if (right > array.Length - one)
             {
                 return;
             }
@@ -215,16 +227,16 @@
                 pivotIndex = left + right;
             }
 
-            pivotIndex >>= 1;
+            pivotIndex >>= one;
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].CompareTo(pivot) < 0)
+                while (array[lowIndex].CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
                 }
 
-                while (array[highIndex].CompareTo(pivot) > 0)
+                while (array[highIndex].CompareTo(pivot) > zero)
                 {
                     --highIndex;
                 }
@@ -268,5 +280,9 @@
                 goto beginSort;
             }
         }
+
+        protected const byte
+            zero = 0,
+            one = 1;
     }
 }

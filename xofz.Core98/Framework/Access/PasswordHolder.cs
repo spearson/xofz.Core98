@@ -33,9 +33,9 @@
             var maxPwCount = System
                                  .Enum
                                  .GetNames(typeof(AccessLevel))
-                                 .Length - 1;
+                                 .Length - one;
 
-            if (maxPwCount < 1)
+            if (maxPwCount < one)
             {
                 d = new Dictionary<SecureString, AccessLevel>();
                 goto finish;
@@ -48,7 +48,7 @@
                 goto finish;
             }
 
-            long counter = 1;
+            long counter = one;
             foreach (var password in passwords)
             {
                 if (counter > maxPwCount)
@@ -84,9 +84,9 @@
             var maxPwCount = System
                 .Enum
                 .GetNames(typeof(AccessLevel))
-                .Length - 1;
+                .Length - one;
 
-            if (maxPwCount < 1)
+            if (maxPwCount < one)
             {
                 d = new Dictionary<SecureString, AccessLevel>();
                 goto finish;
@@ -157,10 +157,13 @@
                 typeof(AccessLevel),
                 enumValue))
             {
-                return AccessLevel.None;
+                const AccessLevel none = AccessLevel.None;
+                return none;
             }
 
             return (AccessLevel)enumValue;
         }
+
+        protected const byte one = 1;
     }
 }

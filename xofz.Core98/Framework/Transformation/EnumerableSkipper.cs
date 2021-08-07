@@ -14,12 +14,12 @@
             }
 
             var e = source.GetEnumerator();
-            long counter = 0;
+            long counter = zero;
             while (e?.MoveNext() ?? false)
             {
                 if (counter == skipInterval)
                 {
-                    counter = 0;
+                    counter = zero;
                     yield return e.Current;
                 }
 
@@ -40,7 +40,7 @@
             }
 
             var result = new List<T>();
-            for (var i = 0; i < skipPoint; ++i)
+            for (int i = zero; i < skipPoint; ++i)
             {
                 result.AddRange(this.Skip(ll, skipPoint));
                 ll.RemoveFirst();
@@ -48,5 +48,7 @@
 
             return result;
         }
+
+        protected const byte zero = 0;
     }
 }

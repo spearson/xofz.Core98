@@ -9,7 +9,7 @@
         public virtual void Reverse<T>(
             IList<T> list)
         {
-            if (list == null || list.Count < 2)
+            if (list == null || list.Count < two)
             {
                 return;
             }
@@ -34,11 +34,12 @@
             IList<T> list,
             int parallelizationCount)
         {
+            const byte zero = 0;
             var c = list.Count;
-            var midpoint = c / 2;
+            var midpoint = c / two;
             ICollection<ManualResetEvent> finishedCollection =
                 new LinkedList<ManualResetEvent>();
-            for (var currentProc = 0;
+            for (int currentProc = zero;
                 currentProc < parallelizationCount;
                 ++currentProc)
             {
@@ -69,5 +70,7 @@
                 waitHandle.WaitOne();
             }
         }
+
+        protected const byte two = 2;
     }
 }

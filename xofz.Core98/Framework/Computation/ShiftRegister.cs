@@ -27,7 +27,7 @@
             }
 
             var array = new bool[ll.Count];
-            ll.CopyTo(array, 0);
+            ll.CopyTo(array, zero);
 
             this.setCurrentArray(array);
         }
@@ -44,7 +44,7 @@
             }
 
             var array = new bool[ll.Count];
-            ll.CopyTo(array, 0);
+            ll.CopyTo(array, zero);
 
             this.setCurrentArray(array);
         }
@@ -58,5 +58,6 @@
         protected bool[] currentArray;
         protected readonly int capacity;
         protected readonly LinkedList<bool> bitLinkedList;
+        protected const byte zero = 0;
     }
 }

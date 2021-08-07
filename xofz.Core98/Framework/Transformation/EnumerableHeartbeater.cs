@@ -14,7 +14,10 @@
                 yield break;
             }
 
-            if (interval < 1)
+            const byte 
+                zero = 0,
+                one = 1;
+            if (interval < one)
             {
                 foreach (var item in source)
                 {
@@ -24,15 +27,15 @@
                 yield break;
             }
 
-            var counter = 0;
+            int counter = zero;
             foreach (var item in source)
             {
                 yield return item;
                 ++counter;
                 if (counter == interval)
                 {
-                    counter = 0;
                     yield return heartbeat;
+                    counter = zero;
                 }
             }
         }

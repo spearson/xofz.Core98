@@ -9,12 +9,28 @@
             IEnumerable<T> finiteSource,
             int splits)
         {
+            return this.SplitV2(
+                finiteSource,
+                splits);
+        }
+
+        public virtual Lot<T>[] SplitV2<T>(
+            IEnumerable<T> finiteSource,
+            long splitCount)
+        {
+            const byte
+                zero = 0,
+                one = 1,
+                two = 2;
+            const bool
+                truth = true,
+                falsity = false;
             if (finiteSource == null)
             {
-                return new Lot<T>[0];
+                return new Lot<T>[zero];
             }
 
-            if (splits < 2)
+            if (splitCount < two)
             {
                 return new Lot<T>[]
                 {
@@ -22,10 +38,10 @@
                 };
             }
 
-            Lot<T>[] array = new Lot<T>[splits];
-            for (var i = 0; i < splits; ++i)
+            var array = new Lot<T>[splitCount];
+            for (long splitIndex = zero; splitIndex < splitCount; ++splitIndex)
             {
-                array[i] = new LinkedListLot<T>();
+                array[splitIndex] = new LinkedListLot<T>();
             }
 
             var enumerator = finiteSource.GetEnumerator();
@@ -37,24 +53,24 @@
             LinkedListLot<T> currentLL;
             if (enumerator.MoveNext())
             {
-                currentLL = array[0] as LinkedListLot<T>;
+                currentLL = array[zero] as LinkedListLot<T>;
                 currentLL?.AddLast(enumerator.Current);
             }
-            
-            var zeroFilled = true;
+
+            var zeroFilled = truth;
             while (enumerator.MoveNext())
             {
-                for (var i = 0; i < splits; ++i)
+                for (long splitIndex = zero; splitIndex < splitCount; ++splitIndex)
                 {
-                    if (zeroFilled && i == 0)
+                    if (zeroFilled && splitIndex == zero)
                     {
                         continue;
                     }
 
-                    zeroFilled = false;
-                    currentLL = array[i] as LinkedListLot<T>;
+                    zeroFilled = falsity;
+                    currentLL = array[splitIndex] as LinkedListLot<T>;
                     currentLL?.AddLast(enumerator.Current);
-                    if (i < splits - 1)
+                    if (splitIndex < splitCount - one)
                     {
                         if (!enumerator.MoveNext())
                         {
@@ -63,7 +79,7 @@
                     }
                 }
 
-                zeroFilled = false;
+                zeroFilled = falsity;
             }
 
             enumerator.Dispose();

@@ -26,7 +26,10 @@
                 yield break;
             }
 
-            if (min < 1)
+            const byte
+                zero = 0,
+                one = 1;
+            if (min < one)
             {
                 yield break;
             }
@@ -36,7 +39,7 @@
                 yield break;
             }
 
-            var maxExclusive = max + 1;
+            var maxExclusive = max + one;
             if (max == int.MaxValue)
             {
                 maxExclusive = max;
@@ -44,17 +47,17 @@
 
             using (var e = source.GetEnumerator())
             {
-                var indexer = 0;
+                int indexer = zero;
                 T nextItem = default;
 
                 chunk:
                 ICollection<T> currentChunk = new LinkedList<T>();
-                if (indexer > 0)
+                if (indexer > zero)
                 {
                     currentChunk.Add(nextItem);
                 }
 
-                var nextChunkSize = this.rng.Next(min, maxExclusive);
+                var nextChunkSize = this.rng?.Next(min, maxExclusive);
                 while (indexer < nextChunkSize && e.MoveNext())
                 {
                     currentChunk.Add(e.Current);
@@ -68,7 +71,7 @@
                 }
 
                 nextItem = e.Current;
-                indexer = 1;
+                indexer = one;
                 goto chunk;
             }
         }

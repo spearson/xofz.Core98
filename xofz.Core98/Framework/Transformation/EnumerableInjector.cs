@@ -13,7 +13,7 @@
                 source,
                 injectionPoints,
                 injections,
-                injections?.Length ?? -1);
+                injections?.Length ?? minusOne);
         }
 
         public virtual IEnumerable<T> Inject<T>(
@@ -25,7 +25,7 @@
                 source,
                 injectionPoints,
                 injections,
-                injections?.Count ?? -1);
+                injections?.Count ?? minusOne);
         }
 
         public virtual IEnumerable<T> Inject<T>(
@@ -37,7 +37,7 @@
                 source,
                 injectionPoints,
                 injections,
-                injections?.Count ?? -1);
+                injections?.Count ?? minusOne);
         }
 
         protected virtual IEnumerable<T> injectProtected<T>(
@@ -62,7 +62,7 @@
                 yield break;
             }
 
-            if (nullInjections || injectionsCount < 1 || injectionIndices == null)
+            if (nullInjections || injectionsCount < one || injectionIndices == null)
             {
                 foreach (var item in source)
                 {
@@ -72,7 +72,7 @@
                 yield break;
             }
 
-            long currentItemIndex = 0, currentInjectionIndex = 0;
+            long currentItemIndex = zero, currentInjectionIndex = zero;
             var injectionsE = injections.GetEnumerator();
             foreach (var item in source)
             {
@@ -106,5 +106,11 @@
 
             injectionsE.Dispose();
         }
+
+        protected const byte
+            zero = 0,
+            one = 1;
+        protected const short
+            minusOne = -1;
     }
 }

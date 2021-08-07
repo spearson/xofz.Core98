@@ -23,12 +23,13 @@
                 yield break;
             }
 
+            const byte zero = 0;
             using (var e = source.GetEnumerator())
             {
                 foreach (var length in dragLengths)
                 {
                     e.MoveNext();
-                    for (var i = 0; i < length; ++i)
+                    for (int i = zero; i < length; ++i)
                     {
                         yield return e.Current;
                     }

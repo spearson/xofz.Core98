@@ -19,9 +19,10 @@
                 return default;
             }
 
+            const bool falsity = false;
             foreach (var item in source)
             {
-                if (item?.Equals(target) ?? false)
+                if (item?.Equals(target) ?? falsity)
                 {
                     return item;
                 }
@@ -49,13 +50,14 @@
             }
 
             var nullTarget = target == null;
+            const byte zero = 0;
             while (e.MoveNext())
             {
                 var item = e.Current;
                 ll.AddLast(item);
                 if (item?.Equals(target) ?? nullTarget)
                 {
-                    for (long i = 0; i < radius; ++i)
+                    for (long i = zero; i < radius; ++i)
                     {
                         if (e.MoveNext())
                         {

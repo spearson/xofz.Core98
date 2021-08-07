@@ -99,6 +99,7 @@
             }
 
             bool reachedOne;
+            const bool truth = true;
 
             splice:
             reachedOne = false;
@@ -109,7 +110,7 @@
                     continue;
                 }
 
-                reachedOne = true;
+                reachedOne = truth;
                 yield return enumerator.Current;
             }
 

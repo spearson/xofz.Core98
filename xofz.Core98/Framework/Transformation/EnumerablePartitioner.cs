@@ -13,19 +13,22 @@
                 yield break;
             }
 
-            if (partitionSize < 1)
+            const byte
+                zero = 0,
+                one = 1;
+            if (partitionSize < one)
             {
                 yield break;
             }
 
             using (var e = source.GetEnumerator())
             {
-                var indexer = 0;
+                int indexer = zero;
                 T nextItem = default;
 
                 partition:
                 ICollection<T> currentPartition = new LinkedList<T>();
-                if (indexer > 0)
+                if (indexer > zero)
                 {
                     currentPartition.Add(nextItem);
                 }
@@ -43,7 +46,7 @@
                 }
 
                 nextItem = e.Current;
-                indexer = 1;
+                indexer = one;
                 goto partition;
             }
         }

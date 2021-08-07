@@ -13,7 +13,10 @@
                 yield break;
             }
 
-            if (displaceCount < 1)
+            const byte
+                zero = 0,
+                one = 1;
+            if (displaceCount < one)
             {
                 foreach (var item in source)
                 {
@@ -26,7 +29,7 @@
             using (var e = source.GetEnumerator())
             {
                 ICollection<T> displacedItems = new LinkedList<T>();
-                long counter = 0;
+                long counter = zero;
                 while (counter < displaceCount)
                 {
                     ++counter;
@@ -35,7 +38,7 @@
                     displacedItems.Add(e.Current);
                 }
 
-                counter = 0;
+                counter = zero;
                 while (counter < displaceCount)
                 {
                     e.MoveNext();

@@ -5,14 +5,16 @@
     {
         public OneOffTimer()
         {
-            this.shouldReset = false;
+            this.shouldReset = falsity;
         }
 
         public override bool AutoReset
         {
-            get => false;
+            get => falsity;
 
             set { }
         }
+
+        protected const bool falsity = false;
     }
 }

@@ -13,12 +13,15 @@
                 yield break;
             }
 
-            if (spread < 1)
+            const byte
+                zero = 0,
+                one = 1;
+            if (spread < one)
             {
                 yield break;
             }
 
-            var counter = 0;
+            int counter = zero;
             foreach (var item in source)
             {
                 while (counter < spread)
@@ -27,7 +30,7 @@
                     ++counter;
                 }
 
-                counter = 0;
+                counter = zero;
             }
         }
     }
