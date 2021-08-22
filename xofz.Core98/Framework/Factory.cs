@@ -21,5 +21,26 @@
                 return default;
             }
         }
+
+        public virtual bool TryCreate<T>(
+            out T creation,
+            params object[] dependencies)
+        {
+            const bool
+                truth = true,
+                falsity = false;
+            try
+            {
+                creation = (T)Activator.CreateInstance(
+                    typeof(T),
+                    dependencies);
+                return truth;
+            }
+            catch
+            {
+                creation = default;
+                return falsity;
+            }
+        }
     }
 }

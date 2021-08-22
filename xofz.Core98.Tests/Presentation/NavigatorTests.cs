@@ -15,13 +15,10 @@
         {
             protected Context()
             {
-                this.web = new MethodWeb();
-                this.navigator = new Navigator(
-                    this.web);
+                this.navigator = new Navigator();
                 this.fixture = new Fixture();
             }
 
-            protected readonly MethodWeb web;
             protected readonly Navigator navigator;
             protected readonly Fixture fixture;
         }
@@ -234,9 +231,10 @@
             [Fact]
             public void Presents_a_LoginPresenter_fluidly_once()
             {
-                var n = new TestNavigator(
-                    A.Fake<MethodWeb>());
-                n.FluidlyPresentedCount = 0;
+                var n = new TestNavigator
+                {
+                    FluidlyPresentedCount = 0
+                };
 
                 n.LoginFluidly();
 
@@ -251,6 +249,10 @@
 
         public class TestNavigator : Navigator
         {
+            public TestNavigator()
+            {
+            }
+
             public TestNavigator(
                 MethodRunner runner)
                 : base(runner)
