@@ -651,6 +651,51 @@
             return lastItem;
         }
 
+        public static T LastOrNull<T>(
+            IEnumerable<T> finiteSource)
+            where T : class
+        {
+            if (finiteSource == null)
+            {
+                return null;
+            }
+
+            T lastItem = null;
+            foreach (var item in finiteSource)
+            {
+                lastItem = item;
+            }
+
+            return lastItem;
+        }
+
+        public static T LastOrNull<T>(
+            IEnumerable<T> finiteSource,
+            Gen<T, bool> predicate)
+            where T : class
+        {
+            if (finiteSource == null)
+            {
+                return null;
+            }
+
+            if (predicate == null)
+            {
+                return null;
+            }
+
+            T lastItem = null;
+            foreach (var item in finiteSource)
+            {
+                if (predicate(item))
+                {
+                    lastItem = item;
+                }
+            }
+
+            return lastItem;
+        }
+
         public static bool Any<T>(
             IEnumerable<T> source)
         {
@@ -879,7 +924,7 @@
         {
             if (finiteSource == null)
             {
-                return new T[0];
+                return new T[zero];
             }
 
             if (finiteSource is T[] a)
@@ -898,7 +943,7 @@
 
             createArray:
             var array = new T[c.Count];
-            int indexer = 0;
+            int indexer = zero;
             foreach (var item in c)
             {
                 array[indexer] = item;
@@ -913,11 +958,11 @@
         {
             if (lot == null)
             {
-                return new T[0];
+                return new T[zero];
             }
 
             var array = new T[lot.Count];
-            long indexer = 0;
+            long indexer = zero;
             foreach (var item in lot)
             {
                 array[indexer] = item;
@@ -1135,15 +1180,15 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
             if (valueComputer == null)
             {
-                return 0;
+                return zero;
             }
 
-            var sum = 0;
+            int sum = zero;
             foreach (var item in finiteSource)
             {
                 checked
@@ -1161,15 +1206,15 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
             if (valueComputer == null)
             {
-                return 0;
+                return zero;
             }
 
-            long sum = 0;
+            long sum = zero;
             foreach (var item in finiteSource)
             {
                 checked
@@ -1186,7 +1231,7 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
             var min = int.MaxValue;
@@ -1202,7 +1247,7 @@
 
             if (!minChanged)
             {
-                return 0;
+                return zero;
             }
 
             return min;
@@ -1213,7 +1258,7 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
             var min = long.MaxValue;
@@ -1229,7 +1274,7 @@
 
             if (!minChanged)
             {
-                return 0;
+                return zero;
             }
 
             return min;
@@ -1240,10 +1285,10 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
-            var max = 0;
+            int max = zero;
             foreach (var item in finiteSource)
             {
                 if (item > max)
@@ -1260,10 +1305,10 @@
         {
             if (finiteSource == null)
             {
-                return 0;
+                return zero;
             }
 
-            long max = 0;
+            long max = zero;
             foreach (var item in finiteSource)
             {
                 if (item > max)
