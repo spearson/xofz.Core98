@@ -9,7 +9,7 @@
         public virtual IEnumerable<XTuple<object, string>> ViewDependencies()
         {
             IEnumerable<XTuple<object, string>> ds;
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ds = new LinkedListLot<XTuple<object, string>>(
                     EnumerableHelpers.Select(

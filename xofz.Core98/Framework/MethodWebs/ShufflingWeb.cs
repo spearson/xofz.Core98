@@ -62,14 +62,15 @@
 
         protected virtual Lot<Dependency> shuffleDependencies()
         {
-            var matchingDependencies = new ListLot<ShufflingObject>();
-            lock (this.locker ?? new object())
+            var matchingDependencies = new ListLot<
+                ShufflingObject<Dependency>>();
+            lock (this.locker)
             {
                 foreach (var dependency in this.dependencies
                                            ?? EH.Empty<Dependency>())
                 {
                     matchingDependencies?.Add(
-                        new ShufflingObject(
+                        new ShufflingObject<Dependency>(
                             new Dependency
                             {
                                 Content = dependency?.Content,
@@ -83,7 +84,7 @@
             return new LinkedListLot<Dependency>(
                 EH.Select(
                     matchingDependencies,
-                    so => so.O as Dependency));
+                    so => so.O));
         }
     }
 }

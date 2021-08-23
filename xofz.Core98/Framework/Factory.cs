@@ -26,9 +26,6 @@
             out T creation,
             params object[] dependencies)
         {
-            const bool
-                truth = true,
-                falsity = false;
             try
             {
                 creation = (T)Activator.CreateInstance(
@@ -42,5 +39,9 @@
                 return falsity;
             }
         }
+
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

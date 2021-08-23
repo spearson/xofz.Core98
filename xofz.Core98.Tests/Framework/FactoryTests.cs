@@ -30,5 +30,26 @@
                 Assert.NotNull(nav2);
             }
         }
+
+        public class When_TryCreate_is_called : Context
+        {
+            [Fact]
+            public void Returns_true_if_created()
+            {
+                Assert.True(
+                    this.factory.TryCreate(
+                        out object creation));
+            }
+
+            [Fact]
+            public void Returns_false_if_not()
+            {
+                var garbageDep = new object();
+                Assert.False(
+                    this.factory.TryCreate(
+                        out object creation,
+                        garbageDep));
+            }
+        }
     }
 }

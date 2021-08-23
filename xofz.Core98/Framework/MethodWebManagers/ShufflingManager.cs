@@ -64,16 +64,17 @@
         protected virtual Lot<NamedMethodWebHolder> shuffleWebs()
         {
             ICollection<NamedMethodWebHolder> ws;
-            var matchingWebs = new ListLot<ShufflingObject>();
+            var matchingWebs = new ListLot<
+                ShufflingObject<NamedMethodWebHolder>>();
 
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 ws = this.webs;
                 foreach (var webHolder in ws
                                           ?? EnumerableHelpers.Empty<NamedMethodWebHolder>())
                 {
                     matchingWebs?.Add(
-                        new ShufflingObject(
+                        new ShufflingObject<NamedMethodWebHolder>(
                             new NamedMethodWebHolder
                             {
                                 Web = webHolder?.Web,
@@ -87,7 +88,7 @@
             return new LinkedListLot<NamedMethodWebHolder>(
                 EnumerableHelpers.Select(
                     matchingWebs,
-                    so => so.O as NamedMethodWebHolder));
+                    so => so.O));
         }
     }
 }

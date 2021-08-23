@@ -32,15 +32,16 @@
 
         protected virtual Lot<NamedManagerHolder> shuffleManagers()
         {
-            var matchingManagers = new ListLot<ShufflingObject>();
+            var matchingManagers = new ListLot<
+                ShufflingObject<NamedManagerHolder>>();
 
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 foreach (var managerHolder in this.managers ??
                                               EH.Empty<NamedManagerHolder>())
                 {
                     matchingManagers?.Add(
-                        new ShufflingObject(
+                        new ShufflingObject<NamedManagerHolder>(
                             new NamedManagerHolder
                             {
                                 Manager = managerHolder?.Manager,
@@ -54,7 +55,7 @@
             return new LinkedListLot<NamedManagerHolder>(
                 EH.Select(
                     matchingManagers,
-                    so => so.O as NamedManagerHolder));
+                    so => so.O));
         }
 
         public virtual int CompareTo(
