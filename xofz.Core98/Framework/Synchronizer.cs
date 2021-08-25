@@ -16,6 +16,13 @@
             this.locker = locker;
         }
 
+        public virtual T O
+        {
+            get => this.t;
+
+            set => this.t = value;
+        }
+
         public virtual void RunSync(
             Do<T> syncAction)
         {
@@ -26,7 +33,7 @@
             }
         }
 
-        protected readonly T t;
+        protected T t;
         protected readonly object locker;
     }
 }

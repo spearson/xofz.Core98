@@ -63,7 +63,7 @@
             lock (this.locker)
             {
                 ws = this.webs;
-                alreadyAddedWeb = EH.FirstOrDefault(
+                alreadyAddedWeb = EH.FirstOrNull(
                     ws,
                     webHolder => ReferenceEquals(web, webHolder?.Web));
             }
@@ -113,7 +113,7 @@
             lock (this.locker)
             {
                 ws = this.webs;
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     ws,
                     webHolder => webHolder?.Name == webName);
                 removed = ws?.Remove(targetHolder)
@@ -130,7 +130,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                         this.webs,
                         webHolder => webHolder?.Name == webName);
             }
@@ -152,7 +152,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                         this.webs,
                         webHolder => webHolder?.Name == webName);
             }
@@ -177,7 +177,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                         this.webs,
                         webHolder => webHolder?.Name == webName);
             }
@@ -202,7 +202,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                         this.webs,
                         webHolder => webHolder?.Name == webName);
             }
@@ -231,7 +231,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                         this.webs,
                         webHolder => webHolder?.Name == webName);
             }
@@ -263,7 +263,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.webs,
                     webHolder => webHolder?.Name == webName);
             }
@@ -298,7 +298,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.webs,
                     webHolder => webHolder?.Name == webName);
             }
@@ -336,7 +336,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.webs,
                     webHolder => webHolder?.Name == webName);
             }
@@ -377,7 +377,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.webs,
                     webHolder => webHolder?.Name == webName);
             }
@@ -422,7 +422,7 @@
             NamedMethodWebHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.webs,
                     webHolder => webHolder?.Name == webName);
             }

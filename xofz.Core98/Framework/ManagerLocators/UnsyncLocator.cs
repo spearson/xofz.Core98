@@ -43,7 +43,7 @@
             ICollection<NamedManagerHolder> ms;
             NamedManagerHolder alreadyAddedManager;
             ms = this.managers;
-            alreadyAddedManager = EH.FirstOrDefault(
+            alreadyAddedManager = EH.FirstOrNull(
                 ms,
                 nmh => ReferenceEquals(
                     manager,
@@ -55,7 +55,7 @@
             }
 
             NamedManagerHolder sameNameHolder;
-            sameNameHolder = EH.FirstOrDefault(
+            sameNameHolder = EH.FirstOrNull(
                 ms,
                 nmh => nmh?.Name == name);
 
@@ -85,7 +85,7 @@
             string managerName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == managerName);
 
@@ -104,7 +104,7 @@
             string managerName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == managerName);
 
@@ -125,7 +125,7 @@
             NamedManagerHolder targetHolder;
             bool removed;
             ms = this.managers;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 ms,
                 managerHolder => managerHolder?.Name == managerName);
             removed = ms?.Remove(targetHolder)
@@ -141,7 +141,7 @@
             string dependencyName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -165,7 +165,7 @@
             string uName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -193,7 +193,7 @@
             string vName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -224,7 +224,7 @@
             string wName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -258,7 +258,7 @@
             string xName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -295,7 +295,7 @@
             string yName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -335,7 +335,7 @@
             string zName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -379,7 +379,7 @@
             string aaName = null)
         {
             NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 

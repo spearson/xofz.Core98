@@ -68,7 +68,7 @@
             lock (this.locker)
             {
                 ms = this.managers;
-                alreadyAddedManager = EH.FirstOrDefault(
+                alreadyAddedManager = EH.FirstOrNull(
                     ms,
                     nmh => ReferenceEquals(
                         manager,
@@ -83,7 +83,7 @@
             NamedManagerHolder sameNameHolder;
             lock (this.locker)
             {
-                sameNameHolder = EH.FirstOrDefault(
+                sameNameHolder = EH.FirstOrNull(
                         ms,
                         nmh => nmh?.Name == name);
             }
@@ -119,7 +119,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == managerName);
             }
@@ -142,7 +142,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == managerName);
             }
@@ -166,7 +166,7 @@
             lock (this.locker)
             {
                 ms = this.managers;
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     ms,
                     managerHolder => managerHolder?.Name == managerName);
                 removed = ms?.Remove(targetHolder)
@@ -185,7 +185,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -212,7 +212,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -243,7 +243,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -277,7 +277,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -314,7 +314,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -354,7 +354,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -397,7 +397,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }
@@ -444,7 +444,7 @@
             NamedManagerHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.managers,
                     managerHolder => managerHolder?.Name == locableName);
             }

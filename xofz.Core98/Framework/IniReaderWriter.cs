@@ -12,7 +12,7 @@
             : this(
                 () => File.Exists(filePath)
                     ? File.ReadAllLines(filePath)
-                    : new string[0],
+                    : new string[zero],
                 lines => File.WriteAllLines(
                     filePath,
                     EH.ToArray(lines)))
@@ -51,7 +51,7 @@
             
             var headers = this.readSectionHeaders(
                 lines);
-            var targetHeader = EH.FirstOrDefault(
+            var targetHeader = EH.FirstOrNull(
                 headers,
                 h => h.Name == sectionName);
             return this.readKeysInSectionProtected(
@@ -95,8 +95,8 @@
             }
 
             var sectionHeaders = this.readSectionHeaders(lines);
-            SectionHeader targetHeader = default;
-            var nextHeaderCounter = 1;
+            SectionHeader targetHeader = null;
+            int nextHeaderCounter = one;
             foreach (var header in sectionHeaders)
             {
                 if (header.Name == sectionName)
@@ -107,7 +107,7 @@
 
                 ++nextHeaderCounter;
             }
-            if (targetHeader == default)
+            if (targetHeader == null)
             {
                 return;
             }
@@ -118,15 +118,15 @@
                 return;
             }
 
-            var nextHeader = EH.FirstOrDefault(
+            var nextHeader = EH.FirstOrNull(
                 EH.Skip(
                     sectionHeaders,
                     nextHeaderCounter));
             var startOfSection = targetHeader.LineNumber;
             var endOfSection = lines.Length;
-            if (nextHeader != default)
+            if (nextHeader != null)
             {
-                endOfSection = nextHeader.LineNumber - 1;
+                endOfSection = nextHeader.LineNumber - one;
             }
 
             for (var i = startOfSection; i < endOfSection; ++i)
@@ -144,9 +144,9 @@
 
                 var sb = new StringBuilder(
                     line);
-                var valueIndex = line.IndexOf('=') + 1;
+                var valueIndex = line.IndexOf('=') + one;
                 var indexOfComment = line.IndexOf(';');
-                if (indexOfComment < 0)
+                if (indexOfComment < zero)
                 {
                     sb.Replace(
                         line.Substring(
@@ -186,7 +186,7 @@
                 return sectionHeaders;
             }
 
-            var lineNumber = 0;
+            int lineNumber = zero;
             foreach (var line in lines)
             {
                 ++lineNumber;
@@ -207,15 +207,15 @@
 
                 var closingBracketIndex = line.IndexOf(']');
                 if (line
-                    .Substring(0, closingBracketIndex)
+                    .Substring(zero, closingBracketIndex)
                     .Contains(@";"))
                 {
                     continue;
                 }
 
                 var sectionName = line.Substring(
-                    1,
-                    closingBracketIndex - 1);
+                    one,
+                    closingBracketIndex - one);
                 sectionHeaders.Add(
                     new SectionHeader
                     {
@@ -232,7 +232,7 @@
             SectionHeader targetHeader)
         {
             ICollection<string> keys = new LinkedList<string>();
-            if (targetHeader == default)
+            if (targetHeader == null)
             {
                 return keys;
             }
@@ -254,11 +254,11 @@
                     headers,
                     header => header.Name)) == targetHeader.Name)
             {
-                lastLineIndex = lines.Length - 1;
+                lastLineIndex = lines.Length - one;
                 goto readKeys;
             }
 
-            var headerCounter = 1;
+            int headerCounter = one;
             foreach (var header in headers)
             {
                 if (header.Name == targetHeader.Name)
@@ -269,36 +269,36 @@
                 ++headerCounter;
             }
 
-            var nextHeader = EH.FirstOrDefault(
+            var nextHeader = EH.FirstOrNull(
                 EH.Skip(
                     headers, headerCounter));
-            lastLineIndex = nextHeader?.LineNumber - 1
-                ?? lines.Length - 1;
+            lastLineIndex = nextHeader?.LineNumber - one
+                ?? lines.Length - one;
 
 
             readKeys:
             for (var i = lineNumber; i <= lastLineIndex; ++i)
             {
                 var indexOfSemicolon = lines[i].IndexOf(';');
-                if (indexOfSemicolon == 0)
+                if (indexOfSemicolon == zero)
                 {
                     continue;
                 }
 
                 var indexOfEquals = lines[i].IndexOf('=');
-                if (indexOfEquals < 0)
+                if (indexOfEquals < zero)
                 {
                     continue;
                 }
 
-                if (indexOfSemicolon > -1 &&
+                if (indexOfSemicolon > minusOne &&
                     indexOfSemicolon < indexOfEquals)
                 {
                     continue;
                 }
 
                 var keyName = lines[i]
-                    .Substring(0, indexOfEquals);
+                    .Substring(zero, indexOfEquals);
                 keys.Add(keyName);
             }
 
@@ -313,10 +313,10 @@
             var lines = this.readLines();
             var headers = this.readSectionHeaders(
                 lines);
-            var targetHeader = EH.FirstOrDefault(
+            var targetHeader = EH.FirstOrNull(
                 headers,
                 header => header.Name == sectionName);
-            if (targetHeader == default)
+            if (targetHeader == null)
             {
                 return null;
             }
@@ -330,29 +330,29 @@
                 return null;
             }
 
-            string targetLine = default;
+            string targetLine = null;
             int endOfKey;
             foreach (var line in EH.Skip(
                 lines,
                 targetHeader.LineNumber))
             {
                 endOfKey = line.IndexOf('=');
-                if (line.Substring(0, endOfKey) == key)
+                if (line.Substring(zero, endOfKey) == key)
                 {
                     targetLine = line;
                     break;
                 }
             }
 
-            if (targetLine == default)
+            if (targetLine == null)
             {
                 return null;
             }
 
-            var startIndexOfValue = targetLine.IndexOf('=') + 1;
+            var startIndexOfValue = targetLine.IndexOf('=') + one;
             int valueLength;
             var indexOfSemicolon = targetLine.IndexOf(';');
-            if (indexOfSemicolon > -1 && !readEntireValue)
+            if (indexOfSemicolon > minusOne && !readEntireValue)
             {
                 valueLength = indexOfSemicolon - startIndexOfValue;
                 goto finish;
@@ -370,6 +370,11 @@
 
         protected readonly Gen<string[]> readLines;
         protected readonly Do<IEnumerable<string>> writeLines;
+        protected const short
+            minusOne = -1;
+        protected const byte
+            zero = 0,
+            one = 1;
 
         protected class SectionHeader
         {

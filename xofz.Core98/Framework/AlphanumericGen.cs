@@ -11,13 +11,13 @@
             byte length)
         {
             var sb = new StringBuilder(length);
-            var buffer = new byte[1];
-            short counter = 0;
+            var buffer = new byte[oneN];
+            short counter = zeroN;
             var rng = new RNGCryptoServiceProvider();
             while (counter < length)
             {
                 rng.GetBytes(buffer);
-                var nextChar = (char)buffer[0];
+                var nextChar = (char)buffer[zeroN];
 
                 if (nextChar >= zero && nextChar <= nine)
                 {
@@ -50,13 +50,13 @@
             byte length)
         {
             var s = new SecureString();
-            var buffer = new byte[1];
-            short counter = 0;
+            var buffer = new byte[oneN];
+            short counter = zeroN;
             var rng = new RNGCryptoServiceProvider();
             while (counter < length)
             {
                 rng.GetBytes(buffer);
-                var nextChar = (char)buffer[0];
+                var nextChar = (char)buffer[zeroN];
 
                 if (nextChar >= zero && nextChar <= nine)
                 {
@@ -90,5 +90,8 @@
         protected const char a = 'a', z = 'z';
         protected const char capA = 'A', capZ = 'Z';
         protected const char zero = '0', nine = '9';
+        protected const byte 
+            zeroN = 0,
+            oneN = 1;
     }
 }

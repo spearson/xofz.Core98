@@ -21,7 +21,7 @@
             var r = this.runner;
             r?.Run<Log>(log =>
                 {
-                    var oldestNullable = EH.FirstOrDefault(
+                    var oldestNullable = EH.FirstOrNull(
                             EH.OrderBy(
                                 log.ReadEntries(),
                                 entry => entry.Timestamp))?.

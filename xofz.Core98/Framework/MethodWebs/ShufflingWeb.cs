@@ -32,7 +32,7 @@
 
         public virtual object Shuffle()
         {
-            return EH.FirstOrDefault(
+            return EH.FirstOrNull(
                     this.shuffleDependencies())?.
                 Content;
         }

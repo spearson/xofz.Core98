@@ -824,7 +824,7 @@
         public static int Count<T>(
             IEnumerable<T> finiteSource)
         {
-            var count = 0;
+            int count = zero;
             if (finiteSource == null)
             {
                 return count;
@@ -845,7 +845,7 @@
             IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
-            var count = 0;
+            int count = zero;
             if (finiteSource == null)
             {
                 return count;
@@ -873,7 +873,7 @@
         public static long LongCount<T>(
             IEnumerable<T> finiteSource)
         {
-            long count = 0;
+            long count = zero;
             if (finiteSource == null)
             {
                 return count;
@@ -894,7 +894,7 @@
             IEnumerable<T> finiteSource,
             Gen<T, bool> predicate)
         {
-            long count = 0;
+            long count = zero;
             if (finiteSource == null)
             {
                 return count;

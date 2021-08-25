@@ -43,7 +43,7 @@
             ICollection<NamedLocatorHolder> ls;
             NamedLocatorHolder alreadyAddedLocator;
             ls = this.locators;
-            alreadyAddedLocator = EH.FirstOrDefault(
+            alreadyAddedLocator = EH.FirstOrNull(
                 ls,
                 locatorHolder => ReferenceEquals(
                     locator,
@@ -55,7 +55,7 @@
             }
 
             NamedLocatorHolder sameNameHolder;
-            sameNameHolder = EH.FirstOrDefault(
+            sameNameHolder = EH.FirstOrNull(
                 ls,
                 locatorHolder => locatorHolder?.Name == name);
 
@@ -85,7 +85,7 @@
             string locatorName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -104,7 +104,7 @@
             string locatorName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -125,7 +125,7 @@
             NamedLocatorHolder targetHolder;
             bool removed;
             ls = this.locators;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 ls,
                 locatorHolder => locatorHolder?.Name == locatorName);
             removed = ls?.Remove(targetHolder)
@@ -142,7 +142,7 @@
             string dependencyName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -168,7 +168,7 @@
             string uName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -198,7 +198,7 @@
             string vName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -231,7 +231,7 @@
             string wName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -267,7 +267,7 @@
             string xName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -306,7 +306,7 @@
             string yName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -348,7 +348,7 @@
             string zName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 
@@ -394,7 +394,7 @@
             string aaName = null)
         {
             NamedLocatorHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.locators,
                 locatorHolder => locatorHolder?.Name == locatorName);
 

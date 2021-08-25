@@ -26,7 +26,9 @@
             if (@event == null)
             {
                 Type baseType = null;
-                for (byte i = 0; i < 0xFF; ++i)
+                const byte zero = 0;
+                const byte max = byte.MaxValue;
+                for (byte i = zero; i < max; ++i)
                 {
                     if (baseType == null)
                     {

@@ -59,9 +59,10 @@
                     var latestString = latest == default
                         ? defaultInfo
                         : latest.ToString(tf);
+                    const byte four = 4;
                     var avgPerDay = reset
                         ? string.Empty
-                        : Math.Round(stats.AvgEntriesPerDay, 4)
+                        : Math.Round(stats.AvgEntriesPerDay, four)
                             .ToString(CultureInfo.CurrentUICulture);
                     r.Run<UiReaderWriter>(uiRW =>
                     {

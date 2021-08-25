@@ -80,7 +80,7 @@
             where T : Presenter
         {
             var ps = this.presenters;
-            var presenter = EH.FirstOrDefault(
+            var presenter = EH.FirstOrNull(
                 ps,
                 p => p is T);
             if (presenter == null)
@@ -122,7 +122,7 @@
         public virtual void PresentFluidly<T>()
             where T : Presenter
         {
-            var presenter = EH.FirstOrDefault(
+            var presenter = EH.FirstOrNull(
                 this.presenters,
                 p => p is T);
             if (presenter == null)

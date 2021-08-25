@@ -36,7 +36,7 @@
             }
 
             var ws = this.webs;
-            var alreadyAddedWeb = EH.FirstOrDefault(
+            var alreadyAddedWeb = EH.FirstOrNull(
                 ws,
                 webHolder => ReferenceEquals(
                     web,
@@ -75,7 +75,7 @@
             Do<MethodWeb> accessor = null,
             string webName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -94,7 +94,7 @@
             string webName = null)
             where T : MethodWeb
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -113,7 +113,7 @@
             string webName = null,
             string dependencyName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -134,7 +134,7 @@
             string tName = null,
             string uName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -159,7 +159,7 @@
             string uName = null,
             string vName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -187,7 +187,7 @@
             string vName = null,
             string wName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -218,7 +218,7 @@
             string wName = null,
             string xName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -252,7 +252,7 @@
             string xName = null,
             string yName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -290,7 +290,7 @@
             string zName = null)
         {
             var targetHolder
-                = EH.FirstOrDefault(
+                = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
 
@@ -331,7 +331,7 @@
             string zName = null,
             string aaName = null)
         {
-            var targetHolder = EH.FirstOrDefault(
+            var targetHolder = EH.FirstOrNull(
                 this.webs,
                 webHolder => webHolder?.Name == webName);
             var web = targetHolder?.Web;

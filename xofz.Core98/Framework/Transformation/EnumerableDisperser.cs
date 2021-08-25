@@ -34,7 +34,8 @@
                 yield break;
             }
 
-            long counter = 0;
+            const byte zero = 0;
+            long counter = zero;
             using (var e = dispersion.GetEnumerator())
             {
                 if (e == null)

@@ -12,7 +12,8 @@
         {
             if (array == null)
             {
-                this.array = new T[0];
+                const byte zero = 0;
+                this.array = new T[zero];
                 return;
             }
 

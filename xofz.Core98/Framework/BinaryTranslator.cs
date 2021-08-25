@@ -33,16 +33,21 @@
                 yield break;
             }
 
+            const byte 
+                six = 6,
+                five = 5,
+                four = 4,
+                three = 3;
             foreach (var b in bytes)
             {
-                yield return this.getBit(b, 7);
-                yield return this.getBit(b, 6);
-                yield return this.getBit(b, 5);
-                yield return this.getBit(b, 4);
-                yield return this.getBit(b, 3);
-                yield return this.getBit(b, 2);
-                yield return this.getBit(b, 1);
-                yield return this.getBit(b, 0);
+                yield return this.getBit(b, seven);
+                yield return this.getBit(b, six);
+                yield return this.getBit(b, five);
+                yield return this.getBit(b, four);
+                yield return this.getBit(b, three);
+                yield return this.getBit(b, two);
+                yield return this.getBit(b, one);
+                yield return this.getBit(b, zero);
             }
         }
 
@@ -51,7 +56,7 @@
         {
             var bytes = EnumerableHelpers.ToArray(
                 this.GetBytes(bits));
-            return BitConverter.ToInt64(bytes, 0);
+            return BitConverter.ToInt64(bytes, zero);
         }
 
         public virtual string ReadString(
@@ -191,25 +196,32 @@
             byte b, 
             byte shift)
         {
-            return (b >> shift) % 2 == 1;
+            return (b >> shift) % two == one;
         }
 
         protected virtual byte getByte(
             bool[] bits)
         {
-            byte result = 0;
+            byte result = zero;
             if (bits == null)
             {
                 return result;
             }
 
             var l = bits.Length;
-            for (var i = 0; i < 8 && i < l; ++i)
+            for (var i = zero; i < eight && i < l; ++i)
             {
-                result += bits[i] ? (byte)(1 << (7 - i)) : (byte)0;
+                result += bits[i] ? (byte)(one << (seven - i)) : zero;
             }
 
             return result;
         }
+
+        protected const byte
+            zero = 0,
+            one = 1,
+            two = 2,
+            seven = 7,
+            eight = 8;
     }
 }

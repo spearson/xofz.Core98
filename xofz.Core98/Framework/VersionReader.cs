@@ -75,13 +75,14 @@
                     zero);
             }
 
+            const char period = '.';
             var versionBuilder = new StringBuilder();
             versionBuilder.Append(v.Major);
-            versionBuilder.Append('.');
+            versionBuilder.Append(period);
             versionBuilder.Append(v.Minor);
-            versionBuilder.Append('.');
+            versionBuilder.Append(period);
             versionBuilder.Append(v.Build);
-            versionBuilder.Append('.');
+            versionBuilder.Append(period);
             versionBuilder.Append(v.Revision);
 
             return versionBuilder.ToString();

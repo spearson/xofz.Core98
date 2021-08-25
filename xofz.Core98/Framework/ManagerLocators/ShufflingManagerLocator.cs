@@ -9,7 +9,7 @@
         public virtual MethodWebManager Shuffle()
         {
             var matchingManagers = this.shuffleManagers();
-            return EH.FirstOrDefault(
+            return EH.FirstOrNull(
                     matchingManagers)?.
                 Manager;
         }

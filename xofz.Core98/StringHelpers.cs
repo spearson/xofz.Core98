@@ -7,7 +7,7 @@
     {
         public static T ToEnum<T>(
             string s)
-            where T : struct
+            where T : Enum
         {
             try
             {

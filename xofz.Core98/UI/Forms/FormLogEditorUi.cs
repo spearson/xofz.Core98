@@ -131,7 +131,8 @@
                     return;
                 }
 
-                for (var i = 0; i < c; ++i)
+                const byte zero = 0;
+                for (int i = zero; i < c; ++i)
                 {
                     e.MoveNext();
                     array[i] = e.Current;

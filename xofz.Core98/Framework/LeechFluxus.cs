@@ -69,7 +69,7 @@
             lock (this.locker)
             {
                 ls = this.leeches;
-                alreadyAddedLeech = EH.FirstOrDefault(
+                alreadyAddedLeech = EH.FirstOrNull(
                     ls,
                     leechHolder => ReferenceEquals(
                         leech,
@@ -84,7 +84,7 @@
             NamedLeechHolder sameNameHolder;
             lock (this.locker)
             {
-                sameNameHolder = EH.FirstOrDefault(
+                sameNameHolder = EH.FirstOrNull(
                         ls,
                         leechHolder => leechHolder?.Name == name);
             }
@@ -120,7 +120,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     nmh => nmh?.Name == leechName);
             }
@@ -143,7 +143,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -167,7 +167,7 @@
             lock (this.locker)
             {
                 ls = this.leeches;
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     ls,
                     leechHolder => leechHolder?.Name == leechName);
                 removed = ls?.Remove(targetHolder)
@@ -188,7 +188,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -219,7 +219,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -254,7 +254,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -292,7 +292,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -333,7 +333,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -377,7 +377,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -424,7 +424,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }
@@ -475,7 +475,7 @@
             NamedLeechHolder targetHolder;
             lock (this.locker)
             {
-                targetHolder = EH.FirstOrDefault(
+                targetHolder = EH.FirstOrNull(
                     this.leeches,
                     leechHolder => leechHolder?.Name == leechName);
             }

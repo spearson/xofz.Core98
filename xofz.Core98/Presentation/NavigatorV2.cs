@@ -149,7 +149,7 @@ namespace xofz.Presentation
             Presenter presenter;
             lock (this.locker)
             {
-                presenter = EH.FirstOrDefault(
+                presenter = EH.FirstOrNull(
                     ps,
                     p => p is T);
             }
@@ -205,7 +205,7 @@ namespace xofz.Presentation
             Presenter presenter;
             lock (this.locker)
             {
-                presenter = EH.FirstOrDefault(
+                presenter = EH.FirstOrNull(
                     this.presenters,
                     p => p is T);
             }

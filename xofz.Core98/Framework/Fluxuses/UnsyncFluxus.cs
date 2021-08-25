@@ -43,7 +43,7 @@
             ICollection<NamedLeechHolder> ls;
             NamedLeechHolder alreadyAddedLeech;
             ls = this.leeches;
-            alreadyAddedLeech = EH.FirstOrDefault(
+            alreadyAddedLeech = EH.FirstOrNull(
                 ls,
                 leechHolder => ReferenceEquals(
                     leech,
@@ -57,7 +57,7 @@
             NamedLeechHolder sameNameHolder;
             lock (this.locker)
             {
-                sameNameHolder = EH.FirstOrDefault(
+                sameNameHolder = EH.FirstOrNull(
                         ls,
                         leechHolder => leechHolder?.Name == name);
             }
@@ -88,7 +88,7 @@
             string leechName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 nmh => nmh?.Name == leechName);
 
@@ -107,7 +107,7 @@
             string leechName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -128,7 +128,7 @@
             NamedLeechHolder targetHolder;
             bool removed;
             ls = this.leeches;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 ls,
                 leechHolder => leechHolder?.Name == leechName);
             removed = ls?.Remove(targetHolder)
@@ -146,7 +146,7 @@
             string dependencyName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -174,7 +174,7 @@
             string uName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -206,7 +206,7 @@
             string vName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -241,7 +241,7 @@
             string wName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -279,7 +279,7 @@
             string xName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -320,7 +320,7 @@
             string yName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -364,7 +364,7 @@
             string zName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -412,7 +412,7 @@
             string aaName = null)
         {
             NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrDefault(
+            targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
