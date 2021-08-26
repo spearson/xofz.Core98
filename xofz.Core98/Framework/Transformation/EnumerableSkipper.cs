@@ -8,47 +8,53 @@
             IEnumerable<T> source, 
             long skipInterval)
         {
-            if (source == null)
+            if (skipInterval < one)
             {
                 yield break;
             }
 
-            var e = source.GetEnumerator();
-            long counter = zero;
-            while (e?.MoveNext() ?? false)
+            var e = source?.GetEnumerator();
+            if (e == null)
             {
+                yield break;
+            }
+
+            long counter = zero;
+            while (e.MoveNext())
+            {
+                ++counter;
+
                 if (counter == skipInterval)
                 {
                     counter = zero;
                     yield return e.Current;
                 }
-
-                ++counter;
             }
 
-            e?.Dispose();
+            e.Dispose();
         }
 
         public virtual ICollection<T> SkipThrough<T>(
             IEnumerable<T> finiteSource, 
             int skipPoint)
         {
-            var ll = new LinkedList<T>();
             if (finiteSource == null)
             {
-                return ll;
+                return new LinkedList<T>();
             }
 
+            var ll = new LinkedList<T>(finiteSource);
             var result = new List<T>();
-            for (int i = zero; i < skipPoint; ++i)
+            for (int i = one; i <= skipPoint; ++i)
             {
-                result.AddRange(this.Skip(ll, skipPoint));
-                ll.RemoveFirst();
+                result.AddRange(this.Skip(ll, i));
             }
 
             return result;
         }
 
-        protected const byte zero = 0;
+        protected const byte 
+            zero = 0,
+            one = 1;
     }
 }
