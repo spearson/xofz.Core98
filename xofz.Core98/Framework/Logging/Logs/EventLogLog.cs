@@ -67,7 +67,7 @@
             System.DateTime oldestTimestamp)
         {
             Log log = this;
-            ICollection<LogEntry> collection = new LinkedList<LogEntry>();
+            ICollection<LogEntry> collection = new XLinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
                 log.ReadEntries(),
                 e => e.Timestamp))

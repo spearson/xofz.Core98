@@ -7,7 +7,7 @@
     {
         public CommandExecutor()
             : this(
-                new LinkedList<Command>(), 
+                new XLinkedList<Command>(), 
                 new object())
         {
         }
@@ -23,7 +23,7 @@
         protected CommandExecutor(
             object locker)
             : this(
-                new LinkedList<Command>(), 
+                new XLinkedList<Command>(), 
                 locker)
         {
         }
@@ -33,7 +33,7 @@
             object locker)
         {
             this.executedCommands = executedCommands
-                ?? new LinkedList<Command>();
+                ?? new XLinkedList<Command>();
             this.locker = locker
                 ?? new object();
         }

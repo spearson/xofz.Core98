@@ -74,7 +74,7 @@
                         e => e.Timestamp);
 
                     ICollection<XTuple<string, string, string>> uiEntries
-                        = new LinkedList<XTuple<string, string, string>>(
+                        = XLinkedList<XTuple<string, string, string>>.Create(
                             EnumerableHelpers.Select(
                                 matchingEntries,
                                 entry => converter.Convert(

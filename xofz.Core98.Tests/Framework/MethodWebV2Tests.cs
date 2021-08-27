@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using Ploeh.AutoFixture;
-    using xofz.Framework.Lots;
     using Xunit;
 
     public class MethodWebV2Tests
@@ -99,9 +98,13 @@
                 Assert.True(
                     this.v2.Unregister<object>(name));
 
+                var stillRegistered1 = falsity;
+                this.v2.Run<object>(o1 => stillRegistered1 = truth, name);
                 var stillRegistered2 = falsity;
                 this.v2.Run<object>(o2 => { stillRegistered2 = truth; });
 
+                Assert.False(
+                    stillRegistered1);
                 Assert.True(
                     stillRegistered2);
             }

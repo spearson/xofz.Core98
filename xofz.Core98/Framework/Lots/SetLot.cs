@@ -7,7 +7,7 @@
         : Lot<T>
     {
         public SetLot()
-            : this(new LinkedList<T>())
+            : this(new XLinkedList<T>())
         {
         }
 

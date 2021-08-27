@@ -66,7 +66,7 @@
             get
             {
                 ICollection<XTuple<string, string, string>>
-                    entriesCollection = new LinkedList<XTuple<string, string, string>>();
+                    entriesCollection = new XLinkedList<XTuple<string, string, string>>();
                 foreach (DataGridViewRow row in this.entriesGrid.Rows)
                 {
                     var timestamp = row.Cells[0].Value?.ToString();

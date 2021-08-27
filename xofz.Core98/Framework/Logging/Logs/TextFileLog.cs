@@ -37,13 +37,13 @@
                         }
 
                         var type = reader.ReadLine();
-                        var content = new LinkedList<string>();
+                        ICollection<string> content = new XLinkedList<string>();
                         string contentLine;
                         readContent:
                         while ((contentLine = reader.ReadLine()) != string.Empty
                                && contentLine != null)
                         {
-                            content.AddLast(contentLine);
+                            content.Add(contentLine);
                         }
 
                         // support up to two blank lines in entries
@@ -51,8 +51,8 @@
                         {
                             if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
                             {
-                                content.AddLast(string.Empty);
-                                content.AddLast(contentLine);
+                                content.Add(string.Empty);
+                                content.Add(contentLine);
                                 goto readContent;
                             }
 
@@ -60,9 +60,9 @@
                             {
                                 if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
                                 {
-                                    content.AddLast(string.Empty);
-                                    content.AddLast(string.Empty);
-                                    content.AddLast(contentLine);
+                                    content.Add(string.Empty);
+                                    content.Add(string.Empty);
+                                    content.Add(contentLine);
                                     goto readContent;
                                 }
                             }
@@ -105,7 +105,7 @@
             System.DateTime oldestTimestamp)
         {
             Log log = this;
-            ICollection<LogEntry> collection = new LinkedList<LogEntry>();
+            ICollection<LogEntry> collection = new XLinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
                 log.ReadEntries(),
                 e => e.Timestamp))
@@ -137,17 +137,17 @@
         void LogEditor.AddEntry(
             LogEntry entry)
         {
-            var lines = new LinkedList<string>();
-            lines.AddLast(entry.Timestamp.ToString(timestampFormatV2));
-            lines.AddLast(entry.Type);
+            var lines = new XLinkedList<string>();
+            lines.AddTail(entry.Timestamp.ToString(timestampFormatV2));
+            lines.AddTail(entry.Type);
             foreach (var line in entry.Content)
             {
-                lines.AddLast(line);
+                lines.AddTail(line);
             }
 
-            lines.AddLast(string.Empty);
-            lines.AddLast(string.Empty);
-            lines.AddLast(string.Empty);
+            lines.AddTail(string.Empty);
+            lines.AddTail(string.Empty);
+            lines.AddTail(string.Empty);
 
             var sb = new StringBuilder();
             foreach (var line in lines)

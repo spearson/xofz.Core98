@@ -51,7 +51,7 @@
                 T nextItem = default;
 
                 chunk:
-                ICollection<T> currentChunk = new LinkedList<T>();
+                ICollection<T> currentChunk = new XLinkedList<T>();
                 if (indexer > zero)
                 {
                     currentChunk.Add(nextItem);

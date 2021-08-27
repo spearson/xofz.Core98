@@ -8,7 +8,7 @@
         : MultiWebRunner
     {
         public MethodWebManager()
-            : this(new LinkedList<NamedMethodWebHolder>())
+            : this(new XLinkedList<NamedMethodWebHolder>())
         {
         }
 

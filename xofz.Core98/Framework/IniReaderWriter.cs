@@ -29,7 +29,7 @@
 
         public virtual ICollection<string> ReadSectionNames()
         {
-            return new LinkedList<string>(
+            return XLinkedList<string>.Create(
                 EH.Select(
                     this.readSectionHeaders(
                         this.readLines()),
@@ -46,7 +46,7 @@
             }
             catch
             {
-                return new LinkedList<string>();
+                return new XLinkedList<string>();
             }
             
             var headers = this.readSectionHeaders(
@@ -180,7 +180,7 @@
             IEnumerable<string> lines)
         {
             ICollection<SectionHeader> sectionHeaders
-                = new LinkedList<SectionHeader>();
+                = new XLinkedList<SectionHeader>();
             if (lines == null)
             {
                 return sectionHeaders;
@@ -231,7 +231,7 @@
             string[] lines,
             SectionHeader targetHeader)
         {
-            ICollection<string> keys = new LinkedList<string>();
+            ICollection<string> keys = new XLinkedList<string>();
             if (targetHeader == null)
             {
                 return keys;

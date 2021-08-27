@@ -23,7 +23,7 @@
                 this.settings = new SettingsHolder();
                 this.reloader = A.Fake<EntryReloader>();
                 this.resetter = A.Fake<DateAndFilterResetter>();
-                this.refreshEntries = new LinkedList<LogEntry>();
+                this.refreshEntries = new XLinkedList<LogEntry>();
                 this.uiRW = new UiReaderWriter();
                 this.converter = A.Fake<EntryConverter>();
                 this.fixture = new Fixture();

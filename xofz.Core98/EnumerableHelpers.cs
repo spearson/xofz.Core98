@@ -939,7 +939,7 @@
                 goto createArray;
             }
 
-            c = new LinkedList<T>(finiteSource);
+            c = XLinkedList<T>.Create(finiteSource);
 
             createArray:
             var array = new T[c.Count];
@@ -1042,11 +1042,11 @@
         {
             if (finiteSource == null || keySelector == null || comparer == null)
             {
-                return new LinkedList<T>();
+                return new XLinkedList<T>();
             }
 
             var d = new Dictionary<TKey, ICollection<T>>();
-            ICollection<T> itemsWithNullKeys = new LinkedList<T>();
+            ICollection<T> itemsWithNullKeys = new XLinkedList<T>();
 
             foreach (var item in finiteSource)
             {
@@ -1059,7 +1059,7 @@
 
                 if (!d.ContainsKey(key))
                 {
-                    d.Add(key, new LinkedList<T>());
+                    d.Add(key, new XLinkedList<T>());
                 }
 
                 d[key].Add(item);
@@ -1323,7 +1323,7 @@
         public static ICollection<T> Reverse<T>(
             IEnumerable<T> finiteSource)
         {
-            var ll = new LinkedList<T>();
+            var ll = new XLinkedList<T>();
             if (finiteSource == null)
             {
                 return ll;
@@ -1331,7 +1331,7 @@
 
             foreach (var item in finiteSource)
             {
-                ll.AddFirst(item);
+                ll.AddHead(item);
             }
 
             return ll;

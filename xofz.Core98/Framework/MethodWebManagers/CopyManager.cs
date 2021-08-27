@@ -34,7 +34,7 @@
             ICollection<NamedMethodWebHolder> websCopy;
             lock (this.locker)
             {
-                websCopy = new LinkedList<NamedMethodWebHolder>(
+                websCopy = XLinkedList<NamedMethodWebHolder>.Create(
                     this.webs);
             }
 
@@ -52,7 +52,7 @@
             ICollection<NamedMethodWebHolder> websToCopy;
             lock (other.locker)
             {
-                websToCopy = new LinkedList<NamedMethodWebHolder>(
+                websToCopy = XLinkedList<NamedMethodWebHolder>.Create(
                     other.webs);
             }
 

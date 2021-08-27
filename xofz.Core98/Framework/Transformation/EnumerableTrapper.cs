@@ -11,7 +11,7 @@
         {
             if (source == null)
             {
-                ICollection<T> defaultCollection = new LinkedList<T>();
+                ICollection<T> defaultCollection = new XLinkedList<T>();
                 this.setTrapper(defaultCollection);
                 yield break;
             }
@@ -27,7 +27,7 @@
                 yield break;
             }
 
-            this.setTrapper(new LinkedList<T>());
+            this.setTrapper(new XLinkedList<T>());
             // we can use any type of ICollection<T> here
             // (that supports adding items)
             var fieldReference = this.trapper;
@@ -36,6 +36,25 @@
             {
                 fieldReference?.Add(item);
                 yield return item;
+            }
+        }
+
+        public virtual IEnumerable<T> Trap(
+            IEnumerator<T> enumerator)
+        {
+            this.setTrapper(
+                new XLinkedList<T>());
+            if (enumerator == null)
+            {
+                yield break;
+            }
+
+            var t = this.trapper;
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                t?.Add(current);
+                yield return current;
             }
         }
 
@@ -48,7 +67,8 @@
                 return collection;
             }
 
-            this.setTrapper(new LinkedList<T>());
+            this.setTrapper(
+                new XLinkedList<T>());
             // we can use any type of ICollection<T> here
             // (that supports adding items)
             var fieldReference = this.trapper;

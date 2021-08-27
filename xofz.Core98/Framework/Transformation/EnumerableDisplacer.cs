@@ -28,7 +28,7 @@
 
             using (var e = source.GetEnumerator())
             {
-                ICollection<T> displacedItems = new LinkedList<T>();
+                ICollection<T> displacedItems = new XLinkedList<T>();
                 long counter = zero;
                 while (counter < displaceCount)
                 {

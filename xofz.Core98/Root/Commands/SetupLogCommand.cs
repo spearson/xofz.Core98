@@ -192,7 +192,7 @@
                 s, 
                 ldn);
             w?.RegisterDependency(
-                new LinkedList<LogEntry>(), 
+                new XLinkedList<LogEntry>(), 
                 ldn);
             w?.RegisterDependency(
                 new Framework.Log.FieldHolder(),

@@ -8,7 +8,7 @@
             int capacity)
         {
             this.capacity = capacity;
-            this.bitLinkedList = new LinkedList<bool>();
+            this.bitLinkedList = new XLinkedList<bool>();
         }
 
         public virtual bool this[int index] => this.currentArray[index];
@@ -19,11 +19,11 @@
             bool input)
         {
             var ll = this.bitLinkedList;
-            ll.AddLast(input);
+            ll.AddTail(input);
 
             while (ll.Count > this.capacity)
             {
-                ll.RemoveFirst();
+                ll.RemoveHead();
             }
 
             var array = new bool[ll.Count];
@@ -36,11 +36,11 @@
             bool input)
         {
             var ll = this.bitLinkedList;
-            ll.AddFirst(input);
+            ll.AddHead(input);
 
             while (ll.Count > this.capacity)
             {
-                ll.RemoveLast();
+                ll.RemoveTail();
             }
 
             var array = new bool[ll.Count];
@@ -57,7 +57,7 @@
 
         protected bool[] currentArray;
         protected readonly int capacity;
-        protected readonly LinkedList<bool> bitLinkedList;
+        protected readonly XLinkedList<bool> bitLinkedList;
         protected const byte zero = 0;
     }
 }

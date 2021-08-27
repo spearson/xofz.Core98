@@ -34,7 +34,7 @@
             ICollection<Dependency> depCopy;
             lock (this.locker)
             {
-                depCopy = new LinkedList<Dependency>(
+                depCopy = XLinkedList<Dependency>.Create(
                     this.dependencies);
             }
 
@@ -52,7 +52,7 @@
             ICollection<Dependency> depToCopy;
             lock (other.locker)
             {
-                depToCopy = new LinkedList<Dependency>(
+                depToCopy = XLinkedList<Dependency>.Create(
                     other.dependencies);
             }
 

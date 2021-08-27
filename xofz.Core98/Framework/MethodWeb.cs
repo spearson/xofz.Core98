@@ -8,7 +8,7 @@
     {
         public MethodWeb()
             : this(
-                new LinkedList<Dependency>())
+                new XLinkedList<Dependency>())
         {
         }
 

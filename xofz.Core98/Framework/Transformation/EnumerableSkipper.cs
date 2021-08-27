@@ -40,10 +40,10 @@
         {
             if (finiteSource == null)
             {
-                return new LinkedList<T>();
+                return new XLinkedList<T>();
             }
 
-            var ll = new LinkedList<T>(finiteSource);
+            var ll = XLinkedList<T>.Create(finiteSource);
             var result = new List<T>();
             for (int i = one; i <= skipPoint; ++i)
             {

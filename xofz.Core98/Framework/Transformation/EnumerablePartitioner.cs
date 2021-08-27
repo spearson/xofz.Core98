@@ -27,7 +27,7 @@
                 T nextItem = default;
 
                 partition:
-                ICollection<T> currentPartition = new LinkedList<T>();
+                ICollection<T> currentPartition = new XLinkedList<T>();
                 if (indexer > zero)
                 {
                     currentPartition.Add(nextItem);

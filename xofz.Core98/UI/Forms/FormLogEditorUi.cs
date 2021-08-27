@@ -47,7 +47,7 @@
         {
             get
             {
-                ICollection<string> typesCollection = new LinkedList<string>();
+                ICollection<string> typesCollection = new XLinkedList<string>();
                 foreach (string item in this.entryTypeComboBox.Items)
                 {
                     typesCollection.Add(item);
@@ -98,7 +98,7 @@
             get
             {
                 ICollection<string> contentCollection =
-                    new LinkedList<string>();
+                    new XLinkedList<string>();
                 var lines = this.contentTextBox.Lines;
                 if (lines == null)
                 {

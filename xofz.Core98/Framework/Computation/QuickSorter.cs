@@ -84,7 +84,7 @@
             }
 
             ICollection<long> closedRights
-                = new LinkedList<long>();
+                = new XLinkedList<long>();
 
             beginSort:
             long lowIndex = left, highIndex = right;
@@ -217,7 +217,7 @@
             }
 
             ICollection<long> closedRights
-                = new LinkedList<long>();
+                = new XLinkedList<long>();
 
             beginSort:
             long lowIndex = left, highIndex = right;

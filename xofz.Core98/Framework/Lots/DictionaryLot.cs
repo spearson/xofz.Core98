@@ -83,10 +83,10 @@
         }
 
         public virtual ICollection<TKey> Keys => 
-            this.dictionary?.Keys ?? new LinkedList<TKey>();
+            this.dictionary?.Keys ?? new XLinkedList<TKey>();
 
         public virtual ICollection<TValue> Values => 
-            this.dictionary?.Values ?? new LinkedList<TValue>();
+            this.dictionary?.Values ?? new XLinkedList<TValue>();
 
         public virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {

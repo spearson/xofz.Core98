@@ -3,7 +3,6 @@
     using FakeItEasy;
     using Ploeh.AutoFixture;
     using xofz.Framework;
-    using xofz.Framework.Lots;
     using Xunit;
     using Xunit.Abstractions;
 

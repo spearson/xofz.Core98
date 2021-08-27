@@ -78,19 +78,19 @@
                     item1, item2, item3
                 };
 
-                ICollection<LabeledObject> collection = new LinkedList<LabeledObject>(
+                ICollection<LabeledObject> collection = XLinkedList<LabeledObject>.Create(
                     this.dragger.Drag(
                         items,
                         new ArrayLot<int>(new[] { 5, 4, 6 })));
-                ICollection<LabeledObject> itemOnes = new LinkedList<LabeledObject>(
+                ICollection<LabeledObject> itemOnes = XLinkedList<LabeledObject>.Create(
                     EnumerableHelpers.Where(
                         collection,
                         lo => ReferenceEquals(lo, item1)));
-                ICollection<LabeledObject> itemTwos = new LinkedList<LabeledObject>(
+                ICollection<LabeledObject> itemTwos = XLinkedList<LabeledObject>.Create(
                     EnumerableHelpers.Where(
                         collection,
                         lo => ReferenceEquals(lo, item2)));
-                ICollection<LabeledObject> itemThrees = new LinkedList<LabeledObject>(
+                ICollection<LabeledObject> itemThrees = XLinkedList<LabeledObject>.Create(
                     EnumerableHelpers.Where(
                         collection,
                         lo => ReferenceEquals(lo, item3)));

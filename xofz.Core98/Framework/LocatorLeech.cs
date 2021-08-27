@@ -9,7 +9,7 @@
     {
         public LocatorLeech()
             : this(
-                new LinkedList<NamedLocatorHolder>(),
+                new XLinkedList<NamedLocatorHolder>(),
                 new object())
         {
         }
@@ -25,7 +25,7 @@
         protected LocatorLeech(
             object locker)
             : this(
-                new LinkedList<NamedLocatorHolder>(),
+                new XLinkedList<NamedLocatorHolder>(),
                 locker)
         {
         }

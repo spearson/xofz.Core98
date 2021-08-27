@@ -45,7 +45,7 @@
                 this.ui.StartDate = startDate;
                 this.ui.EndDate = endDate;
 
-                allEntries = new LinkedList<LogEntry>();
+                allEntries = new XLinkedList<LogEntry>();
                 this.allEntries.Add(
                     new LogEntry(
                         this.ui.StartDate.AddDays(1),

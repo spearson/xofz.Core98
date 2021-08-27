@@ -8,7 +8,7 @@
     {
         public ManagerLocator()
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new XLinkedList<NamedManagerHolder>(),
                 new object())
         {
         }
@@ -24,7 +24,7 @@
         protected ManagerLocator(
             object locker)
             : this(
-                new LinkedList<NamedManagerHolder>(),
+                new XLinkedList<NamedManagerHolder>(),
                 locker)
         {
         }

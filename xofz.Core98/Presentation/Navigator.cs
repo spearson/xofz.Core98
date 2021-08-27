@@ -32,7 +32,7 @@
             : this(
                 runner, 
                 startPresenter, 
-                new LinkedList<Presenter>())
+                new XLinkedList<Presenter>())
         {
         }
 

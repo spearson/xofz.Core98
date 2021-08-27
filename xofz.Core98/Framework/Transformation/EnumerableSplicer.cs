@@ -86,7 +86,7 @@
             }
 
             ICollection<IEnumerator<T>> enumerators
-                = new LinkedList<IEnumerator<T>>();
+                = new XLinkedList<IEnumerator<T>>();
             foreach (var source in sources)
             {
                 var enumerator = source?.GetEnumerator();

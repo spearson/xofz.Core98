@@ -19,7 +19,7 @@
             LogEditorUi ui)
         {
             var defaultType = DefaultEntryTypes.Information;
-            ICollection<string> types = new LinkedList<string>(
+            ICollection<string> types = XLinkedList<string>.Create(
                 new[]
                 {
                     defaultType,

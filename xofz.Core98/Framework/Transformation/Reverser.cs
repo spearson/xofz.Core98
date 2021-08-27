@@ -38,7 +38,7 @@
             var c = list.Count;
             var midpoint = c / two;
             ICollection<ManualResetEvent> finishedCollection =
-                new LinkedList<ManualResetEvent>();
+                new XLinkedList<ManualResetEvent>();
             for (int currentProc = zero;
                 currentProc < parallelizationCount;
                 ++currentProc)

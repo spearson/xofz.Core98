@@ -9,7 +9,7 @@
     {
         public LeechFluxus()
             : this(
-                new LinkedList<NamedLeechHolder>(),
+                new XLinkedList<NamedLeechHolder>(),
                 new object())
         {
         }
@@ -25,7 +25,7 @@
         protected LeechFluxus(
             object locker)
             : this(
-                new LinkedList<NamedLeechHolder>(),
+                new XLinkedList<NamedLeechHolder>(),
                 locker)
         {
         }

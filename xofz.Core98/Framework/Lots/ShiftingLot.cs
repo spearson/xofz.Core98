@@ -15,7 +15,7 @@
             }
 
             this.capacity = capacity;
-            this.linkedList = new LinkedList<T>();
+            this.linkedList = new XLinkedList<T>();
         }
 
         public virtual T this[long index]
@@ -59,12 +59,12 @@
             T input)
         {
             var ll = this.linkedList;
-            ll?.AddFirst(input);
+            ll?.AddHead(input);
             var c = this.capacity;
 
             while (ll?.Count > c)
             {
-                ll.RemoveLast();
+                ll.RemoveTail();
             }
 
             var array = new T[
@@ -80,12 +80,12 @@
             T input)
         {
             var ll = this.linkedList;
-            ll?.AddLast(input);
+            ll?.AddTail(input);
             var c = this.capacity;
 
             while (ll?.Count > c)
             {
-                ll.RemoveFirst();
+                ll.RemoveHead();
             }
 
             var array = new T[
@@ -105,7 +105,7 @@
 
         protected T[] currentArray;
         protected readonly long capacity;
-        protected readonly LinkedList<T> linkedList;
+        protected readonly XLinkedList<T> linkedList;
         protected const byte zero = 0;
     }
 }
