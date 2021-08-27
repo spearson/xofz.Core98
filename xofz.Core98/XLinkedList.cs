@@ -23,6 +23,10 @@
             return ll;
         }
 
+        public virtual XLinkedListNode<T> HeadN => this.headNode;
+
+        public virtual XLinkedListNode<T> TailN => this.tailNode;
+
         public virtual T Head
         {
             get
@@ -55,7 +59,7 @@
             T o)
         {
             var currentHead = this.headNode;
-            var newHead = new XLinkedListNode
+            var newHead = new XLinkedListNode<T>
             {
                 Next = currentHead,
                 O = o,
@@ -79,7 +83,7 @@
             T o)
         {
             var currentTail = this.tailNode;
-            var newTail = new XLinkedListNode
+            var newTail = new XLinkedListNode<T>
             {
                 Previous = currentTail,
                 O = o,
@@ -141,13 +145,13 @@
         }
 
         protected virtual void setHead(
-            XLinkedListNode head)
+            XLinkedListNode<T> head)
         {
             this.headNode = head;
         }
 
         protected virtual void setTail(
-            XLinkedListNode tail)
+            XLinkedListNode<T> tail)
         {
             this.tailNode = tail;
         }
@@ -206,7 +210,7 @@
                 return falsity;
             }
 
-            XLinkedListNode 
+            XLinkedListNode<T> 
                 newNext;
             // check the head node
             if (this.nodeContains(currentNode, item))
@@ -249,7 +253,7 @@
         }
 
         protected virtual bool nodeContains(
-            XLinkedListNode node,
+            XLinkedListNode<T> node,
             T item)
         {
             return node?.O?.Equals(item) ?? item == null;
@@ -274,7 +278,7 @@
 
         public bool IsReadOnly => falsity;
 
-        protected XLinkedListNode 
+        protected XLinkedListNode<T> 
             headNode,
             tailNode;
         protected const bool 
@@ -282,20 +286,11 @@
             falsity = false;
         protected const byte zero = 0;
 
-        protected class XLinkedListNode
-        {
-            public virtual T O { get; set; }
-
-            public virtual XLinkedListNode Previous { get; set; }
-
-            public virtual XLinkedListNode Next { get; set; }
-        }
-
         protected class XLinkedListEnumerator
             : IEnumerator<T>
         {
             public XLinkedListEnumerator(
-                XLinkedListNode head)
+                XLinkedListNode<T> head)
             {
                 this.head = head;
             }
@@ -347,7 +342,7 @@
             }
 
             protected virtual void setCurrentNode(
-                XLinkedListNode currentNode)
+                XLinkedListNode<T> currentNode)
             {
                 this.currentNode = currentNode;
             }
@@ -359,8 +354,17 @@
             }
 
             protected bool movedOnce;
-            protected XLinkedListNode currentNode;
-            protected readonly XLinkedListNode head;
+            protected XLinkedListNode<T> currentNode;
+            protected readonly XLinkedListNode<T> head;
         }
+    }
+
+    public class XLinkedListNode<T>
+    {
+        public virtual T O { get; set; }
+
+        public virtual XLinkedListNode<T> Previous { get; set; }
+
+        public virtual XLinkedListNode<T> Next { get; set; }
     }
 }
