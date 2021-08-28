@@ -259,7 +259,7 @@
             return node?.O?.Equals(item) ?? item == null;
         }
 
-        public int Count
+        public virtual int Count
         {
             get
             {
@@ -276,7 +276,7 @@
             }
         }
 
-        public bool IsReadOnly => falsity;
+        public virtual bool IsReadOnly => falsity;
 
         protected XLinkedListNode<T> 
             headNode,

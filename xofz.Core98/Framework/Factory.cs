@@ -1,7 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
-
     public class Factory
     {
         // looks and feels a bit like a constructor, with a little
@@ -10,34 +8,70 @@
         public virtual T Create<T>(
             params object[] dependencies)
         {
-            try
-            {
-                return (T)Activator.CreateInstance(
-                    typeof(T),
-                    dependencies);
-            }
-            catch
+            var ctors = typeof(T)?.GetConstructors();
+            if (ctors == null)
             {
                 return default;
             }
+
+
+            if (dependencies == null)
+            {
+                const byte zero = 0;
+                dependencies = new object[zero];
+            }
+
+
+            System.Reflection.ConstructorInfo matchingCtor = null;
+            var l = dependencies.Length;
+            foreach (var ctor in ctors)
+            {
+                var ps = ctor.GetParameters();
+                if (ps?.Length != l)
+                {
+                    continue;
+                }
+
+                var e = ((System.Collections.Generic.IEnumerable<
+                        System.Reflection.ParameterInfo>)ps).
+                    GetEnumerator();
+                bool matches = truth;
+                foreach (var d in dependencies)
+                {
+                    e?.MoveNext();
+
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    if (!e?.Current?.ParameterType?.IsAssignableFrom(
+                            d?.GetType())
+                        ?? truth)
+                    {
+                        matches = falsity;
+                        break;
+                    }
+                }
+
+                e?.Dispose();
+
+                if (matches)
+                {
+                    matchingCtor = ctor;
+                    break;
+                }
+            }
+
+            return (T)matchingCtor?.Invoke(dependencies);
         }
 
         public virtual bool TryCreate<T>(
             out T creation,
             params object[] dependencies)
         {
-            try
-            {
-                creation = (T)Activator.CreateInstance(
-                    typeof(T),
-                    dependencies);
-                return truth;
-            }
-            catch
-            {
-                creation = default;
-                return falsity;
-            }
+            creation = this.Create<T>(dependencies);
+            return creation is T _;
         }
 
         protected const bool

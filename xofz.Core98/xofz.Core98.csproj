@@ -62,6 +62,7 @@
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
     <Compile Include="Framework\Leeches\UnsyncLeech.cs" />
+    <Compile Include="Framework\Lots\XLinkedListLot.cs" />
     <Compile Include="Framework\ManagerLocators\UnsyncLocator.cs" />
     <Compile Include="Framework\Subjugate.cs" />
     <Compile Include="Framework\Axioses\Raiser.cs" />

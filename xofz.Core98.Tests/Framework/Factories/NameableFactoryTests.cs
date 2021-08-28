@@ -40,6 +40,8 @@
 
                 Assert.NotNull(
                     nameToSet);
+                Assert.NotNull(
+                    np);
                 Assert.Equal(
                     nameToSet, 
                     np.Name);
