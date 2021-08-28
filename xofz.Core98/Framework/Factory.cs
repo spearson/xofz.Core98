@@ -70,8 +70,17 @@
             out T creation,
             params object[] dependencies)
         {
-            creation = this.Create<T>(dependencies);
-            return creation is T _;
+            try
+            {
+                creation = this.Create<T>(dependencies);
+                return creation is T _;
+            }
+            catch
+            {
+                creation = default;
+                return falsity;
+            }
+            
         }
 
         protected const bool
