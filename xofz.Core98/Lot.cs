@@ -13,7 +13,7 @@
     {
         public static Lot<T> Empty<T>()
         {
-            return new LinkedListLot<T>();
+            return new XLinkedListLot<T>();
         }
     }
 }

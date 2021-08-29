@@ -7,10 +7,10 @@
         : Lotter
     {
         Lot<T> Lotter.Materialize<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             return new StackLot<T>(
-                source);
+                finiteSource);
         }
     }
 }

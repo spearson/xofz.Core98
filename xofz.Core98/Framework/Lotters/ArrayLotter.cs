@@ -7,18 +7,18 @@
         : LotterV2
     {
         Lot<T> Lotter.Materialize<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             return new ArrayLot<T>(
                 EnumerableHelpers.ToArray(
-                    source));
+                    finiteSource));
         }
 
         ICollection<T> LotterV2.Collect<T>(
-            IEnumerable<T> source)
+            IEnumerable<T> finiteSource)
         {
             return EnumerableHelpers.ToArray(
-                source);
+                finiteSource);
         }
     }
 }

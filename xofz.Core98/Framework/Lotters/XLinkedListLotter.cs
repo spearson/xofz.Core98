@@ -3,20 +3,20 @@
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
-    public sealed class LinkedListLotter 
+    public class XLinkedListLotter
         : LotterV2
     {
-        Lot<T> Lotter.Materialize<T>(
+        public Lot<T> Materialize<T>(
             IEnumerable<T> finiteSource)
         {
-            return new LinkedListLot<T>(
-                finiteSource);
+            return new XLinkedListLot<T>(
+                XLinkedList<T>.Create(finiteSource));
         }
 
         public ICollection<T> Collect<T>(
             IEnumerable<T> finiteSource)
         {
-            return new List<T>(
+            return XLinkedList<T>.Create(
                 finiteSource);
         }
     }

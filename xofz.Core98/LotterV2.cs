@@ -6,6 +6,6 @@
         : Lotter
     {
         ICollection<T> Collect<T>(
-            IEnumerable<T> source);
+            IEnumerable<T> finiteSource);
     }
 }
