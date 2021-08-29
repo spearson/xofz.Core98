@@ -7,6 +7,15 @@
     public class ReverseLinkedList<T>
         : XLinkedList<T>
     {
+        public static ReverseLinkedList<T> CreateReverse(
+            IEnumerable<T> finiteSource)
+        {
+            var ll = new ReverseLinkedList<T>();
+            populate(ll, finiteSource);
+
+            return ll;
+        }
+
         public override IEnumerator<T> GetEnumerator()
         {
             return new ReverseEnumerator(

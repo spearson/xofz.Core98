@@ -10,17 +10,24 @@
             IEnumerable<T> finiteSource)
         {
             var ll = new XLinkedList<T>();
-            if (finiteSource == null)
+            populate(ll, finiteSource);
+
+            return ll;
+        }
+
+        protected static void populate(
+            XLinkedList<T> ll,
+            IEnumerable<T> finiteSource)
+        {
+            if (finiteSource == null || ll == null)
             {
-                return ll;
+                return;
             }
 
             foreach (var item in finiteSource)
             {
                 ll.AddTail(item);
             }
-
-            return ll;
         }
 
         public virtual XLinkedListNode<T> HeadN => this.headNode;
