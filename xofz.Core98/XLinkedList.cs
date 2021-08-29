@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class XLinkedList<T> 
+    public class XLinkedList<T>
         : ICollection<T>
     {
         public static XLinkedList<T> Create(
@@ -127,7 +127,7 @@
                 newTail);
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
             return new XLinkedListEnumerator(
                 this.headNode);
@@ -210,13 +210,13 @@
                 return falsity;
             }
 
-            XLinkedListNode<T> 
+            XLinkedListNode<T>
                 newNext;
             // check the head node
             if (this.nodeContains(currentNode, item))
             {
                 newNext = currentNode.Next;
-                
+
                 if (newNext != null)
                 {
                     newNext.Previous = null;
@@ -268,7 +268,7 @@
                 while (currentNode != null)
                 {
                     ++result;
-                    
+
                     currentNode = currentNode.Next;
                 }
 
@@ -278,10 +278,10 @@
 
         public virtual bool IsReadOnly => falsity;
 
-        protected XLinkedListNode<T> 
+        protected XLinkedListNode<T>
             headNode,
             tailNode;
-        protected const bool 
+        protected const bool
             truth = true,
             falsity = false;
         protected const byte zero = 0;
@@ -305,7 +305,7 @@
                         cn);
                     this.setMoved(
                         truth);
-                    
+
                     return cn != null;
                 }
 

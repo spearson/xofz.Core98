@@ -102,6 +102,7 @@
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
+    <Compile Include="ReverseLinkedList.cs" />
     <Compile Include="ShufflingObject.cs" />
     <Compile Include="Axios.cs" />
     <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
