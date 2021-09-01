@@ -333,5 +333,120 @@
                     node.Next.O == 4);
             }
         }
+
+        public class When_GetNodes_is_called : Context
+        {
+            [Fact]
+            public void Reads_the_nodes_out()
+            {
+                var ll2 = new XLinkedList<object>();
+                var node1 = new XLinkedListNode<object>();
+                var node2 = new XLinkedListNode<object>();
+                var node3 = new XLinkedListNode<object>();
+                ll2.AddTail(
+                    node1);
+                ll2.AddTail(
+                    node2);
+                ll2.AddTail(
+                    node3);
+
+                var e = ll2.GetNodes()
+                    ?.GetEnumerator();
+                if (e == null)
+                {
+                    Assert.True(
+                        false);
+                    return;
+                }
+
+                e.MoveNext();
+                Assert.Same(
+                    node1,
+                    e.Current);
+
+                e.MoveNext();
+                Assert.Same(
+                    node2,
+                    e.Current);
+
+                e.MoveNext();
+                Assert.Same(
+                    node3,
+                    e.Current);
+
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
+            }
+
+            [Fact]
+            public void Returns_one_item_for_one()
+            {
+                var ll2 = new XLinkedList<byte>();
+                var node = new XLinkedListNode<byte>();
+                ll2.AddTail(node);
+
+                var e = ll2.GetNodes()
+                    ?.GetEnumerator();
+                if (e == null)
+                {
+                    Assert.True(
+                        false);
+                    return;
+                }
+
+                Assert.True(
+                    e.MoveNext());
+                Assert.Same(
+                    e.Current,
+                    node);
+
+                e.Dispose();
+            }
+
+            [Fact]
+            public void If_no_items_returns_empty()
+            {
+                Assert.Empty(
+                    new XLinkedList<object>().GetNodes());
+            }
+
+            [Fact]
+            public void If_two_items_returns_both()
+            {
+                var ll2 = new XLinkedList<object>();
+                var node1 = new XLinkedListNode<object>();
+                var node2 = new XLinkedListNode<object>();
+                ll2.AddTail(
+                    node1);
+                ll2.AddTail(
+                    node2);
+
+                var e = ll2.GetNodes()
+                    ?.GetEnumerator();
+                if (e == null)
+                {
+                    Assert.True(
+                        false);
+                    return;
+                }
+
+                e.MoveNext();
+                Assert.Same(
+                    node1,
+                    e.Current);
+
+                e.MoveNext();
+                Assert.Same(
+                    node2,
+                    e.Current);
+
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
+            }
+        }
     }
 }

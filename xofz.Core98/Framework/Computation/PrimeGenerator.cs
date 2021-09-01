@@ -19,7 +19,7 @@
         public PrimeGenerator(
             IEnumerable<long> finiteSet)
             : this(
-                new PrimeTester(), 
+                new PrimeTester(),
                 finiteSet)
         {
         }
@@ -88,7 +88,7 @@
             var ll = this.currentLinkedList;
             var lastNode = ll?.Last;
             ll?.AddLast(
-                lastNode?.Value + firstPrimality 
+                lastNode?.Value + firstPrimality
                 ?? firstPrimality);
             while (!this.tester.RelativelyPrime(ll, truth))
             {
@@ -104,6 +104,7 @@
 
         protected readonly LinkedListLot<long> currentLinkedList;
         protected readonly PrimeTester tester;
+
         protected const byte firstPrimality = 2;
         protected const byte secondPrime = 3;
     }

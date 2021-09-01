@@ -22,6 +22,22 @@
                 this.tailNode);
         }
 
+        public override IEnumerable<XLinkedListNode<T>> GetNodes()
+        {
+            var currentNode = this.tailNode;
+            if (currentNode == null)
+            {
+                yield break;
+            }
+
+            yield return currentNode;
+
+            while ((currentNode = currentNode?.Previous) != null)
+            {
+                yield return currentNode;
+            }
+        }
+
         protected class ReverseEnumerator
             : XLinkedListEnumerator
         {

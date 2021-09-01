@@ -18,14 +18,14 @@
         U arg2,
         V arg3);
 
-    public delegate TResult Gen<in T, in U, in V, in W, 
+    public delegate TResult Gen<in T, in U, in V, in W,
         out TResult>(
         T arg1,
         U arg2,
         V arg3,
         W arg4);
 
-    public delegate TResult Gen<in T, in U, in V, in W, in X, 
+    public delegate TResult Gen<in T, in U, in V, in W, in X,
         out TResult>(
         T arg1,
         U arg2,

@@ -62,6 +62,154 @@
             }
         }
 
+        public virtual IEnumerator<T> GetEnumerator()
+        {
+            return new XLinkedListEnumerator(
+                this.headNode);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public virtual void Add(
+            T item)
+        {
+            this.AddTail(item);
+        }
+
+        public virtual void Clear()
+        {
+            this.setHead(null);
+            this.setTail(null);
+        }
+
+        public virtual bool Contains(
+            T item)
+        {
+            var currentNode = this.headNode;
+            if (this.nodeContains(currentNode, item))
+            {
+                return truth;
+            }
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                if (this.nodeContains(currentNode, item))
+                {
+                    return truth;
+                }
+            }
+
+            return falsity;
+        }
+
+        public virtual void CopyTo(
+            T[] array,
+            int arrayIndex)
+        {
+            var l = array.Length;
+            var e = this.GetEnumerator();
+            for (long i = arrayIndex; i < l; ++i)
+            {
+                if (!e.MoveNext())
+                {
+                    break;
+                }
+
+                array[i] = e.Current;
+            }
+
+            e.Dispose();
+        }
+
+        public virtual bool Remove(
+            T item)
+        {
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return falsity;
+            }
+
+            XLinkedListNode<T>
+                newNext;
+            // check the head node
+            if (this.nodeContains(currentNode, item))
+            {
+                newNext = currentNode.Next;
+
+                if (newNext != null)
+                {
+                    newNext.Previous = null;
+                }
+
+                this.setHead(newNext);
+                return truth;
+            }
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                if (this.nodeContains(currentNode, item))
+                {
+                    var newPrevious = currentNode.Previous;
+                    newNext = currentNode.Next;
+                    if (newPrevious != null)
+                    {
+                        newPrevious.Next = newNext;
+                    }
+
+                    if (newNext != null)
+                    {
+                        newNext.Previous = newPrevious;
+                        return truth;
+                    }
+
+                    // tail node
+                    this.setTail(newPrevious);
+                    return truth;
+                }
+            }
+
+            return falsity;
+        }
+
+        public virtual int Count
+        {
+            get
+            {
+                long result = zero;
+                var currentNode = this.headNode;
+                while (currentNode != null)
+                {
+                    ++result;
+
+                    currentNode = currentNode.Next;
+                }
+
+                return (int)result;
+            }
+        }
+
+        public virtual bool IsReadOnly => falsity;
+
+        public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
+        {
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                yield break;
+            }
+
+            yield return currentNode;
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                yield return currentNode;
+            }
+        }
+
         public virtual XLinkedListNode<T> AddHead(
             T o)
         {
@@ -119,7 +267,7 @@
             var currentTail = this.tailNode;
             if (currentTail != null)
             {
-                currentTail.Next= newTail;
+                currentTail.Next = newTail;
             }
 
             var currentHead = this.headNode;
@@ -339,23 +487,6 @@
             return currentNode;
         }
 
-        public virtual IEnumerator<T> GetEnumerator()
-        {
-            return new XLinkedListEnumerator(
-                this.headNode);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        public virtual void Add(
-            T item)
-        {
-            this.AddTail(item);
-        }
-
         protected virtual void setHead(
             XLinkedListNode<T> head)
         {
@@ -368,135 +499,17 @@
             this.tailNode = tail;
         }
 
-        public virtual void Clear()
-        {
-            this.setHead(null);
-            this.setTail(null);
-        }
-
-        public virtual bool Contains(
-            T item)
-        {
-            var currentNode = this.headNode;
-            if (this.nodeContains(currentNode, item))
-            {
-                return truth;
-            }
-
-            while ((currentNode = currentNode?.Next) != null)
-            {
-                if (this.nodeContains(currentNode, item))
-                {
-                    return truth;
-                }
-            }
-
-            return falsity;
-        }
-
-        public virtual void CopyTo(
-            T[] array,
-            int arrayIndex)
-        {
-            var l = array.Length;
-            var e = this.GetEnumerator();
-            for (long i = arrayIndex; i < l; ++i)
-            {
-                if (!e.MoveNext())
-                {
-                    break;
-                }
-
-                array[i] = e.Current;
-            }
-
-            e.Dispose();
-        }
-
-        public virtual bool Remove(
-            T item)
-        {
-            var currentNode = this.headNode;
-            if (currentNode == null)
-            {
-                return falsity;
-            }
-
-            XLinkedListNode<T>
-                newNext;
-            // check the head node
-            if (this.nodeContains(currentNode, item))
-            {
-                newNext = currentNode.Next;
-
-                if (newNext != null)
-                {
-                    newNext.Previous = null;
-                }
-
-                this.setHead(newNext);
-                return truth;
-            }
-
-            while ((currentNode = currentNode?.Next) != null)
-            {
-                if (this.nodeContains(currentNode, item))
-                {
-                    var newPrevious = currentNode.Previous;
-                    newNext = currentNode.Next;
-                    if (newPrevious != null)
-                    {
-                        newPrevious.Next = newNext;
-                    }
-
-                    if (newNext != null)
-                    {
-                        newNext.Previous = newPrevious;
-                        return truth;
-                    }
-
-                    // tail node
-                    this.setTail(newPrevious);
-                    return truth;
-                }
-            }
-
-            return falsity;
-        }
-
         protected virtual bool nodeContains(
             XLinkedListNode<T> node,
             T item)
         {
-            return node?.O?.Equals(item) ?? item == null;
-        }
-
-        public virtual int Count
-        {
-            get
+            if (node == null)
             {
-                long result = zero;
-                var currentNode = this.headNode;
-                while (currentNode != null)
-                {
-                    ++result;
-
-                    currentNode = currentNode.Next;
-                }
-
-                return (int)result;
+                return falsity;
             }
+
+            return node.O?.Equals(item) ?? item == null;
         }
-
-        public virtual bool IsReadOnly => falsity;
-
-        protected XLinkedListNode<T>
-            headNode,
-            tailNode;
-        protected const bool
-            truth = true,
-            falsity = false;
-        protected const byte zero = 0;
 
         protected class XLinkedListEnumerator
             : IEnumerator<T>
@@ -569,6 +582,15 @@
             protected XLinkedListNode<T> currentNode;
             protected readonly XLinkedListNode<T> head;
         }
+
+        protected XLinkedListNode<T>
+            headNode,
+            tailNode;
+
+        protected const byte zero = 0;
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 
     public class XLinkedListNode<T>
