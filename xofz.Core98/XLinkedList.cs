@@ -62,16 +62,25 @@
             }
         }
 
-        public virtual void AddHead(
+        public virtual XLinkedListNode<T> AddHead(
             T o)
         {
-            var currentHead = this.headNode;
-            var newHead = new XLinkedListNode<T>
-            {
-                Next = currentHead,
-                O = o,
-            };
+            return this.AddHead(
+                new XLinkedListNode<T>
+                {
+                    O = o
+                });
+        }
 
+        public virtual XLinkedListNode<T> AddHead(
+            XLinkedListNode<T> newHead)
+        {
+            if (newHead == null)
+            {
+                return newHead;
+            }
+
+            var currentHead = this.headNode;
             if (currentHead != null)
             {
                 currentHead.Previous = newHead;
@@ -83,22 +92,34 @@
                 this.setTail(newHead);
             }
 
+            newHead.Next = currentHead;
             this.setHead(newHead);
+
+            return newHead;
         }
 
-        public virtual void AddTail(
+        public virtual XLinkedListNode<T> AddTail(
             T o)
         {
-            var currentTail = this.tailNode;
-            var newTail = new XLinkedListNode<T>
-            {
-                Previous = currentTail,
-                O = o,
-            };
+            return this.AddTail(
+                new XLinkedListNode<T>
+                {
+                    O = o
+                });
+        }
 
+        public virtual XLinkedListNode<T> AddTail(
+            XLinkedListNode<T> newTail)
+        {
+            if (newTail == null)
+            {
+                return newTail;
+            }
+
+            var currentTail = this.tailNode;
             if (currentTail != null)
             {
-                currentTail.Next = newTail;
+                currentTail.Next= newTail;
             }
 
             var currentHead = this.headNode;
@@ -107,12 +128,141 @@
                 this.setHead(newTail);
             }
 
+            newTail.Previous = currentTail;
             this.setTail(newTail);
+
+            return newTail;
         }
 
-        public virtual void RemoveHead()
+        public virtual XLinkedListNode<T> AddAfter(
+            XLinkedListNode<T> node,
+            T o)
         {
-            var newHead = this.headNode?.Next;
+            var newNode = new XLinkedListNode<T>
+            {
+                O = o
+            };
+
+            return this.AddAfter(
+                node,
+                newNode);
+        }
+
+        public virtual XLinkedListNode<T> AddAfter(
+            XLinkedListNode<T> node,
+            XLinkedListNode<T> newNode)
+        {
+            if (node == null || newNode == null)
+            {
+                return newNode;
+            }
+
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return newNode;
+            }
+
+            if (currentNode.Equals(node))
+            {
+                goto addLink;
+            }
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                if (currentNode.Equals(node))
+                {
+                    goto addLink;
+                }
+            }
+
+            return newNode;
+
+            addLink:
+            var newNext = currentNode.Next;
+            newNode.Previous = currentNode;
+            newNode.Next = newNext;
+            if (newNext != null)
+            {
+                newNext.Previous = newNode;
+            }
+
+            currentNode.Next = newNode;
+            if (currentNode == this.tailNode)
+            {
+                this.setTail(newNode);
+            }
+
+            return newNode;
+        }
+
+        public virtual XLinkedListNode<T> AddBefore(
+            XLinkedListNode<T> node,
+            T o)
+        {
+            var newNode = new XLinkedListNode<T>
+            {
+                O = o
+            };
+
+            return this.AddBefore(
+                node,
+                newNode);
+        }
+
+        public virtual XLinkedListNode<T> AddBefore(
+            XLinkedListNode<T> node,
+            XLinkedListNode<T> newNode)
+        {
+            if (node == null || newNode == null)
+            {
+                return newNode;
+            }
+
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return newNode;
+            }
+
+            if (currentNode.Equals(node))
+            {
+                goto addLink;
+            }
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                if (currentNode.Equals(node))
+                {
+                    goto addLink;
+                }
+            }
+
+            return newNode;
+
+            addLink:
+            var newPrev = currentNode.Previous;
+            newNode.Next = currentNode;
+            newNode.Previous = newPrev;
+            if (newPrev != null)
+            {
+                newPrev.Next = newNode;
+            }
+
+            currentNode.Previous = newNode;
+            if (currentNode == this.headNode)
+            {
+                this.setHead(
+                    newNode);
+            }
+
+            return newNode;
+        }
+
+        public virtual XLinkedListNode<T> RemoveHead()
+        {
+            var oldHead = this.headNode;
+            var newHead = oldHead?.Next;
             if (newHead != null)
             {
                 newHead.Previous = null;
@@ -120,11 +270,13 @@
 
             this.setHead(
                 newHead);
+            return oldHead;
         }
 
-        public virtual void RemoveTail()
+        public virtual XLinkedListNode<T> RemoveTail()
         {
-            var newTail = this.tailNode?.Previous;
+            var oldTail = this.tailNode;
+            var newTail = oldTail?.Previous;
             if (newTail != null)
             {
                 newTail.Next = null;
@@ -132,6 +284,59 @@
 
             this.setTail(
                 newTail);
+            return oldTail;
+        }
+
+        public virtual XLinkedListNode<T> Find(
+            T o)
+        {
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return null;
+            }
+
+            bool oIsNull = o == null;
+            if (currentNode.O?.Equals(o) ?? oIsNull)
+            {
+                return currentNode;
+            }
+
+            while ((currentNode = currentNode?.Next) != null)
+            {
+                if (currentNode.O?.Equals(o) ?? oIsNull)
+                {
+                    return currentNode;
+                }
+            }
+
+            return currentNode;
+        }
+
+        public virtual XLinkedListNode<T> FindLast(
+            T o)
+        {
+            var currentNode = this.tailNode;
+            if (currentNode == null)
+            {
+                return null;
+            }
+
+            bool oIsNull = o == null;
+            if (currentNode.O?.Equals(o) ?? oIsNull)
+            {
+                return currentNode;
+            }
+
+            while ((currentNode = currentNode?.Previous) != null)
+            {
+                if (currentNode.O?.Equals(o) ?? oIsNull)
+                {
+                    return currentNode;
+                }
+            }
+
+            return currentNode;
         }
 
         public virtual IEnumerator<T> GetEnumerator()
