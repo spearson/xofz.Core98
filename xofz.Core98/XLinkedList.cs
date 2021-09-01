@@ -240,6 +240,7 @@
                 this.setTail(newHead);
             }
 
+            newHead.Previous = null;
             newHead.Next = currentHead;
             this.setHead(newHead);
 
@@ -276,6 +277,7 @@
                 this.setHead(newTail);
             }
 
+            newTail.Next = null;
             newTail.Previous = currentTail;
             this.setTail(newTail);
 
@@ -418,6 +420,7 @@
 
             this.setHead(
                 newHead);
+
             return oldHead;
         }
 
