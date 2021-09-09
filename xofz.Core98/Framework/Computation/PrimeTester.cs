@@ -22,8 +22,8 @@
             }
 
             return this.RelativelyPrime(
-                new LinkedListLot<long>(
-                    finiteSource),
+                new XLinkedListLot<long>(
+                   XLinkedList<long>.Create(finiteSource)),
                 onlyCheckLast);
         }
 
@@ -39,12 +39,14 @@
                 return truth;
             }
 
-            var ll = lot as LinkedListLot<long>
-                     ?? new LinkedListLot<long>(lot);
+            var ll = lot as XLinkedListLot<long>
+                     ?? new XLinkedListLot<long>(
+                         XLinkedList<long>.Create(
+                             lot));
 
             if (onlyCheckLast)
             {
-                var numberToCheck = ll.Last.Value;
+                var numberToCheck = ll.Tail;
                 var squareRoot = (long)Math.Sqrt(numberToCheck);
                 foreach (var number in EnumerableHelpers.Where(
                     ll,
@@ -61,8 +63,7 @@
 
             while (true)
             {
-                var lowestNumber = ll.First.Value;
-                ll.RemoveFirst();
+                var lowestNumber = ll.RemoveHead()?.O;
                 if (ll.Count < one)
                 {
                     return truth;

@@ -23,13 +23,14 @@
             r?.Run<FieldHolder, Log, SettingsHolder>(
                 (fields, log, settings) =>
                 {
+                    const byte one = 1;
                     Interlocked.Exchange(
                         ref fields.startedIf1,
-                        1);
-
+                        one);
+                    
                     if (Interlocked.Exchange(
                             ref fields.startedFirstTimeIf1,
-                            1) != 1)
+                            one) != one)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {
@@ -38,9 +39,10 @@
                         return;
                     }
 
+                    const byte zero = 0;
                     if (Interlocked.Exchange(
                             ref fields.refreshOnStartIf1,
-                            0) == 1)
+                            zero) == one)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {

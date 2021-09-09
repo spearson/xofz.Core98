@@ -20,10 +20,11 @@
 
         public virtual Lot<string> WebNames()
         {
-            return new LinkedListLot<string>(
-                EH.Select(
-                    this.webs,
-                    webHolder => webHolder?.Name));
+            return new XLinkedListLot<string>(
+                XLinkedList<string>.Create(
+                    EH.Select(
+                        this.webs,
+                        webHolder => webHolder?.Name)));
         }
 
         public virtual bool AddWeb(

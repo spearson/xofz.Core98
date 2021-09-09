@@ -96,6 +96,19 @@
                     handler);
         }
 
+        public virtual void Subscribe<T, U, V, W>(
+            object publisher,
+            string eventName,
+            Do<T, U, V, W> handler)
+        {
+            publisher
+                ?.GetType()
+                ?.GetEvent(eventName)
+                ?.AddEventHandler(
+                    publisher,
+                    handler);
+        }
+
         public virtual void Unsubscribe(
             object publisher,
             string eventName,
@@ -179,6 +192,19 @@
             object publisher,
             string eventName,
             Do<T, U, V> handler)
+        {
+            publisher
+                ?.GetType()
+                ?.GetEvent(eventName)
+                ?.RemoveEventHandler(
+                    publisher,
+                    handler);
+        }
+
+        public virtual void Unsubscribe<T, U, V, W>(
+            object publisher,
+            string eventName,
+            Do<T, U, V, W> handler)
         {
             publisher
                 ?.GetType()

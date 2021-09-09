@@ -35,6 +35,7 @@
             int parallelizationCount)
         {
             const byte zero = 0;
+            const byte one = 1;
             var c = list.Count;
             var midpoint = c / two;
             ICollection<ManualResetEvent> finishedCollection =
@@ -50,7 +51,7 @@
                 ThreadPool.QueueUserWorkItem(o =>
                 {
                     T swapItem;
-                    var lastHalfIndex = c - multipleIndex - 1;
+                    var lastHalfIndex = c - multipleIndex - one;
                     for (var firstHalfIndex = multipleIndex;
                         firstHalfIndex < midpoint;
                         firstHalfIndex += parallelizationCount)

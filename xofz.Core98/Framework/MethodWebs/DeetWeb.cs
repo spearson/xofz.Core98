@@ -11,15 +11,16 @@
             IEnumerable<XTuple<object, string>> ds;
             lock (this.locker)
             {
-                ds = new LinkedListLot<XTuple<object, string>>(
-                    EnumerableHelpers.Select(
-                        this.dependencies,
-                        dep =>
-                        {
-                            return XTuple.Create(
-                                dep.Content,
-                                dep.Name);
-                        }));
+                ds = new XLinkedListLot<XTuple<object, string>>(
+                    XLinkedList<XTuple<object, string>>.Create(
+                        EnumerableHelpers.Select(
+                            this.dependencies,
+                            dep =>
+                            {
+                                return XTuple.Create(
+                                    dep.Content,
+                                    dep.Name);
+                            })));
             }
 
             return ds;

@@ -19,12 +19,12 @@
 
         public override Lot<string> LeechNames()
         {
-            var lll = new LinkedListLot<string>();
+            var lll = new XLinkedListLot<string>();
             foreach (var leechName in EH.Select(
                 this.leeches,
                 leechHolder => leechHolder?.Name))
             {
-                lll.AddLast(
+                lll.AddTail(
                     leechName);
             }
 

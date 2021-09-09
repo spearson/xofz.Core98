@@ -39,14 +39,14 @@
 
         public virtual Lot<string> ManagerNames()
         {
-            var lll = new LinkedListLot<string>();
+            var lll = new XLinkedListLot<string>();
             lock (this.locker)
             {
                 foreach (var managerName in EH.Select(
                     this.managers,
                     nmh => nmh?.Name))
                 {
-                    lll.AddLast(
+                    lll.AddTail(
                         managerName);
                 }
             }

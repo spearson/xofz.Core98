@@ -33,8 +33,9 @@
             : this(
                 timestamp,
                 type,
-                new LinkedListLot<string>(
-                    finiteContent))
+                new XLinkedListLot<string>(
+                    XLinkedList<string>.Create(
+                        finiteContent)))
         {
         }
 

@@ -18,7 +18,9 @@
             var r = this.runner;
             r?.Run<FieldHolder>(holder =>
                 {
-                    if (Interlocked.Read(ref holder.startedIf1) == 1)
+                    const byte one = 1;
+                    if (Interlocked.Read(ref holder.startedIf1)
+                        == one)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {

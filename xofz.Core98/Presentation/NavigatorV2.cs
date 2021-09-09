@@ -281,10 +281,11 @@ namespace xofz.Presentation
             lock (this.locker)
             {
                 matchingPresenters
-                    = new LinkedListLot<Presenter>(
+                    = new XLinkedListLot<Presenter>(
+                        XLinkedList<Presenter>.Create(
                         EH.Where(
                             this.presenters,
-                            p => p is TPresenter));
+                            p => p is TPresenter)));
             }
 
             const byte one = 1;

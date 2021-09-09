@@ -36,7 +36,7 @@
             T target, 
             int radius)
         {
-            var ll = new LinkedListLot<T>();
+            var ll = new XLinkedListLot<T>();
             if (source == null)
             {
                 return ll;
@@ -53,15 +53,15 @@
             const byte zero = 0;
             while (e.MoveNext())
             {
-                var item = e.Current;
-                ll.AddLast(item);
-                if (item?.Equals(target) ?? nullTarget)
+                var o = e.Current;
+                ll.AddTail(o);
+                if (o?.Equals(target) ?? nullTarget)
                 {
                     for (long i = zero; i < radius; ++i)
                     {
                         if (e.MoveNext())
                         {
-                            ll.AddLast(e.Current);
+                            ll.AddTail(e.Current);
                         }
                     }
 
@@ -71,7 +71,7 @@
 
                 while (lot.Count > radius)
                 {
-                    ll.RemoveFirst();
+                    ll.RemoveTail();
                 }
             }
 

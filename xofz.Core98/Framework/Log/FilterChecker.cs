@@ -35,7 +35,8 @@
                     return;
                 }
 
-                if (entry.Timestamp > end?.AddDays(1))
+                const byte one = 1;
+                if (entry.Timestamp > end?.AddDays(one))
                 {
                     return;
                 }

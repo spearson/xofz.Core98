@@ -7,5 +7,7 @@
         public virtual ManualResetEvent Latch { get; set; }
 
         public virtual AutoResetEvent AutoLatch { get; set; }
+
+        public virtual WaitHandle Waiter { get; set; }
     }
 }

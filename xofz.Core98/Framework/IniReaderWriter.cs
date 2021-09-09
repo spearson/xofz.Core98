@@ -187,6 +187,11 @@
             }
 
             int lineNumber = zero;
+            const string 
+                leftBracket = @"[",
+                rightBracket = @"]",
+                semicolon = @";";
+            const char rightBracketC = ']';
             foreach (var line in lines)
             {
                 ++lineNumber;
@@ -195,20 +200,20 @@
                     continue;
                 }
 
-                if (!line.StartsWith(@"["))
+                if (!line.StartsWith(leftBracket))
                 {
                     continue;
                 }
 
-                if (!line.Contains(@"]"))
+                if (!line.Contains(rightBracket))
                 {
                     continue;
                 }
 
-                var closingBracketIndex = line.IndexOf(']');
+                var closingBracketIndex = line.IndexOf(rightBracketC);
                 if (line
                     .Substring(zero, closingBracketIndex)
-                    .Contains(@";"))
+                    .Contains(semicolon))
                 {
                     continue;
                 }
@@ -279,13 +284,16 @@
             readKeys:
             for (var i = lineNumber; i <= lastLineIndex; ++i)
             {
-                var indexOfSemicolon = lines[i].IndexOf(';');
+                const char
+                    semicolon = ';',
+                    equals = '=';
+                var indexOfSemicolon = lines[i].IndexOf(semicolon);
                 if (indexOfSemicolon == zero)
                 {
                     continue;
                 }
 
-                var indexOfEquals = lines[i].IndexOf('=');
+                var indexOfEquals = lines[i].IndexOf(equals);
                 if (indexOfEquals < zero)
                 {
                     continue;
@@ -332,11 +340,12 @@
 
             string targetLine = null;
             int endOfKey;
+            const char equals = '=';
             foreach (var line in EH.Skip(
                 lines,
                 targetHeader.LineNumber))
             {
-                endOfKey = line.IndexOf('=');
+                endOfKey = line.IndexOf(equals);
                 if (line.Substring(zero, endOfKey) == key)
                 {
                     targetLine = line;
@@ -349,9 +358,10 @@
                 return null;
             }
 
-            var startIndexOfValue = targetLine.IndexOf('=') + one;
+            var startIndexOfValue = targetLine.IndexOf(equals) + one;
             int valueLength;
-            var indexOfSemicolon = targetLine.IndexOf(';');
+            const char semicolon = ';';
+            var indexOfSemicolon = targetLine.IndexOf(semicolon);
             if (indexOfSemicolon > minusOne && !readEntireValue)
             {
                 valueLength = indexOfSemicolon - startIndexOfValue;

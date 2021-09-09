@@ -50,5 +50,19 @@
                 }
             }
         }
+
+        public virtual void ProcessFinally(
+            Do behavior,
+            Do onFinally)
+        {
+            try
+            {
+                behavior?.Invoke();
+            }
+            finally
+            {
+                onFinally?.Invoke();
+            }
+        }
     }
 }

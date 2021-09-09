@@ -11,15 +11,16 @@
             IEnumerable<XTuple<MethodWeb, string>> ws;
             lock (this.locker)
             {
-                ws = new LinkedListLot<XTuple<MethodWeb, string>>(
-                    EnumerableHelpers.Select(
-                        this.webs,
-                        webHolder =>
-                        {
-                            return XTuple.Create(
-                                webHolder.Web,
-                                webHolder.Name);
-                        }));
+                ws = new XLinkedListLot<XTuple<MethodWeb, string>>(
+                    XLinkedList<XTuple<MethodWeb, string>>.Create(
+                        EnumerableHelpers.Select(
+                            this.webs,
+                            webHolder =>
+                            {
+                                return XTuple.Create(
+                                    webHolder.Web,
+                                    webHolder.Name);
+                            })));
             }
 
             return ws;

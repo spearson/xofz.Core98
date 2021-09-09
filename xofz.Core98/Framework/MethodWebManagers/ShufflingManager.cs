@@ -71,7 +71,8 @@
             {
                 ws = this.webs;
                 foreach (var webHolder in ws
-                                          ?? EnumerableHelpers.Empty<NamedMethodWebHolder>())
+                                          ?? EnumerableHelpers.
+                                              Empty<NamedMethodWebHolder>())
                 {
                     matchingWebs?.Add(
                         new ShufflingObject<NamedMethodWebHolder>(
@@ -85,10 +86,11 @@
 
             matchingWebs?.Sort();
 
-            return new LinkedListLot<NamedMethodWebHolder>(
-                EnumerableHelpers.Select(
-                    matchingWebs,
-                    so => so.O));
+            return new XLinkedListLot<NamedMethodWebHolder>(
+                XLinkedList<NamedMethodWebHolder>.Create(
+                    EnumerableHelpers.Select(
+                        matchingWebs,
+                        so => so.O)));
         }
     }
 }

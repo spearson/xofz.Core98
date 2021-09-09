@@ -81,10 +81,11 @@
 
             matchingDependencies?.Sort();
 
-            return new LinkedListLot<Dependency>(
-                EH.Select(
-                    matchingDependencies,
-                    so => so.O));
+            return new XLinkedListLot<Dependency>(
+                XLinkedList<Dependency>.Create(
+                    EH.Select(
+                        matchingDependencies,
+                        so => so.O)));
         }
     }
 }

@@ -64,26 +64,73 @@
 
         public virtual XLinkedListNode<T> TailN => this.linkedList?.TailN;
 
-        public virtual void AddHead(
+        public virtual XLinkedListNode<T> AddHead(
             T o)
         {
-            this.linkedList?.AddHead(o);
+            return this.linkedList?.AddHead(o);
         }
 
-        public virtual void AddTail(
+        public virtual XLinkedListNode<T> AddHead(
+            XLinkedListNode<T> newHead)
+        {
+            return this.linkedList?.AddHead(newHead);
+        }
+
+        public virtual XLinkedListNode<T> AddTail(
             T o)
         {
-            this.linkedList?.AddTail(o);
+            return this.linkedList?.AddTail(o);
         }
 
-        public virtual void RemoveHead()
+        public virtual XLinkedListNode<T> AddTail(
+            XLinkedListNode<T> newTail)
         {
-            this.linkedList?.RemoveHead();
+            return this.linkedList?.AddTail(
+                newTail);
         }
 
-        public virtual void RemoveTail()
+        public virtual XLinkedListNode<T> RemoveHead()
         {
-            this.linkedList?.RemoveTail();
+            return this.linkedList?.RemoveHead();
+        }
+
+        public virtual XLinkedListNode<T> RemoveTail()
+        {
+            return this.linkedList?.RemoveTail();
+        }
+
+        public virtual XLinkedListNode<T> AddAfter(
+            XLinkedListNode<T> node,
+            T o)
+        {
+            return this.linkedList.AddAfter(node, o);
+        }
+
+        public virtual XLinkedListNode<T> AddAfter(
+            XLinkedListNode<T> node,
+            XLinkedListNode<T> newNode)
+        {
+            return this.linkedList.AddAfter(
+                node,
+                newNode);
+        }
+
+        public virtual XLinkedListNode<T> AddBefore(
+            XLinkedListNode<T> node,
+            T o)
+        {
+            return this.linkedList.AddBefore(
+                node,
+                o);
+        }
+
+        public virtual XLinkedListNode<T> AddBefore(
+            XLinkedListNode<T> node,
+            XLinkedListNode<T> newNode)
+        {
+            return this.linkedList.AddBefore(
+                node,
+                newNode);
         }
 
         public virtual void Clear()

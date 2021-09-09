@@ -52,10 +52,11 @@
 
             matchingManagers?.Sort();
 
-            return new LinkedListLot<NamedManagerHolder>(
-                EH.Select(
-                    matchingManagers,
-                    so => so.O));
+            return new XLinkedListLot<NamedManagerHolder>(
+                XLinkedList<NamedManagerHolder>.Create(
+                    EH.Select(
+                        matchingManagers,
+                        so => so.O)));
         }
 
         public virtual int CompareTo(

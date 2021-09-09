@@ -22,27 +22,27 @@
                 (ssts, uiRW) =>
                 {
                     const byte one = 1;
-                var currentPw = ssts.Decode(uiRW.Read(
-                    ui,
-                    () => ui?.CurrentPassword));
-                var newPw = StringHelpers.RemoveEndChars(
-                    currentPw,
-                    one);
-                var securePw = ssts.Encode(
-                    newPw);
-                uiRW.Write(
-                    ui,
-                    () =>
-                    {
-                        if (ui == null)
+                    var currentPw = ssts.Decode(uiRW.Read(
+                        ui,
+                        () => ui?.CurrentPassword));
+                    var newPw = StringHelpers.RemoveEndChars(
+                        currentPw,
+                        one);
+                    var securePw = ssts.Encode(
+                        newPw);
+                    uiRW.Write(
+                        ui,
+                        () =>
                         {
-                            return;
-                        }
+                            if (ui == null)
+                            {
+                                return;
+                            }
 
-                        ui.CurrentPassword = securePw;
-                        ui?.FocusPassword();
-                    });
-            });
+                            ui.CurrentPassword = securePw;
+                            ui?.FocusPassword();
+                        });
+                });
         }
 
         protected readonly MethodRunner runner;

@@ -6,7 +6,7 @@
     using System.Text;
     using xofz.Framework.Lots;
 
-    public sealed class TextFileLog 
+    public sealed class TextFileLog
         : Log, LogEditor
     {
         public TextFileLog(
@@ -32,7 +32,8 @@
                     while (!reader.EndOfStream)
                     {
                         string timestampString;
-                        while ((timestampString = reader.ReadLine()) == string.Empty)
+                        while ((timestampString = reader.ReadLine()) ==
+                               string.Empty)
                         {
                         }
 
@@ -49,7 +50,8 @@
                         // support up to two blank lines in entries
                         if (contentLine == string.Empty)
                         {
-                            if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
+                            if (!string.IsNullOrEmpty(contentLine =
+                                reader.ReadLine()))
                             {
                                 content.Add(string.Empty);
                                 content.Add(contentLine);
@@ -58,7 +60,8 @@
 
                             if (contentLine == string.Empty)
                             {
-                                if (!string.IsNullOrEmpty(contentLine = reader.ReadLine()))
+                                if (!string.IsNullOrEmpty(contentLine =
+                                    reader.ReadLine()))
                                 {
                                     content.Add(string.Empty);
                                     content.Add(string.Empty);
@@ -79,8 +82,9 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedListLot<string>(
-                                    content));
+                                new XLinkedListLot<string>(
+                                    XLinkedList<string>.Create(
+                                        content)));
                             continue;
                         }
 
@@ -94,7 +98,9 @@
                             yield return new LogEntry(
                                 timestamp,
                                 type,
-                                new LinkedListLot<string>(content));
+                                new XLinkedListLot<string>(
+                                    XLinkedList<string>.Create(
+                                        content)));
                         }
                     }
                 }
@@ -124,14 +130,16 @@
         public event Do Cleared;
 
         void LogEditor.AddEntry(
-            string type, 
+            string type,
             IEnumerable<string> content)
         {
             LogEditor editor = this;
             editor.AddEntry(
                 new LogEntry(
                     type,
-                    new LinkedListLot<string>(content)));
+                    new XLinkedListLot<string>(
+                        XLinkedList<string>.Create(
+                            content))));
         }
 
         void LogEditor.AddEntry(
@@ -198,6 +206,7 @@
         private readonly string filePath;
         private readonly object locker;
         private const string timestampFormat = "yyyy MMMM dd hh:mm.ss tt";
-        private const string timestampFormatV2 = "yyyy MMMM dd hh:mm:ss.fffffff tt";
+        private const string timestampFormatV2 =
+            "yyyy MMMM dd hh:mm:ss.fffffff tt";
     }
 }

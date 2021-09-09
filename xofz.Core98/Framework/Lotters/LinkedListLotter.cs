@@ -16,7 +16,7 @@
         public ICollection<T> Collect<T>(
             IEnumerable<T> finiteSource)
         {
-            return new List<T>(
+            return new LinkedList<T>(
                 finiteSource);
         }
     }

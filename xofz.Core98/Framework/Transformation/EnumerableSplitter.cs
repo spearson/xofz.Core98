@@ -34,14 +34,16 @@
             {
                 return new Lot<T>[]
                 {
-                    new LinkedListLot<T>(finiteSource)
+                    new XLinkedListLot<T>(
+                        XLinkedList<T>.Create(
+                        finiteSource))
                 };
             }
 
             var array = new Lot<T>[splitCount];
             for (long splitIndex = zero; splitIndex < splitCount; ++splitIndex)
             {
-                array[splitIndex] = new LinkedListLot<T>();
+                array[splitIndex] = new XLinkedListLot<T>();
             }
 
             var enumerator = finiteSource.GetEnumerator();
@@ -50,11 +52,11 @@
                 return array;
             }
 
-            LinkedListLot<T> currentLL;
+            XLinkedListLot<T> currentLL;
             if (enumerator.MoveNext())
             {
-                currentLL = array[zero] as LinkedListLot<T>;
-                currentLL?.AddLast(enumerator.Current);
+                currentLL = array[zero] as XLinkedListLot<T>;
+                currentLL?.AddTail(enumerator.Current);
             }
 
             var zeroFilled = truth;
@@ -68,8 +70,8 @@
                     }
 
                     zeroFilled = falsity;
-                    currentLL = array[splitIndex] as LinkedListLot<T>;
-                    currentLL?.AddLast(enumerator.Current);
+                    currentLL = array[splitIndex] as XLinkedListLot<T>;
+                    currentLL?.AddTail(enumerator.Current);
                     if (splitIndex < splitCount - one)
                     {
                         if (!enumerator.MoveNext())

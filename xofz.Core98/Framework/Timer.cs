@@ -60,7 +60,7 @@ namespace xofz.Framework
         public virtual void Start(
             long intervalMilliseconds)
         {
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 if (this.started)
                 {
@@ -86,7 +86,7 @@ namespace xofz.Framework
 
         public virtual void Stop()
         {
-            lock (this.locker ?? new object())
+            lock (this.locker)
             {
                 if (!this.started)
                 {

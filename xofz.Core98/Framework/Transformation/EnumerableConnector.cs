@@ -8,7 +8,7 @@
         public virtual Lot<T> Connect<T>(
             params IEnumerable<T>[] finiteSources)
         {
-            var connection = new LinkedListLot<T>();
+            var connection = new XLinkedListLot<T>();
             if (finiteSources == null)
             {
                 return connection;
@@ -30,7 +30,7 @@
                 {
                     while (e?.MoveNext() ?? false)
                     {
-                        connection.AddLast(e.Current);
+                        connection.AddTail(e.Current);
                     }
                 }
             }

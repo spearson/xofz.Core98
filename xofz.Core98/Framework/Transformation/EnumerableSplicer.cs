@@ -8,7 +8,7 @@
         public virtual Lot<T> Splice<T>(
             ICollection<T>[] collections)
         {
-            var result = new LinkedListLot<T>();
+            var result = new XLinkedListLot<T>();
             if (collections == null)
             {
                 return result;
@@ -23,7 +23,7 @@
 
             foreach (var item in source)
             {
-                result.AddLast(item);
+                result.AddTail(item);
             }
 
             return result;
@@ -32,7 +32,7 @@
         public virtual Lot<T> Splice<T>(
             Lot<T>[] lots)
         {
-            var result = new LinkedListLot<T>();
+            var result = new XLinkedListLot<T>();
             if (lots == null)
             {
                 return result;
@@ -47,7 +47,7 @@
 
             foreach (var item in source)
             {
-                result.AddLast(item);
+                result.AddTail(item);
             }
 
             return result;
@@ -56,7 +56,7 @@
         public virtual Lot<T> Splice<T>(
             IEnumerable<T>[] finiteSources)
         {
-            var result = new LinkedListLot<T>();
+            var result = new XLinkedListLot<T>();
             if (finiteSources == null)
             {
                 return result;
@@ -71,7 +71,7 @@
 
             foreach (var item in source)
             {
-                result.AddLast(item);
+                result.AddTail(item);
             }
 
             return result;

@@ -35,11 +35,12 @@
                 yield return new LogEntry(
                     entry.TimeWritten,
                     getEntryType(entry),
-                    new LinkedListLot<string>(
+                    new XLinkedListLot<string>(
+                        XLinkedList<string>.Create(
                         new[]
                         {
                             entry.Message
-                        }));
+                        })));
             }
         }
 
@@ -89,7 +90,9 @@
         {
             var entry = new LogEntry(
                 type,
-                new LinkedListLot<string>(content));
+                new XLinkedListLot<string>(
+                    XLinkedList<string>.Create(
+                    content)));
             LogEditor editor = this;
             editor.AddEntry(entry);
         }
@@ -142,12 +145,12 @@
                     new LogEntry(
                         entry.TimeWritten,
                         getEntryType(entry),
-                        new LinkedListLot<string>(
-                            new[]
-                            {
-                                entry.Message
-                            })
-                    ));
+                        new XLinkedListLot<string>(
+                            XLinkedList<string>.Create(
+                                new[]
+                                {
+                                    entry.Message
+                                }))));
             }
 
             oldLog.Clear();

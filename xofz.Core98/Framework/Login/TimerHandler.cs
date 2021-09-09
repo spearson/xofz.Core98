@@ -22,62 +22,65 @@
         {
             var r = this.runner;
             r?.Run<
-                AccessController, 
+                AccessController,
                 SettingsHolder,
                 Labels>(
                 (ac, settings, labels) =>
-            {
-                var cal = ac.CurrentAccessLevel;
-                string timeRemaining;
-                if (cal < AccessLevel.Level1)
                 {
-                    timeRemaining = labels.NotLoggedIn;
-                    goto checkAccess;
-                }
+                    var cal = ac.CurrentAccessLevel;
+                    string timeRemaining;
+                    var noAccess = cal == AccessLevel.None;
+                    if (noAccess)
+                    {
+                        timeRemaining = labels.NotLoggedIn;
+                        goto checkAccess;
+                    }
 
-                var tr = ac.TimeRemaining;
-                var sb = new StringBuilder();
-                sb.Append((int)tr.TotalHours)
-                    .Append(':')
-                    .Append(tr
-                        .Minutes
-                        .ToString()
-                        .PadLeft(2, '0'))
-                    .Append(':')
-                    .Append(tr
-                        .Seconds
-                        .ToString()
-                        .PadLeft(2, '0'))
-                    .Append('.')
-                    .Append(tr
-                        .Milliseconds
-                        .ToString()
-                        .PadLeft(3, '0'));
-                timeRemaining = sb.ToString();
+                    var tr = ac.TimeRemaining;
+                    var sb = new StringBuilder();
+                    const byte
+                        two = 2,
+                        three = 3;
+                    const char
+                        colon = ':',
+                        period = '.',
+                        zeroC = '0';
 
-                checkAccess:
-                var noAccess = cal == AccessLevel.None;
-                if (noAccess)
-                {
-                    settings.CurrentPassword = null;
-                }
+                    sb.Append((int)tr.TotalHours).
+                        Append(colon).
+                        Append(tr.Minutes.ToString().
+                            PadLeft(two, zeroC)).
+                        Append(colon).
+                        Append(tr.Seconds.ToString().
+                            PadLeft(two, zeroC)).
+                        Append(period).
+                        Append(tr.Milliseconds.ToString().
+                            PadLeft(three, zeroC));
+                    timeRemaining = sb.ToString();
 
-                r.Run<UiReaderWriter>(uiRW =>
-                {
-                    uiRW.Write(
-                        ui,
-                        () =>
-                        {
-                            if (ui == null)
+                    checkAccess:
+
+                    if (noAccess)
+                    {
+                        settings.CurrentPassword = null;
+                    }
+
+                    r.Run<UiReaderWriter>(uiRW =>
+                    {
+                        uiRW.Write(
+                            ui,
+                            () =>
                             {
-                                return;
-                            }
+                                if (ui == null)
+                                {
+                                    return;
+                                }
 
-                            ui.CurrentAccessLevel = cal;
-                            ui.TimeRemaining = timeRemaining;
-                        });
+                                ui.CurrentAccessLevel = cal;
+                                ui.TimeRemaining = timeRemaining;
+                            });
+                    });
                 });
-            });
         }
 
         protected readonly MethodRunner runner;

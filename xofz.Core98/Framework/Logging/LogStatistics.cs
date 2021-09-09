@@ -31,7 +31,8 @@
         public virtual void ComputeOverall()
         {
             var r = this.runner;
-            r.Run<Log, Lotter>((log, lotter) =>
+            r.Run<Log, Lotter>((log,
+                    lotter) =>
                 {
                     var allEntries = lotter.Materialize(
                         log.ReadEntries());
@@ -51,9 +52,9 @@
                     }
 
                     var matches = lotter.Materialize(
-                            EnumerableHelpers.Where(
-                                allEntries,
-                                this.passesFilters));
+                        EnumerableHelpers.Where(
+                            allEntries,
+                            this.passesFilters));
 
                     this.computeTotal(matches);
                     this.computeAvgPerDay(
@@ -74,7 +75,8 @@
             DateTime endDate)
         {
             var r = this.runner;
-            r.Run<Log, Lotter>((l, lotter) =>
+            r.Run<Log, Lotter>(
+                (l, lotter) =>
                 {
                     var matches = lotter.Materialize(
                         EnumerableHelpers.Where(
@@ -84,7 +86,7 @@
                                 {
                                     var ts = e.Timestamp;
                                     return ts >= startDate
-                                           && ts < endDate.AddDays(1);
+                                           && ts < endDate.AddDays(one);
                                 }),
                             this.passesFilters));
 
@@ -110,7 +112,7 @@
             this.EarliestTimestamp = ts;
             this.LatestTimestamp = ts;
             this.AvgEntriesPerDay = default;
-            this.TotalEntryCount = 0;
+            this.TotalEntryCount = zero;
         }
 
         protected virtual bool passesFilters(
@@ -173,20 +175,20 @@
             DateTime start,
             DateTime end)
         {
-            if (entryCount < 1)
+            if (entryCount < one)
             {
                 this.AvgEntriesPerDay = default;
                 return;
             }
 
-            double totalDays = (long)(end.Date - start.Date).TotalDays + 1;
+            double totalDays = (long)(end.Date - start.Date).TotalDays + one;
             this.AvgEntriesPerDay = entryCount / totalDays;
         }
 
         protected virtual void computeOldestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count < 1)
+            if (entries == null || entries.Count < one)
             {
                 this.OldestTimestamp = default;
                 return;
@@ -208,7 +210,7 @@
         protected virtual void computeNewestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count < 1)
+            if (entries == null || entries.Count < one)
             {
                 this.NewestTimestamp = default;
                 return;
@@ -230,20 +232,23 @@
         protected virtual void computeEarliestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count < 1)
+            if (entries == null || entries.Count < one)
             {
                 this.EarliestTimestamp = default;
                 return;
             }
 
+            const byte hour = 23;
+            const byte minuteSecond = 59;
+            const short millisecond = 999;
             var earliest = new DateTime(
-                1, 
-                1, 
-                1, 
-                23, 
-                59, 
-                59, 
-                999);
+                one,
+                one,
+                one,
+                hour,
+                minuteSecond,
+                minuteSecond,
+                millisecond);
             var earliestChanged = false;
             foreach (var entry in entries)
             {
@@ -271,19 +276,19 @@
         protected virtual void computeLatestTimestamp(
             Lot<LogEntry> entries)
         {
-            if (entries.Count < 1)
+            if (entries == null || entries.Count < one)
             {
                 this.LatestTimestamp = default;
                 return;
             }
 
             var latest = new DateTime(
-                1, 
-                1, 
-                1, 
-                0, 
-                0, 
-                0);
+                one,
+                one,
+                one,
+                zero,
+                zero,
+                zero);
             var latestChanged = false;
             foreach (var entry in entries)
             {
@@ -309,5 +314,8 @@
         }
 
         protected readonly MethodRunner runner;
+        protected const byte 
+            zero = 0,
+            one = 1;
     }
 }

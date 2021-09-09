@@ -8,7 +8,7 @@
         public PrimeGenerator()
             : this(
                 new PrimeTester(),
-                new LinkedListLot<long>(new long[]
+                XLinkedList<long>.Create(new long[]
                 {
                     firstPrimality,
                     secondPrime
@@ -28,7 +28,7 @@
             PrimeTester tester)
             : this(
                 tester,
-                new LinkedListLot<long>(new long[]
+                XLinkedList<long>.Create(new long[]
                 {
                     firstPrimality,
                     secondPrime
@@ -41,24 +41,8 @@
             IEnumerable<long> finiteSet)
         {
             this.tester = tester;
-
-            if (finiteSet == null)
-            {
-                finiteSet = new LinkedListLot<long>(
-                    new long[]
-                    {
-                        firstPrimality, secondPrime
-                    });
-            }
-
-            if (finiteSet is LinkedListLot<long> ll)
-            {
-                this.currentLinkedList = ll;
-                return;
-            }
-
-            this.currentLinkedList = new LinkedListLot<long>(
-                finiteSet);
+            this.currentLinkedList = new XLinkedListLot<long>(
+                XLinkedList<long>.Create(finiteSet));
         }
 
         public virtual Lot<long> CurrentSet => this.currentLinkedList;
@@ -86,25 +70,21 @@
         {
             const bool truth = true;
             var ll = this.currentLinkedList;
-            var lastNode = ll?.Last;
-            ll?.AddLast(
-                lastNode?.Value + firstPrimality
-                ?? firstPrimality);
+            ll?.AddTail(
+                (long)(ll?.Tail + firstPrimality));
             while (!this.tester.RelativelyPrime(ll, truth))
             {
-                var node = ll?.Last;
-                ll?.RemoveLast();
-                ll?.AddLast(
-                    node?.Value + firstPrimality
+                var node = ll?.RemoveTail();
+                ll?.AddTail(
+                    node?.O + firstPrimality
                     ?? firstPrimality);
             }
 
-            return ll?.Last?.Value ?? firstPrimality;
+            return ll?.Tail ?? firstPrimality;
         }
 
-        protected readonly LinkedListLot<long> currentLinkedList;
+        protected readonly XLinkedListLot<long> currentLinkedList;
         protected readonly PrimeTester tester;
-
         protected const byte firstPrimality = 2;
         protected const byte secondPrime = 3;
     }

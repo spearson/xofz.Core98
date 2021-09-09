@@ -12,7 +12,7 @@
             const byte
                 zero = 0,
                 one = 1;
-            var collection = new LinkedListLot<T>();
+            var collection = new XLinkedListLot<T>();
             if (source == null)
             {
                 return collection;
@@ -25,13 +25,16 @@
 
             foreach (var item in source)
             {
-                collection.AddLast(item);
+                collection.AddTail(item);
             }
 
-            var result = new ListLot<T>();
+            var result = new XLinkedListLot<T>();
             for (int i = zero; i < times; ++i)
             {
-                result.AddRange(collection);
+                foreach (var o in collection)
+                {
+                    result.AddTail(o);
+                }
             }
 
             return result;

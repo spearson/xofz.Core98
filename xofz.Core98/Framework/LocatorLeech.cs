@@ -40,14 +40,14 @@
 
         public virtual Lot<string> LocatorNames()
         {
-            var lll = new LinkedListLot<string>();
+            var lll = new XLinkedListLot<string>();
             lock (this.locker)
             {
                 foreach (var locatorName in EH.Select(
                     this.locators,
                     locatorHolder => locatorHolder?.Name))
                 {
-                    lll.AddLast(
+                    lll.AddTail(
                         locatorName);
                 }
             }

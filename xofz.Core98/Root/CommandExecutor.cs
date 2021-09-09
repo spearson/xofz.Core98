@@ -56,10 +56,10 @@
             return default;
         }
 
-        public virtual Lot<T> GetAll<T>() 
+        public virtual Lot<T> GetAll<T>()
             where T : Command
         {
-            var commands = new LinkedListLot<T>();
+            var commands = new XLinkedListLot<T>();
             lock (this.locker)
             {
                 foreach (var command in this.executedCommands
@@ -67,7 +67,7 @@
                 {
                     if (command is T t)
                     {
-                        commands.AddLast(t);
+                        commands.AddTail(t);
                     }
                 }
             }

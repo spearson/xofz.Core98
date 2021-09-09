@@ -34,14 +34,14 @@
 
         public override Lot<string> WebNames()
         {
-            var lll = new LinkedListLot<string>();
+            var lll = new XLinkedListLot<string>();
             lock (this.locker)
             {
                 foreach (var webName in EH.Select(
                     this.webs,
                     webHolder => webHolder?.Name))
                 {
-                    lll.AddLast(
+                    lll.AddTail(
                         webName);
                 }
             }

@@ -41,10 +41,11 @@
                     var lastWeek = today.Subtract(System.TimeSpan.FromDays(six));
                     var needsReload = true;
                     var started = Interlocked.Read(ref fields.startedIf1) == one;
+                    var emptyString = string.Empty;
                     if (uiRW.Read(ui, () => ui?.StartDate) == lastWeek
                         && uiRW.Read(ui, () => ui?.EndDate) == today
-                        && uiRW.Read(ui, () => ui?.FilterContent) == string.Empty
-                        && uiRW.Read(ui, () => ui?.FilterType) == string.Empty)
+                        && uiRW.Read(ui, () => ui?.FilterContent) == emptyString
+                        && uiRW.Read(ui, () => ui?.FilterType) == emptyString)
                     {
                         if (started && Interlocked.Read(
                                 ref fields.startedFirstTimeIf1) == one)
@@ -68,8 +69,8 @@
 
                             ui.StartDate = lastWeek;
                             ui.EndDate = today;
-                            ui.FilterType = string.Empty;
-                            ui.FilterContent = string.Empty;
+                            ui.FilterType = emptyString;
+                            ui.FilterContent = emptyString;
                         });
 
                         r.Run<EntryReloader>(reloader =>

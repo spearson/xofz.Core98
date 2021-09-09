@@ -18,7 +18,8 @@
             var r = this.runner;
             r?.Run<FieldHolder>(fields =>
                 {
-                    if (Interlocked.Read(ref fields.startedIf1) == 1)
+                    const byte one = 1;
+                    if (Interlocked.Read(ref fields.startedIf1) == one)
                     {
                         r.Run<EntryReloader>(reloader =>
                         {
@@ -29,7 +30,7 @@
 
                     Interlocked.Exchange(
                         ref fields.refreshOnStartIf1,
-                        1);
+                        one);
                 },
                 name);
         }

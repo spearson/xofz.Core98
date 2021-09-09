@@ -6,11 +6,11 @@
     public class EnumerableRotator
     {
         public virtual Lot<T> Rotate<T>(
-            IEnumerable<T> finiteSource, 
-            int cycles, 
+            IEnumerable<T> finiteSource,
+            int cycles,
             bool goRight = truth)
         {
-            var ll = new LinkedListLot<T>();
+            var ll = new XLinkedListLot<T>();
             if (finiteSource == null)
             {
                 return ll;
@@ -18,7 +18,7 @@
 
             foreach (var item in finiteSource)
             {
-                ll.AddLast(item);
+                ll.AddTail(item);
             }
 
             const byte
@@ -34,9 +34,8 @@
             {
                 for (int i = zero; i < cycles; ++i)
                 {
-                    var node = ll.Last;
-                    ll.RemoveLast();
-                    ll.AddFirst(node);
+                    var node = ll.RemoveTail();
+                    ll.AddHead(node);
                 }
 
                 return lot;
@@ -44,9 +43,8 @@
 
             for (int i = zero; i < cycles; ++i)
             {
-                var node = ll.First;
-                ll.RemoveFirst();
-                ll.AddLast(node);
+                var node = ll.RemoveHead();
+                ll.AddTail(node);
             }
 
             return lot;
