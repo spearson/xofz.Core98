@@ -204,6 +204,84 @@
 
                 Assert.True(assertedAll);
             }
+
+            [Fact]
+            public void Test2()
+            {
+                var ll2 = new XLinkedList<object>();
+                var o1 = new object();
+                var o2 = new object();
+                var o3 = new object();
+                ll2.AddTail(o1);
+                ll2.AddTail(o2);
+                ll2.AddTail(o3);
+                ll2.AddTail(4);
+                byte indexer = 0xFF;
+                var node = ll2.TailN;
+                ll2.AddBefore(
+                    ll2.HeadN,
+                    node);
+                var assertedAll = false;
+                
+                foreach (var n in ll2.GetNodes())
+                {
+                    ++indexer;
+
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(
+                                node,
+                                n);
+                            break;
+                        case 3:
+                            Assert.NotEqual(
+                                node,
+                                n);
+                            assertedAll = true;
+                            break;
+                    }
+                }
+
+                Assert.True(assertedAll);
+
+                indexer = 0xFF;
+                foreach (var item in ll2)
+                {
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(
+                                4,
+                                item);
+                            break;
+                        case 1:
+                            Assert.Equal(
+                                o1,
+                                item);
+                            break;
+                        case 2:
+                            Assert.Equal(
+                                o2,
+                                item);
+                            break;
+                        case 3:
+                            Assert.Equal(
+                                o3,
+                                item);
+                            break;
+                        case 4:
+                            throw new System.Exception(
+                                @"Should not reach here");
+                    }
+                }
+
+                node = ll2.HeadN;
+                ll2.AddAfter(
+                    ll2.TailN,
+                    node);
+            }
         }
 
         public class When_AddBefore_is_called : Context

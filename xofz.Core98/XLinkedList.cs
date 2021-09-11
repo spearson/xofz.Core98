@@ -329,19 +329,30 @@
             return newNode;
 
             addLink:
-            var newNext = currentNode.Next;
+            var currentNext = currentNode.Next;
+            var newNext = newNode.Next;
             newNode.Previous = currentNode;
-            newNode.Next = newNext;
-            if (newNext != null)
+            newNode.Next = currentNext;
+            if (currentNext != null)
             {
-                newNext.Previous = newNode;
+                currentNext.Previous = newNode;
             }
 
             currentNode.Next = newNode;
-            if (currentNode == this.tailNode)
+            if (currentNode != this.tailNode)
             {
-                this.setTail(newNode);
+                return newNode;
             }
+
+            this.setTail(newNode);
+            if (newNode != this.headNode || newNext == null)
+            {
+                return newNode;
+            }
+
+            this.setHead(
+                newNext);
+            newNext.Previous = null;
 
             return newNode;
         }
@@ -391,20 +402,32 @@
             return newNode;
 
             addLink:
-            var newPrev = currentNode.Previous;
+            var currentPrev = currentNode.Previous;
+            var newPrev = newNode.Previous;
             newNode.Next = currentNode;
-            newNode.Previous = newPrev;
-            if (newPrev != null)
+            newNode.Previous = currentPrev;
+            if (currentPrev != null)
             {
-                newPrev.Next = newNode;
+                currentPrev.Next = newNode;
             }
 
             currentNode.Previous = newNode;
-            if (currentNode == this.headNode)
+            if (currentNode != this.headNode)
             {
-                this.setHead(
-                    newNode);
+                return newNode;
             }
+
+            this.setHead(
+                newNode);
+            if (newNode != this.tailNode || 
+                newPrev == null)
+            {
+                return newNode;
+            }
+
+            this.setTail(
+                newPrev);
+            newPrev.Next = null;
 
             return newNode;
         }
