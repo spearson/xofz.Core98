@@ -229,6 +229,11 @@
             }
 
             var currentHead = this.headNode;
+            if (currentHead == newHead)
+            {
+                return newHead;
+            }
+
             if (currentHead != null)
             {
                 currentHead.Previous = newHead;
@@ -238,6 +243,29 @@
             if (currentTail == null)
             {
                 this.setTail(newHead);
+            }
+
+            var newHeadsPrevious = newHead.Previous;
+            var newHeadsNext = newHead.Next;
+            if (newHeadsPrevious != null)
+            {
+                newHeadsPrevious.Next = newHeadsNext;
+            }
+
+            if (newHeadsNext != null)
+            {
+                newHeadsNext.Previous = newHeadsPrevious;
+            }
+
+            if (newHead == currentTail)
+            {
+                var currentTailsPrevious = currentTail.Previous;
+                if (currentTailsPrevious != null)
+                {
+                    this.setTail(
+                        currentTailsPrevious);
+                    currentTailsPrevious.Next = null;
+                }
             }
 
             newHead.Previous = null;
@@ -266,6 +294,11 @@
             }
 
             var currentTail = this.tailNode;
+            if (currentTail == newTail)
+            {
+                return newTail;
+            }
+
             if (currentTail != null)
             {
                 currentTail.Next = newTail;
@@ -277,9 +310,33 @@
                 this.setHead(newTail);
             }
 
+            var newTailsNext = newTail.Next;
+            var newTailsPrevious = newTail.Previous;
+
+            if (newTailsNext != null)
+            {
+                newTailsNext.Previous = newTailsPrevious;
+            }
+
+            if (newTailsPrevious != null)
+            {
+                newTailsPrevious.Next = newTailsNext;
+            }
+
             newTail.Next = null;
             newTail.Previous = currentTail;
             this.setTail(newTail);
+
+            if (newTail == currentHead)
+            {
+                var currentHeadsNext = currentHead.Next;
+                if (currentHeadsNext != null)
+                {
+                    this.setHead(
+                        currentHeadsNext);
+                    currentHeadsNext.Previous = null;
+                }
+            }
 
             return newTail;
         }
@@ -419,7 +476,7 @@
 
             this.setHead(
                 newNode);
-            if (newNode != this.tailNode || 
+            if (newNode != this.tailNode ||
                 newPrev == null)
             {
                 return newNode;

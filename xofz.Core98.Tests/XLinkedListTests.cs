@@ -1,21 +1,32 @@
 ﻿namespace xofz.Tests
 {
+    using System;
     using Xunit;
+    using Xunit.Abstractions;
 
     public class XLinkedListTests
     {
         public class Context
         {
-            protected Context()
+            public Context(
+                ITestOutputHelper helper)
             {
                 this.ll = new XLinkedList<object>();
+                this.helper = helper;
             }
 
             protected readonly XLinkedList<object> ll;
+            protected readonly ITestOutputHelper helper;
         }
 
         public class When_AddHead_is_called : Context
         {
+            public When_AddHead_is_called(
+                ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
+
             [Fact]
             public void Adds_a_head_node()
             {
@@ -67,10 +78,73 @@
                     node,
                     this.ll.HeadN);
             }
+
+            [Fact]
+            public void Rearranging_test()
+            {
+                var ll2 = new XLinkedList<object>();
+                ll2.AddHead(
+                    1);
+                ll2.AddTail(
+                    ll2.HeadN);
+                byte indexer = 0xFF;
+                foreach (var item in ll2)
+                {
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(1, item);
+                            break;
+                        case 1:
+                            throw new Exception(
+                                @"Should not reach here.");
+                    }
+                }
+
+                ll2.AddTail(2); // { 1, 2 }
+                ll2.AddHead(
+                    ll2.TailN); // { 2, 1 }
+                ll2.AddTail(3); // { 2, 1, 3 }
+                ll2.AddHead(ll2.TailN.Previous); // { 1, 2, 3 }
+                indexer = 0xFF;
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(
+                        item.ToString());
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(
+                                1, 
+                                item);
+                            break;
+                        case 1:
+                            Assert.Equal(
+                                2,
+                                item);
+                            break;
+                        case 2:
+                            Assert.Equal(3,
+                                item);
+                            break;
+                        case 3:
+                            throw new Exception(
+                                @"Should not reach here.");
+                    }
+                }
+            }
         }
 
         public class When_AddTail_is_called : Context
         {
+            public When_AddTail_is_called(
+                ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
+
             [Fact]
             public void Adds_a_tail_node()
             {
@@ -120,6 +194,69 @@
                 Assert.Same(
                     node,
                     this.ll.TailN);
+            }
+
+            [Fact]
+            public void Rearranging_test()
+            {
+                var ll2 = new XLinkedList<object>();
+                ll2.AddTail(
+                    1);
+                ll2.AddHead(
+                    ll2.TailN);
+                byte indexer = 0xFF;
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(
+                        item.ToString());
+
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(1, item);
+                            break;
+                        case 1:
+                            throw new Exception(
+                                @"Should not reach here.");
+                    }
+                }
+
+                this.helper.WriteLine(string.Empty);
+
+                ll2.AddTail(2); // { 1, 2 }
+                ll2.AddHead(
+                    ll2.TailN); // { 2, 1 }
+                ll2.AddHead(3); // { 3, 2, 1 }
+                ll2.AddTail(ll2.HeadN.Next); // { 3, 1, 2 }
+                indexer = 0xFF;
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(
+                        item.ToString());
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(
+                                3,
+                                item);
+                            break;
+                        case 1:
+                            Assert.Equal(
+                                1,
+                                item);
+                            break;
+                        case 2:
+                            Assert.Equal(
+                                2,
+                                item);
+                            break;
+                        case 3:
+                            throw new Exception(
+                                @"Should not reach here.");
+                    }
+                }
             }
         }
 
@@ -282,6 +419,11 @@
                     ll2.TailN,
                     node);
             }
+
+            public When_AddAfter_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
         }
 
         public class When_AddBefore_is_called : Context
@@ -367,6 +509,11 @@
 
                 Assert.True(assertedAll);
             }
+
+            public When_AddBefore_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
         }
 
         public class When_Find_is_called : Context
@@ -386,6 +533,11 @@
                     node.Previous.O == 1);
                 Assert.True(
                     node.Next.O == 5);
+            }
+
+            public When_Find_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
             }
         }
 
@@ -409,6 +561,11 @@
                     node.Previous.O == 3);
                 Assert.True(
                     node.Next.O == 4);
+            }
+
+            public When_FindLast_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
             }
         }
 
@@ -524,6 +681,11 @@
                     e.MoveNext());
 
                 e.Dispose();
+            }
+
+            public When_GetNodes_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
             }
         }
     }
