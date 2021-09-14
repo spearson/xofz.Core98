@@ -64,6 +64,11 @@
 
         public virtual XLinkedListNode<T> TailN => this.linkedList?.TailN;
 
+        public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
+        {
+            return this.linkedList?.GetNodes();
+        }
+
         public virtual XLinkedListNode<T> AddHead(
             T o)
         {
