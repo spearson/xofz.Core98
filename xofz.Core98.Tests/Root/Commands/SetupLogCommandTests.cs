@@ -20,7 +20,7 @@
                 this.ui = A.Fake<LogUi>();
                 this.shell = A.Fake<ShellUi>();
                 this.settings = new SettingsHolder();
-                this.web = A.Fake<MethodWeb>();
+                this.web = new MethodWeb();
                 this.statsUi = A.Fake<LogStatisticsUi>();
                 this.editUi = A.Fake<LogEditorUi>();
                 this.command = new SetupLogCommand(
@@ -53,11 +53,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<TextFileLog>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<TextFileLog>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -69,11 +68,10 @@
 
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<EventLogLog>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<EventLogLog>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -81,11 +79,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<Lotter>.Ignored,
-                        DependencyNames.Lotter))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<Lotter>(
+                        null,
+                        DependencyNames.Lotter));
             }
 
             [Fact]
@@ -93,11 +90,11 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        this.settings,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.Same(
+                    this.settings,
+                    this.web.Run<SettingsHolder>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -105,11 +102,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<ICollection<LogEntry>>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<ICollection<LogEntry>>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -117,11 +113,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<FieldHolder>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<FieldHolder>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -129,11 +124,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<LogStatistics>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<LogStatistics>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -141,11 +135,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        this.statsUi,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<LogStatisticsUi>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -153,11 +146,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.SettingsHolder>.Ignored,
-                        this.settings.LogDependencyName))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.SettingsHolder>(
+                        null,
+                        this.settings.LogDependencyName));
             }
 
             [Fact]
@@ -165,11 +157,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<EntryReloader>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<EntryReloader>());
             }
 
             [Fact]
@@ -177,11 +166,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<EntryConverter>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<EntryConverter>());
             }
 
             [Fact]
@@ -189,11 +175,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<FilterChecker>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<FilterChecker>());
             }
 
             [Fact]
@@ -201,11 +184,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<DateAndFilterResetter>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<DateAndFilterResetter>());
             }
 
             [Fact]
@@ -213,11 +193,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<TimeProvider>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<TimeProvider>());
             }
 
             [Fact]
@@ -225,11 +202,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<SetupHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<SetupHandler>());
             }
 
             [Fact]
@@ -237,11 +211,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<StartHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<StartHandler>());
             }
 
             [Fact]
@@ -249,11 +220,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<AddKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<AddKeyTappedHandler>());
             }
 
             [Fact]
@@ -261,11 +229,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<AccessLevelChangedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<AccessLevelChangedHandler>());
             }
 
             [Fact]
@@ -273,11 +238,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<DateRangeChangedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<DateRangeChangedHandler>());
             }
 
             [Fact]
@@ -285,11 +247,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<FilterTextChangedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<FilterTextChangedHandler>());
             }
 
             [Fact]
@@ -297,11 +256,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<StatisticsKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<StatisticsKeyTappedHandler>());
             }
 
             [Fact]
@@ -309,11 +265,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<ClearKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<ClearKeyTappedHandler>());
             }
 
             [Fact]
@@ -321,11 +274,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<EntryWrittenHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<EntryWrittenHandler>());
             }
 
             [Fact]
@@ -333,11 +283,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<Labels>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<Labels>());
             }
 
             [Fact]
@@ -345,11 +292,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<LabelApplier>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<LabelApplier>());
             }
 
             [Fact]
@@ -357,11 +301,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<PreviousWeekKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<PreviousWeekKeyTappedHandler>());
             }
 
             [Fact]
@@ -369,11 +310,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<CurrentWeekKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<CurrentWeekKeyTappedHandler>());
             }
 
             [Fact]
@@ -381,11 +319,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<NextWeekKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<NextWeekKeyTappedHandler>());
             }
 
             [Fact]
@@ -393,11 +328,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<KeyPresser>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<KeyPresser>());
             }
 
             [Fact]
@@ -405,11 +337,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<DownKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<DownKeyTappedHandler>());
             }
 
             [Fact]
@@ -417,11 +346,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<UpKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<UpKeyTappedHandler>());
             }
 
             [Fact]
@@ -429,11 +355,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<ResetContentKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<ResetContentKeyTappedHandler>());
             }
 
             [Fact]
@@ -441,11 +364,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<ResetTypeKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<ResetTypeKeyTappedHandler>());
             }
 
             [Fact]
@@ -453,11 +373,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogEditor.SetupHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogEditor.SetupHandler>());
             }
 
             [Fact]
@@ -465,11 +382,9 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogEditor.TypeChangedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogEditor.TypeChangedHandler>());
             }
 
             [Fact]
@@ -477,11 +392,9 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogEditor.AddKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogEditor.AddKeyTappedHandler>());
             }
 
             [Fact]
@@ -489,11 +402,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogEditor.Labels>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogEditor.Labels>());
             }
 
             [Fact]
@@ -501,11 +411,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogEditor.LabelApplier>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogEditor.LabelApplier>());
             }
 
             [Fact]
@@ -513,11 +420,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.SetupHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.SetupHandler>());
             }
 
             [Fact]
@@ -525,11 +429,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.StartHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.StartHandler>());
             }
 
             [Fact]
@@ -537,11 +438,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.ResetContentKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogStatistics.
+                            ResetContentKeyTappedHandler>());
             }
 
             [Fact]
@@ -549,11 +449,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.ResetTypeKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogStatistics.
+                            ResetTypeKeyTappedHandler>());
             }
 
             [Fact]
@@ -561,11 +460,9 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.StatsDisplayer>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogStatistics.StatsDisplayer>());
             }
 
             [Fact]
@@ -573,11 +470,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.FilterSetter>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.FilterSetter>());
             }
 
             [Fact]
@@ -585,11 +479,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.OverallKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogStatistics.
+                            OverallKeyTappedHandler>());
             }
 
             [Fact]
@@ -597,11 +490,10 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.RangeKeyTappedHandler>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.
+                        Run<xofz.Framework.LogStatistics.
+                            RangeKeyTappedHandler>());
             }
 
             [Fact]
@@ -609,11 +501,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.DateResetter>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.DateResetter>());
             }
 
             [Fact]
@@ -621,11 +510,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.Labels>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.Labels>());
             }
 
             [Fact]
@@ -633,11 +519,8 @@
             {
                 this.command.Execute();
 
-                A
-                    .CallTo(() => this.web.RegisterDependency(
-                        A<xofz.Framework.LogStatistics.LabelApplier>.Ignored,
-                        null))
-                    .MustHaveHappened();
+                Assert.NotNull(
+                    this.web.Run<xofz.Framework.LogStatistics.LabelApplier>());
             }
         }
     }

@@ -420,6 +420,92 @@
                     node);
             }
 
+            [Fact]
+            public void Rearranging_test()
+            {
+                var ll2 = new XLinkedList<object>();
+                var node1 = new XLinkedListNode<object>
+                {
+                    O = 1
+                };
+                var node2 = new XLinkedListNode<object>
+                {
+                    O = 2
+                };
+                var node3 = new XLinkedListNode<object>
+                {
+                    O = 3
+                };
+                var node4 = new XLinkedListNode<object>
+                {
+                    O = 4
+                };
+                var node5 = new XLinkedListNode<object>
+                {
+                    O = 5
+                };
+
+                ll2.AddTail(node1);
+                ll2.AddTail(node2);
+                ll2.AddTail(node4);
+                ll2.AddTail(node5);
+                ll2.AddTail(node3); // { 1, 2, 4, 5, 3 }
+
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddAfter(
+                    node3,
+                    node4); // { 1, 2, 5, 3, 4 }
+                this.helper.WriteLine(string.Empty);
+
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddAfter(
+                    node4,
+                    node5); // { 1, 2, 3, 4, 5 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddAfter(
+                    ll2.HeadN,
+                    ll2.TailN); // { 1, 5, 2, 3, 4 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddAfter(
+                    ll2.TailN,
+                    ll2.HeadN); // { 5, 2, 3, 4, 1 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddAfter(
+                    node3,
+                    node4); // { 5, 2, 3, 4, 1 }
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+            }
+
             public When_AddAfter_is_called(ITestOutputHelper helper)
                 : base(helper)
             {
@@ -508,6 +594,92 @@
                 }
 
                 Assert.True(assertedAll);
+            }
+
+            [Fact]
+            public void Rearranging_test()
+            {
+                var ll2 = new XLinkedList<object>();
+                var node1 = new XLinkedListNode<object>
+                {
+                    O = 1
+                };
+                var node2 = new XLinkedListNode<object>
+                {
+                    O = 2
+                };
+                var node3 = new XLinkedListNode<object>
+                {
+                    O = 3
+                };
+                var node4 = new XLinkedListNode<object>
+                {
+                    O = 4
+                };
+                var node5 = new XLinkedListNode<object>
+                {
+                    O = 5
+                };
+
+                ll2.AddTail(node1);
+                ll2.AddTail(node2);
+                ll2.AddTail(node3);
+                ll2.AddTail(node4);
+                ll2.AddTail(node5); // { 1, 2, 3, 4, 5 }
+
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddBefore(
+                    node1,
+                    node4); // { 4, 1, 2, 3, 5 }
+                this.helper.WriteLine(string.Empty);
+
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddBefore(
+                    node4,
+                    node5); // { 5, 4, 1, 2, 3 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddBefore(
+                    ll2.TailN,
+                    ll2.HeadN); // { 4, 1, 2, 5, 3 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddBefore(
+                    ll2.HeadN,
+                    ll2.TailN); // { 3, 4, 1, 2, 5 }
+
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
+
+                ll2.AddBefore(
+                    node4,
+                    node3); // { 3, 4, 1, 2, 5 }
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item?.ToString());
+                }
             }
 
             public When_AddBefore_is_called(ITestOutputHelper helper)

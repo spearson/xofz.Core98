@@ -364,6 +364,12 @@
                 return newNode;
             }
 
+            var newPrev = newNode.Previous;
+            if (newPrev == node)
+            {
+                return newNode;
+            }
+
             var currentNode = this.headNode;
             if (currentNode == null)
             {
@@ -395,9 +401,24 @@
                 currentNext.Previous = newNode;
             }
 
+            if (newNext != null)
+            {
+                newNext.Previous = newPrev;
+            }
+
+            if (newPrev != null)
+            {
+                newPrev.Next = newNext;
+            }
+
             currentNode.Next = newNode;
             if (currentNode != this.tailNode)
             {
+                if (newNode == this.tailNode)
+                {
+                    this.setTail(newPrev);
+                }
+
                 return newNode;
             }
 
@@ -437,6 +458,12 @@
                 return newNode;
             }
 
+            var newNext = newNode.Next;
+            if (newNext == node)
+            {
+                return newNode;
+            }
+
             var currentNode = this.headNode;
             if (currentNode == null)
             {
@@ -468,16 +495,29 @@
                 currentPrev.Next = newNode;
             }
 
+            if (newPrev != null)
+            {
+                newPrev.Next = newNext;
+            }
+
+            if (newNext != null)
+            {
+                newNext.Previous = newPrev;
+            }
+
             currentNode.Previous = newNode;
             if (currentNode != this.headNode)
             {
+                if (newNode == this.headNode)
+                {
+                    this.setHead(newNext);
+                }
+
                 return newNode;
             }
 
-            this.setHead(
-                newNode);
-            if (newNode != this.tailNode ||
-                newPrev == null)
+            this.setHead(newNode);
+            if (newNode != this.tailNode || newPrev == null)
             {
                 return newNode;
             }

@@ -10,7 +10,7 @@
     using xofz.UI;
     using xofz.UI.Forms;
 
-    public class SetupLogCommand 
+    public class SetupLogCommand
         : Command
     {
         public SetupLogCommand(
@@ -22,7 +22,7 @@
             this.ui = ui;
             this.shell = shell;
             settings = settings
-                ?? new SettingsHolder();
+                       ?? new SettingsHolder();
             settings.StatisticsEnabled = falsity;
             this.settings = settings;
             this.web = web;
@@ -89,35 +89,32 @@
             var s = this.settings;
             var n = s?.LogDependencyName;
             new LogPresenter(
-                    this.ui,
-                    this.shell,
-                    w)
-                {
-                    Name = n
-                }
-                .Setup();
+                this.ui,
+                this.shell,
+                w)
+            {
+                Name = n
+            }.Setup();
 
             var eui = this.editUi;
             if (eui != null)
             {
                 new LogEditorPresenter(
-                        eui,
-                        w)
-                    {
-                        Name = n
-                    }
-                    .Setup();
+                    eui,
+                    w)
+                {
+                    Name = n
+                }.Setup();
             }
 
             if (s?.StatisticsEnabled ?? falsity)
             {
                 new LogStatisticsPresenter(
-                        this.statsUi,
-                        w)
-                    {
-                        Name = n
-                    }
-                    .Setup();
+                    this.statsUi,
+                    w)
+                {
+                    Name = n
+                }.Setup();
             }
         }
 
@@ -129,28 +126,14 @@
             var ldn = s.LogDependencyName;
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
-            var registered = falsity;
 
-            w?.Run<Delayer>(log =>
-                {
-                    registered = truth;
-                });
-            if (registered)
+            if (w.Run<Delayer>() == null)
             {
-                goto checkLog;
+                w?.RegisterDependency(
+                    new Delayer());
             }
 
-            w?.RegisterDependency(
-                new Delayer());
-
-            checkLog:
-            registered = falsity;
-            w?.Run<Log>(log =>
-                {
-                    registered = truth;
-                },
-                ldn);
-            if (registered)
+            if (w?.Run<Log>(null, ldn) != null)
             {
                 goto checkLotter;
             }
@@ -174,25 +157,19 @@
                 ldn);
 
             checkLotter:
-            registered = falsity;
             var ln = DependencyNames.Lotter;
-            w?.Run<Lotter>(lotter =>
-                {
-                    registered = truth;
-                },
-                ln);
-            if (!registered)
+            if (w?.Run<Lotter>(null, ln) == null)
             {
                 w?.RegisterDependency(
-                    new LinkedListLotter(),
+                    new XLinkedListLotter(),
                     ln);
             }
 
             w?.RegisterDependency(
-                s, 
+                s,
                 ldn);
             w?.RegisterDependency(
-                new XLinkedList<LogEntry>(), 
+                new XLinkedList<LogEntry>(),
                 ldn);
             w?.RegisterDependency(
                 new Framework.Log.FieldHolder(),
@@ -213,497 +190,272 @@
                     ldn);
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.EntryReloader>(reloader =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<EntryReloader>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.EntryReloader(w));
+                    new EntryReloader(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.EntryConverter>(converter =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<EntryConverter>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.EntryConverter(w));
+                    new EntryConverter(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.FilterChecker>(converter =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<FilterChecker>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.FilterChecker(w));
+                    new FilterChecker(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.DateAndFilterResetter>(resetter =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<DateAndFilterResetter>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.DateAndFilterResetter(w));
+                    new DateAndFilterResetter(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.TimeProvider>(
-                provider =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<TimeProvider>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.TimeProvider());
+                    new TimeProvider());
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.SetupHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<SetupHandler>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.SetupHandler(w));
+                    new SetupHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.StartHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<StartHandler>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.StartHandler(w));
+                    new StartHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<Framework.Log.AddKeyTappedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<AddKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
-                    new Framework.Log.AddKeyTappedHandler(w));
+                    new AddKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<AccessLevelChangedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<AccessLevelChangedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new AccessLevelChangedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<DateRangeChangedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<DateRangeChangedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new DateRangeChangedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<FilterTextChangedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<FilterTextChangedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new FilterTextChangedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<StatisticsKeyTappedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<StatisticsKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new StatisticsKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<ClearKeyTappedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<ClearKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new ClearKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<EntryWrittenHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<EntryWrittenHandler>() == null)
             {
                 w?.RegisterDependency(
                     new EntryWrittenHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<Labels>(labels =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Labels>() == null)
             {
                 w?.RegisterDependency(
                     new Labels());
             }
 
-            registered = falsity;
-            w?.Run<LabelApplier>(applier =>
-            {
-                registered = truth;
-            });
-
-            if (!registered)
+            if (w?.Run<LabelApplier>() == null)
             {
                 w?.RegisterDependency(
                     new LabelApplier(w));
             }
 
-            registered = falsity;
-            w?.Run<PreviousWeekKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<PreviousWeekKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new PreviousWeekKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<CurrentWeekKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<CurrentWeekKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new CurrentWeekKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<NextWeekKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<NextWeekKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new NextWeekKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<NewestKeyTappedHandler>(
-                applier =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<NewestKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new NewestKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<OldestKeyTappedHandler>(
-                applier =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<OldestKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new OldestKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<KeyPresser>(
-                presser =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<KeyPresser>() == null)
             {
                 w?.RegisterDependency(
                     new GeneralKeyPresser());
             }
 
-            registered = falsity;
-            w?.Run<DownKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<DownKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new DownKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<UpKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<UpKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new UpKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<ResetContentKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<ResetContentKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new ResetContentKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<ResetTypeKeyTappedHandler>(
-                handler =>
-                {
-                    registered = truth;
-                });
-            if (!registered)
+            if (w?.Run<ResetTypeKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
                     new ResetTypeKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<xofz.Framework.LogEditor.SetupHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Framework.LogEditor.SetupHandler>() == null)
             {
                 w?.RegisterDependency(
                     new xofz.Framework.LogEditor.SetupHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<xofz.Framework.LogEditor.TypeChangedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Framework.LogEditor.TypeChangedHandler>() == null)
             {
                 w?.RegisterDependency(
-                    new xofz.Framework.LogEditor.TypeChangedHandler(w));
+                    new Framework.LogEditor.TypeChangedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<xofz.Framework.LogEditor.AddKeyTappedHandler>(handler =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Framework.LogEditor.AddKeyTappedHandler>() == null)
             {
                 w?.RegisterDependency(
-                    new xofz.Framework.LogEditor.AddKeyTappedHandler(w));
+                    new Framework.LogEditor.AddKeyTappedHandler(w));
             }
 
-            registered = falsity;
-            w?.Run<xofz.Framework.LogEditor.Labels>(labels =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Framework.LogEditor.Labels>() == null)
             {
                 w?.RegisterDependency(
-                    new xofz.Framework.LogEditor.Labels());
+                    new Framework.LogEditor.Labels());
             }
 
-            registered = falsity;
-            w?.Run<xofz.Framework.LogEditor.LabelApplier>(applier =>
-            {
-                registered = truth;
-            });
-            if (!registered)
+            if (w?.Run<Framework.LogEditor.LabelApplier>() == null)
             {
                 w?.RegisterDependency(
-                    new xofz.Framework.LogEditor.LabelApplier(w));
+                    new Framework.LogEditor.LabelApplier(w));
             }
 
             if (se)
             {
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.SetupHandler>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.SetupHandler>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
-                            SetupHandler(w));
+                        new Framework.LogStatistics.SetupHandler(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.StartHandler>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.StartHandler>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.StartHandler(w));
+                        new Framework.LogStatistics.StartHandler(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.
-                    ResetContentKeyTappedHandler>(handler =>
-                {
-                    registered = truth;
-                });
-                if (!registered)
+                if (w?.
+                    Run<Framework.LogStatistics.
+                        ResetContentKeyTappedHandler>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             ResetContentKeyTappedHandler(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.ResetTypeKeyTappedHandler>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.
+                        Run<Framework.LogStatistics.
+                            ResetTypeKeyTappedHandler>() ==
+                    null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             ResetTypeKeyTappedHandler(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.StatsDisplayer>(sd =>
-                {
-                    registered = truth;
-                });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.StatsDisplayer>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.StatsDisplayer(w));
+                        new Framework.LogStatistics.StatsDisplayer(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.FilterSetter>(fs =>
-                {
-                    registered = truth;
-                });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.FilterSetter>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.FilterSetter(w));
+                        new Framework.LogStatistics.FilterSetter(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.OverallKeyTappedHandler>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.OverallKeyTappedHandler>() ==
+                    null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             OverallKeyTappedHandler(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.RangeKeyTappedHandler>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.RangeKeyTappedHandler>() ==
+                    null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             RangeKeyTappedHandler(w));
                 }
 
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.DateResetter>(
-                    handler =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.DateResetter>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             DateResetter(w));
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.Labels>(
-                    labels =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.Labels>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             Labels());
                 }
 
-                registered = falsity;
-                w?.Run<xofz.Framework.LogStatistics.LabelApplier>(
-                    applier =>
-                    {
-                        registered = truth;
-                    });
-                if (!registered)
+                if (w?.Run<Framework.LogStatistics.LabelApplier>() == null)
                 {
                     w?.RegisterDependency(
-                        new xofz.Framework.LogStatistics.
+                        new Framework.LogStatistics.
                             LabelApplier(w));
                 }
             }
