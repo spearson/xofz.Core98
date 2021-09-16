@@ -682,6 +682,28 @@
                 }
             }
 
+            [Fact]
+            public void Same_place_test()
+            {
+                var ll2 = new XLinkedList<object>();
+                var node2 = new XLinkedListNode<object>
+                {
+                    O = 2
+                };
+                ll2.AddTail(1);
+                ll2.AddTail(node2);
+                ll2.AddTail(3);
+                ll2.AddAfter(
+                    node2,
+                    node2);
+
+                foreach (var item in ll2)
+                {
+                    this.helper.WriteLine(item.ToString());
+                }
+
+            }
+
             public When_AddBefore_is_called(ITestOutputHelper helper)
                 : base(helper)
             {

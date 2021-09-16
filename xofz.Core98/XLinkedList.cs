@@ -359,7 +359,7 @@
             XLinkedListNode<T> node,
             XLinkedListNode<T> newNode)
         {
-            if (node == null || newNode == null)
+            if (node == null || newNode == null || node == newNode)
             {
                 return newNode;
             }
@@ -453,7 +453,7 @@
             XLinkedListNode<T> node,
             XLinkedListNode<T> newNode)
         {
-            if (node == null || newNode == null)
+            if (node == null || newNode == null || node == newNode)
             {
                 return newNode;
             }
