@@ -163,16 +163,67 @@
                     if (newNext != null)
                     {
                         newNext.Previous = newPrevious;
-                        return truth;
+                        goto clearNextPrevious;
                     }
 
                     // tail node
                     this.setTail(newPrevious);
+                    clearNextPrevious:
+                    currentNode.Next = null;
+                    currentNode.Previous = null;
+
                     return truth;
                 }
             }
 
             return falsity;
+        }
+
+        public virtual XLinkedListNode<T> Remove(
+            XLinkedListNode<T> node)
+        {
+            var currentNode = this.headNode;
+            if (currentNode == node)
+            {
+                var currentNext = currentNode.Next;
+                if (currentNext == null)
+                {
+                    this.Clear();
+                    return node;
+                }
+
+                this.setHead(
+                    currentNext);
+                currentNext.Previous = null;
+                return node;
+            }
+
+            while ((currentNode = currentNode.Next) != null)
+            {
+                if (currentNode == node)
+                {
+                    var currentPrev = currentNode.Previous;
+                    var currentNext = currentNode.Next;
+                    if (currentNext == null)
+                    {
+                        currentPrev.Next = null;
+                        this.setTail(currentPrev);
+                        return node;
+                    }
+
+                    if (currentPrev != null)
+                    {
+                        currentPrev.Next = currentNext;
+                    }
+
+                    currentNext.Previous = currentPrev;
+                    node.Previous = null;
+                    node.Next = null;
+                    return node;
+                }
+            }
+
+            return node;
         }
 
         public virtual int Count
@@ -364,9 +415,18 @@
                 return newNode;
             }
 
+            var nodeNext = node.Next;
             var newPrev = newNode.Previous;
+            var newNext = newNode.Next;
             if (newPrev == node)
             {
+                node.Next = newNode;
+
+                if (nodeNext == null)
+                {
+                    this.setTail(newNode);
+                }
+
                 return newNode;
             }
 
@@ -376,14 +436,14 @@
                 return newNode;
             }
 
-            if (currentNode.Equals(node))
+            if (currentNode == node)
             {
                 goto addLink;
             }
 
             while ((currentNode = currentNode?.Next) != null)
             {
-                if (currentNode.Equals(node))
+                if (currentNode == node)
                 {
                     goto addLink;
                 }
@@ -392,46 +452,34 @@
             return newNode;
 
             addLink:
-            var currentNext = currentNode.Next;
-            var newNext = newNode.Next;
-            newNode.Previous = currentNode;
-            newNode.Next = currentNext;
-            if (currentNext != null)
+            node.Next = newNode;
+            if (newPrev != null)
             {
-                currentNext.Previous = newNode;
+                newPrev.Next = newNext;
+                if (newNext == null)
+                {
+                    this.setTail(newPrev);
+                }
             }
 
             if (newNext != null)
             {
                 newNext.Previous = newPrev;
-            }
-
-            if (newPrev != null)
-            {
-                newPrev.Next = newNext;
-            }
-
-            currentNode.Next = newNode;
-            if (currentNode != this.tailNode)
-            {
-                if (newNode == this.tailNode)
+                if (newPrev == null)
                 {
-                    this.setTail(newPrev);
+                    this.setHead(newNext);
                 }
-
-                return newNode;
             }
 
-            this.setTail(newNode);
-            if (newNode != this.headNode || newNext == null)
+            newNode.Previous = node;
+            newNode.Next = nodeNext;
+            if (nodeNext == null)
             {
+                this.setTail(newNode);
                 return newNode;
             }
 
-            this.setHead(
-                newNext);
-            newNext.Previous = null;
-
+            nodeNext.Previous = newNode;
             return newNode;
         }
 
@@ -458,9 +506,18 @@
                 return newNode;
             }
 
+            var nodePrev = node.Previous;
             var newNext = newNode.Next;
+            var newPrev = newNode.Previous;
             if (newNext == node)
             {
+                node.Previous = newNode;
+
+                if (nodePrev == null)
+                {
+                    this.setHead(newNode);
+                }
+
                 return newNode;
             }
 
@@ -470,14 +527,14 @@
                 return newNode;
             }
 
-            if (currentNode.Equals(node))
+            if (currentNode == node)
             {
                 goto addLink;
             }
 
             while ((currentNode = currentNode?.Next) != null)
             {
-                if (currentNode.Equals(node))
+                if (currentNode == node)
                 {
                     goto addLink;
                 }
@@ -486,46 +543,34 @@
             return newNode;
 
             addLink:
-            var currentPrev = currentNode.Previous;
-            var newPrev = newNode.Previous;
-            newNode.Next = currentNode;
-            newNode.Previous = currentPrev;
-            if (currentPrev != null)
+            node.Previous = newNode;
+            if (newNext != null)
             {
-                currentPrev.Next = newNode;
+                newNext.Previous = newPrev;
+                if (newPrev == null)
+                {
+                    this.setHead(newNext);
+                }
             }
 
             if (newPrev != null)
             {
                 newPrev.Next = newNext;
-            }
-
-            if (newNext != null)
-            {
-                newNext.Previous = newPrev;
-            }
-
-            currentNode.Previous = newNode;
-            if (currentNode != this.headNode)
-            {
-                if (newNode == this.headNode)
+                if (newNext == null)
                 {
-                    this.setHead(newNext);
+                    this.setTail(newPrev);
                 }
-
-                return newNode;
             }
 
-            this.setHead(newNode);
-            if (newNode != this.tailNode || newPrev == null)
+            newNode.Next = node;
+            newNode.Previous = nodePrev;
+            if (nodePrev == null)
             {
+                this.setHead(newNode);
                 return newNode;
             }
 
-            this.setTail(
-                newPrev);
-            newPrev.Next = null;
-
+            nodePrev.Next = newNode;
             return newNode;
         }
 
@@ -541,6 +586,13 @@
             this.setHead(
                 newHead);
 
+            if (oldHead != null)
+            {
+                oldHead.Next = null;
+                oldHead.Previous = null;
+            }
+
+
             return oldHead;
         }
 
@@ -555,6 +607,13 @@
 
             this.setTail(
                 newTail);
+
+            if (oldTail != null)
+            {
+                oldTail.Next = null;
+                oldTail.Previous = null;
+            }
+
             return oldTail;
         }
 

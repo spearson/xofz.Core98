@@ -11,11 +11,43 @@
             public Context(
                 ITestOutputHelper helper)
             {
-                this.ll = new XLinkedList<object>();
+                var xll = new XLinkedList<object>();
+                this.ll = xll;
+                this.node1 = new XLinkedListNode<object>
+                {
+                    O = 1
+                };
+                this.node2 = new XLinkedListNode<object>
+                {
+                    O = 2
+                };
+                this.node3 = new XLinkedListNode<object>
+                {
+                    O = 3
+                };
+                this.node4 = new XLinkedListNode<object>
+                {
+                    O = 4
+                };
+                this.node5 = new XLinkedListNode<object>
+                {
+                    O = 5
+                };
+
+                xll.AddTail(this.node1);
+                xll.AddTail(this.node2);
+                xll.AddTail(this.node3);
+                xll.AddTail(this.node4);
+                xll.AddTail(this.node5);
                 this.helper = helper;
             }
 
             protected readonly XLinkedList<object> ll;
+            protected readonly XLinkedListNode<object> node1;
+            protected readonly XLinkedListNode<object> node2;
+            protected readonly XLinkedListNode<object> node3;
+            protected readonly XLinkedListNode<object> node4;
+            protected readonly XLinkedListNode<object> node5;
             protected readonly ITestOutputHelper helper;
         }
 
@@ -40,6 +72,7 @@
             [Fact]
             public void Add_the_item_to_the_front()
             {
+                this.ll.Clear();
                 this.ll.AddTail(4);
                 this.ll.AddTail(5);
                 this.ll.AddTail(6);
@@ -158,6 +191,7 @@
             [Fact]
             public void Adds_the_item_to_the_back()
             {
+                this.ll.Clear();
                 this.ll.AddTail(3);
                 this.ll.AddTail(4);
                 this.ll.AddTail(5);
@@ -267,6 +301,7 @@
             {
                 var targetNode = new XLinkedListNode<object>();
                 targetNode.O = 3;
+                this.ll.Clear();
                 this.ll.AddTail(
                     1);
                 this.ll.AddTail(
@@ -424,32 +459,12 @@
             public void Rearranging_test()
             {
                 var ll2 = new XLinkedList<object>();
-                var node1 = new XLinkedListNode<object>
-                {
-                    O = 1
-                };
-                var node2 = new XLinkedListNode<object>
-                {
-                    O = 2
-                };
-                var node3 = new XLinkedListNode<object>
-                {
-                    O = 3
-                };
-                var node4 = new XLinkedListNode<object>
-                {
-                    O = 4
-                };
-                var node5 = new XLinkedListNode<object>
-                {
-                    O = 5
-                };
 
-                ll2.AddTail(node1);
-                ll2.AddTail(node2);
-                ll2.AddTail(node4);
-                ll2.AddTail(node5);
-                ll2.AddTail(node3); // { 1, 2, 4, 5, 3 }
+                ll2.AddTail(this.node1);
+                ll2.AddTail(this.node2);
+                ll2.AddTail(this.node4);
+                ll2.AddTail(this.node5);
+                ll2.AddTail(this.node3); // { 1, 2, 4, 5, 3 }
 
                 foreach (var item in ll2)
                 {
@@ -457,8 +472,12 @@
                 }
 
                 ll2.AddAfter(
-                    node3,
-                    node4); // { 1, 2, 5, 3, 4 }
+                    this.node3, 
+                    this.node4); // { 1, 2, 5, 3, 4 }
+                // node = this.node3
+                // newNode = this.node4
+                // newPrev.Next = newNode.Next;
+                // newNext.Previous = newNode.Previous
                 this.helper.WriteLine(string.Empty);
 
                 foreach (var item in ll2)
@@ -467,8 +486,15 @@
                 }
 
                 ll2.AddAfter(
-                    node4,
-                    node5); // { 1, 2, 3, 4, 5 }
+                    this.node4, 
+                    this.node5); // { 1, 2, 3, 4, 5 }
+
+                // node = this.node4
+                // newNode = this.node5
+                // turn { 1, 2, 5, 3, 4 } into { 1, 2, 3, 4, 5 }
+                // node.Next = newNode
+                // newNode.Previous = node
+                // newNode.Next = nodeNext
 
                 this.helper.WriteLine(string.Empty);
                 foreach (var item in ll2)
@@ -479,6 +505,9 @@
                 ll2.AddAfter(
                     ll2.HeadN,
                     ll2.TailN); // { 1, 5, 2, 3, 4 }
+                // node = head node
+                // newNode = tail node
+
 
                 this.helper.WriteLine(string.Empty);
                 foreach (var item in ll2)
@@ -521,6 +550,7 @@
                 {
                     O = 2
                 };
+                this.ll.Clear();
                 this.ll.AddTail(
                     targetNode);
                 this.ll.AddTail(
@@ -600,32 +630,12 @@
             public void Rearranging_test()
             {
                 var ll2 = new XLinkedList<object>();
-                var node1 = new XLinkedListNode<object>
-                {
-                    O = 1
-                };
-                var node2 = new XLinkedListNode<object>
-                {
-                    O = 2
-                };
-                var node3 = new XLinkedListNode<object>
-                {
-                    O = 3
-                };
-                var node4 = new XLinkedListNode<object>
-                {
-                    O = 4
-                };
-                var node5 = new XLinkedListNode<object>
-                {
-                    O = 5
-                };
 
-                ll2.AddTail(node1);
-                ll2.AddTail(node2);
-                ll2.AddTail(node3);
-                ll2.AddTail(node4);
-                ll2.AddTail(node5); // { 1, 2, 3, 4, 5 }
+                ll2.AddTail(this.node1);
+                ll2.AddTail(this.node2);
+                ll2.AddTail(this.node3);
+                ll2.AddTail(this.node4);
+                ll2.AddTail(this.node5); // { 1, 2, 3, 4, 5 }
 
                 foreach (var item in ll2)
                 {
@@ -633,8 +643,8 @@
                 }
 
                 ll2.AddBefore(
-                    node1,
-                    node4); // { 4, 1, 2, 3, 5 }
+                    this.node1, 
+                    this.node4); // { 4, 1, 2, 3, 5 }
                 this.helper.WriteLine(string.Empty);
 
                 foreach (var item in ll2)
@@ -643,8 +653,8 @@
                 }
 
                 ll2.AddBefore(
-                    node4,
-                    node5); // { 5, 4, 1, 2, 3 }
+                    this.node4, 
+                    this.node5); // { 5, 4, 1, 2, 3 }
 
                 this.helper.WriteLine(string.Empty);
                 foreach (var item in ll2)
@@ -880,6 +890,114 @@
             public When_GetNodes_is_called(ITestOutputHelper helper)
                 : base(helper)
             {
+            }
+        }
+
+        public class When_Remove_is_called : Context
+        {
+            [Fact]
+            public void Works()
+            {
+                this.ll.Remove(3);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // 1, 2, 4, 5 should be
+                }
+
+                this.ll.AddAfter(
+                    this.node2, 
+                    this.node3);
+                // to make { 1, 2, 4, 5 } into { 1, 2, 3, 4, 5 }
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString());
+                }
+
+                this.ll.Remove(1);
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // 2, 3, 4, 5 should be
+                }
+
+                this.ll.AddBefore(
+                    this.node2,
+                    this.node1); 
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // { 1, 2, 3, 4, 5}
+                }
+                this.ll.Remove(5);
+                this.helper.WriteLine(string.Empty);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // 1, 2, 3, 4 should be
+                }
+            }
+
+            public When_Remove_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
+        }
+
+        public class When_Remove_node_is_called : Context
+        {
+            public When_Remove_node_is_called(ITestOutputHelper helper)
+                : base(helper)
+            {
+            }
+
+            [Fact]
+            public void Ices_the_head()
+            {
+                this.ll.Remove(
+                    this.ll.HeadN);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // { 2, 3, 4, 5 }
+                }
+            }
+
+            [Fact]
+            public void Ices_the_tail()
+            {
+                this.ll.Remove(
+                    this.ll.TailN);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // { 1, 2, 3, 4 }
+                }
+            }
+
+            [Fact]
+            public void Ices_the_head_and_the_tail()
+            {
+                this.ll.Remove(
+                    this.ll.TailN);
+                this.ll.Remove(
+                    this.ll.HeadN);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // { 2, 3, 4 }
+                }
+            }
+
+            [Fact]
+            public void Ices_all_the_middle_ones()
+            {
+                this.ll.Remove(
+                    this.node2);
+                this.ll.Remove(
+                    this.node4);
+                this.ll.Remove(
+                    this.node3);
+                foreach (var item in this.ll)
+                {
+                    this.helper.WriteLine(item.ToString()); // { 1, 5 }
+                }
             }
         }
     }
