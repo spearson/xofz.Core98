@@ -17,8 +17,8 @@
             if (finiteSource is T[] array)
             {
                 this.Sort(
-                    array, 
-                    zero, 
+                    array,
+                    zero,
                     array.Length - one);
                 return array;
             }
@@ -26,8 +26,8 @@
             var sourceArray = EnumerableHelpers.ToArray(
                 finiteSource);
             this.Sort(
-                sourceArray, 
-                zero, 
+                sourceArray,
+                zero,
                 sourceArray.Length - one);
 
             return sourceArray;
@@ -73,12 +73,14 @@
                 return;
             }
 
-            if (left > array.Length - one)
+            var l = array.Length;
+            var lengthDownOne = l - one;
+            if (left > lengthDownOne)
             {
                 return;
             }
 
-            if (right > array.Length - one)
+            if (right > lengthDownOne)
             {
                 return;
             }
@@ -87,7 +89,8 @@
                 = new XLinkedList<long>();
 
             beginSort:
-            long lowIndex = left, highIndex = right;
+            long lowIndex = left,
+                highIndex = right;
             long pivotIndex;
             checked
             {
@@ -98,17 +101,28 @@
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].CompareTo(pivot) < zero)
+                while (array[lowIndex].
+                    CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
+                    if (lowIndex > lengthDownOne)
+                    {
+                        break;
+                    }
                 }
 
-                while (array[highIndex].CompareTo(pivot) > zero)
+                while (array[highIndex].
+                    CompareTo(pivot) > zero)
                 {
                     --highIndex;
+                    if (highIndex < zero)
+                    {
+                        break;
+                    }
                 }
 
-                if (lowIndex > highIndex)
+                if (lowIndex > highIndex || lowIndex > lengthDownOne ||
+                    highIndex < zero)
                 {
                     break;
                 }
@@ -160,8 +174,8 @@
             var sourceArray = EnumerableHelpers.ToArray(
                 finiteSource);
             this.Sort(
-                sourceArray, 
-                zero, 
+                sourceArray,
+                zero,
                 sourceArray.Length - one);
 
             return sourceArray;
@@ -176,8 +190,8 @@
             }
 
             this.Sort(
-                array, 
-                zero, 
+                array,
+                zero,
                 array.Length - one);
         }
 
@@ -206,12 +220,14 @@
                 return;
             }
 
-            if (left > array.Length - one)
+            var l = array.Length;
+            var lengthDownOne = l - one;
+            if (left > lengthDownOne)
             {
                 return;
             }
 
-            if (right > array.Length - one)
+            if (right > lengthDownOne)
             {
                 return;
             }
@@ -220,7 +236,8 @@
                 = new XLinkedList<long>();
 
             beginSort:
-            long lowIndex = left, highIndex = right;
+            long lowIndex = left,
+                highIndex = right;
             long pivotIndex;
             checked
             {
@@ -231,17 +248,28 @@
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].CompareTo(pivot) < zero)
+                while (array[lowIndex].
+                    CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
+                    if (lowIndex > lengthDownOne)
+                    {
+                        break;
+                    }
                 }
 
-                while (array[highIndex].CompareTo(pivot) > zero)
+                while (array[highIndex].
+                    CompareTo(pivot) > zero)
                 {
                     --highIndex;
+                    if (highIndex < zero)
+                    {
+                        break;
+                    }
                 }
 
-                if (lowIndex > highIndex)
+                if (lowIndex > highIndex || lowIndex > lengthDownOne ||
+                    highIndex < zero)
                 {
                     break;
                 }
