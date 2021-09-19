@@ -143,8 +143,6 @@
                 indexer = 0xFF;
                 foreach (var item in ll2)
                 {
-                    this.helper.WriteLine(
-                        item.ToString());
                     ++indexer;
                     switch (indexer)
                     {
@@ -241,9 +239,6 @@
                 byte indexer = 0xFF;
                 foreach (var item in ll2)
                 {
-                    this.helper.WriteLine(
-                        item.ToString());
-
                     ++indexer;
                     switch (indexer)
                     {
@@ -256,8 +251,6 @@
                     }
                 }
 
-                this.helper.WriteLine(string.Empty);
-
                 ll2.AddTail(2); // { 1, 2 }
                 ll2.AddHead(
                     ll2.TailN); // { 2, 1 }
@@ -266,8 +259,6 @@
                 indexer = 0xFF;
                 foreach (var item in ll2)
                 {
-                    this.helper.WriteLine(
-                        item.ToString());
                     ++indexer;
                     switch (indexer)
                     {
@@ -466,73 +457,91 @@
                 ll2.AddTail(this.node5);
                 ll2.AddTail(this.node3); // { 1, 2, 4, 5, 3 }
 
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
-
                 ll2.AddAfter(
                     this.node3, 
                     this.node4); // { 1, 2, 5, 3, 4 }
-                // node = this.node3
-                // newNode = this.node4
-                // newPrev.Next = newNode.Next;
-                // newNext.Previous = newNode.Previous
-                this.helper.WriteLine(string.Empty);
-
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                var e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(this.node1, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node2, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node5, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node3, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node4, e.Current);
+                e.Dispose();
 
                 ll2.AddAfter(
                     this.node4, 
                     this.node5); // { 1, 2, 3, 4, 5 }
-
-                // node = this.node4
-                // newNode = this.node5
-                // turn { 1, 2, 5, 3, 4 } into { 1, 2, 3, 4, 5 }
-                // node.Next = newNode
-                // newNode.Previous = node
-                // newNode.Next = nodeNext
-
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(this.node1, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node2, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node3, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node4, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node5, e.Current);
+                e.Dispose();
 
                 ll2.AddAfter(
                     ll2.HeadN,
                     ll2.TailN); // { 1, 5, 2, 3, 4 }
-                // node = head node
-                // newNode = tail node
-
-
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(this.node1, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node5, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node2, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node3, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node4, e.Current);
+                e.Dispose();
 
                 ll2.AddAfter(
                     ll2.TailN,
                     ll2.HeadN); // { 5, 2, 3, 4, 1 }
 
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(this.node5, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node2, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node3, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node4, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node1, e.Current);
+                e.Dispose();
 
                 ll2.AddAfter(
                     node3,
                     node4); // { 5, 2, 3, 4, 1 }
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(this.node5, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node2, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node3, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node4, e.Current);
+                e.MoveNext();
+                Assert.Same(this.node1, e.Current);
+                e.Dispose();
             }
 
             public When_AddAfter_is_called(ITestOutputHelper helper)
@@ -629,89 +638,168 @@
             [Fact]
             public void Rearranging_test()
             {
-                var ll2 = new XLinkedList<object>();
-
-                ll2.AddTail(this.node1);
-                ll2.AddTail(this.node2);
-                ll2.AddTail(this.node3);
-                ll2.AddTail(this.node4);
-                ll2.AddTail(this.node5); // { 1, 2, 3, 4, 5 }
-
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
-
-                ll2.AddBefore(
+                this.ll.AddBefore(
                     this.node1, 
                     this.node4); // { 4, 1, 2, 3, 5 }
-                this.helper.WriteLine(string.Empty);
+                var e = this.ll.GetNodes().GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.node4, 
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node1,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node2,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node3,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node5,
+                    e.Current);
 
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
-
-                ll2.AddBefore(
+                this.ll.AddBefore(
                     this.node4, 
                     this.node5); // { 5, 4, 1, 2, 3 }
 
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e.Dispose();
+                e = this.ll.GetNodes().GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.node5,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node4,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node1,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node2,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node3,
+                    e.Current);
 
-                ll2.AddBefore(
-                    ll2.TailN,
-                    ll2.HeadN); // { 4, 1, 2, 5, 3 }
+                this.ll.AddBefore(
+                    this.ll.TailN,
+                    this.ll.HeadN); // { 4, 1, 2, 5, 3 }
 
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e.Dispose();
+                e = this.ll.GetNodes().GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.node4,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node1,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node2,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node5,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node3,
+                    e.Current);
 
-                ll2.AddBefore(
-                    ll2.HeadN,
-                    ll2.TailN); // { 3, 4, 1, 2, 5 }
+                this.ll.AddBefore(
+                    this.ll.HeadN,
+                    this.ll.TailN); // { 3, 4, 1, 2, 5 }
+                e.Dispose();
+                e = this.ll.GetNodes().GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.node3,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node4,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node1,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node2,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node5,
+                    e.Current);
 
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
-
-                ll2.AddBefore(
+                this.ll.AddBefore(
                     node4,
                     node3); // { 3, 4, 1, 2, 5 }
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item?.ToString());
-                }
+                e.Dispose();
+                e = this.ll.GetNodes().GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.node3,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node4,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node1,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node2,
+                    e.Current);
+                e.MoveNext();
+                Assert.Same(
+                    this.node5,
+                    e.Current);
+
+                e.Dispose();
             }
 
             [Fact]
             public void Same_place_test()
             {
                 var ll2 = new XLinkedList<object>();
-                var node2 = new XLinkedListNode<object>
-                {
-                    O = 2
-                };
-                ll2.AddTail(1);
-                ll2.AddTail(node2);
-                ll2.AddTail(3);
-                ll2.AddAfter(
-                    node2,
-                    node2);
+                ll2.AddTail(this.node1);
+                ll2.AddTail(this.node2);
+                ll2.AddTail(this.node3);
+                ll2.AddBefore(this.node2, this.node2);
 
-                foreach (var item in ll2)
-                {
-                    this.helper.WriteLine(item.ToString());
-                }
+                Assert.True(ll2.Count == 3);
 
+                var e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+
+                e.Dispose();
+
+                ll2.AddAfter(this.node1, this.node2);
+                e = ll2.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+                e.Dispose();
             }
 
             public When_AddBefore_is_called(ITestOutputHelper helper)
@@ -899,42 +987,145 @@
             public void Works()
             {
                 this.ll.Remove(3);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // 1, 2, 4, 5 should be
-                }
+
+                var e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node2);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node4);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node5);
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
+
+                this.ll.AddAfter(this.node1, this.node2);
+                e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    this.ll.HeadN,
+                    this.node1);
+                e.Dispose();
 
                 this.ll.AddAfter(
                     this.node2, 
                     this.node3);
-                // to make { 1, 2, 4, 5 } into { 1, 2, 3, 4, 5 }
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString());
-                }
+                e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node2);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node3);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node4);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node5);
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
 
                 this.ll.Remove(1);
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // 2, 3, 4, 5 should be
-                }
+                e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node2);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node3);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node4);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node5);
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
 
                 this.ll.AddBefore(
                     this.node2,
-                    this.node1); 
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // { 1, 2, 3, 4, 5}
-                }
-                this.ll.Remove(5);
-                this.helper.WriteLine(string.Empty);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // 1, 2, 3, 4 should be
-                }
+                    this.node1);
+                e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node2);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node3);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node4);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node5);
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
+                this.ll.Remove(5); // { 1, 2, 3, 4 }
+                e = this.ll.GetNodes().
+                    GetEnumerator();
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node1);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node2);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node3);
+                e.MoveNext();
+                Assert.Same(
+                    e.Current,
+                    this.node4);
+                Assert.False(
+                    e.MoveNext());
+
+                e.Dispose();
             }
 
             public When_Remove_is_called(ITestOutputHelper helper)
@@ -955,10 +1146,12 @@
             {
                 this.ll.Remove(
                     this.ll.HeadN);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // { 2, 3, 4, 5 }
-                }
+                Assert.Equal(
+                    4,
+                    this.ll.Count);
+                Assert.Same(
+                    this.node2,
+                    this.ll.HeadN);
             }
 
             [Fact]
@@ -966,10 +1159,12 @@
             {
                 this.ll.Remove(
                     this.ll.TailN);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // { 1, 2, 3, 4 }
-                }
+                Assert.Equal(
+                    4,
+                    this.ll.Count);
+                Assert.Same(
+                    this.node4,
+                    this.ll.TailN);
             }
 
             [Fact]
@@ -979,10 +1174,15 @@
                     this.ll.TailN);
                 this.ll.Remove(
                     this.ll.HeadN);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // { 2, 3, 4 }
-                }
+                Assert.Equal(
+                    3,
+                    this.ll.Count);
+                Assert.Same(
+                    this.node2,
+                    this.ll.HeadN);
+                Assert.Same(
+                    this.node4,
+                    this.ll.TailN);
             }
 
             [Fact]
@@ -994,10 +1194,29 @@
                     this.node4);
                 this.ll.Remove(
                     this.node3);
-                foreach (var item in this.ll)
-                {
-                    this.helper.WriteLine(item.ToString()); // { 1, 5 }
-                }
+                Assert.Equal(
+                    2,
+                    this.ll.Count);
+                Assert.Same(
+                    this.node1,
+                    this.ll.HeadN);
+                Assert.Same(
+                    this.node5,
+                    this.ll.TailN);
+            }
+
+            [Fact]
+            public void Ices_them_all()
+            {
+                this.ll.Clear();
+                this.ll.AddHead(this.node1);
+                this.ll.AddTail(this.node2);
+                this.ll.AddTail(this.node3);
+                this.ll.Remove(this.node1);
+                this.ll.Remove(this.node3);
+                this.ll.Remove(this.node2);
+                Assert.Null(this.ll.HeadN);
+                Assert.Null(this.ll.TailN);
             }
         }
     }
