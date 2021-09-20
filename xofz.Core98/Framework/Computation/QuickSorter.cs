@@ -101,7 +101,7 @@
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].
+                while (array[lowIndex]?.
                     CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
@@ -111,7 +111,7 @@
                     }
                 }
 
-                while (array[highIndex].
+                while (array[highIndex]?.
                     CompareTo(pivot) > zero)
                 {
                     --highIndex;
@@ -248,7 +248,7 @@
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex].
+                while (array[lowIndex]?.
                     CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
@@ -258,7 +258,7 @@
                     }
                 }
 
-                while (array[highIndex].
+                while (array[highIndex]?.
                     CompareTo(pivot) > zero)
                 {
                     --highIndex;

@@ -5,6 +5,7 @@
     using xofz.Framework.Computation;
     using Xunit;
     using Xunit.Abstractions;
+    using EH = xofz.EnumerableHelpers;
 
     public class QuickSorterTests
     {
@@ -101,6 +102,35 @@
                 }
             }
 
+            [Fact]
+            public void Sorts_with_nulls()
+            {
+                int? i1 = 4;
+                int? i2 = 6;
+                int? i3 = null;
+                int? i4 = null;
+                int? i5 = 1;
+                var arr = new IComparable[] { i1, i2, i3, i4, i5 };
+
+                this.sorter.Sort(arr);
+
+                Assert.Contains(
+                    null,
+                    arr);
+
+                var indexOf1 = EH.IndexOf(
+                    arr,
+                    1);
+                var indexOf4 = EH.IndexOf(
+                    arr,
+                    4);
+                var indexOf6 = EH.IndexOf(
+                    arr,
+                    6);
+                Assert.True(indexOf1 < indexOf4);
+                Assert.True(indexOf4 < indexOf6);
+            }
+
             public When_Sort_is_called(
                 ITestOutputHelper outputter) 
                 : base(outputter)
@@ -149,6 +179,26 @@
                     Assert.True(testNumbers[i]
                                     .CompareTo(testNumbers[i + 1]) <= 0);
                 }
+            }
+
+            [Fact]
+            public void Sorts_with_nulls()
+            {
+                var o1 = new ShufflingObject();
+                var o2 = new ShufflingObject();
+                var o3 = new ShufflingObject();
+                var o4 = new ShufflingObject();
+                ShufflingObject o5 = null;
+                ShufflingObject o6 = null;
+                var arr = new[] { o1, o2, o3, o4, o5, o6 };
+
+                this.sorter.Sort(arr);
+
+                Assert.Equal(
+                    2,
+                    EH.Count(
+                        arr,
+                        o => o is null));
             }
         }
     }

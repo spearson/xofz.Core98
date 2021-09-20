@@ -1644,9 +1644,37 @@
             return default;
         }
 
+        public static long IndexOf<T>(
+            IEnumerable<T> source,
+            T o)
+        {
+            if (source == null)
+            {
+                return minusOne;
+            }
+
+            long index = zero;
+            foreach (var item in source)
+            {
+                if (o?.Equals(item) ?? item == null)
+                {
+                    return index;
+                }
+
+                checked
+                {
+                    ++index;
+                }
+            }
+
+            return index;
+        }
+
         protected const byte
             zero = 0,
             one = 1;
+        protected const short
+            minusOne = -1;
         protected const bool
             truth = true,
             falsity = false;

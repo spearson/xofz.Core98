@@ -245,6 +245,7 @@
     <Compile Include="UI\LogUiV3.cs" />
     <Compile Include="UI\LogUiV4.cs" />
     <Compile Include="UI\ToggleUiV2.cs" />
+    <Compile Include="UI\UiHelper.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
     <Compile Include="Framework\VersionReader.cs" />
     <Compile Include="Lot.cs" />

@@ -502,5 +502,14 @@
                 source,
                 index);
         }
+
+        public virtual long IndexOf<T>(
+            IEnumerable<T> source,
+            T o)
+        {
+            return EH.IndexOf(
+                source,
+                o);
+        }
     }
 }
