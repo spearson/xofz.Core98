@@ -34,7 +34,8 @@
         }
 
         public virtual void Sort<T>(
-            T[] array) where T : IComparable
+            T[] array) 
+            where T : IComparable
         {
             if (array == null)
             {

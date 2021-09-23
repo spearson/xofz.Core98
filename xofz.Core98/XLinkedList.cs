@@ -146,6 +146,8 @@
                 }
 
                 this.setHead(newNext);
+                currentNode.Next = null;
+                currentNode.Previous = null;
                 return truth;
             }
 
@@ -189,12 +191,16 @@
                 if (currentNext == null)
                 {
                     this.Clear();
+                    node.Previous = null;
+                    node.Next = null;
                     return node;
                 }
 
                 this.setHead(
                     currentNext);
                 currentNext.Previous = null;
+                node.Previous = null;
+                node.Next = null;
                 return node;
             }
 
@@ -204,14 +210,21 @@
                 {
                     var currentPrev = currentNode.Previous;
                     var currentNext = currentNode.Next;
+                    var prevNotNull = currentPrev != null;
                     if (currentNext == null)
                     {
-                        currentPrev.Next = null;
-                        this.setTail(currentPrev);
+                        if (prevNotNull)
+                        {
+                            currentPrev.Next = null;
+                            this.setTail(currentPrev);
+                        }
+
+                        node.Previous = null;
+                        node.Next = null;
                         return node;
                     }
 
-                    if (currentPrev != null)
+                    if (prevNotNull)
                     {
                         currentPrev.Next = currentNext;
                     }
