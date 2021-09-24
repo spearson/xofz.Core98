@@ -134,18 +134,22 @@
             }
 
             XLinkedListNode<T>
-                newNext;
+                currentNext;
             // check the head node
             if (this.nodeContains(currentNode, item))
             {
-                newNext = currentNode.Next;
+                currentNext = currentNode.Next;
 
-                if (newNext != null)
+                if (currentNext != null)
                 {
-                    newNext.Previous = null;
+                    currentNext.Previous = null;
+                    this.setHead(currentNext);
+                    goto clearNode;
                 }
 
-                this.setHead(newNext);
+                this.Clear();
+
+                clearNode:
                 currentNode.Next = null;
                 currentNode.Previous = null;
                 return truth;
@@ -153,29 +157,41 @@
 
             while ((currentNode = currentNode?.Next) != null)
             {
-                if (this.nodeContains(currentNode, item))
+                if (!this.nodeContains(currentNode, item))
                 {
-                    var newPrevious = currentNode.Previous;
-                    newNext = currentNode.Next;
-                    if (newPrevious != null)
-                    {
-                        newPrevious.Next = newNext;
-                    }
+                    continue;
+                }
 
-                    if (newNext != null)
+                var currentPrev = currentNode.Previous;
+                currentNext = currentNode.Next;
+                if (currentPrev != null)
+                {
+                    currentPrev.Next = currentNext;
+                    if (currentNext == null)
                     {
-                        newNext.Previous = newPrevious;
+                        this.setTail(currentPrev);
                         goto clearNextPrevious;
                     }
-
-                    // tail node
-                    this.setTail(newPrevious);
-                    clearNextPrevious:
-                    currentNode.Next = null;
-                    currentNode.Previous = null;
-
-                    return truth;
                 }
+
+                if (currentNext != null)
+                {
+                    currentNext.Previous = currentPrev;
+                    if (currentPrev == null)
+                    {
+                        this.setHead(currentNext);
+                    }
+
+                    goto clearNextPrevious;
+                }
+
+                // tail node
+                this.setTail(currentPrev);
+                clearNextPrevious:
+                currentNode.Next = null;
+                currentNode.Previous = null;
+
+                return truth;
             }
 
             return falsity;
@@ -184,7 +200,17 @@
         public virtual XLinkedListNode<T> Remove(
             XLinkedListNode<T> node)
         {
+            if (node == null)
+            {
+                return node;
+            }
+
             var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return node;
+            }
+
             if (currentNode == node)
             {
                 var currentNext = currentNode.Next;
@@ -206,34 +232,47 @@
 
             while ((currentNode = currentNode.Next) != null)
             {
-                if (currentNode == node)
+                if (currentNode != node)
                 {
-                    var currentPrev = currentNode.Previous;
-                    var currentNext = currentNode.Next;
-                    var prevNotNull = currentPrev != null;
-                    if (currentNext == null)
-                    {
-                        if (prevNotNull)
-                        {
-                            currentPrev.Next = null;
-                            this.setTail(currentPrev);
-                        }
+                    continue;
+                }
 
-                        node.Previous = null;
-                        node.Next = null;
-                        return node;
-                    }
-
+                var currentPrev = currentNode.Previous;
+                var currentNext = currentNode.Next;
+                var prevNull = currentPrev == null;
+                var prevNotNull = currentPrev != null;
+                if (currentNext == null)
+                {
                     if (prevNotNull)
                     {
-                        currentPrev.Next = currentNext;
+                        currentPrev.Next = null;
+                        this.setTail(currentPrev);
                     }
 
-                    currentNext.Previous = currentPrev;
+                    if (prevNull)
+                    {
+                        this.Clear();
+                    }
+
                     node.Previous = null;
                     node.Next = null;
                     return node;
                 }
+
+                if (prevNotNull)
+                {
+                    currentPrev.Next = currentNext;
+                }
+
+                currentNext.Previous = currentPrev;
+                if (prevNull)
+                {
+                    this.setHead(currentNext);
+                }
+
+                node.Previous = null;
+                node.Next = null;
+                return node;
             }
 
             return node;
@@ -247,7 +286,10 @@
                 var currentNode = this.headNode;
                 while (currentNode != null)
                 {
-                    ++result;
+                    checked
+                    {
+                        ++result;
+                    }
 
                     currentNode = currentNode.Next;
                 }
