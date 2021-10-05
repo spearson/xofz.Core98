@@ -138,7 +138,7 @@
             var web = targetHolder?.Web;
             if (web == null)
             {
-                return null;
+                return web;
             }
 
             accessor?.Invoke(web);

@@ -83,7 +83,7 @@
             var web = targetHolder?.Web;
             if (web == null)
             {
-                return null;
+                return web;
             }
 
             accessor?.Invoke(web);
@@ -102,7 +102,7 @@
             var web = targetHolder?.Web as T;
             if (web == null)
             {
-                return null;
+                return web;
             }
 
             accessor?.Invoke(web);
