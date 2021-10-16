@@ -240,7 +240,7 @@
                 var currentPrev = currentNode.Previous;
                 var currentNext = currentNode.Next;
                 var prevNull = currentPrev == null;
-                var prevNotNull = currentPrev != null;
+                var prevNotNull = !prevNull;
                 if (currentNext == null)
                 {
                     if (prevNotNull)

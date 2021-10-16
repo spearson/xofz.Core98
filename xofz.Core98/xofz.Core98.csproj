@@ -98,6 +98,7 @@
     <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Axioses\Inanimator.cs" />
     <Compile Include="Framework\UiReaderWriters\NullUiReaderWriter.cs" />
+    <Compile Include="IndexedLinkedList.cs" />
     <Compile Include="LotterV2.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
