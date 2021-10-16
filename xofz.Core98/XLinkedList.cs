@@ -633,13 +633,19 @@
         {
             var oldHead = this.headNode;
             var newHead = oldHead?.Next;
-            if (newHead != null)
+            var newHeadNull = newHead == null;
+            if (!newHeadNull)
             {
                 newHead.Previous = null;
             }
 
             this.setHead(
                 newHead);
+            if (newHeadNull)
+            {
+                this.setTail(
+                    newHead);
+            }
 
             if (oldHead != null)
             {
@@ -655,13 +661,19 @@
         {
             var oldTail = this.tailNode;
             var newTail = oldTail?.Previous;
-            if (newTail != null)
+            var newTailNull = newTail == null;
+            if (!newTailNull)
             {
                 newTail.Next = null;
             }
 
             this.setTail(
                 newTail);
+            if (newTailNull)
+            {
+                this.setHead(
+                    newTail);
+            }
 
             if (oldTail != null)
             {
