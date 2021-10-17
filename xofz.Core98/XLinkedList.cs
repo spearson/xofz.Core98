@@ -278,7 +278,11 @@
             return node;
         }
 
-        public virtual int Count
+        public virtual int Count => (int)this.LongCount;
+
+        public virtual bool IsReadOnly => falsity;
+
+        public virtual long LongCount
         {
             get
             {
@@ -294,11 +298,9 @@
                     currentNode = currentNode.Next;
                 }
 
-                return (int)result;
+                return result;
             }
         }
-
-        public virtual bool IsReadOnly => falsity;
 
         public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
         {
