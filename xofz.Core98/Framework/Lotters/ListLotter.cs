@@ -13,7 +13,7 @@
                 finiteSource);
         }
 
-        public ICollection<T> Collect<T>(
+        ICollection<T> LotterV2.Collect<T>(
             IEnumerable<T> finiteSource)
         {
             return new List<T>(

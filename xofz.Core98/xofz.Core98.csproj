@@ -62,7 +62,11 @@
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
     <Compile Include="Framework\Leeches\UnsyncLeech.cs" />
+    <Compile Include="Framework\Lots\IndexedLinkedListLot.cs" />
+    <Compile Include="Framework\Lots\ReverseLinkedListLot.cs" />
     <Compile Include="Framework\Lots\XLinkedListLot.cs" />
+    <Compile Include="Framework\Lotters\IndexedLinkedListLotter.cs" />
+    <Compile Include="Framework\Lotters\ReverseLinkedListLotter.cs" />
     <Compile Include="Framework\Lotters\XLinkedListLotter.cs" />
     <Compile Include="Framework\ManagerLocators\UnsyncLocator.cs" />
     <Compile Include="Framework\Subjugate.cs" />

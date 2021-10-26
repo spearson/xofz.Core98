@@ -225,7 +225,7 @@
                 A.CallTo(() => w.Run(
                         A<xofz.Do<LatchHolder>>.Ignored,
                         DependencyNames.Latch))
-                    .MustHaveHappened(Repeated.Exactly.Twice);
+                    .MustHaveHappened(2, Times.Exactly);
             }
 
             [Fact]
