@@ -4,7 +4,7 @@
     using xofz.Framework.Lots;
 
     public sealed class ListLotter 
-        : LotterV2
+        : LotterV3
     {
         Lot<T> Lotter.Materialize<T>(
             IEnumerable<T> finiteSource)
@@ -17,6 +17,13 @@
             IEnumerable<T> finiteSource)
         {
             return new List<T>(
+                finiteSource);
+        }
+
+        GetArray<T> LotterV3.Index<T>(
+            IEnumerable<T> finiteSource)
+        {
+            return new ListLot<T>(
                 finiteSource);
         }
     }

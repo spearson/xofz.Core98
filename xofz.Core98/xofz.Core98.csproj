@@ -104,6 +104,7 @@
     <Compile Include="Framework\UiReaderWriters\NullUiReaderWriter.cs" />
     <Compile Include="IndexedLinkedList.cs" />
     <Compile Include="LotterV2.cs" />
+    <Compile Include="LotterV3.cs" />
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
