@@ -74,5 +74,37 @@
                 target.O = value;
             }
         }
+
+        public virtual XLinkedListNode<T> GetNode(
+            long index)
+        {
+            if (index < zero)
+            {
+                return default;
+            }
+
+            var currentNode = this.headNode;
+            if (currentNode == null)
+            {
+                return currentNode;
+            }
+
+            long currentIndex = zero;
+            if (index == currentIndex)
+            {
+                return currentNode;
+            }
+
+            while ((currentNode = currentNode.Next) != null)
+            {
+                ++currentIndex;
+                if (currentIndex == index)
+                {
+                    return currentNode;
+                }
+            }
+
+            return default;
+        }
     }
 }

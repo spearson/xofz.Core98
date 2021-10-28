@@ -6,7 +6,8 @@
     public sealed class ReverseLinkedListLotter
         : LotterV2
     {
-        Lot<T> Lotter.Materialize<T>(IEnumerable<T> finiteSource)
+        Lot<T> Lotter.Materialize<T>(
+            IEnumerable<T> finiteSource)
         {
             return new ReverseLinkedListLot<T>(
                 ReverseLinkedList<T>.CreateReverse(
