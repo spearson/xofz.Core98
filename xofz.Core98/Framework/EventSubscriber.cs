@@ -9,6 +9,11 @@
             string eventName,
             Delegate handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -22,6 +27,11 @@
             string eventName,
             EventHandler handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -36,6 +46,11 @@
             EventHandler<TEventArgs> handler)
             where TEventArgs : EventArgs
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -49,6 +64,11 @@
             string eventName,
             Do handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -62,6 +82,11 @@
             string eventName,
             Do<T> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -75,6 +100,11 @@
             string eventName,
             Do<T, U> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -88,6 +118,11 @@
             string eventName,
             Do<T, U, V> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -101,6 +136,11 @@
             string eventName,
             Do<T, U, V, W> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+            
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -114,6 +154,11 @@
             string eventName,
             Delegate handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -127,6 +172,11 @@
             string eventName,
             EventHandler handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -141,6 +191,11 @@
             EventHandler<TEventArgs> handler)
             where TEventArgs : EventArgs
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -154,6 +209,11 @@
             string eventName,
             Do handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -167,6 +227,11 @@
             string eventName,
             Do<T> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -180,6 +245,11 @@
             string eventName,
             Do<T, U> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -193,6 +263,11 @@
             string eventName,
             Do<T, U, V> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)
@@ -206,6 +281,11 @@
             string eventName,
             Do<T, U, V, W> handler)
         {
+            if (handler == null)
+            {
+                return;
+            }
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)

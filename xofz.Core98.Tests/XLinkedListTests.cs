@@ -867,15 +867,12 @@
             public void Reads_the_nodes_out()
             {
                 var ll2 = new XLinkedList<object>();
-                var node1 = new XLinkedListNode<object>();
-                var node2 = new XLinkedListNode<object>();
-                var node3 = new XLinkedListNode<object>();
                 ll2.AddTail(
-                    node1);
+                    this.node1);
                 ll2.AddTail(
-                    node2);
+                    this.node2);
                 ll2.AddTail(
-                    node3);
+                    this.node3);
 
                 var e = ll2.GetNodes()
                     ?.GetEnumerator();
@@ -888,17 +885,17 @@
 
                 e.MoveNext();
                 Assert.Same(
-                    node1,
+                    this.node1,
                     e.Current);
 
                 e.MoveNext();
                 Assert.Same(
-                    node2,
+                    this.node2,
                     e.Current);
 
                 e.MoveNext();
                 Assert.Same(
-                    node3,
+                    this.node3,
                     e.Current);
 
                 Assert.False(

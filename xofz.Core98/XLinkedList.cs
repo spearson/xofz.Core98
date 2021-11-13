@@ -304,15 +304,24 @@
 
         public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
         {
-            var currentNode = this.headNode;
-            if (currentNode == null)
+            return this.readNodes(
+                this.headNode,
+                node => node?.Next);
+        }
+
+        protected virtual IEnumerable<XLinkedListNode<T>> readNodes(
+            XLinkedListNode<T> startNode,
+            Gen<XLinkedListNode<T>, XLinkedListNode<T>> readNextNode)
+        {
+            if (startNode == null)
             {
                 yield break;
             }
 
-            yield return currentNode;
+            yield return startNode;
 
-            while ((currentNode = currentNode?.Next) != null)
+            var currentNode = startNode;
+            while ((currentNode = readNextNode?.Invoke(currentNode)) != null)
             {
                 yield return currentNode;
             }
