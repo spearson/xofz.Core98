@@ -41,18 +41,7 @@
             }
 
             ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder alreadyAddedManager;
             ms = this.managers;
-            alreadyAddedManager = EH.FirstOrNull(
-                ms,
-                nmh => ReferenceEquals(
-                    manager,
-                    nmh?.Manager));
-
-            if (alreadyAddedManager != null)
-            {
-                return falsity;
-            }
 
             NamedManagerHolder sameNameHolder;
             sameNameHolder = EH.FirstOrNull(

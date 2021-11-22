@@ -309,6 +309,43 @@
                 node => node?.Next);
         }
 
+        public virtual XLinkedListNode<T> GetNode(
+            T item)
+        {
+            return this.readNode(
+                this.readNodes(
+                    this.headNode,
+                    node => node?.Next),
+                item);
+
+        }
+
+        protected virtual XLinkedListNode<T> readNode(
+            IEnumerable<XLinkedListNode<T>> nodes,
+            T item)
+        {
+            if (nodes == null)
+            {
+                return default;
+            }
+
+            var itemIsNull = item == null;
+            foreach (var node in nodes)
+            {
+                if (node == null)
+                {
+                    continue;
+                }
+
+                if (node.O?.Equals(item) ?? itemIsNull)
+                {
+                    return node;
+                }
+            }
+
+            return default;
+        }
+
         protected virtual IEnumerable<XLinkedListNode<T>> readNodes(
             XLinkedListNode<T> startNode,
             Gen<XLinkedListNode<T>, XLinkedListNode<T>> readNextNode)

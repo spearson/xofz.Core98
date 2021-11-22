@@ -41,18 +41,7 @@
             }
 
             ICollection<NamedLocatorHolder> ls;
-            NamedLocatorHolder alreadyAddedLocator;
             ls = this.locators;
-            alreadyAddedLocator = EH.FirstOrNull(
-                ls,
-                locatorHolder => ReferenceEquals(
-                    locator,
-                    locatorHolder?.Locator));
-
-            if (alreadyAddedLocator != null)
-            {
-                return falsity;
-            }
 
             NamedLocatorHolder sameNameHolder;
             sameNameHolder = EH.FirstOrNull(

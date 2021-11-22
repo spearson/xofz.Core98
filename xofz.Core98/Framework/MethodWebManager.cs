@@ -37,16 +37,6 @@
             }
 
             var ws = this.webs;
-            var alreadyAddedWeb = EH.FirstOrNull(
-                ws,
-                webHolder => ReferenceEquals(
-                    web,
-                    webHolder?.Web));
-            if (alreadyAddedWeb != null)
-            {
-                return falsity;
-            }
-
             if (EH.Contains(
                 EH.Select(
                     ws, 

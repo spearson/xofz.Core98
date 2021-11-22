@@ -59,22 +59,9 @@
             }
 
             ICollection<NamedMethodWebHolder> ws;
-            NamedMethodWebHolder alreadyAddedWeb;
             lock (this.locker)
             {
                 ws = this.webs;
-                alreadyAddedWeb = EH.FirstOrNull(
-                    ws,
-                    webHolder => ReferenceEquals(web, webHolder?.Web));
-            }
-
-            if (alreadyAddedWeb != null)
-            {
-                return falsity;
-            }
-
-            lock (this.locker)
-            {
                 if (EH.Contains(
                     EH.Select(
                         ws,

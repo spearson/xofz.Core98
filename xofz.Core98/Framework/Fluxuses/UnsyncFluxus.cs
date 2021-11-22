@@ -41,18 +41,7 @@
             }
 
             ICollection<NamedLeechHolder> ls;
-            NamedLeechHolder alreadyAddedLeech;
             ls = this.leeches;
-            alreadyAddedLeech = EH.FirstOrNull(
-                ls,
-                leechHolder => ReferenceEquals(
-                    leech,
-                    leechHolder?.Leech));
-
-            if (alreadyAddedLeech != null)
-            {
-                return falsity;
-            }
 
             NamedLeechHolder sameNameHolder;
             lock (this.locker)

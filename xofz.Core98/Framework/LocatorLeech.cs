@@ -65,25 +65,10 @@
             }
 
             ICollection<NamedLocatorHolder> ls;
-            NamedLocatorHolder alreadyAddedLocator;
-            lock (this.locker)
-            {
-                ls = this.locators;
-                alreadyAddedLocator = EH.FirstOrNull(
-                    ls,
-                    locatorHolder => ReferenceEquals(
-                        locator,
-                        locatorHolder?.Locator));
-            }
-
-            if (alreadyAddedLocator != null)
-            {
-                return falsity;
-            }
-
             NamedLocatorHolder sameNameHolder;
             lock (this.locker)
             {
+                ls = this.locators;
                 sameNameHolder = EH.FirstOrNull(
                         ls,
                         locatorHolder => locatorHolder?.Name == name);
