@@ -37,12 +37,9 @@
             get
             {
                 var ll = this.linkedList;
-                if (ll == null)
-                {
-                    return default;
-                }
-
-                return ll.Head;
+                return ll == null 
+                    ? default 
+                    : ll.Head;
             }
         }
 
@@ -51,12 +48,9 @@
             get
             {
                 var ll = this.linkedList;
-                if (ll == null)
-                {
-                    return default;
-                }
-
-                return ll.Tail;
+                return ll == null 
+                    ? default 
+                    : ll.Tail;
             }
         }
 
@@ -67,6 +61,12 @@
         public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
         {
             return this.linkedList?.GetNodes();
+        }
+
+        public virtual XLinkedListNode<T> GetNode(
+            T item)
+        {
+            return this.linkedList?.GetNode(item);
         }
 
         public virtual XLinkedListNode<T> AddHead(
@@ -108,14 +108,14 @@
             XLinkedListNode<T> node,
             T o)
         {
-            return this.linkedList.AddAfter(node, o);
+            return this.linkedList?.AddAfter(node, o);
         }
 
         public virtual XLinkedListNode<T> AddAfter(
             XLinkedListNode<T> node,
             XLinkedListNode<T> newNode)
         {
-            return this.linkedList.AddAfter(
+            return this.linkedList?.AddAfter(
                 node,
                 newNode);
         }
@@ -124,7 +124,7 @@
             XLinkedListNode<T> node,
             T o)
         {
-            return this.linkedList.AddBefore(
+            return this.linkedList?.AddBefore(
                 node,
                 o);
         }
@@ -133,9 +133,16 @@
             XLinkedListNode<T> node,
             XLinkedListNode<T> newNode)
         {
-            return this.linkedList.AddBefore(
+            return this.linkedList?.AddBefore(
                 node,
                 newNode);
+        }
+
+        public virtual XLinkedListNode<T> Add(
+            T item)
+        {
+            return this.linkedList?.AddTail(
+                item);
         }
 
         public virtual void Clear()

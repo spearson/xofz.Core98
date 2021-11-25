@@ -15,12 +15,9 @@
                     XLinkedList<XTuple<MethodWebManager, string>>.Create(
                         EnumerableHelpers.Select(
                             this.managers,
-                            man =>
-                            {
-                                return XTuple.Create(
-                                    man?.Manager,
-                                    man?.Name);
-                            })));
+                            man => XTuple.Create(
+                                man?.Manager,
+                                man?.Name))));
             }
 
             return ms;

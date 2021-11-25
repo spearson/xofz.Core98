@@ -15,12 +15,9 @@
                     XLinkedList<XTuple<MethodWeb, string>>.Create(
                         EnumerableHelpers.Select(
                             this.webs,
-                            webHolder =>
-                            {
-                                return XTuple.Create(
-                                    webHolder.Web,
-                                    webHolder.Name);
-                            })));
+                            webHolder => XTuple.Create(
+                                webHolder?.Web,
+                                webHolder?.Name))));
             }
 
             return ws;

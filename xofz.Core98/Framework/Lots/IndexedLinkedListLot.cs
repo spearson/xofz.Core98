@@ -41,6 +41,12 @@
             }
         }
 
+        public virtual XLinkedListNode<T> GetNode(
+            long index)
+        {
+            return this.ill?.GetNode(index);
+        }
+
         protected readonly IndexedLinkedList<T> ill;
     }
 }

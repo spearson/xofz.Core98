@@ -1,7 +1,9 @@
 ﻿namespace xofz.Framework.MethodWebManagers
 {
     using System.Collections.Generic;
+    using xofz.Framework.Computation;
     using xofz.Framework.Lots;
+    using EH = EnumerableHelpers;
 
     public class ShufflingManager
         : MethodWebManagerV2, System.IComparable
@@ -32,16 +34,15 @@
         public virtual MethodWeb Shuffle()
         {
             var matchingWebs = this.shuffleWebs();
-            return EnumerableHelpers.FirstOrDefault(
-                    matchingWebs)?.
-                Web;
+            return EH.FirstOrNull(
+                matchingWebs)?.Web;
         }
 
         public virtual T Shuffle<T>()
             where T : MethodWeb
         {
             foreach (var webHolder in this.shuffleWebs()
-                                      ?? EnumerableHelpers.Empty<NamedMethodWebHolder>())
+                                      ?? EH.Empty<NamedMethodWebHolder>())
             {
                 if (webHolder?.Web is T matchingWeb)
                 {
@@ -63,32 +64,28 @@
 
         protected virtual Lot<NamedMethodWebHolder> shuffleWebs()
         {
-            ICollection<NamedMethodWebHolder> ws;
-            var matchingWebs = new ListLot<
+            var matchingWebs = new IndexedLinkedList<
                 ShufflingObject<NamedMethodWebHolder>>();
+            IEnumerable<NamedMethodWebHolder> ws;
 
             lock (this.locker)
             {
                 ws = this.webs;
-                foreach (var webHolder in ws
-                                          ?? EnumerableHelpers.
-                                              Empty<NamedMethodWebHolder>())
+                foreach (var webHolder in
+                    ws ?? EH.Empty<NamedMethodWebHolder>())
                 {
                     matchingWebs?.Add(
                         new ShufflingObject<NamedMethodWebHolder>(
-                            new NamedMethodWebHolder
-                            {
-                                Web = webHolder?.Web,
-                                Name = webHolder?.Name
-                            }));
+                            webHolder));
                 }
             }
 
-            matchingWebs?.Sort();
+            var sorter = new QuickSorter();
+            sorter?.SortV2(matchingWebs);
 
-            return new XLinkedListLot<NamedMethodWebHolder>(
-                XLinkedList<NamedMethodWebHolder>.Create(
-                    EnumerableHelpers.Select(
+            return new IndexedLinkedListLot<NamedMethodWebHolder>(
+                IndexedLinkedList<NamedMethodWebHolder>.CreateIndexed(
+                    EH.Select(
                         matchingWebs,
                         so => so.O)));
         }

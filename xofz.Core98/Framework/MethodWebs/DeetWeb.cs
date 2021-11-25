@@ -15,12 +15,9 @@
                     XLinkedList<XTuple<object, string>>.Create(
                         EnumerableHelpers.Select(
                             this.dependencies,
-                            dep =>
-                            {
-                                return XTuple.Create(
-                                    dep.Content,
-                                    dep.Name);
-                            })));
+                            dep => XTuple.Create(
+                                dep?.Content,
+                                dep?.Name))));
             }
 
             return ds;
