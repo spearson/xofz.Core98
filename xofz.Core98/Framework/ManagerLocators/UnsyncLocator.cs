@@ -92,11 +92,9 @@
             Do<T> accessor = null,
             string managerName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == managerName);
-
             var manager = targetHolder?.Manager as T;
             if (manager == null)
             {
@@ -110,17 +108,13 @@
         public override bool RemoveManager(
             string managerName)
         {
-            ICollection<NamedManagerHolder> ms;
-            NamedManagerHolder targetHolder;
-            bool removed;
-            ms = this.managers;
-            targetHolder = EH.FirstOrNull(
+            var ms = this.managers;
+            var targetHolder = EH.FirstOrNull(
                 ms,
                 managerHolder => managerHolder?.Name == managerName);
-            removed = ms?.Remove(targetHolder)
-                      ?? falsity;
 
-            return removed;
+            return ms?.Remove(targetHolder)
+                      ?? falsity;
         }
 
         public override T Locate<T>(
@@ -129,8 +123,7 @@
             string webName = null,
             string dependencyName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -153,8 +146,7 @@
             string tName = null,
             string uName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -181,8 +173,7 @@
             string uName = null,
             string vName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -212,8 +203,7 @@
             string vName = null,
             string wName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -246,8 +236,7 @@
             string wName = null,
             string xName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -283,8 +272,7 @@
             string xName = null,
             string yName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -323,8 +311,7 @@
             string yName = null,
             string zName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 
@@ -367,8 +354,7 @@
             string zName = null,
             string aaName = null)
         {
-            NamedManagerHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.managers,
                 managerHolder => managerHolder?.Name == locableName);
 

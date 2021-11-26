@@ -40,17 +40,9 @@
                 return falsity;
             }
 
-            ICollection<NamedLeechHolder> ls;
-            ls = this.leeches;
-
-            NamedLeechHolder sameNameHolder;
-            lock (this.locker)
-            {
-                sameNameHolder = EH.FirstOrNull(
-                        ls,
-                        leechHolder => leechHolder?.Name == name);
-            }
-
+            var sameNameHolder = EH.FirstOrNull(
+                this.leeches,
+                leechHolder => leechHolder?.Name == name);
             if (sameNameHolder != null)
             {
                 return falsity;
@@ -76,8 +68,7 @@
             Do<LocatorLeech> accessor = null,
             string leechName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 nmh => nmh?.Name == leechName);
 
@@ -95,8 +86,7 @@
             Do<T> accessor = null,
             string leechName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -113,17 +103,13 @@
         public override bool RemoveLeech(
             string leechName)
         {
-            ICollection<NamedLeechHolder> ls;
-            NamedLeechHolder targetHolder;
-            bool removed;
-            ls = this.leeches;
-            targetHolder = EH.FirstOrNull(
+            var ls = this.leeches;
+            var targetHolder = EH.FirstOrNull(
                 ls,
                 leechHolder => leechHolder?.Name == leechName);
-            removed = ls?.Remove(targetHolder)
-                      ?? falsity;
 
-            return removed;
+            return ls?.Remove(targetHolder)
+                      ?? falsity;
         }
 
         public override T Flux<T>(
@@ -134,8 +120,7 @@
             string webName = null,
             string dependencyName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -162,8 +147,7 @@
             string tName = null,
             string uName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -194,8 +178,7 @@
             string uName = null,
             string vName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -229,8 +212,7 @@
             string vName = null,
             string wName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -267,8 +249,7 @@
             string wName = null,
             string xName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -308,8 +289,7 @@
             string xName = null,
             string yName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -352,8 +332,7 @@
             string yName = null,
             string zName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
@@ -400,8 +379,7 @@
             string zName = null,
             string aaName = null)
         {
-            NamedLeechHolder targetHolder;
-            targetHolder = EH.FirstOrNull(
+            var targetHolder = EH.FirstOrNull(
                 this.leeches,
                 leechHolder => leechHolder?.Name == leechName);
 
