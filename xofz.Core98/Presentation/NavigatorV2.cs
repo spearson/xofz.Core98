@@ -70,7 +70,7 @@ namespace xofz.Presentation
         {
             if (presenter == null)
             {
-                return false;
+                return falsity;
             }
 
             lock (this.locker)
@@ -78,7 +78,7 @@ namespace xofz.Presentation
                 this.presenters?.Add(presenter);
             }
 
-            return true;
+            return truth;
         }
 
         public override bool IsRegistered<T>()
@@ -173,8 +173,7 @@ namespace xofz.Presentation
             NamedPresenter np;
             lock (this.locker)
             {
-                var matchingPresenters = EH.OfType<T>(ps);
-                foreach (var presenter in matchingPresenters)
+                foreach (var presenter in EH.OfType<T>(ps))
                 {
                     if (presenter.Name != name)
                     {
@@ -220,9 +219,8 @@ namespace xofz.Presentation
             NamedPresenter np;
             lock (this.locker)
             {
-                var matchingPresenters = EH.OfType<T>(
-                    this.presenters);
-                foreach (var presenter in matchingPresenters)
+                foreach (var presenter in EH.OfType<T>(
+                    this.presenters))
                 {
                     if (presenter.Name != name)
                     {
@@ -317,7 +315,5 @@ namespace xofz.Presentation
         }
 
         protected readonly object locker;
-        protected const bool
-            falsity = false;
     }
 }

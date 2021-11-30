@@ -60,7 +60,5 @@
 
             return falsity;
         }
-
-        protected const bool falsity = false;
     }
 }

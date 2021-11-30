@@ -6,7 +6,7 @@
     public static class EnumHelpers
     {
         public static IEnumerable<T> Iterate<T>()
-            where T : struct
+            where T : Enum
         {
             Array values;
             try

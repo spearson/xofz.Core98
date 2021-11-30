@@ -48,6 +48,7 @@
     <Compile Include="EncodingHelpers.cs" />
     <Compile Include="EnumerableHelper.cs" />
     <Compile Include="EnumerableHelpers.cs" />
+    <Compile Include="EnumHelper.cs" />
     <Compile Include="EnumHelpers.cs" />
     <Compile Include="ExceptionHelpers.cs" />
     <Compile Include="Framework\AccessController.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="ReverseLinkedList.cs" />
     <Compile Include="ShufflingObject.cs" />
     <Compile Include="Axios.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
     <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />

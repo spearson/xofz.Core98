@@ -51,11 +51,11 @@
         {
             if (presenter == null)
             {
-                return false;
+                return falsity;
             }
 
             this.presenters?.Add(presenter);
-            return true;
+            return truth;
         }
 
         public virtual bool IsRegistered<T>()
@@ -101,8 +101,8 @@
             where T : NamedPresenter
         {
             var ps = this.presenters;
-            var matchingPresenters = EH.OfType<T>(ps);
-            foreach (var presenter in matchingPresenters)
+            foreach (var presenter in EH.OfType<T>(
+                ps))
             {
                 if (presenter.Name != name)
                 {
@@ -137,9 +137,8 @@
             string name)
             where T : NamedPresenter
         {
-            var matchingPresenters = EH.OfType<T>(
-                this.presenters);
-            foreach (var presenter in matchingPresenters)
+            foreach (var presenter in EH.OfType<T>(
+                this.presenters))
             {
                 if (presenter.Name != name)
                 {
@@ -255,5 +254,9 @@
         protected readonly ICollection<Presenter> presenters;
         protected readonly MethodRunner runner;
         protected readonly Do<Presenter> startPresenter;
+
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

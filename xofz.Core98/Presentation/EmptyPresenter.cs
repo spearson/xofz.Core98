@@ -6,6 +6,11 @@
     public sealed class EmptyPresenter
         : Presenter
     {
+        public EmptyPresenter()
+            : base(null, null)
+        {
+        }
+
         public EmptyPresenter(
             MethodRunner runner)
             : base(null, null)
