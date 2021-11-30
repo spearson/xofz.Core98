@@ -110,6 +110,7 @@
     <Compile Include="Nameable.cs" />
     <Compile Include="Presentation\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
+    <Compile Include="Presentation\Navigators\UnsyncNavigator.cs" />
     <Compile Include="ReverseLinkedList.cs" />
     <Compile Include="ShufflingObject.cs" />
     <Compile Include="Axios.cs" />

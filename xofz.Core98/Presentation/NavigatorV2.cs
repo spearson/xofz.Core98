@@ -107,17 +107,15 @@ namespace xofz.Presentation
             where T : Presenter
         {
             var ps = this.presenters;
-            bool unregistered = falsity;
             lock (this.locker)
             {
                 foreach (var p in EH.OfType<T>(ps))
                 {
-                    unregistered = ps.Remove(p);
-                    break;
+                    return ps.Remove(p);
                 }
             }
 
-            return unregistered;
+            return falsity;
         }
 
         public virtual bool Unregister<T>(
@@ -125,7 +123,6 @@ namespace xofz.Presentation
             where T : NamedPresenter
         {
             var ps = this.presenters;
-            bool unregistered = falsity;
             lock (this.locker)
             {
                 foreach (var p in EH.OfType<T>(ps))
@@ -135,12 +132,11 @@ namespace xofz.Presentation
                         continue;
                     }
 
-                    unregistered = ps.Remove(p);
-                    break;
+                    return ps.Remove(p);
                 }
             }
 
-            return unregistered;
+            return falsity;
         }
 
         public override void Present<T>()
