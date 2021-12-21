@@ -39,12 +39,9 @@
             get
             {
                 var head = this.headNode;
-                if (head == null)
-                {
-                    return default;
-                }
-
-                return head.O;
+                return head == null 
+                    ? default 
+                    : head.O;
             }
         }
 
@@ -53,12 +50,9 @@
             get
             {
                 var tail = this.tailNode;
-                if (tail == null)
-                {
-                    return default;
-                }
-
-                return tail.O;
+                return tail == null 
+                    ? default 
+                    : tail.O;
             }
         }
 
@@ -155,7 +149,7 @@
                 return truth;
             }
 
-            while ((currentNode = currentNode?.Next) != null)
+            while ((currentNode = currentNode.Next) != null)
             {
                 if (!this.nodeContains(currentNode, item))
                 {
@@ -164,20 +158,22 @@
 
                 var currentPrev = currentNode.Previous;
                 currentNext = currentNode.Next;
-                if (currentPrev != null)
+                var nextNull = currentNext == null;
+                var prevNull = currentPrev == null;
+                if (!prevNull)
                 {
                     currentPrev.Next = currentNext;
-                    if (currentNext == null)
+                    if (nextNull)
                     {
                         this.setTail(currentPrev);
                         goto clearNextPrevious;
                     }
                 }
 
-                if (currentNext != null)
+                if (!nextNull)
                 {
                     currentNext.Previous = currentPrev;
-                    if (currentPrev == null)
+                    if (prevNull)
                     {
                         this.setHead(currentNext);
                     }
@@ -185,8 +181,10 @@
                     goto clearNextPrevious;
                 }
 
-                // tail node
-                this.setTail(currentPrev);
+                // previous and next both null;
+                // node being removed is last node in ll
+                this.Clear();
+
                 clearNextPrevious:
                 currentNode.Next = null;
                 currentNode.Previous = null;
@@ -217,14 +215,14 @@
                 if (currentNext == null)
                 {
                     this.Clear();
-                    node.Previous = null;
-                    node.Next = null;
-                    return node;
+                    goto clearNextPrevious;
                 }
 
                 this.setHead(
                     currentNext);
                 currentNext.Previous = null;
+
+                clearNextPrevious:
                 node.Previous = null;
                 node.Next = null;
                 return node;
@@ -247,13 +245,12 @@
                     {
                         currentPrev.Next = null;
                         this.setTail(currentPrev);
+                        goto clearNextPrevious;
                     }
 
-                    if (prevNull)
-                    {
-                        this.Clear();
-                    }
+                    this.Clear();
 
+                    clearNextPrevious:
                     node.Previous = null;
                     node.Next = null;
                     return node;
