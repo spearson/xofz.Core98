@@ -181,8 +181,6 @@
                     goto clearNextPrevious;
                 }
 
-                // previous and next both null;
-                // node being removed is last node in ll
                 this.Clear();
 
                 clearNextPrevious:
@@ -463,7 +461,6 @@
 
             var newTailsNext = newTail.Next;
             var newTailsPrevious = newTail.Previous;
-
             if (newTailsNext != null)
             {
                 newTailsNext.Previous = newTailsPrevious;
@@ -473,10 +470,6 @@
             {
                 newTailsPrevious.Next = newTailsNext;
             }
-
-            newTail.Next = null;
-            newTail.Previous = currentTail;
-            this.setTail(newTail);
 
             if (newTail == currentHead)
             {
@@ -488,6 +481,10 @@
                     currentHeadsNext.Previous = null;
                 }
             }
+
+            newTail.Next = null;
+            newTail.Previous = currentTail;
+            this.setTail(newTail);
 
             return newTail;
         }
@@ -698,7 +695,6 @@
                 oldHead.Previous = null;
             }
 
-
             return oldHead;
         }
 
@@ -735,7 +731,7 @@
             var currentNode = this.headNode;
             if (currentNode == null)
             {
-                return null;
+                return currentNode;
             }
 
             bool oIsNull = o == null;
@@ -761,7 +757,7 @@
             var currentNode = this.tailNode;
             if (currentNode == null)
             {
-                return null;
+                return currentNode;
             }
 
             bool oIsNull = o == null;
@@ -844,12 +840,9 @@
                 get
                 {
                     var c = this.currentNode;
-                    if (c == null)
-                    {
-                        return default;
-                    }
-
-                    return c.O;
+                    return c == null 
+                        ? default 
+                        : c.O;
                 }
             }
 
