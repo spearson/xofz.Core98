@@ -180,6 +180,9 @@
             this.setHead(nodeNext);
 
             finish:
+            node.Next = null;
+            node.Previous = null;
+
             return node;
         }
 
@@ -546,7 +549,10 @@
             newHead.Previous = null;
             this.setHead(newHead);
 
-            return newHead;
+            oldHead.Next = null;
+            oldHead.Previous = null;
+
+            return oldHead;
         }
 
         public virtual XLinkedListNode<T> RemoveTail()
@@ -568,7 +574,10 @@
             newTail.Next = null;
             this.setTail(newTail);
 
-            return newTail;
+            oldTail.Next = null;
+            oldTail.Previous = null;
+
+            return oldTail;
         }
 
         public virtual XLinkedListNode<T> Find(
