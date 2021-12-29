@@ -23,22 +23,20 @@
                     return default;
                 }
 
-                var h = this.headNode;
-                long currentIndex = zero;
-                if (currentIndex == index)
+                var result = this.headNode;
+                if (index == zero)
                 {
-                    return h == null
-                        ? default
-                        : h.O;
+                    goto finish;
                 }
 
-                var result = h;
-                while (currentIndex < index)
+                long nodeIndex = zero;
+                while (nodeIndex < index)
                 {
-                    ++currentIndex;
+                    ++nodeIndex;
                     result = result?.Next;
                 }
 
+                finish:
                 return result == null
                     ? default
                     : result.O;
@@ -46,26 +44,25 @@
 
             set
             {
-                var h = this.headNode;
-                if (h == null || index < zero)
+                if (index < zero)
                 {
                     return;
                 }
 
-                long currentIndex = zero;
-                if (currentIndex == index)
+                var target = this.headNode;
+                if (index == zero)
                 {
-                    h.O = value;
-                    return;
+                    goto finish;
                 }
 
-                var target = h;
-                while (currentIndex < index)
+                long nodeIndex = zero;
+                while (nodeIndex < index)
                 {
-                    ++currentIndex;
+                    ++nodeIndex;
                     target = target?.Next;
                 }
 
+                finish:
                 if (target == null)
                 {
                     return;
@@ -83,28 +80,20 @@
                 return default;
             }
 
-            var currentNode = this.headNode;
-            if (currentNode == null)
+            var result = this.headNode;
+            if (index == zero)
             {
-                return currentNode;
+                return result;
             }
 
-            long currentIndex = zero;
-            if (index == currentIndex)
+            long nodeIndex = zero;
+            while (nodeIndex < index)
             {
-                return currentNode;
+                ++nodeIndex;
+                result = result?.Next;
             }
 
-            while ((currentNode = currentNode.Next) != null)
-            {
-                ++currentIndex;
-                if (currentIndex == index)
-                {
-                    return currentNode;
-                }
-            }
-
-            return default;
+            return result;
         }
     }
 }

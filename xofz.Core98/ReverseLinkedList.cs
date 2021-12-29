@@ -55,16 +55,15 @@
                 if (cn == null && !this.movedOnce)
                 {
                     cn = this.tail;
-                    this.setCurrentNode(
-                        cn);
-                    this.setMoved(
-                        truth);
+                    this.setCurrentNode(cn);
+                    this.setMoved(truth);
 
                     return cn != null;
                 }
 
                 cn = cn?.Previous;
                 this.setCurrentNode(cn);
+
                 return cn != null;
             }
 

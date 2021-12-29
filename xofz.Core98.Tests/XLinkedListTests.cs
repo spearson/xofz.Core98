@@ -1,4 +1,6 @@
-﻿namespace xofz.Tests
+﻿using System.Diagnostics;
+
+namespace xofz.Tests
 {
     using System;
     using Xunit;
@@ -255,8 +257,9 @@
                 ll2.AddHead(
                     ll2.TailN); // { 2, 1 }
                 ll2.AddHead(3); // { 3, 2, 1 }
-                ll2.AddTail(ll2.HeadN.Next); // { 3, 1, 2 }
+                ll2.AddTail(ll2.HeadN); // { 2, 1, 3 }
                 indexer = 0xFF;
+                var asserted = false;
                 foreach (var item in ll2)
                 {
                     ++indexer;
@@ -264,7 +267,7 @@
                     {
                         case 0:
                             Assert.Equal(
-                                3,
+                                2,
                                 item);
                             break;
                         case 1:
@@ -274,14 +277,49 @@
                             break;
                         case 2:
                             Assert.Equal(
-                                2,
+                                3,
                                 item);
+                            asserted = true;
                             break;
                         case 3:
                             throw new Exception(
                                 @"Should not reach here.");
                     }
                 }
+
+                Assert.True(asserted);
+                
+                ll2.AddTail(ll2.HeadN.Next); // { 2, 3, 1 }
+                indexer = 0xFF;
+                asserted = false;
+                foreach (var item in ll2)
+                {
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Equal(
+                                2,
+                                item);
+                            break;
+                        case 1:
+                            Assert.Equal(
+                                3,
+                                item);
+                            break;
+                        case 2:
+                            Assert.Equal(
+                                1,
+                                item);
+                            asserted = true;
+                            break;
+                        case 3:
+                            throw new Exception(
+                                @"Should not reach here.");
+                    }
+                }
+
+                Assert.True(asserted);
             }
         }
 
@@ -444,6 +482,10 @@
                 ll2.AddAfter(
                     ll2.TailN,
                     node);
+
+                ll2.AddAfter(
+                    ll2.TailN.Previous,
+                    ll2.TailN);
             }
 
             [Fact]
