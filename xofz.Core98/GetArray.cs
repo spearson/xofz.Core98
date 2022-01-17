@@ -12,7 +12,7 @@
     {
         public static GetArray<T> Empty<T>()
         {
-            return new ArrayLot<T>(new T[0]);
+            return new IndexedLinkedListLot<T>();
         }
     }
 }

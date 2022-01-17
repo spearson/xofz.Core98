@@ -14,13 +14,26 @@
             LogStatisticsUiV2 ui)
         {
             var r = this.runner;
-            r?.Run<Labels, UiReaderWriter>((labels, uiRW) =>
+            r?.Run<Labels>(labels =>
+            {
+                this.Apply(
+                    ui,
+                    labels);
+            });
+        }
+
+        public virtual void Apply(
+            LogStatisticsUiV2 ui,
+            Labels labels)
+        {
+            var r = this.runner;
+            r?.Run<UiReaderWriter>(uiRW =>
             {
                 uiRW.Write(
                     ui,
                     () =>
                     {
-                        if (ui == null)
+                        if (ui == null || labels == null)
                         {
                             return;
                         }

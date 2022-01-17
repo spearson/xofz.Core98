@@ -4,7 +4,7 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Login;
-    using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using xofz.UI;
 
     public class SetupLoginCommand 

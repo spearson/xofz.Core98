@@ -69,10 +69,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -82,17 +85,17 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
             var oi2 = otherTuple.Item2;
             if (ti2?.Equals(oi2) ?? oi2 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -287,10 +290,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -300,7 +306,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -310,17 +316,17 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
             var oi3 = otherTuple.Item3;
             if (ti3?.Equals(oi3) ?? oi3 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -793,10 +799,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V, W>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -806,7 +815,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -816,7 +825,7 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
@@ -826,17 +835,17 @@ namespace xofz
                 goto checkItem4;
             }
 
-            return false;
+            return falsity;
 
             checkItem4:
             var ti4 = this.Item4;
             var oi4 = otherTuple.Item4;
             if (ti4?.Equals(oi4) ?? oi4 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -900,10 +909,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V, W, X>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -913,7 +925,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -923,7 +935,7 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
@@ -933,7 +945,7 @@ namespace xofz
                 goto checkItem4;
             }
 
-            return false;
+            return falsity;
 
             checkItem4:
             var ti4 = this.Item4;
@@ -943,17 +955,17 @@ namespace xofz
                 goto checkItem5;
             }
 
-            return false;
+            return falsity;
 
             checkItem5:
             var ti5 = this.Item5;
             var oi5 = otherTuple.Item5;
             if (ti5?.Equals(oi5) ?? oi5 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -1024,10 +1036,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V, W, X, Y>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -1037,7 +1052,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -1047,7 +1062,7 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
@@ -1057,7 +1072,7 @@ namespace xofz
                 goto checkItem4;
             }
 
-            return false;
+            return falsity;
 
             checkItem4:
             var ti4 = this.Item4;
@@ -1067,7 +1082,7 @@ namespace xofz
                 goto checkItem5;
             }
 
-            return false;
+            return falsity;
 
             checkItem5:
             var ti5 = this.Item5;
@@ -1077,17 +1092,17 @@ namespace xofz
                 goto checkItem6;
             }
 
-            return false;
+            return falsity;
 
             checkItem6:
             var ti6 = this.Item6;
             var oi6 = otherTuple.Item6;
             if (ti6?.Equals(oi6) ?? oi6 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -1168,10 +1183,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V, W, X, Y, Z>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -1181,7 +1199,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -1191,7 +1209,7 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
@@ -1201,7 +1219,7 @@ namespace xofz
                 goto checkItem4;
             }
 
-            return false;
+            return falsity;
 
             checkItem4:
             var ti4 = this.Item4;
@@ -1211,7 +1229,7 @@ namespace xofz
                 goto checkItem5;
             }
 
-            return false;
+            return falsity;
 
             checkItem5:
             var ti5 = this.Item5;
@@ -1221,7 +1239,7 @@ namespace xofz
                 goto checkItem6;
             }
 
-            return false;
+            return falsity;
 
             checkItem6:
             var ti6 = this.Item6;
@@ -1231,17 +1249,17 @@ namespace xofz
                 goto checkItem7;
             }
 
-            return false;
+            return falsity;
 
             checkItem7:
             var ti7 = this.Item7;
             var oi7 = otherTuple.Item7;
             if (ti7?.Equals(oi7) ?? oi7 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;
@@ -1332,10 +1350,13 @@ namespace xofz
         public override bool Equals(
             object obj)
         {
+            const bool
+                truth = true,
+                falsity = false;
             var otherTuple = obj as XTuple<T, U, V, W, X, Y, Z, AA>;
             if (otherTuple == null)
             {
-                return false;
+                return falsity;
             }
 
             var ti1 = this.Item1;
@@ -1345,7 +1366,7 @@ namespace xofz
                 goto checkItem2;
             }
 
-            return false;
+            return falsity;
 
             checkItem2:
             var ti2 = this.Item2;
@@ -1355,7 +1376,7 @@ namespace xofz
                 goto checkItem3;
             }
 
-            return false;
+            return falsity;
 
             checkItem3:
             var ti3 = this.Item3;
@@ -1365,7 +1386,7 @@ namespace xofz
                 goto checkItem4;
             }
 
-            return false;
+            return falsity;
 
             checkItem4:
             var ti4 = this.Item4;
@@ -1375,7 +1396,7 @@ namespace xofz
                 goto checkItem5;
             }
 
-            return false;
+            return falsity;
 
             checkItem5:
             var ti5 = this.Item5;
@@ -1385,7 +1406,7 @@ namespace xofz
                 goto checkItem6;
             }
 
-            return false;
+            return falsity;
 
             checkItem6:
             var ti6 = this.Item6;
@@ -1395,7 +1416,7 @@ namespace xofz
                 goto checkItem7;
             }
 
-            return false;
+            return falsity;
 
             checkItem7:
             var ti7 = this.Item7;
@@ -1405,17 +1426,17 @@ namespace xofz
                 goto checkItem8;
             }
 
-            return false;
+            return falsity;
 
             checkItem8:
             var ti8 = this.Item8;
             var oi8 = otherTuple.Item8;
             if (ti8?.Equals(oi8) ?? oi8 == null)
             {
-                return true;
+                return truth;
             }
 
-            return false;
+            return falsity;
         }
 
         protected T one;

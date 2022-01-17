@@ -1,10 +1,11 @@
-﻿namespace xofz.Tests.Presentation
+﻿namespace xofz.Tests.Presentation.Presenters
 {
     using FakeItEasy;
     using Ploeh.AutoFixture;
     using xofz.Framework;
     using xofz.Framework.LogStatistics;
     using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using xofz.UI;
     using Xunit;
 

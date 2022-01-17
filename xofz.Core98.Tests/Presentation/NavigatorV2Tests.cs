@@ -3,6 +3,7 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using Xunit;
 
     public class NavigatorV2Tests

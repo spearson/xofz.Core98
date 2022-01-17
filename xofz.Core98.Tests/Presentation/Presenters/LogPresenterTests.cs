@@ -1,4 +1,4 @@
-﻿namespace xofz.Tests.Presentation
+﻿namespace xofz.Tests.Presentation.Presenters
 {
     using FakeItEasy;
     using Ploeh.AutoFixture;
@@ -6,6 +6,7 @@
     using xofz.Framework.Log;
     using xofz.Framework.Logging;
     using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using xofz.UI;
     using Xunit;
 

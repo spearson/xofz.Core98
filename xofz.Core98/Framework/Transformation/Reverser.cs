@@ -36,6 +36,11 @@
         {
             const byte zero = 0;
             const byte one = 1;
+            if (list == null || parallelizationCount < one)
+            {
+                return;
+            }
+            
             var c = list.Count;
             var midpoint = c / two;
             ICollection<ManualResetEvent> finishedCollection =

@@ -7,6 +7,7 @@
     using xofz.Framework;
     using xofz.Framework.Login;
     using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using Xunit;
 
     public class NavigatorTests

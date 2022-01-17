@@ -1,4 +1,4 @@
-﻿namespace xofz.Presentation
+﻿namespace xofz.Presentation.Navigators
 {
     using System.Collections.Generic;
     using xofz.Framework;

@@ -161,7 +161,7 @@
                     latch.Latch?.Reset();
                 },
                 latchName);
-            this.PresentFluidly<LoginPresenter>();
+            this.PresentFluidly<Presenters.LoginPresenter>();
             r?.Run<LatchHolder>(
                 latch =>
                 {

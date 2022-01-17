@@ -1,4 +1,4 @@
-﻿namespace xofz.Presentation
+﻿namespace xofz.Presentation.Presenters
 {
     using System.Threading;
     using xofz.Framework;

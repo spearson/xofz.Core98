@@ -14,13 +14,27 @@
             LogUiV2 ui)
         {
             var r = this.runner;
-            r?.Run<UiReaderWriter, Labels>((uiRW, labels) =>
+            r?.Run<Labels>(labels =>
+            {
+                this.Apply(
+                    ui,
+                    labels);
+            });
+            
+        }
+
+        public virtual void Apply(
+            LogUiV2 ui,
+            Labels labels)
+        {
+            var r = this.runner;
+            r?.Run<UiReaderWriter>((uiRW) =>
             {
                 uiRW.Write(
                     ui,
                     () =>
                     {
-                        if (ui == null)
+                        if (ui == null || labels == null)
                         {
                             return;
                         }

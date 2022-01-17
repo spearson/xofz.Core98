@@ -1,9 +1,10 @@
-﻿namespace xofz.Tests.Presentation
+﻿namespace xofz.Tests.Presentation.Presenters
 {
     using FakeItEasy;
     using xofz.Framework;
     using xofz.Framework.Main;
     using xofz.Presentation;
+    using xofz.Presentation.Presenters;
     using xofz.UI;
     using Xunit;
 

@@ -24,11 +24,6 @@
                 }
 
                 var result = this.headNode;
-                if (index == zero)
-                {
-                    goto finish;
-                }
-
                 long nodeIndex = zero;
                 while (nodeIndex < index)
                 {
@@ -36,7 +31,6 @@
                     result = result?.Next;
                 }
 
-                finish:
                 return result == null
                     ? default
                     : result.O;
@@ -50,11 +44,6 @@
                 }
 
                 var target = this.headNode;
-                if (index == zero)
-                {
-                    goto finish;
-                }
-
                 long nodeIndex = zero;
                 while (nodeIndex < index)
                 {
@@ -62,7 +51,6 @@
                     target = target?.Next;
                 }
 
-                finish:
                 if (target == null)
                 {
                     return;
@@ -81,11 +69,6 @@
             }
 
             var result = this.headNode;
-            if (index == zero)
-            {
-                return result;
-            }
-
             long nodeIndex = zero;
             while (nodeIndex < index)
             {

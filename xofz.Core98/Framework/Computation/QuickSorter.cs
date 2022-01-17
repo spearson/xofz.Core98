@@ -198,6 +198,26 @@
             long right)
             where T : IComparable
         {
+            if (ll == null)
+            {
+                return;
+            }
+
+            if (left < zero)
+            {
+                return;
+            }
+
+            if (right < zero)
+            {
+                return;
+            }
+
+            if (left >= right)
+            {
+                return;
+            }
+
             var l = ll.Count;
             var lengthDownOne = l - one;
             if (left > lengthDownOne)
