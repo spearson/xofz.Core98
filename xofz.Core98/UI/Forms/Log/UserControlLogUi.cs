@@ -1,9 +1,10 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.Log
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows.Forms;
+    using xofz.UI.Log;
 
     public partial class UserControlLogUi 
         : UserControlUi, LogUiV4
@@ -39,6 +40,10 @@
         public virtual event Do ResetContentKeyTapped;
 
         public virtual event Do ResetTypeKeyTapped;
+
+        public virtual event Do NewestKeyTapped;
+
+        public virtual event Do OldestKeyTapped;
 
         void LogUiV3.FocusEntries()
         {
@@ -168,7 +173,13 @@
         void LogUi.AddToTop(
             XTuple<string, string, string> entry)
         {
-            this.entriesGrid.Rows.Insert(0,
+            if (entry == null)
+            {
+                return;
+            }
+
+            this.entriesGrid.Rows.Insert(
+                zero,
                 entry.Item1,
                 entry.Item2,
                 entry.Item3);
@@ -263,23 +274,23 @@
             get
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 1)
+                if (columns.Count < one)
                 {
                     return null;
                 }
 
-                return columns[0].HeaderText;
+                return columns[zero].HeaderText;
             }
 
             set
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 1)
+                if (columns.Count < one)
                 {
                     return;
                 }
 
-                columns[0].HeaderText = value;
+                columns[zero].HeaderText = value;
 
             }
         }
@@ -289,23 +300,23 @@
             get
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 2)
+                if (columns.Count < two)
                 {
                     return null;
                 }
 
-                return columns[1].HeaderText;
+                return columns[one].HeaderText;
             }
 
             set
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 2)
+                if (columns.Count < two)
                 {
                     return;
                 }
 
-                columns[1].HeaderText = value;
+                columns[one].HeaderText = value;
             }
         }
 
@@ -314,23 +325,23 @@
             get
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 3)
+                if (columns.Count < three)
                 {
                     return null;
                 }
 
-                return columns[2].HeaderText;
+                return columns[two].HeaderText;
             }
 
             set
             {
                 var columns = this.entriesGrid.Columns;
-                if (columns.Count < 3)
+                if (columns.Count < three)
                 {
                     return;
                 }
 
-                columns[2].HeaderText = value;
+                columns[two].HeaderText = value;
             }
         }
 
@@ -344,6 +355,7 @@
         string LogUiV4.OldestKeyLabel
         {
             get => this.oldestKey.Text;
+
             set => this.oldestKey.Text = value;
         }
 
@@ -589,7 +601,11 @@
         }
 
         protected TextBox activeFilterTextBox;
-        public virtual event Do NewestKeyTapped;
-        public virtual event Do OldestKeyTapped;
+
+        protected const byte
+            zero = 0,
+            one = 1,
+            two = 2,
+            three = 3;
     }
 }

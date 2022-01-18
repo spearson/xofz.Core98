@@ -6,6 +6,7 @@
     using xofz.Framework.LogEditor;
     using xofz.Framework.Logging;
     using xofz.UI;
+    using xofz.UI.LogEditor;
     using Xunit;
 
     public class AddKeyTappedHandlerTests

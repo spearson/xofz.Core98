@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.LogEditor
 {
     public interface LogEditorUiV2
         : LogEditorUi

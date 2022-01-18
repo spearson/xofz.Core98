@@ -4,7 +4,6 @@
     using System.Drawing;
     using System.Threading;
     using System.Windows.Forms;
-    using xofz.UI;
 
     public partial class UserControlToggleUi 
         : UserControlUi, ToggleUiV2

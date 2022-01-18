@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using xofz.UI;
+    using xofz.UI.Log;
 
     public class FilterTextChangedHandler
     {

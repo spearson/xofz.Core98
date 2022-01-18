@@ -3,6 +3,7 @@
     using System;
     using xofz.Framework.Logging;
     using xofz.UI;
+    using xofz.UI.LogStatistics;
 
     public class DateResetter
     {

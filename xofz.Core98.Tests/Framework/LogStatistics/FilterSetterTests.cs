@@ -6,6 +6,7 @@
     using xofz.Framework.Logging;
     using xofz.Framework.LogStatistics;
     using xofz.UI;
+    using xofz.UI.LogStatistics;
     using Xunit;
 
     public class FilterSetterTests

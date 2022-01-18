@@ -1,6 +1,7 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
     using xofz.UI;
+    using xofz.UI.LogStatistics;
 
     public class ResetContentKeyTappedHandler
     {

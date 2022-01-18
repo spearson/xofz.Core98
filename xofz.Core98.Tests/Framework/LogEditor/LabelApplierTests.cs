@@ -4,6 +4,7 @@
     using xofz.Framework;
     using xofz.Framework.LogEditor;
     using xofz.UI;
+    using xofz.UI.LogEditor;
     using Xunit;
 
     public class LabelApplierTests

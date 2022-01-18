@@ -6,6 +6,7 @@
     using xofz.Framework;
     using xofz.Framework.Log;
     using xofz.UI;
+    using xofz.UI.Log;
     using Xunit;
 
     public class SetupHandlerTests

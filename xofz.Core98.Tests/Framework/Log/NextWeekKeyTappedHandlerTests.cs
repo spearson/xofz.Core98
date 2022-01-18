@@ -6,6 +6,8 @@
     using xofz.Framework;
     using xofz.Framework.Log;
     using xofz.UI;
+    using xofz.UI.Log;
+    using xofz.UI.LogStatistics;
     using Xunit;
 
     public class NextWeekKeyTappedHandlerTests

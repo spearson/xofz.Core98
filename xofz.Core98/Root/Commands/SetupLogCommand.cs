@@ -7,7 +7,10 @@
     using xofz.Framework.Lotters;
     using xofz.Presentation.Presenters;
     using xofz.UI;
-    using xofz.UI.Forms;
+    using xofz.UI.Forms.KeyPressers;
+    using xofz.UI.Log;
+    using xofz.UI.LogEditor;
+    using xofz.UI.LogStatistics;
 
     public class SetupLogCommand
         : Command

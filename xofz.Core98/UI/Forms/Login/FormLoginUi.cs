@@ -1,11 +1,11 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.Login
 {
     using System;
     using System.Drawing;
     using System.Security;
     using System.Threading;
     using System.Windows.Forms;
-    using xofz.UI;
+    using xofz.UI.Login;
 
     public partial class FormLoginUi 
         : FormUi, LoginUiV2
@@ -35,13 +35,13 @@
             this.InitializeComponent();
         }
 
-        public event Do BackspaceKeyTapped;
+        public virtual event Do BackspaceKeyTapped;
 
-        public event Do LoginKeyTapped;
+        public virtual event Do LoginKeyTapped;
 
-        public event Do CancelKeyTapped;
+        public virtual event Do CancelKeyTapped;
 
-        public event Do KeyboardKeyTapped;
+        public virtual event Do KeyboardKeyTapped;
 
         string LoginUiV2.PasswordLabel
         {
@@ -133,9 +133,12 @@
 
         void LoginUi.FocusPassword()
         {
+            const byte zero = 0;
             var ptb = this.passwordTextBox;
             ptb.Focus();
-            ptb.Select(ptb.Text.Length, 0);
+            ptb.Select(
+                ptb.Text.Length, 
+                zero);
         }
 
         AccessLevel LoginUi.CurrentAccessLevel

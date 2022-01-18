@@ -1,9 +1,10 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.LogEditor
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows.Forms;
+    using xofz.UI.LogEditor;
 
     public partial class FormLogEditorUi 
         : FormUi, LogEditorUiV2
@@ -99,7 +100,7 @@
             {
                 ICollection<string> contentCollection =
                     new XLinkedList<string>();
-                var lines = this.contentTextBox.Lines;
+                var lines = this.contentTextBox?.Lines;
                 if (lines == null)
                 {
                     return contentCollection;
@@ -116,6 +117,11 @@
             set
             {
                 var ctb = this.contentTextBox;
+                if (ctb == null)
+                {
+                    return;
+                }
+
                 ctb.Clear();
                 if (value == null)
                 {

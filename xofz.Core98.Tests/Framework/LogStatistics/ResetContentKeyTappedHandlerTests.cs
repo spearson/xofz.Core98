@@ -5,6 +5,7 @@
     using xofz.Framework;
     using xofz.Framework.LogStatistics;
     using xofz.UI;
+    using xofz.UI.LogStatistics;
     using Xunit;
 
     public class ResetContentKeyTappedHandlerTests

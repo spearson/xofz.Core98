@@ -1,14 +1,14 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.KeyPressers
 {
     using System.Windows.Forms;
 
-    public sealed class GeneralKeyPresser
+    public sealed class FormsKeyPresser
         : KeyPresser
     {
         void KeyPresser.Press(
             string keys)
         {
-            SendKeys.SendWait(keys);
+            SendKeys.Send(keys);
         }
     }
 }

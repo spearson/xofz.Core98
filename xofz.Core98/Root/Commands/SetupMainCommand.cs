@@ -3,7 +3,7 @@
     using xofz.Framework;
     using xofz.Framework.Main;
     using xofz.Presentation.Presenters;
-    using xofz.UI;
+    using xofz.UI.Main;
 
     public class SetupMainCommand 
         : Command

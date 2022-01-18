@@ -2,6 +2,7 @@
 {
     using xofz.Framework.Logging;
     using xofz.UI;
+    using xofz.UI.LogEditor;
 
     public class AddKeyTappedHandler
     {

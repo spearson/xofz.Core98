@@ -1,6 +1,6 @@
 ﻿namespace xofz.Framework.Main
 {
-    using xofz.UI;
+    using xofz.UI.Main;
 
     public class ShutdownRequestedHandler
     {

@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.Log
 {
     public interface LogUiV4
         : LogUiV3

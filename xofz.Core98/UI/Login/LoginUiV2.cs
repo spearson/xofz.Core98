@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.Login
 {
     public interface LoginUiV2
         : LoginUi

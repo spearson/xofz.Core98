@@ -9,6 +9,9 @@
     using xofz.Framework.Logging.Logs;
     using xofz.Root.Commands;
     using xofz.UI;
+    using xofz.UI.Log;
+    using xofz.UI.LogEditor;
+    using xofz.UI.LogStatistics;
     using Xunit;
 
     public class SetupLogCommandTests

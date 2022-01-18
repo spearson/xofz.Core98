@@ -1,6 +1,8 @@
 ﻿namespace xofz.Framework.Log
 {
     using xofz.UI;
+    using xofz.UI.Log;
+    using xofz.UI.LogStatistics;
 
     public class NextWeekKeyTappedHandler
     {

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using xofz.Framework.Logging;
     using xofz.UI;
+    using xofz.UI.Log;
 
     public class EntryReloader
     {

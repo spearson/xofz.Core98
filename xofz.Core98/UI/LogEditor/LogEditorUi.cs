@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.LogEditor
 {
     using System.Collections.Generic;
 

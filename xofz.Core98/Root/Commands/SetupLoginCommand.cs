@@ -5,7 +5,7 @@
     using xofz.Framework;
     using xofz.Framework.Login;
     using xofz.Presentation.Presenters;
-    using xofz.UI;
+    using xofz.UI.Login;
 
     public class SetupLoginCommand 
         : Command

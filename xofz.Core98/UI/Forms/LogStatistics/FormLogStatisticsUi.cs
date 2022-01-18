@@ -1,8 +1,9 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.LogStatistics
 {
     using System;
     using System.Threading;
     using System.Windows.Forms;
+    using xofz.UI.LogStatistics;
 
     public partial class FormLogStatisticsUi 
         : FormUi, LogStatisticsUiV2
@@ -276,7 +277,7 @@
             this.Show(s);
         }
 
-        private void overallKey_Click(
+        protected virtual void overallKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -290,7 +291,7 @@
                 o => okt.Invoke());
         }
 
-        private void rangeKey_Click(
+        protected virtual void rangeKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -304,7 +305,7 @@
                 o => rkt.Invoke());
         }
 
-        private void hideKey_Click(
+        protected virtual void hideKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -318,7 +319,7 @@
                 o => hkt.Invoke());
         }
 
-        private void resetContentKey_Click(
+        protected virtual void resetContentKey_Click(
             object sender, 
             EventArgs e)
         {
@@ -332,7 +333,7 @@
                 o => rckt.Invoke());
         }
 
-        private void resetTypeKey_Click(
+        protected virtual void resetTypeKey_Click(
             object sender,
             EventArgs e)
         {

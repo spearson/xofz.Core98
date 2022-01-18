@@ -8,6 +8,7 @@
     using xofz.Presentation;
     using xofz.Presentation.Presenters;
     using xofz.UI;
+    using xofz.UI.Log;
     using Xunit;
 
     public class LogPresenterTests

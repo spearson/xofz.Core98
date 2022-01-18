@@ -3,7 +3,7 @@
     using FakeItEasy;
     using xofz.Framework;
     using xofz.Framework.Main;
-    using xofz.UI;
+    using xofz.UI.Main;
     using Xunit;
 
     public class ShutdownRequestedHandlerTests

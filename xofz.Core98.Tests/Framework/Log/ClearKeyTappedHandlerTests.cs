@@ -7,6 +7,7 @@
     using xofz.Framework.Log;
     using xofz.Framework.Logging;
     using xofz.UI;
+    using xofz.UI.Log;
     using Xunit;
 
     public class ClearKeyTappedHandlerTests

@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.LogStatistics
 {
     public interface LogStatisticsUiV2
         : LogStatisticsUi, LabeledUi

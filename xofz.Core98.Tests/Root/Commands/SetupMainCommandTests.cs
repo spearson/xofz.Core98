@@ -4,7 +4,7 @@
     using xofz.Framework;
     using xofz.Framework.Main;
     using xofz.Root.Commands;
-    using xofz.UI;
+    using xofz.UI.Main;
     using Xunit;
 
     public class SetupMainCommandTests

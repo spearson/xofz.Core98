@@ -1,4 +1,4 @@
-﻿namespace xofz.UI
+﻿namespace xofz.UI.Main
 {
     public interface MainUi 
         : Ui

@@ -3,7 +3,7 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Main;
-    using xofz.UI;
+    using xofz.UI.Main;
 
     public sealed class MainPresenter 
         : Presenter

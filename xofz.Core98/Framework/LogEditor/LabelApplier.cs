@@ -1,6 +1,7 @@
 ﻿namespace xofz.Framework.LogEditor
 {
     using xofz.UI;
+    using xofz.UI.LogEditor;
 
     public class LabelApplier
     {

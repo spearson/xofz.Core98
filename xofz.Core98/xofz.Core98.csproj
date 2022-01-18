@@ -116,7 +116,7 @@
     <Compile Include="ShufflingObject.cs" />
     <Compile Include="Axios.cs" />
     <Compile Include="StringHelper.cs" />
-    <Compile Include="UI\Forms\GeneralKeyPresser.cs" />
+    <Compile Include="UI\Forms\KeyPressers\GeneralKeyPresser.cs" />
     <Compile Include="UI\KeyPresser.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandler.cs" />
     <Compile Include="Framework\LogEditor\LabelApplier.cs" />
@@ -248,13 +248,13 @@
     <Compile Include="Framework\Transformation\Striker.cs" />
     <Compile Include="Framework\Transformation\Translator.cs" />
     <Compile Include="Root\Commands\SetupAccessCommand.cs" />
-    <Compile Include="UI\Forms\FormsKeyPresser.cs" />
-    <Compile Include="UI\LogEditorUiV2.cs" />
-    <Compile Include="UI\LoginUiV2.cs" />
-    <Compile Include="UI\LogStatisticsUiV2.cs" />
-    <Compile Include="UI\LogUiV2.cs" />
-    <Compile Include="UI\LogUiV3.cs" />
-    <Compile Include="UI\LogUiV4.cs" />
+    <Compile Include="UI\Forms\KeyPressers\FormsKeyPresser.cs" />
+    <Compile Include="UI\LogEditor\LogEditorUiV2.cs" />
+    <Compile Include="UI\Login\LoginUiV2.cs" />
+    <Compile Include="UI\LogStatistics\LogStatisticsUiV2.cs" />
+    <Compile Include="UI\Log\LogUiV2.cs" />
+    <Compile Include="UI\Log\LogUiV3.cs" />
+    <Compile Include="UI\Log\LogUiV4.cs" />
     <Compile Include="UI\ToggleUiV2.cs" />
     <Compile Include="UI\UiHelper.cs" />
     <Compile Include="UI\UiReaderWriter.cs" />
@@ -286,51 +286,51 @@
     <Compile Include="UI\Forms\ControlUi.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormLogEditorUi.cs">
+    <Compile Include="UI\Forms\LogEditor\FormLogEditorUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormLogEditorUi.Designer.cs">
+    <Compile Include="UI\Forms\LogEditor\FormLogEditorUi.Designer.cs">
       <DependentUpon>FormLogEditorUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormLoginUi.cs">
+    <Compile Include="UI\Forms\Login\FormLoginUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormLoginUi.designer.cs">
+    <Compile Include="UI\Forms\Login\FormLoginUi.designer.cs">
       <DependentUpon>FormLoginUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormLogStatisticsUi.cs">
+    <Compile Include="UI\Forms\LogStatistics\FormLogStatisticsUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\FormLogStatisticsUi.Designer.cs">
+    <Compile Include="UI\Forms\LogStatistics\FormLogStatisticsUi.Designer.cs">
       <DependentUpon>FormLogStatisticsUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\FormsMessenger.cs" />
-    <Compile Include="UI\Forms\FormsUiMessagePumper.cs" />
+    <Compile Include="UI\Forms\Messengers\FormsMessenger.cs" />
+    <Compile Include="UI\Forms\UiMessagePumpers\FormsUiMessagePumper.cs" />
     <Compile Include="UI\Forms\FormUi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DialogCenterer.cs" />
-    <Compile Include="UI\Forms\UserControlLogUi.cs">
+    <Compile Include="UI\Forms\Messengers\DialogCenterer.cs" />
+    <Compile Include="UI\Forms\Log\UserControlLogUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\UserControlLogUi.designer.cs">
+    <Compile Include="UI\Forms\Log\UserControlLogUi.designer.cs">
       <DependentUpon>UserControlLogUi.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\UserControlToggleUi.cs">
+    <Compile Include="UI\Forms\ToggleUis\UserControlToggleUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Forms\UserControlToggleUi.designer.cs">
+    <Compile Include="UI\Forms\ToggleUis\UserControlToggleUi.designer.cs">
       <DependentUpon>UserControlToggleUi.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\UserControlUi.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UI\LabeledUi.cs" />
-    <Compile Include="UI\LogEditorUi.cs" />
-    <Compile Include="UI\LoginUi.cs" />
-    <Compile Include="UI\LogStatisticsUi.cs" />
-    <Compile Include="UI\LogUi.cs" />
-    <Compile Include="UI\MainUi.cs" />
+    <Compile Include="UI\LogEditor\LogEditorUi.cs" />
+    <Compile Include="UI\Login\LoginUi.cs" />
+    <Compile Include="UI\LogStatistics\LogStatisticsUi.cs" />
+    <Compile Include="UI\Log\LogUi.cs" />
+    <Compile Include="UI\Main\MainUi.cs" />
     <Compile Include="UI\Messenger.cs" />
     <Compile Include="UI\MinimizableUi.cs" />
     <Compile Include="UI\PopupUi.cs" />
@@ -344,22 +344,22 @@
     <Compile Include="UI\UiMessagePumper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\Forms\FormLogEditorUi.resx">
+    <EmbeddedResource Include="UI\Forms\LogEditor\FormLogEditorUi.resx">
       <DependentUpon>FormLogEditorUi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormLoginUi.resx">
+    <EmbeddedResource Include="UI\Forms\Login\FormLoginUi.resx">
       <DependentUpon>FormLoginUi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\FormLogStatisticsUi.resx">
+    <EmbeddedResource Include="UI\Forms\LogStatistics\FormLogStatisticsUi.resx">
       <DependentUpon>FormLogStatisticsUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FormUi.resx">
       <DependentUpon>FormUi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\UserControlLogUi.resx">
+    <EmbeddedResource Include="UI\Forms\Log\UserControlLogUi.resx">
       <DependentUpon>UserControlLogUi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\UserControlToggleUi.resx">
+    <EmbeddedResource Include="UI\Forms\ToggleUis\UserControlToggleUi.resx">
       <DependentUpon>UserControlToggleUi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\UserControlUi.resx">

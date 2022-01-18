@@ -6,73 +6,27 @@
             Ui ui,
             Gen<T> read)
         {
-            if (read == null)
-            {
-                return default;
-            }
-
-            var root = ui?.Root;
-            if (root == null)
-            {
-                return default;
-            }
-
-            if (root.InvokeRequired)
-            {
-                T t = default;
-                root.Invoke((Do)(() => t = read()), null);
-                return t;
-            }
-
-            return read();
+            return UiHelpers.Read(
+                ui,
+                read);
         }
 
         public virtual void Write(
             Ui ui,
             Do write)
         {
-            if (write == null)
-            {
-                return;
-            }
-
-            var root = ui?.Root;
-            if (root == null)
-            {
-                return;
-            }
-
-            if (root.InvokeRequired)
-            {
-                root.BeginInvoke(write, null);
-                return;
-            }
-
-            write();
+            UiHelpers.Write(
+                ui,
+                write);
         }
 
         public virtual void WriteSync(
             Ui ui,
             Do write)
         {
-            if (write == null)
-            {
-                return;
-            }
-
-            var root = ui?.Root;
-            if (root == null)
-            {
-                return;
-            }
-
-            if (root.InvokeRequired)
-            {
-                root.Invoke(write, null);
-                return;
-            }
-
-            write();
+            UiHelpers.WriteSync(
+                ui,
+                write);
         }
     }
 }
