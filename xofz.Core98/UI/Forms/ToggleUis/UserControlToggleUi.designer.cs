@@ -1,4 +1,4 @@
-﻿namespace xofz.UI.Forms
+﻿namespace xofz.UI.Forms.ToggleUis
 {
     partial class UserControlToggleUi
     {
