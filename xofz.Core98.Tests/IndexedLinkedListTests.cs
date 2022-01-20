@@ -106,6 +106,17 @@
                 Assert.Equal(
                     3,
                     this.ll.IndexOf(newObj4));
+
+                var newObj5 = new object();
+                this.ll.Insert(
+                    4,
+                    newObj5);
+                Assert.Equal(
+                    4,
+                    this.ll.IndexOf(newObj5));
+                Assert.Same(
+                    newObj5,
+                    this.ll.TailN.O);
             }
         }
     }

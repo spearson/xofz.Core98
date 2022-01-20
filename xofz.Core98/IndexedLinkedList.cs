@@ -113,8 +113,20 @@
             int index,
             T item)
         {
-            this.AddBefore(
-                this.GetNode(index),
+            if (index < zero)
+            {
+                return;
+            }
+
+            if (index == zero)
+            {
+                this.AddHead(
+                    item);
+                return;
+            }
+
+            this.AddAfter(
+                this.GetNode(index - one),
                 item);
         }
 
@@ -131,5 +143,7 @@
 
             set => this[(long) index] = value;
         }
+
+        protected const byte one = 1;
     }
 }
