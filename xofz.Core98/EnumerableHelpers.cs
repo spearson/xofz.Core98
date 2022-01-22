@@ -1533,18 +1533,16 @@
                 yield break;
             }
 
-            var set = new xofz.Framework.Lots.SetLot<T>();
-            foreach (var exception in finiteExceptions)
-            {
-                set.Add(exception);
-            }
-
+            var exceptions = XLinkedList<T>.Create(
+                finiteExceptions);
             foreach (var item in finiteSource)
             {
-                if (set.Add(item))
+                if (exceptions.Contains(item))
                 {
-                    yield return item;
+                    continue;
                 }
+
+                yield return item;
             }
         }
 

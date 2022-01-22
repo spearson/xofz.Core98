@@ -199,6 +199,25 @@
             }
         }
 
+        public class When_Except_is_called : Context
+        {
+            [Fact]
+            public void Works_properly()
+            {
+                var testString = @"0 19722 08233 1 ";
+                Assert.Equal(
+                    @"019722082331",
+                    new string(
+                        EH.ToArray(
+                            EH.Except(
+                                testString,
+                                new[]
+                                {
+                                    ' '
+                                }))));
+            }
+        }
+
         protected const byte zero = 0;
         protected const byte one = 1;
     }
