@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace xofz.Tests
+﻿namespace xofz.Tests
 {
     using System;
     using Xunit;
@@ -64,11 +62,46 @@ namespace xofz.Tests
             [Fact]
             public void Adds_a_head_node()
             {
-                this.ll.AddHead(
-                    (object)null);
+                var xll = new XLinkedList<object>();
+                var head = new XLinkedListNode<object>
+                {
+                    O = 1
+                };
+                xll.AddHead(
+                    head);
 
                 Assert.NotNull(
-                    this.ll.HeadN);
+                    xll.HeadN);
+
+                var tail = new XLinkedListNode<object>
+                {
+                    O = 3
+                };
+                var mid = new XLinkedListNode<object>
+                {
+                    O = 2
+                };
+
+                xll.AddTail(mid);
+                xll.AddTail(tail);
+                xll.AddHead(xll.TailN);
+                byte indexer = 0xFF;
+                foreach (var node in xll.GetNodes())
+                {
+                    ++indexer;
+                    switch (indexer)
+                    {
+                        case 0:
+                            Assert.Same(tail, node);
+                            break;
+                        case 1:
+                            Assert.Same(head, node);
+                            break;
+                        case 2:
+                            Assert.Same(mid, node);
+                            break;
+                    }
+                }
             }
 
             [Fact]
