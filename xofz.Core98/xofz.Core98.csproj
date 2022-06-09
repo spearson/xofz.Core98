@@ -280,6 +280,7 @@
     <Compile Include="Root\Commands\SetupMainCommand.cs" />
     <Compile Include="Root\Commands\SetupShutdownCommand.cs" />
     <Compile Include="StringHelpers.cs" />
+    <Compile Include="XDictionary.cs" />
     <Compile Include="XLinkedList.cs" />
     <Compile Include="XTuple.cs" />
     <Compile Include="UI\Forms\ControlHelpers.cs" />

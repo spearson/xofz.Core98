@@ -166,6 +166,7 @@
     <Compile Include="Root\Commands\SetupShutdownCommandTests.cs" />
     <Compile Include="ShufflingObjectTests.cs" />
     <Compile Include="StringHelpersTests.cs" />
+    <Compile Include="XDictionaryTests.cs" />
     <Compile Include="XLinkedListTests.cs" />
     <Compile Include="XTupleTests.cs" />
   </ItemGroup>
