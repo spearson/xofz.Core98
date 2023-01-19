@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Ploeh.AutoFixture;
+    using xofz.Framework.Transformation;
     using Xunit;
 
     public class ReverserTests

@@ -1064,24 +1064,22 @@
                 d[key]?.Add(item);
             }
             
-            var keyLL = IndexedLinkedList<TKey>.CreateIndexed(
-                d.Keys);
-            var sorter = new QuickSorter();
-            var reverser = new Reverser();
-            sorter.SortV3(
-                keyLL,
-                comparer);
+            // list used here because list.Sort() is much faster
+            // than QuickSorting an IndexedLinkedList
+            var keyList = new List<TKey>(d.Keys);
+            keyList.Sort();
 
             if (descending)
             {
-                reverser.ReverseV2(keyLL);
+                keyList.Reverse();
             }
 
             var finalLL = new IndexedLinkedList<T>();
-            foreach (var key in keyLL)
+            foreach (var key in keyList)
             {
                 finalLL.Append(d[key]);
             }
+            
             finalLL.Append(itemsWithNullKeys);
 
             return finalLL;

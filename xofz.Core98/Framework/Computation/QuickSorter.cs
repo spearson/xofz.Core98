@@ -1,4 +1,4 @@
-﻿namespace xofz
+﻿namespace xofz.Framework.Computation
 {
     using System.Collections.Generic;
 

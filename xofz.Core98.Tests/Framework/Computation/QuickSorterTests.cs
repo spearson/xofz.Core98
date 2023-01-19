@@ -43,7 +43,7 @@
 
                 o.WriteLine("Unsorted:");
                 o.WriteLine(string.Join<IComparable>(
-                    " ", 
+                    " ",
                     testNumbers));
 
                 sorter.Sort(testNumbers);
@@ -57,7 +57,7 @@
                 for (i = 0; i < testNumbers.Length - 1; ++i)
                 {
                     Assert.True(testNumbers[i]
-                                    .CompareTo(testNumbers[i + 1]) <= 0);
+                        .CompareTo(testNumbers[i + 1]) <= 0);
                 }
 
                 --numberOfTests;
@@ -132,7 +132,7 @@
             }
 
             public When_Sort_is_called(
-                ITestOutputHelper outputter) 
+                ITestOutputHelper outputter)
                 : base(outputter)
             {
             }
@@ -177,7 +177,7 @@
                 for (i = 0; i < testNumbers.Length - 1; ++i)
                 {
                     Assert.True(testNumbers[i]
-                                    .CompareTo(testNumbers[i + 1]) <= 0);
+                        .CompareTo(testNumbers[i + 1]) <= 0);
                 }
             }
 
@@ -309,27 +309,6 @@
             public When_generic_SortV3_is_called(
                 ITestOutputHelper outputter) : base(outputter)
             {
-            }
-
-            [Fact]
-            public void Sorts_properly()
-            {
-                var ll = new IndexedLinkedList<long>();
-                byte i = 0;
-                while (i < 0x20)
-                {
-                    ll.AddTail(this.fixture.Create<long>());
-                    ++i;
-                }
-
-                this.sorter.SortV3(
-                    ll, (first, second) => 
-                        first.CompareTo(second));
-
-                foreach (var item in ll)
-                {
-                    this.outputter.WriteLine(item.ToString());
-                }
             }
         }
     }

@@ -60,7 +60,7 @@
     <Compile Include="Framework\BinaryTranslator.cs" />
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
-    <Compile Include="QuickSorter.cs" />
+    <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
     <Compile Include="Framework\Leeches\UnsyncLeech.cs" />
     <Compile Include="Framework\Lots\IndexedLinkedListLot.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Framework\Leech.cs" />
     <Compile Include="Framework\Axioses\Safer.cs" />
     <Compile Include="Framework\Shutdown\ProcessKiller.cs" />
-    <Compile Include="Reverser.cs" />
+    <Compile Include="Framework\Transformation\Reverser.cs" />
     <Compile Include="Framework\MultiWebRunner.cs" />
     <Compile Include="Framework\Axioses\Inanimator.cs" />
     <Compile Include="Framework\UiReaderWriters\NullUiReaderWriter.cs" />

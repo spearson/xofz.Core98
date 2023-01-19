@@ -1,8 +1,8 @@
 ﻿namespace xofz.Tests
 {
-    using System;
     using System.Collections.Generic;
     using Ploeh.AutoFixture;
+    using xofz.Framework.Transformation;
     using Xunit;
     using Xunit.Abstractions;
     using EH = xofz.EnumerableHelpers;
@@ -243,10 +243,13 @@
             {
                 var h = new EnumerableHelper();
                 var oh = this.helper;
-                var test = new[]
+                var elementCount = 0xFFF;
+                var test = new long[elementCount];
+                for (var i = 0; i < elementCount; ++i)
                 {
-                    5, 1, 2, 7, 9, 10, 1
-                };
+                    test[i] = this.fixture.Create<long>();
+                }
+                
                 var re = new Reverser();
                 re.Reverse(test);
                 foreach (var item in test)
@@ -263,6 +266,15 @@
                 foreach (var item in ordered)
                 {
                     oh.WriteLine(item.ToString());
+                }
+
+                long lastItem = EH.First(ordered);
+                foreach (var item in EH.Skip(
+                             ordered, 1))
+                {
+                    Assert.True(
+                        lastItem.CompareTo(item) > 0);
+                    lastItem = item;
                 }
 
             }
