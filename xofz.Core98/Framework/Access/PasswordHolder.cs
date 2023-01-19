@@ -33,7 +33,7 @@
                                  .GetNames(typeof(AccessLevel))
                                  .Length - one;
             IDictionary<SecureString, AccessLevel> d =
-                new XDictionary<SecureString, AccessLevel>();
+                new Dictionary<SecureString, AccessLevel>();
             if (maxPwCount < one || passwords == null)
             {
                 goto finish;
@@ -76,7 +76,7 @@
                 .Length - one;
 
             IDictionary<SecureString, AccessLevel> d =
-                new XDictionary<SecureString, AccessLevel>();
+                new Dictionary<SecureString, AccessLevel>();
             if (maxPwCount < one || passwords == null)
             {
                 goto finish;
