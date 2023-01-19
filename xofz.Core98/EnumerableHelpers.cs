@@ -1044,7 +1044,7 @@
                 return new XLinkedList<T>();
             }
 
-            var d = new XDictionary<TKey, ICollection<T>>();
+            var d = new Dictionary<TKey, ICollection<T>>();
             ICollection<T> itemsWithNullKeys = new XLinkedList<T>();
 
             foreach (var item in finiteSource)
@@ -1064,25 +1064,23 @@
                 d[key]?.Add(item);
             }
             
-            // list used here because list.Sort() is much faster
-            // than QuickSorting an IndexedLinkedList
             var keyList = new List<TKey>(d.Keys);
-            keyList.Sort();
+            keyList.Sort(comparer);
 
             if (descending)
             {
                 keyList.Reverse();
             }
 
-            var finalLL = new IndexedLinkedList<T>();
+            var finalL = new List<T>();
             foreach (var key in keyList)
             {
-                finalLL.Append(d[key]);
+                finalL.AddRange(d[key]);
             }
-            
-            finalLL.Append(itemsWithNullKeys);
 
-            return finalLL;
+            finalL.AddRange(itemsWithNullKeys);
+
+            return finalL;
         }
 
         public static TEnd Aggregate<T, TEnd>(
