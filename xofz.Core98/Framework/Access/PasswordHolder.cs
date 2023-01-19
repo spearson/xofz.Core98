@@ -26,24 +26,15 @@
         public static PasswordHolder Create(
             IEnumerable<SecureString> passwords)
         {
-            IDictionary<SecureString, AccessLevel> d;
-
             // assuming 1 password per access level
             // and AccessLevel.None does not have a password
             var maxPwCount = System
                                  .Enum
                                  .GetNames(typeof(AccessLevel))
                                  .Length - one;
-
-            if (maxPwCount < one)
-            {
-                d = new Dictionary<SecureString, AccessLevel>();
-                goto finish;
-            }
-
-            d = new Dictionary<SecureString, AccessLevel>(
-                maxPwCount);
-            if (passwords == null)
+            IDictionary<SecureString, AccessLevel> d =
+                new XDictionary<SecureString, AccessLevel>();
+            if (maxPwCount < one || passwords == null)
             {
                 goto finish;
             }
@@ -77,8 +68,6 @@
         public static PasswordHolder Create(
             IEnumerable<string> passwords)
         {
-            IDictionary<SecureString, AccessLevel> d;
-
             // assuming 1 password per access level
             // and AccessLevel.None does not have a password
             var maxPwCount = System
@@ -86,15 +75,9 @@
                 .GetNames(typeof(AccessLevel))
                 .Length - one;
 
-            if (maxPwCount < one)
-            {
-                d = new Dictionary<SecureString, AccessLevel>();
-                goto finish;
-            }
-
-            d = new Dictionary<SecureString, AccessLevel>(
-                maxPwCount);
-            if (passwords == null)
+            IDictionary<SecureString, AccessLevel> d =
+                new XDictionary<SecureString, AccessLevel>();
+            if (maxPwCount < one || passwords == null)
             {
                 goto finish;
             }

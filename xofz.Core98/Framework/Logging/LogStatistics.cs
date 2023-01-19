@@ -1,7 +1,5 @@
 ﻿namespace xofz.Framework.Logging
 {
-    using System;
-
     public class LogStatistics
     {
         public LogStatistics(
@@ -20,13 +18,13 @@
 
         public virtual string FilterType { get; set; }
 
-        public virtual DateTime OldestTimestamp { get; protected set; }
+        public virtual System.DateTime OldestTimestamp { get; protected set; }
 
-        public virtual DateTime NewestTimestamp { get; protected set; }
+        public virtual System.DateTime NewestTimestamp { get; protected set; }
 
-        public virtual DateTime EarliestTimestamp { get; protected set; }
+        public virtual System.DateTime EarliestTimestamp { get; protected set; }
 
-        public virtual DateTime LatestTimestamp { get; protected set; }
+        public virtual System.DateTime LatestTimestamp { get; protected set; }
 
         public virtual void ComputeOverall()
         {
@@ -36,8 +34,8 @@
                 {
                     var allEntries = lotter.Materialize(
                         log.ReadEntries());
-                    var start = DateTime.MaxValue;
-                    var end = DateTime.MinValue;
+                    var start = System.DateTime.MaxValue;
+                    var end = System.DateTime.MinValue;
                     foreach (var entry in allEntries)
                     {
                         if (entry.Timestamp < start)
@@ -71,8 +69,8 @@
         }
 
         public virtual void ComputeRange(
-            DateTime startDate,
-            DateTime endDate)
+            System.DateTime startDate,
+            System.DateTime endDate)
         {
             var r = this.runner;
             r.Run<Log, Lotter>(
@@ -106,7 +104,7 @@
 
         public virtual void Reset()
         {
-            DateTime ts = default;
+            System.DateTime ts = default;
             this.OldestTimestamp = ts;
             this.NewestTimestamp = ts;
             this.EarliestTimestamp = ts;
@@ -172,8 +170,8 @@
 
         protected virtual void computeAvgPerDay(
             long entryCount,
-            DateTime start,
-            DateTime end)
+            System.DateTime start,
+            System.DateTime end)
         {
             if (entryCount < one)
             {
@@ -194,7 +192,7 @@
                 return;
             }
 
-            var oldest = DateTime.MaxValue;
+            var oldest = System.DateTime.MaxValue;
             foreach (var entry in entries)
             {
                 var ts = entry.Timestamp;
@@ -216,7 +214,7 @@
                 return;
             }
 
-            var newest = DateTime.MinValue;
+            var newest = System.DateTime.MinValue;
             foreach (var entry in entries)
             {
                 var ts = entry.Timestamp;
@@ -241,7 +239,7 @@
             const byte hour = 23;
             const byte minuteSecond = 59;
             const short millisecond = 999;
-            var earliest = new DateTime(
+            var earliest = new System.DateTime(
                 one,
                 one,
                 one,
@@ -282,7 +280,7 @@
                 return;
             }
 
-            var latest = new DateTime(
+            var latest = new System.DateTime(
                 one,
                 one,
                 one,

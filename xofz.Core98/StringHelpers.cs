@@ -1,17 +1,16 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Collections.Generic;
 
     public static class StringHelpers
     {
         public static T ToEnum<T>(
             string s)
-            where T : Enum
+            where T : System.Enum
         {
             try
             {
-                return (T)Enum.Parse(typeof(T), s);
+                return (T)System.Enum.Parse(typeof(T), s);
             }
             catch
             {

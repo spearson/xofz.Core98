@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableTriggerer
@@ -8,7 +7,7 @@
         public IEnumerable<T> Trigger<T>(
             IEnumerable<T> source,
             ICollection<long> triggerIndices,
-            Action<T> trigger)
+            System.Action<T> trigger)
         {
             if (source == null)
             {

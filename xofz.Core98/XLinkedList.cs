@@ -148,8 +148,7 @@
             return falsity;
 
             finish:
-            this.Remove(target);
-            return truth;
+            return this.Remove(target) != null;
         }
 
         public virtual XLinkedListNode<T> Remove(

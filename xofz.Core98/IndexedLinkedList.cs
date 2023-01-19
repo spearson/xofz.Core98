@@ -81,6 +81,20 @@
             return result;
         }
 
+        public virtual void Append(
+            IEnumerable<T> finiteSource)
+        {
+            if (finiteSource == null)
+            {
+                return;
+            }
+
+            foreach (var item in finiteSource)
+            {
+                this.AddTail(item);
+            }
+        }
+
         public virtual int IndexOf(
             T item)
         {

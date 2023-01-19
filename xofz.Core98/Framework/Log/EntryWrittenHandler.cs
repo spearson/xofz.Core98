@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using xofz.Framework.Logging;
@@ -25,7 +24,7 @@
             r?.Run<FieldHolder, UiReaderWriter, FilterChecker>(
                 (holder, uiRW, checker) =>
                 {
-                    var today = DateTime.Today;
+                    var today = System.DateTime.Today;
                     r.Run<TimeProvider>(provider =>
                     {
                         today = provider.Now().Date;

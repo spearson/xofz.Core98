@@ -1,7 +1,5 @@
 ﻿namespace xofz.UI.LogStatistics
 {
-    using System;
-
     public interface LogStatisticsUi 
         : PopupUi
     {
@@ -15,9 +13,9 @@
 
         event Do ResetTypeKeyTapped;
 
-        DateTime StartDate { get; set; }
+        System.DateTime StartDate { get; set; }
 
-        DateTime EndDate { get; set; }
+        System.DateTime EndDate { get; set; }
 
         string FilterContent { get; set; }
 

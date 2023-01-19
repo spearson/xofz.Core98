@@ -37,10 +37,9 @@
             d.Add(key5, value5);
             d.Add(key6, value6);
 
-            string value;
             Assert.True(
                 d.TryGetValue(
-                    key1, out value));
+                    key1, out var value));
             Assert.Equal(
                 d[key1], value);
             Assert.True(
@@ -96,6 +95,19 @@
             Assert.Equal(
                 changedValue,
                 d[key1]);
+
+            var removedOnce = false;
+            foreach (var kvp in d)
+            {
+                if (removedOnce)
+                {
+                    Assert.True(false);
+                }
+
+                Assert.True(
+                    d.Remove(kvp));
+                removedOnce = true;
+            }
         }
     }
 }

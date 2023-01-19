@@ -303,5 +303,34 @@
                         o => o is null));
             }
         }
+
+        public class When_generic_SortV3_is_called : Context
+        {
+            public When_generic_SortV3_is_called(
+                ITestOutputHelper outputter) : base(outputter)
+            {
+            }
+
+            [Fact]
+            public void Sorts_properly()
+            {
+                var ll = new IndexedLinkedList<long>();
+                byte i = 0;
+                while (i < 0x20)
+                {
+                    ll.AddTail(this.fixture.Create<long>());
+                    ++i;
+                }
+
+                this.sorter.SortV3(
+                    ll, (first, second) => 
+                        first.CompareTo(second));
+
+                foreach (var item in ll)
+                {
+                    this.outputter.WriteLine(item.ToString());
+                }
+            }
+        }
     }
 }

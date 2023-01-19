@@ -1,12 +1,11 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Collections.Generic;
 
     public class ExceptionHelpers
     {
         public static IEnumerable<string> TrimmedStackTraceFor(
-            Exception e)
+            System.Exception e)
         {
             var st = e?.StackTrace;
             if (st == null)
@@ -15,8 +14,8 @@
             }
 
             var untrimmedLines = st.Split(
-                new[] { Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries);
+                new[] { System.Environment.NewLine },
+                System.StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var line in untrimmedLines)
             {

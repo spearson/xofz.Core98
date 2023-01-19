@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Log
 {
-    using System;
     using System.Globalization;
     using xofz.Framework.Logging;
 
@@ -44,7 +43,7 @@
                     CultureInfo.CurrentCulture),
                 entry.Type,
                 string.Join(
-                    Environment.NewLine,
+                    System.Environment.NewLine,
                     EnumerableHelpers.ToArray(
                         entry.Content)));
         }

@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Lots
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -200,21 +199,21 @@
         }
 
         public virtual List<TOutput> ConvertAll<TOutput>(
-            Converter<T, TOutput> converter)
+            System.Converter<T, TOutput> converter)
         {
             return this.list?.ConvertAll(
                 converter);
         }
 
         public virtual bool Exists(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.Exists(
                 match) ?? falsity;
         }
 
         public virtual T Find(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             var l = this.list;
             if (l == null)
@@ -226,13 +225,13 @@
         }
 
         public virtual List<T> FindAll(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindAll(match);
         }
 
         public virtual int FindIndex(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindIndex(match)
                 ?? nOne;
@@ -240,7 +239,7 @@
 
         public virtual int FindIndex(
             int startIndex, 
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindIndex(
                        startIndex,
@@ -251,7 +250,7 @@
         public virtual int FindIndex(
             int startIndex, 
             int count, 
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindIndex(
                        startIndex,
@@ -261,7 +260,7 @@
         }
 
         public virtual T FindLast(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             var l = this.list;
             if (l == null)
@@ -273,7 +272,7 @@
         }
 
         public virtual int FindLastIndex(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindLastIndex(
                        match)
@@ -282,7 +281,7 @@
 
         public virtual int FindLastIndex(
             int startIndex, 
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindLastIndex(
                        startIndex,
@@ -293,7 +292,7 @@
         public virtual int FindLastIndex(
             int startIndex, 
             int count, 
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.FindLastIndex(
                        startIndex,
@@ -303,7 +302,7 @@
         }
 
         public virtual void ForEach(
-            Action<T> action)
+            System.Action<T> action)
         {
             this.list?.ForEach(
                 action);
@@ -371,7 +370,7 @@
         }
 
         public virtual int RemoveAll(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.RemoveAll(
                        match)
@@ -417,7 +416,7 @@
         }
 
         public virtual void Sort(
-            Comparison<T> comparison)
+            System.Comparison<T> comparison)
         {
             this.list?.Sort(comparison);
         }
@@ -470,7 +469,7 @@
         }
 
         public virtual bool TrueForAll(
-            Predicate<T> match)
+            System.Predicate<T> match)
         {
             return this.list?.TrueForAll(
                        match)

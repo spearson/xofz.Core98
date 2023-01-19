@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Timers
 {
-    using System;
     using xofz.Framework.Logging;
 
     public class LoggingTimer 
@@ -39,7 +38,7 @@
 
         public virtual string Name { get; set; }
 
-        public virtual TimeSpan CurrentInterval
+        public virtual System.TimeSpan CurrentInterval
         {
             get => this.interval;
 
@@ -47,7 +46,7 @@
         }
 
         public override void Start(
-            TimeSpan interval)
+            System.TimeSpan interval)
         {
             if (!base.started)
             {
@@ -63,7 +62,7 @@
             if (!base.started)
             {
                 this.setCurrentInterval(
-                    TimeSpan.FromMilliseconds(
+                    System.TimeSpan.FromMilliseconds(
                         (double)intervalMilliseconds));
             }
 
@@ -85,12 +84,12 @@
         }
 
         protected virtual void setCurrentInterval(
-            TimeSpan currentInterval)
+            System.TimeSpan currentInterval)
         {
             this.interval = currentInterval;
         }
 
-        protected TimeSpan interval;
+        protected System.TimeSpan interval;
         protected Do<LoggingTimer, LogEditor> log;
         protected readonly MethodRunner runner;
         private string logName;

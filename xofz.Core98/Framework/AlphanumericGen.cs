@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Security;
     using System.Security.Cryptography;
     using System.Text;
@@ -42,7 +41,7 @@
             }
 
             object disposable = rng;
-            (disposable as IDisposable)?.Dispose();
+            (disposable as System.IDisposable)?.Dispose();
             return sb.ToString();
         }
 
@@ -82,7 +81,7 @@
 
             s.MakeReadOnly();
             object disposable = rng;
-            (disposable as IDisposable)?.Dispose();
+            (disposable as System.IDisposable)?.Dispose();
 
             return s;
         }

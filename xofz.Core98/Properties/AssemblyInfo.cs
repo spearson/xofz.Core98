@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("xofz.Core98")]
@@ -11,4 +10,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("2a428598-6312-4e45-9d63-32170108b91e")]
 [assembly: AssemblyVersion("0.0.0.0")]
 [assembly: AssemblyFileVersion("0.0.0.0")]
-[assembly: CLSCompliant(true)]
+[assembly: System.CLSCompliant(true)]

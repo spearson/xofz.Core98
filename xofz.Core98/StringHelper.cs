@@ -1,6 +1,5 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Collections.Generic;
     using SH = StringHelpers;
 
@@ -8,7 +7,7 @@
     {
         public virtual T ToEnum<T>(
             string s)
-            where T : Enum
+            where T : System.Enum
         {
             return SH.ToEnum<T>(
                 s);

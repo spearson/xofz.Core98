@@ -1,17 +1,16 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Collections.Generic;
 
     public static class EnumHelpers
     {
         public static IEnumerable<T> Iterate<T>()
-            where T : Enum
+            where T : System.Enum
         {
-            Array values;
+            System.Array values;
             try
             {
-                values = Enum.GetValues(typeof(T));
+                values = System.Enum.GetValues(typeof(T));
             }
             catch
             {

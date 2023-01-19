@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
 
@@ -10,7 +9,7 @@
             long number)
         {
             return this.GetBits(
-                BitConverter.GetBytes(number));
+                System.BitConverter.GetBytes(number));
         }
 
         public virtual IEnumerable<bool> GetBits(
@@ -56,7 +55,7 @@
         {
             var bytes = EnumerableHelpers.ToArray(
                 this.GetBytes(bits));
-            return BitConverter.ToInt64(bytes, zero);
+            return System.BitConverter.ToInt64(bytes, zero);
         }
 
         public virtual string ReadString(

@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI.Forms.Log
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows.Forms;
@@ -111,7 +110,7 @@
             }
         }
 
-        DateTime LogUi.StartDate
+        System.DateTime LogUi.StartDate
         {
             get => this.startDatePicker.SelectionStart;
 
@@ -123,7 +122,7 @@
             }
         }
 
-        DateTime LogUi.EndDate
+        System.DateTime LogUi.EndDate
         {
             get => this.endDatePicker.SelectionStart;
 
@@ -375,7 +374,7 @@
 
         protected virtual void addKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var akt = this.AddKeyTapped;
             if (akt == null)
@@ -389,7 +388,7 @@
 
         protected virtual void clearKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var ckt = this.ClearKeyTapped;
             if (ckt == null)
@@ -431,7 +430,7 @@
 
         protected virtual void downKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var dkt = this.DownKeyTapped;
             if (dkt == null)
@@ -445,7 +444,7 @@
 
         protected virtual void upKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var ukt = this.UpKeyTapped;
             if (ukt == null)
@@ -459,7 +458,7 @@
 
         protected virtual void statisticsKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var skt = this.StatisticsKeyTapped;
             if (skt == null)
@@ -473,7 +472,7 @@
 
         protected virtual void filterContentTextBox_TextChanged(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             this.activeFilterTextBox = this.filterContentTextBox;
             var ftc = this.FilterTextChanged;
@@ -488,7 +487,7 @@
 
         protected virtual void filterTypeTextBox_TextChanged(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             this.activeFilterTextBox = this.filterTypeTextBox;
             var ftc = this.FilterTextChanged;
@@ -503,7 +502,7 @@
 
         protected virtual void resetContentKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var rckt = this.ResetContentKeyTapped;
             if (rckt == null)
@@ -517,7 +516,7 @@
 
         protected virtual void resetTypeKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var rtkt = this.ResetTypeKeyTapped;
             if (rtkt == null)
@@ -531,7 +530,7 @@
 
         protected virtual void nextWeekKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var nwkt = this.NextWeekKeyTapped;
             if (nwkt == null)
@@ -545,7 +544,7 @@
 
         protected virtual void previousWeekKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var pwkt = this.PreviousWeekKeyTapped;
             if (pwkt == null)
@@ -560,7 +559,7 @@
 
         protected virtual void currentWeekKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var cwkt = this.CurrentWeekKeyTapped;
             if (cwkt == null)
@@ -574,7 +573,7 @@
 
         protected virtual void oldestKey_Click(
             object sender,
-            EventArgs e)
+            System.EventArgs e)
         {
             var okt = this.OldestKeyTapped;
             if (okt == null)
@@ -588,7 +587,7 @@
 
         protected virtual void newestKey_Click(
             object sender,
-            EventArgs e)
+            System.EventArgs e)
         {
             var nkt = this.NewestKeyTapped;
             if (nkt == null)

@@ -1,6 +1,5 @@
 ﻿namespace xofz
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
@@ -388,7 +387,7 @@
         {
             if (source == null)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is null and therefore "
                     + @"does not have a first item.  If this can happen, "
                     + @"consider using FirstOrDefault<T>()");
@@ -399,7 +398,7 @@
                 return item;
             }
 
-            throw new InvalidOperationException(
+            throw new System.InvalidOperationException(
                 @"The enumerable is empty and therefore "
                 + @"does not have a first item.  If this can happen, "
                 + @"consider using FirstOrDefault<T>()");
@@ -411,7 +410,7 @@
         {
             if (source == null)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is null and therefore "
                     + @"does not have a first item.  If this can happen, "
                     + @"consider using FirstOrDefault<T>()");
@@ -419,7 +418,7 @@
 
             if (predicate == null)
             {
-                throw new ArgumentNullException(nameof(predicate));
+                throw new System.ArgumentNullException(nameof(predicate));
             }
 
             var empty = truth;
@@ -434,13 +433,13 @@
 
             if (empty)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is empty and therefore "
                     + @"does not have a first item.  If this can happen, "
                     + @"consider using FirstOrDefault<T>()");
             }
 
-            throw new InvalidOperationException(
+            throw new System.InvalidOperationException(
                 @"The non-empty enumerable did not have any elements "
                 + @"which matched the predicate.");
         }
@@ -537,7 +536,7 @@
         {
             if (finiteSource == null)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is null and therefore does not " +
                     @"have a last item.  If this can occur, consider using " +
                     @"LastOrDefault<T>()");
@@ -553,7 +552,7 @@
 
             if (!lastChanged)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is empty and therefore does not " +
                     @"have a last item.  If this can occur, consider using " +
                     @"LastOrDefault<T>()");
@@ -568,7 +567,7 @@
         {
             if (finiteSource == null)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is null and therefore does not " +
                     @"have a last item.  If this can occur, consider using " +
                     @"LastOrDefault<T>()");
@@ -576,7 +575,7 @@
 
             if (predicate == null)
             {
-                throw new ArgumentNullException(nameof(predicate));
+                throw new System.ArgumentNullException(nameof(predicate));
             }
 
             T lastItem = default;
@@ -594,13 +593,13 @@
 
             if (!lastChanged && !empty)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"No elements in the source matched the predicate.");
             }
 
             if (empty)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The enumerable is empty and does not contain a last item. " +
                     @"To avoid the exception, consider using LastOrDefault<T>()");
             }
@@ -704,7 +703,7 @@
                 return falsity;
             }
 
-            foreach (var item in source)
+            foreach (var _ in source)
             {
                 return truth;
             }
@@ -1045,7 +1044,7 @@
                 return new XLinkedList<T>();
             }
 
-            var d = new Dictionary<TKey, ICollection<T>>();
+            var d = new XDictionary<TKey, ICollection<T>>();
             ICollection<T> itemsWithNullKeys = new XLinkedList<T>();
 
             foreach (var item in finiteSource)
@@ -1062,25 +1061,30 @@
                     d.Add(key, new XLinkedList<T>());
                 }
 
-                d[key].Add(item);
+                d[key]?.Add(item);
             }
-
-            var keyList = new List<TKey>(d.Keys);
-            keyList.Sort(comparer);
+            
+            var keyLL = IndexedLinkedList<TKey>.CreateIndexed(
+                d.Keys);
+            var sorter = new QuickSorter();
+            var reverser = new Reverser();
+            sorter.SortV3(
+                keyLL,
+                comparer);
 
             if (descending)
             {
-                keyList.Reverse();
+                reverser.ReverseV2(keyLL);
             }
 
-            var finalList = new List<T>();
-            foreach (var key in keyList)
+            var finalLL = new IndexedLinkedList<T>();
+            foreach (var key in keyLL)
             {
-                finalList.AddRange(d[key]);
+                finalLL.Append(d[key]);
             }
-            finalList.AddRange(itemsWithNullKeys);
+            finalLL.Append(itemsWithNullKeys);
 
-            return finalList;
+            return finalLL;
         }
 
         public static TEnd Aggregate<T, TEnd>(
@@ -1166,8 +1170,7 @@
                     BindingFlags.Instance |
                     BindingFlags.NonPublic))
             {
-                var value = fieldInfo.GetValue(o);
-                if (value is T t)
+                if (fieldInfo.GetValue(o) is T t)
                 {
                     yield return t;
                 }
@@ -1382,7 +1385,7 @@
         {
             if (singleSource == null)
             {
-                throw new ArgumentNullException(
+                throw new System.ArgumentNullException(
                     nameof(singleSource));
             }
 
@@ -1392,7 +1395,7 @@
             {
                 if (currentItemSet)
                 {
-                    throw new InvalidOperationException(
+                    throw new System.InvalidOperationException(
                         @"The source contains more than 1 item.");
                 }
 
@@ -1403,7 +1406,7 @@
 
             if (isEmpty)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The source was empty.");
             }
 
@@ -1416,12 +1419,12 @@
         {
             if (source == null)
             {
-                throw new ArgumentNullException(nameof(source));
+                throw new System.ArgumentNullException(nameof(source));
             }
 
             if (predicate == null)
             {
-                throw new ArgumentNullException(nameof(predicate));
+                throw new System.ArgumentNullException(nameof(predicate));
             }
 
             T matchingItem = default;
@@ -1435,7 +1438,7 @@
 
                 if (matchingItemSet)
                 {
-                    throw new InvalidOperationException(
+                    throw new System.InvalidOperationException(
                         @"The source contains more than 1 match.");
                 }
 
@@ -1446,7 +1449,7 @@
 
             if (noMatches)
             {
-                throw new InvalidOperationException(
+                throw new System.InvalidOperationException(
                     @"The source did not contain any elements which matched the predicate.");
             }
 
@@ -1467,7 +1470,7 @@
             {
                 if (currentItemSet)
                 {
-                    throw new InvalidOperationException(
+                    throw new System.InvalidOperationException(
                         @"The source contains more than 1 item.");
                 }
 
@@ -1503,7 +1506,7 @@
 
                 if (matchingItemSet)
                 {
-                    throw new InvalidOperationException(
+                    throw new System.InvalidOperationException(
                         @"The source contains more than 1 match.");
                 }
 
@@ -1665,7 +1668,7 @@
                 }
             }
 
-            return index;
+            return minusOne;
         }
 
         protected const byte

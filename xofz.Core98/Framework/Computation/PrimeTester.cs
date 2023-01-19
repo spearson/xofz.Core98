@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Computation
 {
-    using System;
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
@@ -47,7 +46,7 @@
             if (onlyCheckLast)
             {
                 var numberToCheck = ll.Tail;
-                var squareRoot = (long)Math.Sqrt(numberToCheck);
+                var squareRoot = (long)System.Math.Sqrt(numberToCheck);
                 foreach (var number in EnumerableHelpers.Where(
                     ll,
                     n => n <= squareRoot))

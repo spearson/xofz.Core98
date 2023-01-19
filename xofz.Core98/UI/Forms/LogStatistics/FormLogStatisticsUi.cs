@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI.Forms.LogStatistics
 {
-    using System;
     using System.Threading;
     using System.Windows.Forms;
     using xofz.UI.LogStatistics;
@@ -145,7 +144,7 @@
             set => this.latestTimestampLabelLabel.Text = value;
         }
 
-        DateTime LogStatisticsUi.StartDate
+        System.DateTime LogStatisticsUi.StartDate
         {
             get => this.startDatePicker.SelectionStart;
 
@@ -157,7 +156,7 @@
             }
         }
 
-        DateTime LogStatisticsUi.EndDate
+        System.DateTime LogStatisticsUi.EndDate
         {
             get => this.endDatePicker.SelectionStart;
 
@@ -279,7 +278,7 @@
 
         protected virtual void overallKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var okt = this.OverallKeyTapped;
             if (okt == null)
@@ -293,7 +292,7 @@
 
         protected virtual void rangeKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var rkt = this.RangeKeyTapped;
             if (rkt == null)
@@ -307,7 +306,7 @@
 
         protected virtual void hideKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var hkt = this.HideKeyTapped;
             if (hkt == null)
@@ -321,7 +320,7 @@
 
         protected virtual void resetContentKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var rckt = this.ResetContentKeyTapped;
             if (rckt == null)
@@ -335,7 +334,7 @@
 
         protected virtual void resetTypeKey_Click(
             object sender,
-            EventArgs e)
+            System.EventArgs e)
         {
             var rtkt = this.ResetTypeKeyTapped;
             if (rtkt == null)

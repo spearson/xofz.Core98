@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Reflection;
 
     public class EventRaiser
@@ -18,14 +17,14 @@
 
             const BindingFlags fieldFlags = BindingFlags.Instance
                                             | BindingFlags.NonPublic;
-            var @event = (Delegate)holderType
+            var @event = (System.Delegate)holderType
                 .GetField(
                     eventName,
                     fieldFlags)
                 ?.GetValue(eventHolder);
             if (@event == null)
             {
-                Type baseType = null;
+                System.Type baseType = null;
                 const byte zero = 0;
                 const byte max = byte.MaxValue;
                 for (byte i = zero; i < max; ++i)
@@ -48,7 +47,7 @@
                     }
 
                     tryGetEvent:
-                    @event = (Delegate)baseType
+                    @event = (System.Delegate)baseType
                         .GetField(eventName,
                             fieldFlags)
                         ?.GetValue(eventHolder);

@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI.Forms.Login
 {
-    using System;
     using System.Drawing;
     using System.Security;
     using System.Threading;
@@ -197,7 +196,7 @@
 
         protected virtual void loginKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var lkt = this.LoginKeyTapped;
             if (lkt == null)
@@ -211,7 +210,7 @@
 
         protected virtual void numKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var key = (Button)sender;
             var ptb = this.passwordTextBox;
@@ -231,7 +230,7 @@
 
         protected virtual void clearKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             this.passwordTextBox.Text = null;
 
@@ -241,7 +240,7 @@
 
         protected virtual void backspaceKey_Click(
             object sender,
-            EventArgs e)
+            System.EventArgs e)
         {
             var bkt = this.BackspaceKeyTapped;
             if (bkt == null)
@@ -256,7 +255,7 @@
 
         protected virtual void cancelKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var ckt = this.CancelKeyTapped;
             if (ckt == null)
@@ -292,7 +291,7 @@
 
         protected virtual void keyboardKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var kkt = this.KeyboardKeyTapped;
             if (kkt == null)

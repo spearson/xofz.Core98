@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableProjector
@@ -14,7 +13,7 @@
             }
 
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Sqrt(queue.Count) + one);
+            var magnitude = (int)(System.Math.Sqrt(queue.Count) + one);
             var jagged2 = new T[magnitude][];
             for (int i = zero; i < magnitude; ++i)
             {
@@ -50,7 +49,7 @@
 
             const byte three = 3;
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Pow(queue.Count, one / (double)three) + one);
+            var magnitude = (int)(System.Math.Pow(queue.Count, one / (double)three) + one);
             var jagged3 = new T[magnitude][][];
             for (int i = zero; i < magnitude; ++i)
             {
@@ -98,7 +97,7 @@
 
             const byte four = 4;
             var queue = new Queue<T>(finiteSource);
-            var magnitude = (int)(Math.Pow(queue.Count, one / (double)four) + one);
+            var magnitude = (int)(System.Math.Pow(queue.Count, one / (double)four) + one);
             var jagged4 = new T[magnitude][][][];
             for (int i = zero; i < magnitude; ++i)
             {

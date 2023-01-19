@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
-    using System;
     using System.Globalization;
     using xofz.Framework.Logging;
     using xofz.UI;
@@ -63,7 +62,7 @@
                     const byte four = 4;
                     var avgPerDay = reset
                         ? string.Empty
-                        : Math.Round(stats.AvgEntriesPerDay, four)
+                        : System.Math.Round(stats.AvgEntriesPerDay, four)
                             .ToString(CultureInfo.CurrentUICulture);
                     r.Run<UiReaderWriter>(uiRW =>
                     {

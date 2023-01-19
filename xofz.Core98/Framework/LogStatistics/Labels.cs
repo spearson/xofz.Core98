@@ -1,15 +1,13 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
-    using System;
-
     public class Labels
     {
         public virtual string Overall { get; set; }
             = @"Overall";
 
         public virtual string Range(
-            DateTime start,
-            DateTime end,
+            System.DateTime start,
+            System.DateTime end,
             string dateFormat)
         {
             return @"Range: "

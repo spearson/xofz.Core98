@@ -1,13 +1,12 @@
-﻿namespace xofz.Framework.Computation
+﻿namespace xofz
 {
-    using System;
     using System.Collections.Generic;
 
     public class QuickSorter
     {
         public virtual T[] Sort<T>(
             IEnumerable<T> finiteSource)
-            where T : IComparable
+            where T : System.IComparable
         {
             if (finiteSource == null)
             {
@@ -35,7 +34,7 @@
 
         public virtual void Sort<T>(
             T[] array)
-            where T : IComparable
+            where T : System.IComparable
         {
             if (array == null)
             {
@@ -52,7 +51,7 @@
             T[] array,
             long left,
             long right)
-            where T : IComparable
+            where T : System.IComparable
         {
             if (array == null)
             {
@@ -165,7 +164,7 @@
 
         public virtual ICollection<T> SortV2<T>(
             IEnumerable<T> finiteSource)
-            where T : IComparable
+            where T : System.IComparable
         {
             var ll = IndexedLinkedList<T>.CreateIndexed(
                 finiteSource);
@@ -177,26 +176,86 @@
             this.SortV2(
                 ll,
                 zero,
-                ll.Count - one);
+                ll.LongCount - one);
 
             return ll;
         }
 
         public virtual void SortV2<T>(
             IndexedLinkedList<T> ll)
-            where T : IComparable
+            where T : System.IComparable
         {
+            if (ll == null)
+            {
+                return;
+            }
+
             this.SortV2(
                 ll,
                 zero,
-                ll.Count - one);
+                ll.LongCount - one);
         }
 
         public virtual void SortV2<T>(
             IndexedLinkedList<T> ll,
             long left,
             long right)
-            where T : IComparable
+            where T : System.IComparable
+        {
+            if (ll == null)
+            {
+                return;
+            }
+
+            this.SortV3(
+                ll,
+                (item1, item2) =>
+                {
+                    var oneNull = item1 == null;
+                    var twoNull = item2 == null;
+                    if (oneNull && twoNull)
+                    {
+                        return zero;
+                    }
+
+                    if (oneNull)
+                    {
+                        return minusOne;
+                    }
+
+                    if (twoNull)
+                    {
+                        return one;
+                    }
+
+                    return item1.CompareTo(item2);
+                },
+            
+                left,
+                right);
+        }
+
+        public virtual void SortV3<T>(
+            IndexedLinkedList<T> ll,
+            Gen<T, T, long> compare)
+        {
+            if (ll == null)
+            {
+                return;
+            }
+
+            this.SortV3(
+                ll, 
+                compare, 
+                zero, 
+                ll.LongCount - one);
+        }
+
+        public virtual void SortV3<T>(
+            IndexedLinkedList<T> ll,
+            Gen<T, T, long> compare,
+            long left,
+            long right)
         {
             if (ll == null)
             {
@@ -218,8 +277,8 @@
                 return;
             }
 
-            var l = ll.Count;
-            var lengthDownOne = l - one;
+            var length = ll.Count;
+            var lengthDownOne = length - one;
             if (left > lengthDownOne)
             {
                 return;
@@ -233,7 +292,7 @@
             ICollection<long> closedRights
                 = new XLinkedList<long>();
 
-            beginSort:
+        beginSort:
             long lowIndex = left,
                 highIndex = right;
             long pivotIndex;
@@ -246,8 +305,9 @@
             var pivot = ll[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (ll[lowIndex]?.
-                    CompareTo(pivot) < zero)
+                while (compare?.Invoke(
+                           ll[lowIndex],
+                           pivot) < zero)
                 {
                     ++lowIndex;
                     if (lowIndex > lengthDownOne)
@@ -256,8 +316,9 @@
                     }
                 }
 
-                while (ll[highIndex]?.
-                    CompareTo(pivot) > zero)
+                while (compare?.Invoke(
+                           ll[highIndex],
+                           pivot) > zero)
                 {
                     --highIndex;
                     if (highIndex < zero)
@@ -307,10 +368,26 @@
             }
         }
 
-        public virtual IComparable[] Sort(
-            IEnumerable<IComparable> finiteSource)
+        public virtual void SortV3<T>(
+            IndexedLinkedList<T> ll,
+            IComparer<T> comparer)
         {
-            if (finiteSource is IComparable[] array)
+            if (comparer == null)
+            {
+                return;
+            }
+
+            this.SortV3(
+                ll,
+                (item1, item2) => comparer.Compare(
+                    item1,
+                    item2));
+        }
+
+        public virtual System.IComparable[] Sort(
+            IEnumerable<System.IComparable> finiteSource)
+        {
+            if (finiteSource is System.IComparable[] array)
             {
                 this.Sort(array);
                 return array;
@@ -327,7 +404,7 @@
         }
 
         public virtual void Sort(
-            IComparable[] array)
+            System.IComparable[] array)
         {
             if (array == null)
             {
@@ -341,26 +418,26 @@
         }
 
         public virtual void Sort(
-            IComparable[] array,
+            System.IComparable[] array,
             long left,
             long right)
         {
-            this.Sort<IComparable>(
+            this.Sort<System.IComparable>(
                 array,
                 left,
                 right);
         }
 
-        public virtual ICollection<IComparable> SortV2(
-            IEnumerable<IComparable> finiteSource)
+        public virtual ICollection<System.IComparable> SortV2(
+            IEnumerable<System.IComparable> finiteSource)
         {
-            if (finiteSource is IndexedLinkedList<IComparable> ll)
+            if (finiteSource is IndexedLinkedList<System.IComparable> ll)
             {
                 this.SortV2(ll);
                 return ll;
             }
 
-            var sourceLL = IndexedLinkedList<IComparable>.CreateIndexed(
+            var sourceLL = IndexedLinkedList<System.IComparable>.CreateIndexed(
                 finiteSource);
             this.SortV2(
                 sourceLL,
@@ -371,7 +448,7 @@
         }
 
         public virtual void SortV2(
-            IndexedLinkedList<IComparable> ll)
+            IndexedLinkedList<System.IComparable> ll)
         {
             if (ll == null)
             {
@@ -385,16 +462,18 @@
         }
 
         public virtual void SortV2(
-            IndexedLinkedList<IComparable> ll,
+            IndexedLinkedList<System.IComparable> ll,
             long left,
             long right)
         {
-            this.SortV2<IComparable>(
+            this.SortV2<System.IComparable>(
                 ll,
                 left,
                 right);
         }
 
+        protected const short
+            minusOne = -1;
         protected const byte
             zero = 0,
             one = 1;

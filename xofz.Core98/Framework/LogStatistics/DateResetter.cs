@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.LogStatistics
 {
-    using System;
     using xofz.Framework.Logging;
     using xofz.UI;
     using xofz.UI.LogStatistics;
@@ -21,7 +20,7 @@
             r?.Run<LogStatistics, UiReaderWriter>(
                 (stats, uiRW) =>
                 {
-                    var today = DateTime.Today;
+                    var today = System.DateTime.Today;
                     r.Run<Framework.Log.TimeProvider>(provider =>
                     {
                         today = provider.Now().Date;
@@ -29,7 +28,7 @@
 
                     const byte six = 6;
                     var lastWeek = today.Subtract(
-                        TimeSpan.FromDays(six));
+                        System.TimeSpan.FromDays(six));
                     uiRW.WriteSync(
                         ui,
                         () =>

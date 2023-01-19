@@ -46,10 +46,10 @@
             }
 
             var ll = XLinkedList<T>.Create(finiteSource);
-            var result = new List<T>();
+            var result = new IndexedLinkedList<T>();
             for (int i = zero; i < skipPoint; ++i)
             {
-                result.AddRange(this.Skip(ll, skipPoint));
+                result.Append(this.Skip(ll, skipPoint));
                 var o = ll.RemoveHead();
                 ll.AddTail(o);
             }

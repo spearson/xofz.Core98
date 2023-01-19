@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Logging
 {
-    using System;
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
@@ -10,7 +9,7 @@
             string type,
             IEnumerable<string> finiteContent)
             : this(
-                DateTime.Now,
+                System.DateTime.Now,
                 type,
                 finiteContent)
         {
@@ -20,14 +19,14 @@
             string type, 
             Lot<string> content)
             : this(
-                DateTime.Now, 
+                System.DateTime.Now, 
                 type, 
                 content)
         {
         }
 
         public LogEntry(
-            DateTime timestamp,
+            System.DateTime timestamp,
             string type,
             IEnumerable<string> finiteContent)
             : this(
@@ -40,7 +39,7 @@
         }
 
         public LogEntry(
-            DateTime timestamp, 
+            System.DateTime timestamp, 
             string type, 
             Lot<string> content)
         {
@@ -49,7 +48,7 @@
             this.Content = content;
         }
 
-        public virtual DateTime Timestamp { get; }
+        public virtual System.DateTime Timestamp { get; }
 
         public virtual string Type { get; }
 

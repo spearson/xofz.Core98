@@ -1,6 +1,5 @@
 ﻿namespace xofz.Root.Commands
 {
-    using System;
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Login;
@@ -17,7 +16,7 @@
             : this(
                 ui,
                 web,
-                TimeSpan.FromMinutes(
+                System.TimeSpan.FromMinutes(
                     loginDurationMinutes))
         {
         }
@@ -25,7 +24,7 @@
         public SetupLoginCommand(
             LoginUi ui,
             MethodWeb web,
-            TimeSpan loginDuration)
+            System.TimeSpan loginDuration)
         {
             this.ui = ui;
             this.web = web;
@@ -93,7 +92,7 @@
 
         protected readonly LoginUi ui;
         protected readonly MethodWeb web;
-        protected readonly TimeSpan loginDuration;
+        protected readonly System.TimeSpan loginDuration;
         protected const bool
             truth = true,
             falsity = false;

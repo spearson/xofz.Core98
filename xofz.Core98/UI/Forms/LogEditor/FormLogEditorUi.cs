@@ -1,6 +1,5 @@
 ﻿namespace xofz.UI.Forms.LogEditor
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Windows.Forms;
@@ -188,7 +187,7 @@
 
         protected virtual void entryTypeComboBox_SelectedIndexChanged(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var tc = this.TypeChanged;
             if (tc == null)
@@ -202,7 +201,7 @@
 
         protected virtual void addKey_Click(
             object sender, 
-            EventArgs e)
+            System.EventArgs e)
         {
             var akt = this.AddKeyTapped;
             if (akt == null)

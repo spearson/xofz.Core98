@@ -1,15 +1,7 @@
-﻿// ------------------------------------------------------------------------------------------------
-// <copyright file="Timer.cs" company="Care Controls">
-//   Copyright (c) Care Controls Inc. All rights reserved.
-// </copyright>
-// ------------------------------------------------------------------------------------------------
-
-namespace xofz.Framework
+﻿namespace xofz.Framework
 {
-    using System;
-
     public class Timer
-        : IDisposable
+        : System.IDisposable
     {
         public Timer()
             : this(new System.Timers.Timer(), new object())
@@ -52,7 +44,7 @@ namespace xofz.Framework
         }
 
         public virtual void Start(
-            TimeSpan interval)
+            System.TimeSpan interval)
         {
             this.Start((long)interval.TotalMilliseconds);
         }

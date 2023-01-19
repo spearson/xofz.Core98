@@ -35,7 +35,7 @@
       CodeLanguage="CS" 
       OutputFile="$(ProjectName)\Properties\AssemblyInfo.cs"
       AssemblyTitle="$(ProjectName)"
-      AssemblyDescription="Core library for building desktop applications for Windows 98 and above"
+      AssemblyDescription="Core library for building software for .NET"
       AssemblyCompany="x(z)"
       AssemblyProduct="x(z) Core98"
       AssemblyCopyright="Copyright (c) x(z)"
@@ -63,7 +63,7 @@
 
 
   <UsingTask
-    AssemblyFile="$(LibFolder2)\xUnit\xunit.runner.msbuild.dll"
+    AssemblyFile="$(LibFolder2)\xUnit\xunit.runner.msbuild.net452.dll"
     TaskName="Xunit.Runner.MSBuild.xunit"
   />
   <Target

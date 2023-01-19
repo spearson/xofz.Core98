@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework
 {
-    using System;
     using System.Reflection;
     using System.Text;
 
@@ -22,7 +21,7 @@
             return this.readProtected(ea);
         }
 
-        public virtual Version ReadAsVersion()
+        public virtual System.Version ReadAsVersion()
         {
             var ea = this.executingAssembly;
             return this.ReadAsVersion(ea);
@@ -34,7 +33,7 @@
             return this.readProtected(ea);
         }
 
-        public virtual Version ReadCoreVersionAsVersion()
+        public virtual System.Version ReadCoreVersionAsVersion()
         {
             var ea = Assembly.GetExecutingAssembly();
             return this.ReadAsVersion(ea);
@@ -46,12 +45,12 @@
             return this.readProtected(assembly);
         }
 
-        public virtual Version ReadAsVersion(
+        public virtual System.Version ReadAsVersion(
             Assembly assembly)
         {
             if (assembly == null)
             {
-                return new Version(
+                return new System.Version(
                     zero, 
                     zero, 
                     zero, 
@@ -68,7 +67,7 @@
             var v = this.ReadAsVersion(assembly);
             if (v == null)
             {
-                v = new Version(
+                v = new System.Version(
                     zero, 
                     zero, 
                     zero, 

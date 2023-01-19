@@ -1,7 +1,5 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
-
     public class Striker<T, Y>
     {
         public Striker(
@@ -13,9 +11,9 @@
         }
 
         public virtual Y Strike(
-            Action<T> tAction, 
+            System.Action<T> tAction, 
             Do<T, Y> transform,
-            Action<Y> yAction)
+            System.Action<Y> yAction)
         {
             var tf = this.tFactory;
             T t;

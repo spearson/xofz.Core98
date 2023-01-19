@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Ploeh.AutoFixture;
-    using xofz.Framework.Transformation;
     using Xunit;
 
     public class ReverserTests
@@ -14,8 +13,15 @@
             public virtual void ReverseWithoutHelp<T>(
                 IList<T> list)
             {
-                this.reverseProtected(
-                    list,
+                if (list == null)
+                {
+                    return;
+                }
+
+                this.reverseAbstract(
+                    i => list[(int)i],
+                    (item, i) => list[(int)i] = item,
+                    list.Count,
                     Environment.ProcessorCount);
             }
         }
@@ -63,6 +69,26 @@
                     Assert.Equal(
                         s[i], 
                         array[l - i - 1]);
+                }
+            }
+
+            [Fact]
+            public void IndexedLinkedList_reversal_test()
+            {
+                var s = this.fixture.Create<string>();
+                var ll = IndexedLinkedList<char>.CreateIndexed(
+                    s);
+                var l = ll.Count;
+                var r = this.reverser;
+
+                r.ReverseV2(
+                    ll);
+
+                for (var i = 0; i < l; ++i)
+                {
+                    Assert.Equal(
+                        s[i],
+                        ll[l - i - 1]);
                 }
             }
         }

@@ -3,14 +3,13 @@
 
 namespace xofz.UI.Forms.Messengers
 {
-    using System;
     using System.Drawing;
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Windows.Forms;
 
     public class DialogCenterer 
-        : IDisposable
+        : System.IDisposable
     {
         public DialogCenterer(
             Form owner)
@@ -44,7 +43,7 @@ namespace xofz.UI.Forms.Messengers
             if (!EnumThreadWindows(
                 GetCurrentThreadId(), 
                 callback, 
-                IntPtr.Zero))
+                System.IntPtr.Zero))
             {
                 return;
             }
@@ -60,8 +59,8 @@ namespace xofz.UI.Forms.Messengers
         }
 
         protected virtual bool checkWindow(
-            IntPtr windowHandle,
-            IntPtr lp)
+            System.IntPtr windowHandle,
+            System.IntPtr lp)
         {
             // Check if <windowHandle> is a dialog
             var sb = new StringBuilder(260);
@@ -84,7 +83,7 @@ namespace xofz.UI.Forms.Messengers
             return false;
         }
 
-        void IDisposable.Dispose()
+        void System.IDisposable.Dispose()
         {
             const short minusOne = -1;
             this.setTryCount(minusOne);
@@ -97,8 +96,8 @@ namespace xofz.UI.Forms.Messengers
         }
 
         protected delegate bool EnumThreadWndProc(
-            IntPtr hWnd, 
-            IntPtr lp);
+            System.IntPtr hWnd, 
+            System.IntPtr lp);
         protected short tryCount;
         protected readonly Form owner;
 
@@ -106,25 +105,25 @@ namespace xofz.UI.Forms.Messengers
         protected static extern bool EnumThreadWindows(
             int tid, 
             EnumThreadWndProc callback, 
-            IntPtr lp);
+            System.IntPtr lp);
 
         [DllImport(@"kernel32.dll")]
         protected static extern int GetCurrentThreadId();
 
         [DllImport(@"user32.dll")]
         protected static extern int GetClassName(
-            IntPtr hWnd, 
+            System.IntPtr hWnd, 
             StringBuilder buffer, 
             int buflen);
 
         [DllImport(@"user32.dll")]
         protected static extern bool GetWindowRect(
-            IntPtr hWnd, 
+            System.IntPtr hWnd, 
             out RECT rc);
 
         [DllImport(@"user32.dll")]
         protected static extern bool MoveWindow(
-            IntPtr hWnd,
+            System.IntPtr hWnd,
             int x,
             int y,
             int w,

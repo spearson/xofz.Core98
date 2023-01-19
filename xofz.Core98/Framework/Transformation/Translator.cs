@@ -1,10 +1,9 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class Translator<T, Y> 
-        : IDisposable
+        : System.IDisposable
     {
         public Translator(
             Gen<Y> yFactory)

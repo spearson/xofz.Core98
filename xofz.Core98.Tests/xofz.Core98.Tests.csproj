@@ -66,7 +66,7 @@
     <Compile Include="Framework\AxiomTests.cs" />
     <Compile Include="Framework\Axioses\RaiserTests.cs" />
     <Compile Include="Framework\BinaryTranslatorTests.cs" />
-    <Compile Include="Framework\Computation\QuickSorterTests.cs" />
+    <Compile Include="QuickSorterTests.cs" />
     <Compile Include="Framework\EventRaiserTests.cs" />
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\Factories\NameableFactoryTests.cs" />

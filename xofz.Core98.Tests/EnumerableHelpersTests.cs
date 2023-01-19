@@ -1,5 +1,6 @@
 ﻿namespace xofz.Tests
 {
+    using System;
     using System.Collections.Generic;
     using Ploeh.AutoFixture;
     using Xunit;
@@ -10,23 +11,25 @@
     {
         public class Context
         {
-            protected Context()
+            protected Context(ITestOutputHelper helper)
             {
                 var f = new Fixture();
                 this.fixture = f;
                 this.manifestObject = () => f.Create<object>();
+                this.helper = helper;
             }
 
             protected readonly Fixture fixture;
             protected readonly Gen<object> manifestObject;
+            protected readonly ITestOutputHelper helper;
         }
 
         public class When_Empty_is_called : Context
         {
             public When_Empty_is_called(
-                ITestOutputHelper outputter)
+                ITestOutputHelper helper) 
+                : base(helper)
             {
-                this.outputter = outputter;
             }
 
             [Fact]
@@ -41,11 +44,9 @@
             {
                 var empty = EH.Empty<object>();
 
-                this.outputter.WriteLine(
+                this.helper.WriteLine(
                     empty.GetType().ToString());
             }
-
-            protected readonly ITestOutputHelper outputter;
         }
 
         public class When_ToArray_is_called : Context
@@ -90,6 +91,11 @@
                         sourceList[indexer], 
                         endArray[indexer]);
                 }
+            }
+
+            public When_ToArray_is_called(
+                ITestOutputHelper helper) : base(helper)
+            {
             }
         }
 
@@ -147,6 +153,10 @@
                         source,
                         one));
             }
+
+            public When_ElementAt_is_called(ITestOutputHelper helper) : base(helper)
+            {
+            }
         }
 
         public class When_Insert_is_called : Context
@@ -197,6 +207,10 @@
                         itemToInsert,
                         one));
             }
+
+            public When_Insert_is_called(ITestOutputHelper helper) : base(helper)
+            {
+            }
         }
 
         public class When_Except_is_called : Context
@@ -215,6 +229,47 @@
                                 {
                                     ' '
                                 }))));
+            }
+
+            public When_Except_is_called(ITestOutputHelper helper) : base(helper)
+            {
+            }
+        }
+
+        public class When_ordering : Context
+        {
+            [Fact]
+            public void Works()
+            {
+                var h = new EnumerableHelper();
+                var oh = this.helper;
+                var test = new[]
+                {
+                    5, 1, 2, 7, 9, 10, 1
+                };
+                var re = new Reverser();
+                re.Reverse(test);
+                foreach (var item in test)
+                {
+                    oh.WriteLine(item.ToString());
+                }
+
+                oh.WriteLine(string.Empty);
+                oh.WriteLine(string.Empty);
+                
+                var ordered = h.OrderByDescending(
+                    test,
+                    i => i);
+                foreach (var item in ordered)
+                {
+                    oh.WriteLine(item.ToString());
+                }
+
+            }
+
+            public When_ordering(ITestOutputHelper helper) 
+                : base(helper)
+            {
             }
         }
 

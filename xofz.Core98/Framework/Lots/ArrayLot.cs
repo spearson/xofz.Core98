@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Lots
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
 
@@ -56,7 +55,7 @@
         public virtual void CopyTo(
             T[] array)
         {
-            Array.Copy(
+            System.Array.Copy(
                 this.array, 
                 array, 
                 array.Length);

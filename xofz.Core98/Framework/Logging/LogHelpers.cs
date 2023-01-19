@@ -1,13 +1,10 @@
 ﻿namespace xofz.Framework.Logging
 {
-    using System;
-    using System.Collections.Generic;
-
     public class LogHelpers
     {
         public static void AddEntry(
             LogEditor logEditor,
-            UnhandledExceptionEventArgs e)
+            System.UnhandledExceptionEventArgs e)
         {
             if (e == null)
             {
@@ -34,7 +31,7 @@
                 return;
             }
 
-            var ex = eo as Exception;
+            var ex = eo as System.Exception;
             if (ex == null)
             {
                 logEditor?.AddEntry(
@@ -54,16 +51,20 @@
 
         public static void AddEntry(
             LogEditor logEditor,
-            Exception e)
+            System.Exception e)
         {
-            var content = new List<string>
-            {
-                e.GetType().ToString(),
-                e.Message,
-                string.Empty,
-                StackTraceHeader,
-            };
-            content.AddRange(ExceptionHelpers
+            var content = IndexedLinkedList<string>
+                .CreateIndexed(
+                    new[]
+                    {
+                        e.GetType().ToString(),
+                        e.Message,
+                        string.Empty,
+                        StackTraceHeader
+                    }
+                );
+            content.Append(
+                ExceptionHelpers
                 .TrimmedStackTraceFor(e));
 
             var ie = e.InnerException;
@@ -75,13 +76,13 @@
                 content.Add(ie.Message);
                 content.Add(string.Empty);
                 content.Add(StackTraceHeader);
-                content.AddRange(ExceptionHelpers
+                content.Append(ExceptionHelpers
                     .TrimmedStackTraceFor(ie));
             }
 
             logEditor?.AddEntry(
                 ErrorType,
-                content.ToArray());
+                content);
         }
 
         protected const string StackTraceHeader = @"Stack trace:";

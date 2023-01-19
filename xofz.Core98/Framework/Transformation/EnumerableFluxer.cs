@@ -1,17 +1,16 @@
 ﻿namespace xofz.Framework.Transformation
 {
-    using System;
     using System.Collections.Generic;
 
     public class EnumerableFluxer
     {
         public EnumerableFluxer()
-            : this(new Random())
+            : this(new System.Random())
         {
         }
 
         protected EnumerableFluxer(
-            Random rng)
+            System.Random rng)
         {
             this.rng = rng;
         }
@@ -76,6 +75,6 @@
             }
         }
 
-        protected readonly Random rng;
+        protected readonly System.Random rng;
     }
 }
