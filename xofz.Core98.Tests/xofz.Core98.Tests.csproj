@@ -128,10 +128,10 @@
     <Compile Include="Framework\MethodWebTests.cs" />
     <Compile Include="Framework\MethodWebV2Tests.cs" />
     <Compile Include="Framework\MultiWebRunnerTests.cs" />
-    <Compile Include="Framework\ShufflingManagerTests.cs" />
-    <Compile Include="Framework\ShufflingWebTests.cs" />
+    <Compile Include="Framework\MethodWebManagers\ShufflingManagerTests.cs" />
+    <Compile Include="Framework\MethodWebs\ShufflingWebTests.cs" />
     <Compile Include="Framework\Shutdown\StartHandlerTests.cs" />
-    <Compile Include="Framework\ThreadSafeMethodWebTests.cs" />
+    <Compile Include="Framework\MethodWebs\ThreadSafeMethodWebTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableBreakerTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableConnectorTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableDecoratorTests.cs" />
@@ -145,7 +145,6 @@
     <Compile Include="Framework\Transformation\EnumerableSplicerTests.cs" />
     <Compile Include="Framework\Transformation\ReverserTests.cs" />
     <Compile Include="Framework\VersionReaderTests.cs" />
-    <Compile Include="IndexedLinkedListTests.cs" />
     <Compile Include="Presentation\Presenters\EmptyPresenterTests.cs" />
     <Compile Include="Presentation\Presenters\LogEditorPresenterTests.cs" />
     <Compile Include="Presentation\Presenters\LoginPresenterTests.cs" />
@@ -166,7 +165,6 @@
     <Compile Include="Root\Commands\SetupShutdownCommandTests.cs" />
     <Compile Include="ShufflingObjectTests.cs" />
     <Compile Include="StringHelpersTests.cs" />
-    <Compile Include="XDictionaryTests.cs" />
     <Compile Include="XLinkedListTests.cs" />
     <Compile Include="XTupleTests.cs" />
   </ItemGroup>

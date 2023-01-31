@@ -69,6 +69,13 @@
             return this.linkedList?.GetNode(item);
         }
 
+        public virtual void Append(
+            IEnumerable<T> finiteSource)
+        {
+            this.linkedList?.Append(
+                finiteSource);
+        }
+
         public virtual XLinkedListNode<T> AddHead(
             T o)
         {

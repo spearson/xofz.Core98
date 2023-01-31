@@ -1,4 +1,4 @@
-﻿namespace xofz.Tests.Framework
+﻿namespace xofz.Tests.Framework.MethodWebManagers
 {
     using xofz.Framework;
     using xofz.Framework.MethodWebManagers;

@@ -36,26 +36,6 @@
         }
 
         public virtual void ReverseV2<T>(
-            IndexedLinkedList<T> ll)
-        {
-            if (ll == null)
-            {
-                return;
-            }
-
-            var c = ll.LongCount;
-            if (c < two)
-            {
-                return;
-            }
-
-            this.ReverseV2(
-                i => ll[i],
-                (item, i) => ll[i] = item,
-                c);
-        }
-
-        public virtual void ReverseV2<T>(
             Gen<long, T> read,
             Do<T, long> assign,
             long count)

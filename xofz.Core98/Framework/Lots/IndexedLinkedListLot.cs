@@ -1,5 +1,6 @@
 ﻿namespace xofz.Framework.Lots
 {
+    [System.Obsolete]
     public class IndexedLinkedListLot<T>
         : XLinkedListLot<T>, GetArray<T>
     {

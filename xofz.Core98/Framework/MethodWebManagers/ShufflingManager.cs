@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.MethodWebManagers
 {
     using System.Collections.Generic;
-    using xofz.Framework.Computation;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
@@ -64,27 +63,24 @@
 
         protected virtual Lot<NamedMethodWebHolder> shuffleWebs()
         {
-            var matchingWebs = new IndexedLinkedList<
+            var matchingWebs = new List<
                 ShufflingObject<NamedMethodWebHolder>>();
-            IEnumerable<NamedMethodWebHolder> ws;
 
             lock (this.locker)
             {
-                ws = this.webs;
                 foreach (var webHolder in
-                    ws ?? EH.Empty<NamedMethodWebHolder>())
+                    this.webs ?? EH.Empty<NamedMethodWebHolder>())
                 {
-                    matchingWebs?.Add(
+                    matchingWebs.Add(
                         new ShufflingObject<NamedMethodWebHolder>(
                             webHolder));
                 }
             }
 
-            var sorter = new QuickSorter();
-            sorter?.SortV2(matchingWebs);
+            matchingWebs.Sort();
 
-            return new IndexedLinkedListLot<NamedMethodWebHolder>(
-                IndexedLinkedList<NamedMethodWebHolder>.CreateIndexed(
+            return new XLinkedListLot<NamedMethodWebHolder>(
+                XLinkedList<NamedMethodWebHolder>.Create(
                     EH.Select(
                         matchingWebs,
                         so => so.O)));

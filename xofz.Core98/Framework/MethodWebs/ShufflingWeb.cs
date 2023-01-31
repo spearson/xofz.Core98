@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.MethodWebs
 {
     using System.Collections.Generic;
-    using xofz.Framework.Computation;
     using xofz.Framework.Lots;
     using EH = EnumerableHelpers;
 
@@ -64,27 +63,24 @@
 
         protected virtual Lot<Dependency> shuffleDependencies()
         {
-            var matchingDependencies = new IndexedLinkedList<
+            var matchingDependencies = new List<
                 ShufflingObject<Dependency>>();
-            IEnumerable<Dependency> ds;
 
             lock (this.locker)
             {
-                ds = this.dependencies;
                 foreach (var dependency in 
-                    ds ?? EH.Empty<Dependency>())
+                    this.dependencies ?? EH.Empty<Dependency>())
                 {
-                    matchingDependencies?.Add(
+                    matchingDependencies.Add(
                         new ShufflingObject<Dependency>(
                             dependency));
                 }
             }
 
-            var sorter = new QuickSorter();
-            sorter?.SortV2(matchingDependencies);
+            matchingDependencies.Sort();
 
-            return new IndexedLinkedListLot<Dependency>(
-                IndexedLinkedList<Dependency>.CreateIndexed(
+            return new XLinkedListLot<Dependency>(
+                XLinkedList<Dependency>.Create(
                     EH.Select(
                         matchingDependencies,
                         so => so.O)));

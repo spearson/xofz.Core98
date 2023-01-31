@@ -72,26 +72,6 @@
                         array[l - i - 1]);
                 }
             }
-
-            [Fact]
-            public void IndexedLinkedList_reversal_test()
-            {
-                var s = this.fixture.Create<string>();
-                var ll = IndexedLinkedList<char>.CreateIndexed(
-                    s);
-                var l = ll.Count;
-                var r = this.reverser;
-
-                r.ReverseV2(
-                    ll);
-
-                for (var i = 0; i < l; ++i)
-                {
-                    Assert.Equal(
-                        s[i],
-                        ll[l - i - 1]);
-                }
-            }
         }
     }
 }

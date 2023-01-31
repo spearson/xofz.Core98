@@ -53,8 +53,8 @@
             LogEditor logEditor,
             System.Exception e)
         {
-            var content = IndexedLinkedList<string>
-                .CreateIndexed(
+            var content = XLinkedList<string>
+                .Create(
                     new[]
                     {
                         e.GetType().ToString(),

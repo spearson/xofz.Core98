@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
+    [System.Obsolete]
     public sealed class IndexedLinkedListLotter
         : LotterV3
     {

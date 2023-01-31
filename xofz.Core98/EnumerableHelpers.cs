@@ -1072,15 +1072,15 @@
                 keyList.Reverse();
             }
 
-            var finalL = new List<T>();
+            var finalLL = new XLinkedList<T>();
             foreach (var key in keyList)
             {
-                finalL.AddRange(d[key]);
+                finalLL.Append(d[key]);
             }
 
-            finalL.AddRange(itemsWithNullKeys);
+            finalLL.Append(itemsWithNullKeys);
 
-            return finalL;
+            return finalLL;
         }
 
         public static TEnd Aggregate<T, TEnd>(

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
 
+    [System.Obsolete("dead.")]
     public class XDictionary<TKey, TValue> 
         : XLinkedList<KeyValuePair<TKey, TValue>>, 
             IDictionary<TKey, TValue>

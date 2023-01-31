@@ -64,27 +64,24 @@
 
         protected virtual Lot<NamedManagerHolder> shuffleManagers()
         {
-            var matchingManagers = new IndexedLinkedList<
+            var matchingManagers = new List<
                 ShufflingObject<NamedManagerHolder>>();
-            IEnumerable<NamedManagerHolder> ms;
 
             lock (this.locker)
             {
-                ms = this.managers;
                 foreach (var managerHolder in
-                    ms ?? EH.Empty<NamedManagerHolder>())
+                    this.managers ?? EH.Empty<NamedManagerHolder>())
                 {
-                    matchingManagers?.Add(
+                    matchingManagers.Add(
                         new ShufflingObject<NamedManagerHolder>(
                             managerHolder));
                 }
             }
 
-            var sorter = new QuickSorter();
-            sorter?.SortV2(matchingManagers);
+            matchingManagers.Sort();
 
-            return new IndexedLinkedListLot<NamedManagerHolder>(
-                IndexedLinkedList<NamedManagerHolder>.CreateIndexed(
+            return new XLinkedListLot<NamedManagerHolder>(
+                XLinkedList<NamedManagerHolder>.Create(
                     EH.Select(
                         matchingManagers,
                         so => so.O)));
