@@ -63,6 +63,7 @@
             return this.linkedList?.GetNodes();
         }
 
+        [System.Obsolete(@"Find() already does this")]
         public virtual XLinkedListNode<T> GetNode(
             T item)
         {

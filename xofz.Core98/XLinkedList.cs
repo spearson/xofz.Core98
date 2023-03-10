@@ -217,6 +217,7 @@
                 node => node?.Next);
         }
 
+        [System.Obsolete(@"Already implemented in Find()")]
         public virtual XLinkedListNode<T> GetNode(
             T item)
         {
@@ -615,7 +616,7 @@
                 }
             }
 
-            return target;
+            return null;
         }
 
         public virtual XLinkedListNode<T> FindLast(
@@ -640,7 +641,7 @@
                 }
             }
 
-            return target;
+            return null;
         }
 
         protected virtual void setHead(

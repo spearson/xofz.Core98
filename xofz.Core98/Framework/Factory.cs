@@ -14,47 +14,72 @@
                 return default;
             }
 
-
             if (dependencies == null)
             {
                 const byte zero = 0;
                 dependencies = new object[zero];
             }
 
-
             System.Reflection.ConstructorInfo matchingCtor = null;
-            var l = dependencies.Length;
+            var dependencyCount = dependencies.Length;
             foreach (var ctor in ctors)
             {
                 var ps = ctor.GetParameters();
-                if (ps?.Length != l)
+                if (ps == null)
                 {
                     continue;
                 }
 
-                var e = ((System.Collections.Generic.IEnumerable<
-                        System.Reflection.ParameterInfo>)ps).
-                    GetEnumerator();
+                if (ps.Length != dependencyCount)
+                {
+                    continue;
+                }
+
+                var e = ((System
+                        .Collections
+                        .Generic
+                        .IEnumerable<System
+                            .Reflection
+                            .ParameterInfo>)ps)
+                    .GetEnumerator();
+                if (e == null)
+                {
+                    continue;
+                }
+
                 bool matches = truth;
                 foreach (var d in dependencies)
                 {
-                    e?.MoveNext();
+                    e.MoveNext();
 
                     if (d == null)
                     {
                         continue;
                     }
 
-                    if (!e?.Current?.ParameterType?.IsAssignableFrom(
-                            d?.GetType())
-                        ?? truth)
+                    var c = e.Current;
+                    if (c == null)
+                    {
+                        matches = falsity;
+                        break;
+                    }
+
+                    var p = c.ParameterType;
+                    if (p == null)
+                    {
+                        matches = falsity;
+                        break;
+                    }
+
+                    if (!p.IsInstanceOfType(
+                            d))
                     {
                         matches = falsity;
                         break;
                     }
                 }
 
-                e?.Dispose();
+                e.Dispose();
 
                 if (matches)
                 {
@@ -63,7 +88,12 @@
                 }
             }
 
-            return (T)matchingCtor?.Invoke(dependencies);
+            if (matchingCtor == null)
+            {
+                return default;
+            }
+
+            return (T)matchingCtor.Invoke(dependencies);
         }
 
         public virtual bool TryCreate<T>(

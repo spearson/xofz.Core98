@@ -29,16 +29,6 @@
                 node => node?.Previous);
         }
 
-        public override XLinkedListNode<T> GetNode(
-            T item)
-        {
-            return this.readNode(
-                this.readNodes(
-                    this.tailNode,
-                    node => node?.Previous),
-                item);
-        }
-
         protected class ReverseEnumerator
             : XLinkedListEnumerator
         {

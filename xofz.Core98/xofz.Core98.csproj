@@ -109,6 +109,7 @@
     <Compile Include="LotterV2.cs" />
     <Compile Include="LotterV3.cs" />
     <Compile Include="Nameable.cs" />
+    <Compile Include="Referencer.cs" />
     <Compile Include="Presentation\Presenters\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />
     <Compile Include="Presentation\Navigators\UnsyncNavigator.cs" />
