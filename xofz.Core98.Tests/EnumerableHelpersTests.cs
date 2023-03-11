@@ -285,6 +285,45 @@
             }
         }
 
+        public class When_Range_is_called : Context
+        {
+            [Fact]
+            public void Works()
+            {
+                var l1 = this.fixture.Create<long>();
+                var l2 = this.fixture.Create<long>();
+                var l3 = this.fixture.Create<long>();
+                var l4 = this.fixture.Create<long>();
+                long[] boom = { l1, l2, l3, l4 };
+
+                long count = 0;
+                foreach (var item in EH.Range(
+                             boom,
+                             1,
+                             2))
+                {
+                    ++count;
+                    switch (count)
+                    {
+                        case 1:
+                            Assert.Equal(l2, item);
+                            break;
+                        case 2:
+                            Assert.Equal(l3, item);
+                            break;
+                    }
+                }
+
+                Assert.Equal(2, count);
+            }
+
+            public When_Range_is_called(
+                ITestOutputHelper helper) 
+                : base(helper)
+            {
+            }
+        }
+
         protected const byte zero = 0;
         protected const byte one = 1;
     }

@@ -72,6 +72,7 @@
     <Compile Include="Framework\ManagerLocators\UnsyncLocator.cs" />
     <Compile Include="Framework\MethodWebManagers\UnsyncManager.cs" />
     <Compile Include="Framework\MethodWebs\UnsyncWeb.cs" />
+    <Compile Include="Framework\Nomenclature.cs" />
     <Compile Include="Framework\Subjugate.cs" />
     <Compile Include="Framework\Axioses\Raiser.cs" />
     <Compile Include="Framework\UiMaker.cs" />

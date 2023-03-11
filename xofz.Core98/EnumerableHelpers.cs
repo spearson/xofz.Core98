@@ -1667,6 +1667,87 @@
             return minusOne;
         }
 
+        public static IEnumerable<T> Range<T>(
+            IEnumerable<T> source,
+            long startIndex,
+            long count)
+        {
+            if (source == null)
+            {
+                yield break;
+            }
+
+            if (count < one)
+            {
+                yield break;
+            }
+
+            if (startIndex < zero)
+            {
+                startIndex = zero;
+            }
+
+            long
+                currentIndex = zero, 
+                currentCount = zero;
+            foreach (var item in source)
+            {
+                if (currentCount >= count)
+                {
+                    yield break;
+                }
+
+                if (currentIndex < startIndex)
+                {
+                    ++currentIndex;
+                    continue;
+                }
+
+                yield return item;
+
+                ++currentCount;
+                ++currentIndex;
+            }
+        }
+
+        public static IEnumerable<int> Range(
+            int start,
+            int count)
+        {
+            if (count < one)
+            {
+                yield break;
+            }
+
+            int currentCount = zero;
+            int currentValue = start;
+            while (currentCount < count)
+            {
+                yield return currentValue;
+                ++currentCount;
+                ++currentValue;
+            }
+        }
+
+        public static IEnumerable<int> ReverseRange(
+            int start,
+            int count)
+        {
+            if (count < one)
+            {
+                yield break;
+            }
+
+            int currentCount = zero;
+            int currentValue = start;
+            while (currentCount < count)
+            {
+                yield return currentValue;
+                ++currentCount;
+                --currentValue;
+            }
+        }
+
         protected const byte
             zero = 0,
             one = 1;

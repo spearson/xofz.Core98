@@ -511,5 +511,34 @@
                 source,
                 o);
         }
+
+        public virtual IEnumerable<T> Range<T>(
+            IEnumerable<T> source,
+            long startIndex,
+            long count)
+        {
+            return EH.Range(
+                source,
+                startIndex,
+                count);
+        }
+
+        public virtual IEnumerable<int> Range(
+            int start,
+            int count)
+        {
+            return EH.Range(
+                start,
+                count);
+        }
+
+        public virtual IEnumerable<int> ReverseRange(
+            int start,
+            int count)
+        {
+            return EH.ReverseRange(
+                start,
+                count);
+        }
     }
 }
