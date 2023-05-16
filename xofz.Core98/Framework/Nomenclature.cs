@@ -14,17 +14,18 @@
             n.Name = readNewName?.Invoke();
         }
 
-        public virtual void ApplyName(
+        public virtual Nameable ApplyName(
             Gen<Nameable> newNameable,
             string name)
         {
             var n = newNameable?.Invoke();
             if (n == null)
             {
-                return;
+                return n;
             }
 
             n.Name = name;
+            return n;
         }
     }
 }

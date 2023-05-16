@@ -71,6 +71,7 @@
     <Compile Include="Framework\EventSubscriberTests.cs" />
     <Compile Include="Framework\Factories\NameableFactoryTests.cs" />
     <Compile Include="Framework\FactoryTests.cs" />
+    <Compile Include="Framework\StarTests.cs" />
     <Compile Include="Framework\LogEditor\AddKeyTappedHandlerTests.cs" />
     <Compile Include="Framework\LogEditor\LabelApplierTests.cs" />
     <Compile Include="Framework\LogEditor\SetupHandlerTests.cs" />

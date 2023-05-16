@@ -36,7 +36,7 @@
         {
             lock (this.locker)
             {
-                this.dependencies?.Add(
+                base.register(
                     dependency);
             }
         }
@@ -44,21 +44,24 @@
         public virtual bool Unregister<T>(
             string name = null)
         {
-            var ds = this.dependencies;
+            var deps = this.dependencies;
             var unregistered = falsity;
+            if (deps == null)
+            {
+                return unregistered;
+            }
+
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in deps)
                 {
                     if (this.tryGet(
-                        d.Content,
-                        d.Name,
-                        name,
-                        out T _))
+                            d.Content,
+                            d.Name,
+                            name,
+                            out T _))
                     {
-                        unregistered = ds?.Remove(d)
-                                       ?? falsity;
+                        unregistered = deps.Remove(d);
                         break;
                     }
                 }

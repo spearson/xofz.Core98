@@ -62,6 +62,7 @@
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
     <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
+    <Compile Include="Framework\Star.cs" />
     <Compile Include="Framework\Leeches\UnsyncLeech.cs" />
     <Compile Include="Framework\Lots\IndexedLinkedListLot.cs" />
     <Compile Include="Framework\Lots\ReverseLinkedListLot.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Framework\Lotters\XLinkedListLotter.cs" />
     <Compile Include="Framework\ManagerLocators\UnsyncLocator.cs" />
     <Compile Include="Framework\MethodWebManagers\UnsyncManager.cs" />
+    <Compile Include="Framework\MethodWebs\HalflockWeb.cs" />
     <Compile Include="Framework\MethodWebs\UnsyncWeb.cs" />
     <Compile Include="Framework\Nomenclature.cs" />
     <Compile Include="Framework\Subjugate.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="LotterV2.cs" />
     <Compile Include="LotterV3.cs" />
     <Compile Include="Nameable.cs" />
+    <Compile Include="Namer.cs" />
     <Compile Include="Referencer.cs" />
     <Compile Include="Presentation\Presenters\EmptyPresenter.cs" />
     <Compile Include="Framework\Factories\NameableFactory.cs" />

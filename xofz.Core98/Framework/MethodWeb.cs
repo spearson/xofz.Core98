@@ -847,7 +847,8 @@
             truth = true,
             falsity = false;
 
-        protected class Dependency
+        protected class Dependency 
+            : Nameable
         {
             public virtual string Name { get; set; }
 
