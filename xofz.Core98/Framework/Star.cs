@@ -35,7 +35,7 @@
         public virtual MethodWeb W { get; set; }
 
         public virtual T AccessWeb<T>(
-            Do<T> accessor)
+            Do<T> accessor = null)
             where T : MethodWeb
         {
             if (this.W is T web)
