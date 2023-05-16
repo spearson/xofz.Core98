@@ -7,6 +7,7 @@
     {
         public HalflockWeb()
         {
+            this.locker = new object();
         }
 
         protected HalflockWeb(
