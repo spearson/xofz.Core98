@@ -42,19 +42,22 @@
             public override bool MoveNext()
             {
                 var cn = this.currentNode;
-                if (cn == null && !this.movedOnce)
+                if (cn == null)
                 {
                     cn = this.tail;
-                    this.setCurrentNode(cn);
-                    this.setMoved(truth);
-
-                    return cn != null;
+                    goto checkPrevious;
                 }
 
-                cn = cn?.Previous;
-                this.setCurrentNode(cn);
+                cn = cn.Previous;
 
-                return cn != null;
+                checkPrevious:
+                if (cn == null)
+                {
+                    return falsity;
+                }
+
+                this.setCurrentNode(cn);
+                return truth;
             }
 
             protected readonly XLinkedListNode<T> tail;

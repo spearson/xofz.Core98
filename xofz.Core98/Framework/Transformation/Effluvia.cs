@@ -27,12 +27,12 @@
                 yield break;
             }
 
-            while (truth)
+            foreach (var item in this.Generate(
+                         instantiate))
             {
-                var nextItem = instantiate();
-                if (decider(nextItem))
+                if (decider(item))
                 {
-                    yield return nextItem;
+                    yield return item;
                     continue;
                 }
 

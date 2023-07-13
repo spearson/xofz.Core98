@@ -717,25 +717,27 @@
             public virtual bool MoveNext()
             {
                 var cn = this.currentNode;
-                if (cn == null && !this.movedOnce)
+                if (cn == null)
                 {
                     cn = this.head;
-                    this.setMoved(truth);
-                    this.setCurrentNode(cn);
-
-                    return cn != null;
+                    goto checkNext;
                 }
 
-                cn = cn?.Next;
-                this.setCurrentNode(cn);
+                cn = cn.Next;
 
-                return cn != null;
+                checkNext:
+                if (cn == null)
+                {
+                    return falsity;
+                }
+
+                this.setCurrentNode(cn);
+                return truth;
             }
 
             public virtual void Reset()
             {
                 this.setCurrentNode(null);
-                this.setMoved(falsity);
             }
 
             public virtual T Current
@@ -762,13 +764,6 @@
                 this.currentNode = currentNode;
             }
 
-            protected virtual void setMoved(
-                bool movedOnce)
-            {
-                this.movedOnce = movedOnce;
-            }
-
-            protected bool movedOnce;
             protected XLinkedListNode<T> currentNode;
             protected readonly XLinkedListNode<T> head;
         }
