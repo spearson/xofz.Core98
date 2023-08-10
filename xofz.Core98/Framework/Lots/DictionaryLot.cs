@@ -58,7 +58,7 @@
             while (finiteEnumerator.MoveNext())
             {
                 var c = finiteEnumerator.Current;
-                d?.Add(
+                d.Add(
                     c.Key,
                     c.Value);
             }

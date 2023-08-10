@@ -19,10 +19,13 @@
 
         public IEnumerator<T> GetEnumerator()
         {
-            var ll = this.linkedList;
-            return ll?.GetEnumerator() ??
-                   EnumerableHelpers.Empty<T>().
-                       GetEnumerator();
+            IEnumerable<T> ie = this.linkedList;
+            if (ie == null)
+            {
+                ie = EnumerableHelpers.Empty<T>();
+            }
+            
+            return ie.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -30,7 +33,19 @@
             return this.GetEnumerator();
         }
 
-        public virtual long Count => this.linkedList?.Count ?? minusOne;
+        public virtual long Count
+        {
+            get
+            {
+                var ll = this.linkedList;
+                if (ll == null)
+                {
+                    return minusOne;
+                }
+
+                return ll.Count;
+            }
+        }
 
         public virtual T Head
         {
@@ -61,13 +76,6 @@
         public virtual IEnumerable<XLinkedListNode<T>> GetNodes()
         {
             return this.linkedList?.GetNodes();
-        }
-
-        [System.Obsolete(@"Find() already does this")]
-        public virtual XLinkedListNode<T> GetNode(
-            T item)
-        {
-            return this.linkedList?.GetNode(item);
         }
 
         public virtual void Append(

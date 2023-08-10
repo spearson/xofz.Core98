@@ -217,18 +217,6 @@
                 node => node?.Next);
         }
 
-        [System.Obsolete(@"Already implemented in Find()")]
-        public virtual XLinkedListNode<T> GetNode(
-            T item)
-        {
-            return this.readNode(
-                this.readNodes(
-                    this.headNode,
-                    node => node?.Next),
-                item);
-
-        }
-
         public virtual void Append(
             IEnumerable<T> finiteSource)
         {
@@ -668,26 +656,6 @@
             return node.O?.Equals(item) ?? item == null;
         }
 
-        protected virtual XLinkedListNode<T> readNode(
-            IEnumerable<XLinkedListNode<T>> nodes,
-            T item)
-        {
-            if (nodes == null)
-            {
-                return default;
-            }
-
-            foreach (var node in nodes)
-            {
-                if (this.nodeContains(node, item))
-                {
-                    return node;
-                }
-            }
-
-            return default;
-        }
-
         protected virtual IEnumerable<XLinkedListNode<T>> readNodes(
             XLinkedListNode<T> node,
             Gen<XLinkedListNode<T>, XLinkedListNode<T>> nextReader)
@@ -699,7 +667,12 @@
 
             yield return node;
 
-            while ((node = nextReader?.Invoke(node)) != null)
+            if (nextReader == null)
+            {
+                yield break;
+            }
+
+            while ((node = nextReader(node)) != null)
             {
                 yield return node;
             }
