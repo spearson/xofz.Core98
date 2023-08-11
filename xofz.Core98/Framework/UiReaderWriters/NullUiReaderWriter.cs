@@ -9,12 +9,9 @@
             Ui ui,
             Gen<T> read)
         {
-            if (read == null)
-            {
-                return default;
-            }
-
-            return read();
+            return read == null 
+                ? default 
+                : read();
         }
 
         public override void Write(

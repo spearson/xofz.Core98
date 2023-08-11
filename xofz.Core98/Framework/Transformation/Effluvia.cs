@@ -22,7 +22,7 @@
             Gen<T> instantiate,
             Gen<T, bool> decider)
         {
-            if (instantiate == null || decider == null)
+            if (decider == null)
             {
                 yield break;
             }
