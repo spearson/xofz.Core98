@@ -151,11 +151,20 @@
             lock (this.locker)
             {
                 ms = this.managers;
+                if (ms == null)
+                {
+                    return falsity;
+                }
+
                 targetHolder = EH.FirstOrNull(
                     ms,
                     managerHolder => managerHolder?.Name == managerName);
-                removed = ms?.Remove(targetHolder)
-                    ?? falsity;
+                if (targetHolder == null)
+                {
+                    return falsity;
+                }
+
+                removed = ms.Remove(targetHolder);
             }
 
             return removed;

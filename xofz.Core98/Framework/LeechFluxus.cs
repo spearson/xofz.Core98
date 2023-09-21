@@ -152,11 +152,20 @@
             lock (this.locker)
             {
                 ls = this.leeches;
+                if (ls == null)
+                {
+                    return falsity;
+                }
+
                 targetHolder = EH.FirstOrNull(
                     ls,
                     leechHolder => leechHolder?.Name == leechName);
-                removed = ls?.Remove(targetHolder)
-                    ?? falsity;
+                if (targetHolder == null)
+                {
+                    return falsity;
+                }
+
+                removed = ls.Remove(targetHolder);
             }
 
             return removed;

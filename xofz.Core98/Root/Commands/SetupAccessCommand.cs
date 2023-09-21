@@ -26,16 +26,21 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
-            w?.RegisterDependency(
+            if (w == null)
+            {
+                return;
+            }
+
+            w.RegisterDependency(
                 this.passwords);
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new xofz.Framework.Timer(),
                 DependencyNames.Timer);
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new SecureStringToolSet());
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new SettingsHolder());
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new TimeProvider());
         }
 

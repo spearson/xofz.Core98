@@ -5,7 +5,7 @@
     using xofz.Presentation.Presenters;
     using xofz.UI;
 
-    public class SetupShutdownCommand 
+    public class SetupShutdownCommand
         : Command
     {
         public SetupShutdownCommand(
@@ -43,15 +43,20 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
-            w?.RegisterDependency(
-                    this.cleanupUi,
-                    UiNames.Cleanup);
-            w?.RegisterDependency(
-                    this.cleanup,
-                    MethodNames.Cleanup);
-            w?.RegisterDependency(
+            if (w == null)
+            {
+                return;
+            }
+
+            w.RegisterDependency(
+                this.cleanupUi,
+                UiNames.Cleanup);
+            w.RegisterDependency(
+                this.cleanup,
+                MethodNames.Cleanup);
+            w.RegisterDependency(
                 new StartHandler(w));
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new ProcessKiller());
         }
 

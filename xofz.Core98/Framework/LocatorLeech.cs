@@ -152,11 +152,20 @@
             lock (this.locker)
             {
                 ls = this.locators;
+                if (ls == null)
+                {
+                    return falsity;
+                }
+
                 targetHolder = EH.FirstOrNull(
                     ls,
                     locatorHolder => locatorHolder?.Name == locatorName);
-                removed = ls?.Remove(targetHolder)
-                    ?? falsity;
+                if (targetHolder == null)
+                {
+                    return falsity;
+                }
+
+                removed = ls.Remove(targetHolder);
             }
 
             return removed;

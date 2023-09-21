@@ -30,19 +30,24 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
+            if (w == null)
+            {
+                return;
+            }
+
             var s = this.settings;
             if (s == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new SettingsHolder());
                 goto registerHandlers;
             }
 
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 s);
 
             registerHandlers:
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new ShutdownRequestedHandler(w));
         }
 

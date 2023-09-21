@@ -194,6 +194,11 @@
             [Fact]
             public void Registers_a_Labels()
             {
+                A
+                    .CallTo(() => this.web.Run<Labels>(
+                        null,
+                        null))
+                    .Returns(null);
                 this.command.Execute();
 
                 A

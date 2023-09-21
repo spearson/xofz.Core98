@@ -123,6 +123,11 @@
         protected virtual void registerDependencies()
         {
             var w = this.web;
+            if (w == null)
+            {
+                return;
+            }
+
             var s = this.settings ??
                     new SettingsHolder();
             var ldn = s.LogDependencyName;
@@ -131,11 +136,11 @@
 
             if (w.Run<Delayer>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Delayer());
             }
 
-            if (w?.Run<Log>(null, ldn) != null)
+            if (w.Run<Log>(null, ldn) != null)
             {
                 goto checkLotter;
             }
@@ -148,315 +153,315 @@
             var location2 = s.SecondaryLogLocation;
             if (location2 == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new TextFileLog(location),
                     ldn);
                 goto checkLotter;
             }
 
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new EventLogLog(location, location2),
                 ldn);
 
             checkLotter:
             var ln = DependencyNames.Lotter;
-            if (w?.Run<Lotter>(null, ln) == null)
+            if (w.Run<Lotter>(null, ln) == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new XLinkedListLotter(),
                     ln);
             }
 
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 s,
                 ldn);
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new XLinkedList<LogEntry>(),
                 ldn);
-            w?.RegisterDependency(
+            w.RegisterDependency(
                 new Framework.Log.FieldHolder(),
                 ldn);
             if (se)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new LogStatistics(w)
                     {
                         LogDependencyName = ldn
                     },
                     ldn);
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     this.statsUi,
                     ldn);
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Framework.LogStatistics.SettingsHolder(),
                     ldn);
             }
 
-            if (w?.Run<EntryReloader>() == null)
+            if (w.Run<EntryReloader>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new EntryReloader(w));
             }
 
-            if (w?.Run<EntryConverter>() == null)
+            if (w.Run<EntryConverter>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new EntryConverter(w));
             }
 
-            if (w?.Run<FilterChecker>() == null)
+            if (w.Run<FilterChecker>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new FilterChecker(w));
             }
 
-            if (w?.Run<DateAndFilterResetter>() == null)
+            if (w.Run<DateAndFilterResetter>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new DateAndFilterResetter(w));
             }
 
-            if (w?.Run<TimeProvider>() == null)
+            if (w.Run<TimeProvider>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new TimeProvider());
             }
 
-            if (w?.Run<SetupHandler>() == null)
+            if (w.Run<SetupHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new SetupHandler(w));
             }
 
-            if (w?.Run<StartHandler>() == null)
+            if (w.Run<StartHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new StartHandler(w));
             }
 
-            if (w?.Run<AddKeyTappedHandler>() == null)
+            if (w.Run<AddKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new AddKeyTappedHandler(w));
             }
 
-            if (w?.Run<AccessLevelChangedHandler>() == null)
+            if (w.Run<AccessLevelChangedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new AccessLevelChangedHandler(w));
             }
 
-            if (w?.Run<DateRangeChangedHandler>() == null)
+            if (w.Run<DateRangeChangedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new DateRangeChangedHandler(w));
             }
 
-            if (w?.Run<FilterTextChangedHandler>() == null)
+            if (w.Run<FilterTextChangedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new FilterTextChangedHandler(w));
             }
 
-            if (w?.Run<StatisticsKeyTappedHandler>() == null)
+            if (w.Run<StatisticsKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new StatisticsKeyTappedHandler(w));
             }
 
-            if (w?.Run<ClearKeyTappedHandler>() == null)
+            if (w.Run<ClearKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new ClearKeyTappedHandler(w));
             }
 
-            if (w?.Run<EntryWrittenHandler>() == null)
+            if (w.Run<EntryWrittenHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new EntryWrittenHandler(w));
             }
 
-            if (w?.Run<Labels>() == null)
+            if (w.Run<Labels>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Labels());
             }
 
-            if (w?.Run<LabelApplier>() == null)
+            if (w.Run<LabelApplier>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new LabelApplier(w));
             }
 
-            if (w?.Run<PreviousWeekKeyTappedHandler>() == null)
+            if (w.Run<PreviousWeekKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new PreviousWeekKeyTappedHandler(w));
             }
 
-            if (w?.Run<CurrentWeekKeyTappedHandler>() == null)
+            if (w.Run<CurrentWeekKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new CurrentWeekKeyTappedHandler(w));
             }
 
-            if (w?.Run<NextWeekKeyTappedHandler>() == null)
+            if (w.Run<NextWeekKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new NextWeekKeyTappedHandler(w));
             }
 
-            if (w?.Run<NewestKeyTappedHandler>() == null)
+            if (w.Run<NewestKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new NewestKeyTappedHandler(w));
             }
 
-            if (w?.Run<OldestKeyTappedHandler>() == null)
+            if (w.Run<OldestKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new OldestKeyTappedHandler(w));
             }
 
-            if (w?.Run<KeyPresser>() == null)
+            if (w.Run<KeyPresser>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new GeneralKeyPresser());
             }
 
-            if (w?.Run<DownKeyTappedHandler>() == null)
+            if (w.Run<DownKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new DownKeyTappedHandler(w));
             }
 
-            if (w?.Run<UpKeyTappedHandler>() == null)
+            if (w.Run<UpKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new UpKeyTappedHandler(w));
             }
 
-            if (w?.Run<ResetContentKeyTappedHandler>() == null)
+            if (w.Run<ResetContentKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new ResetContentKeyTappedHandler(w));
             }
 
-            if (w?.Run<ResetTypeKeyTappedHandler>() == null)
+            if (w.Run<ResetTypeKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new ResetTypeKeyTappedHandler(w));
             }
 
-            if (w?.Run<Framework.LogEditor.SetupHandler>() == null)
+            if (w.Run<Framework.LogEditor.SetupHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new xofz.Framework.LogEditor.SetupHandler(w));
             }
 
-            if (w?.Run<Framework.LogEditor.TypeChangedHandler>() == null)
+            if (w.Run<Framework.LogEditor.TypeChangedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Framework.LogEditor.TypeChangedHandler(w));
             }
 
-            if (w?.Run<Framework.LogEditor.AddKeyTappedHandler>() == null)
+            if (w.Run<Framework.LogEditor.AddKeyTappedHandler>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Framework.LogEditor.AddKeyTappedHandler(w));
             }
 
-            if (w?.Run<Framework.LogEditor.Labels>() == null)
+            if (w.Run<Framework.LogEditor.Labels>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Framework.LogEditor.Labels());
             }
 
-            if (w?.Run<Framework.LogEditor.LabelApplier>() == null)
+            if (w.Run<Framework.LogEditor.LabelApplier>() == null)
             {
-                w?.RegisterDependency(
+                w.RegisterDependency(
                     new Framework.LogEditor.LabelApplier(w));
             }
 
             if (se)
             {
-                if (w?.Run<Framework.LogStatistics.SetupHandler>() == null)
+                if (w.Run<Framework.LogStatistics.SetupHandler>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.SetupHandler(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.StartHandler>() == null)
+                if (w.Run<Framework.LogStatistics.StartHandler>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.StartHandler(w));
                 }
 
-                if (w?.
+                if (w.
                     Run<Framework.LogStatistics.
                         ResetContentKeyTappedHandler>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             ResetContentKeyTappedHandler(w));
                 }
 
-                if (w?.
+                if (w.
                         Run<Framework.LogStatistics.
                             ResetTypeKeyTappedHandler>() ==
                     null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             ResetTypeKeyTappedHandler(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.StatsDisplayer>() == null)
+                if (w.Run<Framework.LogStatistics.StatsDisplayer>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.StatsDisplayer(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.FilterSetter>() == null)
+                if (w.Run<Framework.LogStatistics.FilterSetter>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.FilterSetter(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.OverallKeyTappedHandler>() ==
+                if (w.Run<Framework.LogStatistics.OverallKeyTappedHandler>() ==
                     null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             OverallKeyTappedHandler(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.RangeKeyTappedHandler>() ==
+                if (w.Run<Framework.LogStatistics.RangeKeyTappedHandler>() ==
                     null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             RangeKeyTappedHandler(w));
                 }
 
 
-                if (w?.Run<Framework.LogStatistics.DateResetter>() == null)
+                if (w.Run<Framework.LogStatistics.DateResetter>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             DateResetter(w));
                 }
 
-                if (w?.Run<Framework.LogStatistics.Labels>() == null)
+                if (w.Run<Framework.LogStatistics.Labels>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             Labels());
                 }
 
-                if (w?.Run<Framework.LogStatistics.LabelApplier>() == null)
+                if (w.Run<Framework.LogStatistics.LabelApplier>() == null)
                 {
-                    w?.RegisterDependency(
+                    w.RegisterDependency(
                         new Framework.LogStatistics.
                             LabelApplier(w));
                 }

@@ -100,11 +100,20 @@
             lock (this.locker)
             {
                 ws = this.webs;
+                if (ws == null)
+                {
+                    return falsity;
+                }
+
                 targetHolder = EH.FirstOrNull(
                     ws,
                     webHolder => webHolder?.Name == webName);
-                removed = ws?.Remove(targetHolder)
-                    ?? falsity;
+                if (targetHolder == null)
+                {
+                    return falsity;
+                }
+
+                removed = ws.Remove(targetHolder);
             }
 
             return removed;
