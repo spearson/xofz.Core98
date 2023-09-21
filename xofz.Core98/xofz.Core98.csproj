@@ -61,6 +61,7 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\MethodWebs\HalfsyncWeb.cs" />
     <Compile Include="Framework\Transformation\Effluvia.cs" />
     <Compile Include="Framework\Fluxuses\UnsyncFluxus.cs" />
     <Compile Include="Framework\Star.cs" />
