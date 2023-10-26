@@ -16,6 +16,10 @@
             var untrimmedLines = st.Split(
                 new[] { System.Environment.NewLine },
                 System.StringSplitOptions.RemoveEmptyEntries);
+            if (untrimmedLines == null)
+            {
+                yield break;
+            }
 
             foreach (var line in untrimmedLines)
             {

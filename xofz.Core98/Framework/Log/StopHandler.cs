@@ -19,9 +19,10 @@
             var r = this.runner;
             r?.Run<FieldHolder>(fields =>
                 {
+                    const byte zero = 0;
                     Interlocked.Exchange(
                         ref fields.startedIf1,
-                        0);
+                        zero);
                 },
                 name);
         }

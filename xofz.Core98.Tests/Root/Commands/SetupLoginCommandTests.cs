@@ -6,7 +6,6 @@
     using xofz.Framework;
     using xofz.Framework.Login;
     using xofz.Root.Commands;
-    using xofz.UI;
     using xofz.UI.Login;
     using Xunit;
 

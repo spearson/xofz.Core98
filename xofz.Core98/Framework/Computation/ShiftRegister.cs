@@ -1,7 +1,5 @@
 ﻿namespace xofz.Framework.Computation
 {
-    using System.Collections.Generic;
-
     public class ShiftRegister
     {
         public ShiftRegister(

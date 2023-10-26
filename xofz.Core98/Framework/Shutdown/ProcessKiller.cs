@@ -8,5 +8,11 @@
         {
             Process.GetCurrentProcess().Kill();
         }
+
+        public virtual void Kill(
+            Process p)
+        {
+            p.Kill();
+        }
     }
 }

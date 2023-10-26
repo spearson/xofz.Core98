@@ -3,7 +3,6 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Reflection;
-    using EH = xofz.EnumerableHelpers;
 
     public class EnumerableHelpers
     {
@@ -267,9 +266,9 @@
             }
 
             foreach (var item in
-                EH.Reverse(
-                    EH.Take(
-                        EH.Reverse(
+                Reverse(
+                    Take(
+                        Reverse(
                             finiteSource),
                         takeCount)))
             {

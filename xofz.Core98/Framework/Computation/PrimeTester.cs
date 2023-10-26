@@ -9,21 +9,19 @@
             IEnumerable<long> finiteSource,
             bool onlyCheckLast)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                return truth;
+                case null:
+                    return truth;
+                case Lot<long> lot:
+                    return this.RelativelyPrime(
+                        lot, onlyCheckLast);
+                default:
+                    return this.RelativelyPrime(
+                        new XLinkedListLot<long>(
+                            XLinkedList<long>.Create(finiteSource)),
+                        onlyCheckLast);
             }
-
-            if (finiteSource is Lot<long> lot)
-            {
-                return this.RelativelyPrime(
-                    lot, onlyCheckLast);
-            }
-
-            return this.RelativelyPrime(
-                new XLinkedListLot<long>(
-                   XLinkedList<long>.Create(finiteSource)),
-                onlyCheckLast);
         }
 
         public virtual bool RelativelyPrime(

@@ -45,7 +45,7 @@
 
                     contentFilter = uiRW.Read(
                         logUi,
-                        () => logUi?.FilterContent);
+                        () => logUi.FilterContent);
                     uiRW.WriteSync(
                         ui,
                         () =>

@@ -43,8 +43,7 @@
         {
             lock (this.locker)
             {
-                foreach (var command in this.executedCommands
-                                        ?? EnumerableHelpers.Empty<Command>())
+                foreach (var command in this.executedCommands)
                 {
                     if (command is T t)
                     {
@@ -62,8 +61,7 @@
             var commands = new XLinkedListLot<T>();
             lock (this.locker)
             {
-                foreach (var command in this.executedCommands
-                                        ?? EnumerableHelpers.Empty<Command>())
+                foreach (var command in this.executedCommands)
                 {
                     if (command is T t)
                     {
@@ -86,7 +84,7 @@
             command.Execute();
             lock (this.locker)
             {
-                this.executedCommands?.Add(command);
+                this.executedCommands.Add(command);
             }
 
             return this;

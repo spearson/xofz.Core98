@@ -59,7 +59,7 @@
 
                             ui.Content = null;
                             ui.SelectedType = DefaultEntryTypes.Information;
-                            ui?.Hide();
+                            ui.Hide();
                         });
                 },
                 logName);

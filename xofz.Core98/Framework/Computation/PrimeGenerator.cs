@@ -10,7 +10,7 @@
                 new PrimeTester(),
                 XLinkedList<long>.Create(new long[]
                 {
-                    firstPrimality,
+                    firstPrime,
                     secondPrime
                 }))
         {
@@ -30,7 +30,7 @@
                 tester,
                 XLinkedList<long>.Create(new long[]
                 {
-                    firstPrimality,
+                    firstPrime,
                     secondPrime
                 }))
         {
@@ -70,22 +70,32 @@
         {
             const bool truth = true;
             var ll = this.currentLinkedList;
-            ll?.AddTail(
-                (long)(ll?.Tail + firstPrimality));
-            while (!this.tester.RelativelyPrime(ll, truth))
+            if (ll == null)
             {
-                var node = ll?.RemoveTail();
-                ll?.AddTail(
-                    node?.O + firstPrimality
-                    ?? firstPrimality);
+                return firstPrime;
             }
 
-            return ll?.Tail ?? firstPrimality;
+            ll.AddTail(ll.Tail + firstPrime);
+            while (!this.tester.RelativelyPrime(ll, truth))
+            {
+                var node = ll.RemoveTail();
+                if (node == null)
+                {
+                    return firstPrime;
+                }
+
+                ll.AddTail(
+                    node.O + firstPrime);
+            }
+
+            return ll.Tail;
         }
 
         protected readonly XLinkedListLot<long> currentLinkedList;
         protected readonly PrimeTester tester;
-        protected const byte firstPrimality = 2;
-        protected const byte secondPrime = 3;
+
+        protected const byte
+            firstPrime = 2,
+            secondPrime = 3;
     }
 }
