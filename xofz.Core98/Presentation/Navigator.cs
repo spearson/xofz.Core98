@@ -10,40 +10,41 @@
     public class Navigator
     {
         public Navigator()
-            : this((MethodRunner)null)
+            : this(null, null)
         {
         }
 
         public Navigator(
             MethodRunner runner)
-            : this(
-                  runner,
-                  p =>
-                  {
-                      ThreadPool.QueueUserWorkItem(
-                          o => p?.Start());
-                  })
+            : this(runner, null)
         {
         }
 
-        public Navigator(
-            MethodRunner runner,
-            Do<Presenter> startPresenter)
-            : this(
-                runner, 
-                startPresenter, 
-                new XLinkedList<Presenter>())
+        protected Navigator(
+            ICollection<Presenter> presenters)
+            : this(null, null, presenters)
         {
         }
 
         protected Navigator(
             MethodRunner runner,
-            Do<Presenter> startPresenter,
-            ICollection<Presenter> presenters)
+            Do<Presenter> startPresenter = null,
+            ICollection<Presenter> presenters = null)
         {
             this.runner = runner;
-            this.startPresenter = startPresenter;
-            this.presenters = presenters;
+            this.startPresenter = startPresenter ??
+                                  (p =>
+                                  {
+                                      if (p == null)
+                                      {
+                                          return;
+                                      }
+
+                                      ThreadPool.QueueUserWorkItem(
+                                          o => p.Start());
+                                  });
+            this.presenters = presenters ??
+                              new XLinkedList<Presenter>();
         }
 
         public virtual bool RegisterPresenter(

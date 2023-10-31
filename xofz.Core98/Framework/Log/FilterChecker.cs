@@ -46,13 +46,13 @@
                     ui,
                     () => ui?.FilterType);
                 filterType = filterType?.ToLowerInvariant();
-                var entryType = entry?.Type;
+                var entryType = entry.Type;
                 if (filterType != null)
                 {
                     if (!entryType
                         ?.ToLowerInvariant()
                         .Contains(filterType
-                                ?.ToLowerInvariant()) ?? true)
+                            .ToLowerInvariant()) ?? true)
                     {
                         return;
                     }

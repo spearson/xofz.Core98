@@ -1,26 +1,25 @@
 ﻿namespace xofz.Framework
 {
     using System.Collections.Generic;
-    using EH = EnumerableHelpers;
 
     public class MethodWebV2
         : MethodWeb
     {
         public MethodWebV2()
+            : this(null, null)
         {
-            this.locker = new object();
         }
 
         protected MethodWebV2(
             ICollection<Dependency> dependencies)
-            : this(dependencies, new object())
+            : this(dependencies, null)
         {
         }
 
         protected MethodWebV2(
             object locker)
+            : this(null, locker)
         {
-            this.locker = locker;
         }
 
         protected MethodWebV2(
@@ -28,7 +27,8 @@
             object locker)
             : base(dependencies)
         {
-            this.locker = locker;
+            this.locker = locker ??
+                          new object();
         }
 
         protected override void register(
@@ -44,24 +44,24 @@
         public virtual bool Unregister<T>(
             string name = null)
         {
-            var deps = this.dependencies;
             var unregistered = falsity;
-            if (deps == null)
-            {
-                return unregistered;
-            }
-
+            var ds = this.dependencies;
             lock (this.locker)
             {
-                foreach (var d in deps)
+                foreach (var d in ds)
                 {
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
                     if (this.tryGet(
                             d.Content,
                             d.Name,
                             name,
                             out T _))
                     {
-                        unregistered = deps.Remove(d);
+                        unregistered = ds.Remove(d);
                         break;
                     }
                 }
@@ -74,16 +74,19 @@
             Do<T> method = null,
             string dependencyName = null)
         {
-            var ds = this.dependencies;
             T t;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
                     if (this.tryGet(
-                        d?.Content,
-                        d?.Name,
+                        d.Content,
+                        d.Name,
                         dependencyName,
                         out t))
                     {
@@ -105,7 +108,6 @@
             string tName = null,
             string uName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             bool
@@ -113,16 +115,20 @@
                 uFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -169,7 +175,6 @@
             string uName = null,
             string vName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -179,16 +184,20 @@
                 vFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -249,7 +258,6 @@
             string vName = null,
             string wName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -261,16 +269,20 @@
                 wFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound && wFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -345,7 +357,6 @@
             string wName = null,
             string xName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -359,16 +370,20 @@
                 xFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound && wFound && xFound)
                     {
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -457,7 +472,6 @@
             string xName = null,
             string yName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -473,8 +487,7 @@
                 yFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound)
@@ -482,8 +495,13 @@
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -586,7 +604,6 @@
             string yName = null,
             string zName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -604,8 +621,7 @@
                 zFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound && zFound)
@@ -613,8 +629,13 @@
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(
@@ -733,7 +754,6 @@
             string zName = null,
             string aaName = null)
         {
-            var ds = this.dependencies;
             T t = default;
             U u = default;
             V v = default;
@@ -753,8 +773,7 @@
                 aaFound = falsity;
             lock (this.locker)
             {
-                foreach (var d in ds
-                                  ?? EH.Empty<Dependency>())
+                foreach (var d in this.dependencies)
                 {
                     if (tFound && uFound && vFound && wFound && xFound &&
                         yFound && zFound && aaFound)
@@ -762,8 +781,13 @@
                         goto invoke;
                     }
 
-                    var name = d?.Name;
-                    var content = d?.Content;
+                    if (d == null)
+                    {
+                        continue;
+                    }
+
+                    var name = d.Name;
+                    var content = d.Content;
                     if (!tFound)
                     {
                         if (this.tryGet(

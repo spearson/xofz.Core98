@@ -8,28 +8,23 @@
         : MethodWebManager
     {
         public MethodWebManagerV2()
-        {
-            this.locker = new object();
-        }
-
-        protected MethodWebManagerV2(
-            ICollection<NamedMethodWebHolder> webs)
-            : this(webs, new object())
+            : this(null)
         {
         }
 
         protected MethodWebManagerV2(
             object locker)
+            : this(null, locker)
         {
-            this.locker = locker;
         }
 
         protected MethodWebManagerV2(
             ICollection<NamedMethodWebHolder> webs,
-            object locker)
+            object locker = null)
             : base(webs)
         {
-            this.locker = locker;
+            this.locker = locker ??
+                          new object();
         }
 
         public override Lot<string> WebNames()

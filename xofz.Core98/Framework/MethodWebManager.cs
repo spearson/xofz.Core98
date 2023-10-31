@@ -8,14 +8,15 @@
         : MultiWebRunner
     {
         public MethodWebManager()
-            : this(new XLinkedList<NamedMethodWebHolder>())
+            : this(null)
         {
         }
 
         protected MethodWebManager(
             ICollection<NamedMethodWebHolder> webs)
         {
-            this.webs = webs;
+            this.webs =
+                webs ?? new XLinkedList<NamedMethodWebHolder>();
         }
 
         public virtual Lot<string> WebNames()
@@ -36,10 +37,9 @@
                 return falsity;
             }
 
-            var ws = this.webs;
             if (EH.Contains(
                 EH.Select(
-                    ws, 
+                    this.webs, 
                     webHolder => webHolder?.Name),
                 name))
             {

@@ -18,7 +18,7 @@
                 return collection;
             }
 
-            if (times < one)
+            if (times < zero)
             {
                 return collection;
             }
@@ -26,6 +26,11 @@
             foreach (var item in source)
             {
                 collection.AddTail(item);
+            }
+
+            if (times < one)
+            {
+                return collection;
             }
 
             var result = new XLinkedListLot<T>();

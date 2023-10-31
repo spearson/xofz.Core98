@@ -76,10 +76,7 @@
         {
             IEnumerable<T> source = this;
 
-            return source?.GetEnumerator()
-                   ?? EnumerableHelpers
-                       .Empty<T>()
-                       .GetEnumerator();
+            return source.GetEnumerator();
         }
 
         public virtual LinkedListNode<T> Find(

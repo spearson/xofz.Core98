@@ -18,19 +18,22 @@ namespace xofz.Framework.MethodWebs
         public virtual bool Unregister<T>(
             string name = null)
         {
-            var ds = this.dependencies;
+            var deps = this.dependencies;
             var unregistered = falsity;
-            foreach (var d in ds
-                              ?? EnumerableHelpers.Empty<Dependency>())
+            if (deps == null)
+            {
+                return unregistered;
+            }
+
+            foreach (var d in deps)
             {
                 if (this.tryGet(
-                    d.Content,
-                    d.Name,
-                    name,
-                    out T _))
+                        d.Content,
+                        d.Name,
+                        name,
+                        out T _))
                 {
-                    unregistered = ds?.Remove(d)
-                                   ?? falsity;
+                    unregistered = deps.Remove(d);
                     break;
                 }
             }

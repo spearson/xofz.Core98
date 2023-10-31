@@ -16,17 +16,17 @@
         {
         }
 
-        public UnsyncNavigator(
+        protected UnsyncNavigator(
             MethodRunner runner,
-            Do<Presenter> startPresenter)
+            Do<Presenter> startPresenter = null)
             : base(runner, startPresenter)
         {
         }
 
         protected UnsyncNavigator(
             MethodRunner runner,
-            Do<Presenter> startPresenter,
-            ICollection<Presenter> presenters)
+            Do<Presenter> startPresenter = null,
+            ICollection<Presenter> presenters = null)
             : base(runner, startPresenter, presenters)
         {
         }

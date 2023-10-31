@@ -10,59 +10,52 @@ namespace xofz.Presentation
         : Navigator
     {
         public NavigatorV2()
+            : this(null, null, null)
         {
-            this.locker = new object();
         }
 
         public NavigatorV2(
             MethodRunner runner)
-            : base(runner)
+            : this(runner, null, null)
         {
-            this.locker = new object();
-        }
-
-        public NavigatorV2(
-            MethodRunner runner,
-            Do<Presenter> startPresenter)
-            : base(runner, startPresenter)
-        {
-            this.locker = new object();
         }
 
         protected NavigatorV2(
-            MethodRunner runner,
-            object locker)
-            : base(runner)
-        {
-            this.locker = locker;
-        }
-
-        protected NavigatorV2(
-            MethodRunner runner,
-            Do<Presenter> startPresenter,
-            object locker)
-            : base(runner, startPresenter)
-        {
-            this.locker = locker;
-        }
-
-        protected NavigatorV2(
-            MethodRunner runner,
-            Do<Presenter> startPresenter,
             ICollection<Presenter> presenters)
-            : base(runner, startPresenter, presenters)
+            : this(null, null, presenters)
         {
-            this.locker = new object();
         }
 
         protected NavigatorV2(
-            MethodRunner runner,
-            Do<Presenter> startPresenter,
             ICollection<Presenter> presenters,
             object locker)
+            : this(null, null, presenters, locker)
+        {
+        }
+
+        protected NavigatorV2(
+            MethodRunner runner,
+            Do<Presenter> startPresenter)
+            : this(runner, startPresenter, null)
+        {
+        }
+
+        protected NavigatorV2(
+            MethodRunner runner,
+            object locker)
+            : this(runner, null, null, locker)
+        {
+        }
+
+        protected NavigatorV2(
+            MethodRunner runner,
+            Do<Presenter> startPresenter = null,
+            ICollection<Presenter> presenters = null,
+            object locker = null)
             : base(runner, startPresenter, presenters)
         {
-            this.locker = locker;
+            this.locker = locker ?? 
+                          new object();
         }
 
         public override bool RegisterPresenter(

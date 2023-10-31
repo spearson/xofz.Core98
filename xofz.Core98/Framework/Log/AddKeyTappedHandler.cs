@@ -1,6 +1,5 @@
 ﻿namespace xofz.Framework.Log
 {
-    using xofz.UI;
     using xofz.UI.Log;
 
     public class AddKeyTappedHandler

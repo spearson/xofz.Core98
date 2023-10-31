@@ -16,10 +16,23 @@
         {
         }
 
-        public ThreadSafeNavigator(
+        protected ThreadSafeNavigator(
+            ICollection<Presenter> presenters)
+            : base(null, null, presenters)
+        {
+        }
+
+        protected ThreadSafeNavigator(
+            ICollection<Presenter> presenters,
+            object locker)
+            : base(null, null, presenters, locker)
+        {
+        }
+
+        protected ThreadSafeNavigator(
             MethodRunner runner,
             Do<Presenter> startPresenter)
-            : base(runner, startPresenter)
+            : base(runner, startPresenter, null)
         {
         }
 
@@ -32,25 +45,9 @@
 
         protected ThreadSafeNavigator(
             MethodRunner runner,
-            Do<Presenter> startPresenter,
-            object locker)
-            : base(runner, startPresenter, locker)
-        {
-        }
-
-        protected ThreadSafeNavigator(
-            MethodRunner runner,
-            Do<Presenter> startPresenter,
-            ICollection<Presenter> presenters)
-            : base(runner, startPresenter, presenters)
-        {
-        }
-
-        protected ThreadSafeNavigator(
-            MethodRunner runner,
-            Do<Presenter> startPresenter,
-            ICollection<Presenter> presenters,
-            object locker)
+            Do<Presenter> startPresenter = null,
+            ICollection<Presenter> presenters = null,
+            object locker = null)
             : base(runner, startPresenter, presenters, locker)
         {
         }

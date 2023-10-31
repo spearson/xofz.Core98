@@ -1,7 +1,6 @@
 ﻿namespace xofz.Framework.Log
 {
     using System.Threading;
-    using xofz.UI;
     using xofz.UI.Log;
 
     public class StopHandler

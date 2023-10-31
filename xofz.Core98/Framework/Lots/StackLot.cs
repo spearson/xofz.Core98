@@ -40,13 +40,17 @@
             IEnumerator<T> finiteEnumerator)
         {
             var s = new Stack<T>();
-            while (finiteEnumerator?.MoveNext()
-                   ?? falsity)
+            if (finiteEnumerator == null)
             {
-                s?.Push(
-                    finiteEnumerator.Current);
+                goto assign;
             }
 
+            while (finiteEnumerator.MoveNext())
+            {
+                s.Push(finiteEnumerator.Current);
+            }
+
+            assign:
             this.stack = s;
         }
 
@@ -65,10 +69,7 @@
         {
             IEnumerable<T> source = this;
 
-            return source?.GetEnumerator()
-                   ?? EnumerableHelpers
-                       .Empty<T>()
-                       .GetEnumerator(); ;
+            return source.GetEnumerator();
         }
 
         public virtual T[] ToArray()
@@ -79,23 +80,17 @@
         public virtual T Peek()
         {
             var s = this.stack;
-            if (s == null)
-            {
-                return default;
-            }
-
-            return s.Peek();
+            return s == null 
+                ? default 
+                : s.Peek();
         }
 
         public virtual T Pop()
         {
             var s = this.stack;
-            if (s == null)
-            {
-                return default;
-            }
-
-            return s.Pop();
+            return s == null 
+                ? default 
+                : s.Pop();
         }
 
         public virtual bool Contains(

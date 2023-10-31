@@ -34,8 +34,8 @@
             {
                 for (int i = zero; i < cycles; ++i)
                 {
-                    var node = ll.RemoveTail();
-                    ll.AddHead(node);
+                    ll.AddHead(
+                        ll.RemoveTail());
                 }
 
                 return lot;
@@ -43,8 +43,8 @@
 
             for (int i = zero; i < cycles; ++i)
             {
-                var node = ll.RemoveHead();
-                ll.AddTail(node);
+                ll.AddTail(
+                    ll.RemoveHead());
             }
 
             return lot;
