@@ -4,7 +4,7 @@
     {
         public Synchronizer(
             T t)
-            : this(t, new object())
+            : this(t, null)
         {
         }
 
@@ -13,7 +13,8 @@
             object locker)
         {
             this.t = t;
-            this.locker = locker;
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual T O

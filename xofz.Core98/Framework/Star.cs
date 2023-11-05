@@ -6,15 +6,15 @@
      : MethodRunnerV2
     {
         public Star()
-            : this(
-                new XLinkedList<Star>())
+            : this(null)
         {
         }
 
         public Star(
             ICollection<Star> subs)
         {
-            this.subs = subs;
+            this.subs = subs ??
+                        new XLinkedList<Star>();
             this.name = Namer.Create(null);
         }
 
@@ -33,6 +33,7 @@
         }
 
         public virtual MethodWeb W { get; set; }
+            = new MethodWebs.HalflockWeb();
 
         public virtual T AccessWeb<T>(
             Do<T> accessor = null)
@@ -51,7 +52,7 @@
             Do<T> method = null, 
             string tName = null)
         {
-            var w= this.W;
+            var w = this.W;
             return w == null 
                 ? default 
                 : w.Run(method, tName);

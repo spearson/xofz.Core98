@@ -7,30 +7,21 @@
     {
         public CommandExecutor()
             : this(
-                new XLinkedList<Command>(), 
-                new object())
-        {
-        }
-
-        protected CommandExecutor(
-            ICollection<Command> executedCommands)
-            : this(
-                executedCommands, 
-                new object())
+                null)
         {
         }
 
         protected CommandExecutor(
             object locker)
             : this(
-                new XLinkedList<Command>(), 
+                null, 
                 locker)
         {
         }
 
         protected CommandExecutor(
             ICollection<Command> executedCommands,
-            object locker)
+            object locker = null)
         {
             this.executedCommands = executedCommands
                 ?? new XLinkedList<Command>();

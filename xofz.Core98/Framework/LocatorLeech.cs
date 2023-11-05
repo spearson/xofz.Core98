@@ -8,34 +8,24 @@
         : Leech
     {
         public LocatorLeech()
-            : this(
-                new XLinkedList<NamedLocatorHolder>(),
-                new object())
-        {
-        }
-
-        protected LocatorLeech(
-            ICollection<NamedLocatorHolder> locators)
-            : this(
-                locators,
-                new object())
+            : this(null)
         {
         }
 
         protected LocatorLeech(
             object locker)
-            : this(
-                new XLinkedList<NamedLocatorHolder>(),
-                locker)
+            : this(null, locker)
         {
         }
 
         protected LocatorLeech(
             ICollection<NamedLocatorHolder> locators,
-            object locker)
+            object locker = null)
         {
-            this.locators = locators;
-            this.locker = locker;
+            this.locators = locators ??
+                            new XLinkedList<NamedLocatorHolder>();
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual Lot<string> LocatorNames()

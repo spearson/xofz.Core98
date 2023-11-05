@@ -7,34 +7,26 @@
     public class ManagerLocator
     {
         public ManagerLocator()
-            : this(
-                new XLinkedList<NamedManagerHolder>(),
-                new object())
-        {
-        }
-
-        protected ManagerLocator(
-            ICollection<NamedManagerHolder> managers)
-            : this(
-                managers,
-                new object())
+            : this(null)
         {
         }
 
         protected ManagerLocator(
             object locker)
             : this(
-                new XLinkedList<NamedManagerHolder>(),
+                null,
                 locker)
         {
         }
 
         protected ManagerLocator(
             ICollection<NamedManagerHolder> managers,
-            object locker)
+            object locker = null)
         {
-            this.managers = managers;
-            this.locker = locker;
+            this.managers = managers ??
+                            new XLinkedList<NamedManagerHolder>();
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual Lot<string> ManagerNames()

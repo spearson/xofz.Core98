@@ -6,28 +6,23 @@
         : MethodWeb
     {
         public HalflockWeb()
-        {
-            this.locker = new object();
-        }
-
-        protected HalflockWeb(
-            ICollection<Dependency> dependencies)
-            : this(dependencies, new object())
+            : this(null)
         {
         }
 
         protected HalflockWeb(
             object locker)
-            : this(new XLinkedList<Dependency>(), locker)
+            : this(null, locker)
         {
         }
 
         protected HalflockWeb(
             ICollection<Dependency> dependencies,
-            object locker)
+            object locker = null)
             : base(dependencies)
         {
-            this.locker = locker;
+            this.locker = locker ??
+                          new object();
         }
 
         protected override void register(

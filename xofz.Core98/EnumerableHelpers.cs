@@ -495,7 +495,7 @@
 
             foreach (var item in finiteSource)
             {
-                return item ?? null;
+                return item;
             }
 
             return null;
@@ -519,7 +519,7 @@
 
             foreach (var item in finiteSource)
             {
-                if (!predicate?.Invoke(item) ?? truth)
+                if (!predicate(item))
                 {
                     continue;
                 }
@@ -920,14 +920,12 @@
         public static T[] ToArray<T>(
             IEnumerable<T> finiteSource)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                return new T[zero];
-            }
-
-            if (finiteSource is T[] a)
-            {
-                return a;
+                case null:
+                    return new T[zero];
+                case T[] a:
+                    return a;
             }
 
             ICollection<T> c;
@@ -941,9 +939,15 @@
 
             createArray:
             var array = new T[c.Count];
+            var l = array.Length;
             int indexer = zero;
             foreach (var item in c)
             {
+                if (indexer >= l)
+                {
+                    break;
+                }
+
                 array[indexer] = item;
                 ++indexer;
             }
@@ -960,9 +964,15 @@
             }
 
             var array = new T[lot.Count];
+            var l = array.Length;
             long indexer = zero;
             foreach (var item in lot)
             {
+                if (indexer >= l)
+                {
+                    break;
+                }
+
                 array[indexer] = item;
                 ++indexer;
             }
@@ -973,17 +983,15 @@
         public static List<T> ToList<T>(
             IEnumerable<T> finiteSource)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                return new List<T>();
+                case null:
+                    return new List<T>();
+                case List<T> l:
+                    return l;
+                default:
+                    return new List<T>(finiteSource);
             }
-
-            if (finiteSource is List<T> l)
-            {
-                return l;
-            }
-
-            return new List<T>(finiteSource);
         }
 
         public static ICollection<T> OrderBy<T, TKey>(

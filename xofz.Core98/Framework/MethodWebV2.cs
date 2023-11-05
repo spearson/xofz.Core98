@@ -6,13 +6,7 @@
         : MethodWeb
     {
         public MethodWebV2()
-            : this(null, null)
-        {
-        }
-
-        protected MethodWebV2(
-            ICollection<Dependency> dependencies)
-            : this(dependencies, null)
+            : this(null)
         {
         }
 
@@ -24,7 +18,7 @@
 
         protected MethodWebV2(
             ICollection<Dependency> dependencies,
-            object locker)
+            object locker = null)
             : base(dependencies)
         {
             this.locker = locker ??

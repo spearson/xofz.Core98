@@ -8,34 +8,24 @@
         : Fluxus
     {
         public LeechFluxus()
-            : this(
-                new XLinkedList<NamedLeechHolder>(),
-                new object())
-        {
-        }
-
-        protected LeechFluxus(
-            ICollection<NamedLeechHolder> leeches)
-            : this(
-                leeches,
-                new object())
+            : this(null)
         {
         }
 
         protected LeechFluxus(
             object locker)
-            : this(
-                new XLinkedList<NamedLeechHolder>(),
-                locker)
+            : this(null, locker)
         {
         }
 
         protected LeechFluxus(
             ICollection<NamedLeechHolder> leeches,
-            object locker)
+            object locker = null)
         {
-            this.leeches = leeches;
-            this.locker = locker;
+            this.leeches = leeches ??
+                           new XLinkedList<NamedLeechHolder>();
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual Lot<string> LeechNames()
