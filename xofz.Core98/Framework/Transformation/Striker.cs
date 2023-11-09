@@ -11,9 +11,9 @@
         }
 
         public virtual Y Strike(
-            System.Action<T> tAction, 
+            Do<T> tAction, 
             Do<T, Y> transform,
-            System.Action<Y> yAction)
+            Do<Y> yAction)
         {
             var tf = this.tFactory;
             T t;

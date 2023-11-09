@@ -60,7 +60,7 @@
                 yield return prime;
             }
 
-            while (true)
+            while (truth)
             {
                 yield return this.collectPrime();
             }
@@ -68,7 +68,6 @@
 
         protected virtual long collectPrime()
         {
-            const bool truth = true;
             var ll = this.currentLinkedList;
             if (ll == null)
             {
@@ -97,5 +96,7 @@
         protected const byte
             firstPrime = 2,
             secondPrime = 3;
+        protected const bool 
+            truth = true;
     }
 }

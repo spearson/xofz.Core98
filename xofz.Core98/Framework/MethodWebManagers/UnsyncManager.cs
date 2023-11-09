@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace xofz.Framework.MethodWebManagers
+﻿namespace xofz.Framework.MethodWebManagers
 {
+    using System.Collections.Generic;
+
     public class UnsyncManager 
         : MethodWebManager
     {
@@ -19,11 +19,20 @@ namespace xofz.Framework.MethodWebManagers
             string webName)
         {
             var ws = this.webs;
+            if (ws == null)
+            {
+                return falsity;
+            }
+
             var targetHolder = EnumerableHelpers.FirstOrNull(
                 ws,
                 webHolder => webHolder?.Name == webName);
-            return ws?.Remove(targetHolder)
-                      ?? falsity;
+            if (targetHolder == null)
+            {
+                return falsity;
+            }
+
+            return ws.Remove(targetHolder);
         }
     }
 }

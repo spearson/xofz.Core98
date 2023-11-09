@@ -7,7 +7,7 @@
         public IEnumerable<T> Trigger<T>(
             IEnumerable<T> source,
             ICollection<long> triggerIndices,
-            System.Action<T> trigger)
+            Do<T> trigger)
         {
             if (source == null)
             {

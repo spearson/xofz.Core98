@@ -33,17 +33,15 @@
         public virtual object Shuffle()
         {
             return EH.FirstOrNull(
-                    this.shuffleDependencies())?.
-                Content;
+                    this.shuffleDependencies())
+                ?.Content;
         }
 
         public virtual T Shuffle<T>()
         {
-            var shuffled = this.shuffleDependencies();
-            foreach (var shuffledDependency in shuffled ??
-                                               EH.Empty<Dependency>())
+            foreach (var d in this.shuffleDependencies())
             {
-                if (shuffledDependency?.Content is T matchingContent)
+                if (d?.Content is T matchingContent)
                 {
                     return matchingContent;
                 }
@@ -63,26 +61,25 @@
 
         protected virtual Lot<Dependency> shuffleDependencies()
         {
-            var matchingDependencies = new List<
+            var matches = new List<
                 ShufflingObject<Dependency>>();
 
             lock (this.locker)
             {
-                foreach (var dependency in 
-                    this.dependencies ?? EH.Empty<Dependency>())
+                foreach (var dependency in this.dependencies)
                 {
-                    matchingDependencies.Add(
+                    matches.Add(
                         new ShufflingObject<Dependency>(
                             dependency));
                 }
             }
 
-            matchingDependencies.Sort();
+            matches.Sort();
 
             return new XLinkedListLot<Dependency>(
                 XLinkedList<Dependency>.Create(
                     EH.Select(
-                        matchingDependencies,
+                        matches,
                         so => so.O)));
         }
     }

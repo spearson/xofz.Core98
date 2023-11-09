@@ -104,12 +104,20 @@
             string leechName)
         {
             var ls = this.leeches;
+            if (ls == null)
+            {
+                return falsity;
+            }
+
             var targetHolder = EH.FirstOrNull(
                 ls,
                 leechHolder => leechHolder?.Name == leechName);
+            if (targetHolder == null)
+            {
+                return falsity;
+            }
 
-            return ls?.Remove(targetHolder)
-                      ?? falsity;
+            return ls.Remove(targetHolder);
         }
 
         public override T Flux<T>(

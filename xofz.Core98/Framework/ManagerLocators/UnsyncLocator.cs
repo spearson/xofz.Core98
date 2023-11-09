@@ -109,12 +109,20 @@
             string managerName)
         {
             var ms = this.managers;
+            if (ms == null)
+            {
+                return falsity;
+            }
+
             var targetHolder = EH.FirstOrNull(
                 ms,
                 managerHolder => managerHolder?.Name == managerName);
+            if (targetHolder == null)
+            {
+                return falsity;
+            }
 
-            return ms?.Remove(targetHolder)
-                      ?? falsity;
+            return ms.Remove(targetHolder);
         }
 
         public override T Locate<T>(

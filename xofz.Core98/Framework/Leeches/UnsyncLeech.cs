@@ -104,11 +104,20 @@
             string locatorName)
         {
             var ls = this.locators;
+            if (ls == null)
+            {
+                return falsity;
+            }
+
             var targetHolder = EH.FirstOrNull(
                 ls,
                 locatorHolder => locatorHolder?.Name == locatorName);
-            return ls?.Remove(targetHolder)
-                   ?? falsity;
+            if (targetHolder == null)
+            {
+                return falsity;
+            }
+
+            return ls.Remove(targetHolder);
         }
 
         public override T Siphon<T>(

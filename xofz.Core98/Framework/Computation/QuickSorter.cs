@@ -138,18 +138,16 @@
             IEnumerable<T> finiteSource)
             where T : System.IComparable
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                return new T[zero];
-            }
-
-            if (finiteSource is T[] array)
-            {
-                this.Sort(
-                    array,
-                    zero,
-                    array.Length - one);
-                return array;
+                case null:
+                    return new T[zero];
+                case T[] array:
+                    this.Sort(
+                        array,
+                        zero,
+                        array.Length - one);
+                    return array;
             }
 
             var sourceArray = EnumerableHelpers.ToArray(

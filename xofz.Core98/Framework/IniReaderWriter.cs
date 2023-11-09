@@ -152,16 +152,16 @@
                         line.Substring(
                             valueIndex),
                         newValue);
-                }
-                else
-                {
-                    sb.Replace(
-                        line.Substring(
-                            valueIndex,
-                            indexOfComment - valueIndex),
-                        newValue);
+                    goto assignAndWrite;
                 }
 
+                sb.Replace(
+                    line.Substring(
+                        valueIndex,
+                        indexOfComment - valueIndex),
+                    newValue);
+
+                assignAndWrite:
                 lines[i] = sb.ToString();
                 try
                 {

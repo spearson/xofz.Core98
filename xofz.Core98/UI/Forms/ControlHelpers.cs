@@ -43,8 +43,8 @@
                 return;
             }
 
-            controls?.Clear();
-            controls?.Add(control);
+            controls.Clear();
+            controls.Add(control);
         }
 
         public static void SafeReplaceV2(
@@ -57,8 +57,13 @@
             }
 
             var controls = container?.Controls;
-            controls?.Clear();
-            controls?.Add(control);
+            if (controls == null)
+            {
+                return;
+            }
+
+            controls.Clear();
+            controls.Add(control);
         }
     }
 }
