@@ -42,7 +42,7 @@
 
             var sameNameHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == name);
+                locatorHolder => locatorHolder.Name == name);
             if (sameNameHolder != null)
             {
                 return falsity;
@@ -60,7 +60,12 @@
         protected override void add(
             NamedLocatorHolder holder)
         {
-            this.locators?.Add(
+            if (holder == null)
+            {
+                return;
+            }
+
+            this.locators.Add(
                 holder);
         }
 
@@ -70,7 +75,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -88,7 +93,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator as T;
             if (locator == null)
@@ -111,7 +116,7 @@
 
             var targetHolder = EH.FirstOrNull(
                 ls,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
             if (targetHolder == null)
             {
                 return falsity;
@@ -129,7 +134,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -154,7 +159,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -183,7 +188,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -215,7 +220,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -250,7 +255,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -288,7 +293,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -329,7 +334,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)
@@ -374,7 +379,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.locators,
-                locatorHolder => locatorHolder?.Name == locatorName);
+                locatorHolder => locatorHolder.Name == locatorName);
 
             var locator = targetHolder?.Locator;
             if (locator == null)

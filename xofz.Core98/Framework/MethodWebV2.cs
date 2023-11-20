@@ -44,11 +44,6 @@
             {
                 foreach (var d in ds)
                 {
-                    if (d == null)
-                    {
-                        continue;
-                    }
-
                     if (this.tryGet(
                             d.Content,
                             d.Name,
@@ -73,11 +68,6 @@
             {
                 foreach (var d in this.dependencies)
                 {
-                    if (d == null)
-                    {
-                        continue;
-                    }
-
                     if (this.tryGet(
                         d.Content,
                         d.Name,
@@ -114,11 +104,6 @@
                     if (tFound && uFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -183,11 +168,6 @@
                     if (tFound && uFound && vFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -268,11 +248,6 @@
                     if (tFound && uFound && vFound && wFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -369,11 +344,6 @@
                     if (tFound && uFound && vFound && wFound && xFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -487,11 +457,6 @@
                         yFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -621,11 +586,6 @@
                         yFound && zFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;
@@ -773,11 +733,6 @@
                         yFound && zFound && aaFound)
                     {
                         goto invoke;
-                    }
-
-                    if (d == null)
-                    {
-                        continue;
                     }
 
                     var name = d.Name;

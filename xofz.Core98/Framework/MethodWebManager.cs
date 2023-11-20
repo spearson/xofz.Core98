@@ -58,7 +58,12 @@
         protected virtual void add(
             NamedMethodWebHolder holder)
         {
-            this.webs?.Add(
+            if (holder == null)
+            {
+                return;
+            }
+
+            this.webs.Add(
                 holder);
         }
 
@@ -68,7 +73,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -87,7 +92,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web as T;
             if (web == null)
@@ -106,7 +111,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -127,7 +132,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -152,7 +157,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -180,7 +185,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -211,7 +216,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -245,7 +250,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -283,7 +288,7 @@
             var targetHolder
                 = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)
@@ -324,7 +329,7 @@
         {
             var targetHolder = EH.FirstOrNull(
                 this.webs,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
             var web = targetHolder?.Web;
 
             if (web == null)

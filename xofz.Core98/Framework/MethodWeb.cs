@@ -38,6 +38,11 @@
         protected virtual void register(
             Dependency dependency)
         {
+            if (dependency == null)
+            {
+                return;
+            }
+
             this.dependencies.Add(
                 dependency);
         }
@@ -49,11 +54,6 @@
             T t;
             foreach (var d in this.dependencies)
             {
-                if (d == null)
-                {
-                    continue;
-                }
-
                 if (this.tryGet(
                         d.Content,
                         d.Name,
@@ -87,11 +87,6 @@
                 if (tFound && uFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -153,11 +148,6 @@
                 if (tFound && uFound && vFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -235,11 +225,6 @@
                 if (tFound && uFound && vFound && wFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -333,11 +318,6 @@
                 if (tFound && uFound && vFound && wFound && xFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -447,11 +427,6 @@
                 if (tFound && uFound && vFound && wFound && xFound && yFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -578,11 +553,6 @@
                     zFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;
@@ -727,11 +697,6 @@
                     zFound && aaFound)
                 {
                     goto invoke;
-                }
-
-                if (d == null)
-                {
-                    continue;
                 }
 
                 var name = d.Name;

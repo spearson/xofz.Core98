@@ -61,7 +61,7 @@
                 ls = this.leeches;
                 sameNameHolder = EH.FirstOrNull(
                         ls,
-                        leechHolder => leechHolder?.Name == name);
+                        leechHolder => leechHolder.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -81,9 +81,14 @@
         protected virtual void add(
             NamedLeechHolder holder)
         {
+            if (holder == null)
+            {
+                return;
+            }
+
             lock (this.locker)
             {
-                this.leeches?.Add(
+                this.leeches.Add(
                     holder);
             }
         }
@@ -97,7 +102,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    nmh => nmh?.Name == leechName);
+                    nmh => nmh.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -120,7 +125,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech as T;
@@ -149,7 +154,7 @@
 
                 targetHolder = EH.FirstOrNull(
                     ls,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
                 if (targetHolder == null)
                 {
                     return falsity;
@@ -174,7 +179,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -205,7 +210,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -240,7 +245,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -278,7 +283,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -319,7 +324,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -363,7 +368,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -410,7 +415,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;
@@ -461,7 +466,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.leeches,
-                    leechHolder => leechHolder?.Name == leechName);
+                    leechHolder => leechHolder.Name == leechName);
             }
 
             var leech = targetHolder?.Leech;

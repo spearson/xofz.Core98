@@ -36,7 +36,7 @@
             {
                 foreach (var managerName in EH.Select(
                     this.managers,
-                    nmh => nmh?.Name))
+                    nmh => nmh.Name))
                 {
                     lll.AddTail(
                         managerName);
@@ -62,7 +62,7 @@
                 ms = this.managers;
                 sameNameHolder = EH.FirstOrNull(
                         ms,
-                        nmh => nmh?.Name == name);
+                        nmh => nmh.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -82,9 +82,14 @@
         protected virtual void add(
             NamedManagerHolder holder)
         {
+            if (holder == null)
+            {
+                return;
+            }
+
             lock (this.locker)
             {
-                this.managers?.Add(
+                this.managers.Add(
                     holder);
             }
         }
@@ -98,7 +103,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    managerHolder => managerHolder.Name == managerName);
             }
 
             var manager = targetHolder?.Manager;
@@ -121,7 +126,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == managerName);
+                    managerHolder => managerHolder.Name == managerName);
             }
 
             var manager = targetHolder?.Manager as T;
@@ -150,7 +155,7 @@
 
                 targetHolder = EH.FirstOrNull(
                     ms,
-                    managerHolder => managerHolder?.Name == managerName);
+                    managerHolder => managerHolder.Name == managerName);
                 if (targetHolder == null)
                 {
                     return falsity;
@@ -173,7 +178,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -200,7 +205,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -231,7 +236,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -265,7 +270,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -302,7 +307,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -342,7 +347,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -385,7 +390,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;
@@ -432,7 +437,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.managers,
-                    managerHolder => managerHolder?.Name == locableName);
+                    managerHolder => managerHolder.Name == locableName);
             }
 
             var manager = targetHolder?.Manager;

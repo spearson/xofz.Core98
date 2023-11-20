@@ -34,7 +34,7 @@
             {
                 foreach (var webName in EH.Select(
                     this.webs,
-                    webHolder => webHolder?.Name))
+                    webHolder => webHolder.Name))
                 {
                     lll.AddTail(
                         webName);
@@ -60,7 +60,7 @@
                 if (EH.Contains(
                     EH.Select(
                         ws,
-                        webHolder => webHolder?.Name),
+                        webHolder => webHolder.Name),
                     name))
                 {
                     return falsity;
@@ -82,7 +82,7 @@
         {
             lock (this.locker)
             {
-                this.webs?.Add(holder);
+                base.add(holder);
             }
         }
 
@@ -102,7 +102,7 @@
 
                 targetHolder = EH.FirstOrNull(
                     ws,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
                 if (targetHolder == null)
                 {
                     return falsity;
@@ -123,7 +123,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                         this.webs,
-                        webHolder => webHolder?.Name == webName);
+                        webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -145,7 +145,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                         this.webs,
-                        webHolder => webHolder?.Name == webName);
+                        webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web as T;
@@ -168,7 +168,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                         this.webs,
-                        webHolder => webHolder?.Name == webName);
+                        webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -193,7 +193,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                         this.webs,
-                        webHolder => webHolder?.Name == webName);
+                        webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -222,7 +222,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                         this.webs,
-                        webHolder => webHolder?.Name == webName);
+                        webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -254,7 +254,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.webs,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -289,7 +289,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.webs,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -327,7 +327,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.webs,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -368,7 +368,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.webs,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -413,7 +413,7 @@
             {
                 targetHolder = EH.FirstOrNull(
                     this.webs,
-                    webHolder => webHolder?.Name == webName);
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;

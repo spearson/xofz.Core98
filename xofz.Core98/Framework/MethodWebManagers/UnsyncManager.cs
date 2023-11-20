@@ -26,7 +26,7 @@
 
             var targetHolder = EnumerableHelpers.FirstOrNull(
                 ws,
-                webHolder => webHolder?.Name == webName);
+                webHolder => webHolder.Name == webName);
             if (targetHolder == null)
             {
                 return falsity;
