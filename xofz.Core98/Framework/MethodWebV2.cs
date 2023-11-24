@@ -6,33 +6,21 @@
         : MethodWeb
     {
         public MethodWebV2()
-            : this(null)
+            : base(null)
         {
         }
 
         protected MethodWebV2(
             object locker)
-            : this(null, locker)
+            : base(null, locker)
         {
         }
 
         protected MethodWebV2(
             ICollection<Dependency> dependencies,
             object locker = null)
-            : base(dependencies)
+            : base(dependencies, locker)
         {
-            this.locker = locker ??
-                          new object();
-        }
-
-        protected override void register(
-            Dependency dependency)
-        {
-            lock (this.locker)
-            {
-                base.register(
-                    dependency);
-            }
         }
 
         public virtual bool Unregister<T>(
@@ -855,7 +843,5 @@
 
             return XTuple.Create(t, u, v, w, x, y, z, aa);
         }
-
-        protected readonly object locker;
     }
 }

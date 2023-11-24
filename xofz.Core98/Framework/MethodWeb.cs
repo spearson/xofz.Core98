@@ -11,10 +11,19 @@
         }
 
         protected MethodWeb(
-            ICollection<Dependency> dependencies)
+            object locker)
+            : this(null, locker)
         {
-            this.dependencies = dependencies
-                                ?? new XLinkedList<Dependency>();
+        }
+
+        protected MethodWeb(
+            ICollection<Dependency> dependencies,
+            object locker = null)
+        {
+            this.dependencies = dependencies ??
+                                new XLinkedList<Dependency>();
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual bool RegisterDependency(
@@ -43,8 +52,11 @@
                 return;
             }
 
-            this.dependencies.Add(
-                dependency);
+            lock (this.locker)
+            {
+                this.dependencies.Add(
+                    dependency);
+            }
         }
 
         public virtual T Run<T>(
@@ -839,6 +851,7 @@
         }
 
         protected readonly ICollection<Dependency> dependencies;
+        protected readonly object locker;
         protected const bool
             truth = true,
             falsity = false;

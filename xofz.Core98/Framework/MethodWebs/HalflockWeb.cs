@@ -6,35 +6,21 @@
         : MethodWeb
     {
         public HalflockWeb()
-            : this(null)
+            : base(null)
         {
         }
 
         protected HalflockWeb(
             object locker)
-            : this(null, locker)
+            : base(null, locker)
         {
         }
 
         protected HalflockWeb(
             ICollection<Dependency> dependencies,
             object locker = null)
-            : base(dependencies)
+            : base(dependencies, locker)
         {
-            this.locker = locker ??
-                          new object();
         }
-
-        protected override void register(
-            Dependency dependency)
-        {
-            lock (this.locker)
-            {
-                base.register(
-                    dependency);
-            }
-        }
-
-        protected readonly object locker;
     }
 }
