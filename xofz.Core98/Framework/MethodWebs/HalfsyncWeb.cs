@@ -2,7 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class HalfsyncWeb : MethodWeb
+    public class HalfsyncWeb 
+        : MethodWeb
     {
         public HalfsyncWeb()
         {

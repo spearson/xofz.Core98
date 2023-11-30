@@ -33,10 +33,7 @@
                 if (decider(item))
                 {
                     yield return item;
-                    continue;
                 }
-
-                yield break;
             }
         }
 
