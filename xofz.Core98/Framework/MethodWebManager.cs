@@ -13,10 +13,19 @@
         }
 
         protected MethodWebManager(
-            ICollection<NamedMethodWebHolder> webs)
+            object locker)
+            : this(null, locker)
         {
-            this.webs =
-                webs ?? new XLinkedList<NamedMethodWebHolder>();
+        }
+
+        protected MethodWebManager(
+            ICollection<NamedMethodWebHolder> webs,
+            object locker = null)
+        {
+            this.webs = webs ??
+                                new XLinkedList<NamedMethodWebHolder>();
+            this.locker = locker ??
+                          new object();
         }
 
         public virtual Lot<string> WebNames()
@@ -63,8 +72,11 @@
                 return;
             }
 
-            this.webs.Add(
-                holder);
+            lock (this.locker)
+            {
+                this.webs.Add(
+                    holder);
+            }
         }
 
         public virtual MethodWeb AccessWeb(
@@ -358,6 +370,7 @@
         }
 
         protected readonly ICollection<NamedMethodWebHolder> webs;
+        protected readonly object locker;
 
         protected class NamedMethodWebHolder
         {

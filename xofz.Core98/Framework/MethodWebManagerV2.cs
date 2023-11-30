@@ -8,23 +8,21 @@
         : MethodWebManager
     {
         public MethodWebManagerV2()
-            : this(null)
+            : base(null)
         {
         }
 
         protected MethodWebManagerV2(
             object locker)
-            : this(null, locker)
+            : base(null, locker)
         {
         }
 
         protected MethodWebManagerV2(
             ICollection<NamedMethodWebHolder> webs,
             object locker = null)
-            : base(webs)
+            : base(webs, locker)
         {
-            this.locker = locker ??
-                          new object();
         }
 
         public override Lot<string> WebNames()
@@ -441,7 +439,5 @@
                 zName,
                 aaName);
         }
-
-        protected readonly object locker;
     }
 }

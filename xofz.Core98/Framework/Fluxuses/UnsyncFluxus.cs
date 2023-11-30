@@ -57,18 +57,6 @@
             return truth;
         }
 
-        protected override void add(
-            NamedLeechHolder holder)
-        {
-            if (holder == null)
-            {
-                return;
-            }
-
-            this.leeches.Add(
-                holder);
-        }
-
         public override LocatorLeech AccessLeech(
             Do<LocatorLeech> accessor = null,
             string leechName = null)

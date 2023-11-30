@@ -62,18 +62,6 @@
             return truth;
         }
 
-        protected override void add(
-            NamedManagerHolder holder)
-        {
-            if (holder == null)
-            {
-                return;
-            }
-
-            this.managers.Add(
-                holder);
-        }
-
         public override MethodWebManager AccessManager(
             Do<MethodWebManager> accessor = null,
             string managerName = null)

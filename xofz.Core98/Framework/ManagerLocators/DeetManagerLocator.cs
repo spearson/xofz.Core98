@@ -16,8 +16,8 @@
                         EnumerableHelpers.Select(
                             this.managers,
                             man => XTuple.Create(
-                                man?.Manager,
-                                man?.Name))));
+                                man.Manager,
+                                man.Name))));
             }
 
             return ms;

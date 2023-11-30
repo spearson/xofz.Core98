@@ -57,18 +57,6 @@
             return truth;
         }
 
-        protected override void add(
-            NamedLocatorHolder holder)
-        {
-            if (holder == null)
-            {
-                return;
-            }
-
-            this.locators.Add(
-                holder);
-        }
-
         public override ManagerLocator AccessLocator(
             Do<ManagerLocator> accessor = null,
             string locatorName = null)

@@ -109,6 +109,11 @@
             int arrayIndex)
         {
             var l = array.Length;
+            if (arrayIndex < zero || arrayIndex >= l)
+            {
+                return;
+            }
+
             var e = this.GetEnumerator();
             for (long i = arrayIndex; i < l; ++i)
             {

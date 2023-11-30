@@ -16,8 +16,8 @@
                         EnumerableHelpers.Select(
                             this.webs,
                             webHolder => XTuple.Create(
-                                webHolder?.Web,
-                                webHolder?.Name))));
+                                webHolder.Web,
+                                webHolder.Name))));
             }
 
             return ws;
