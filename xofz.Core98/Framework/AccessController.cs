@@ -7,9 +7,9 @@
     public class AccessController
     {
         public AccessController(
-            MethodWeb web)
+            MethodRunner runner)
         {
-            this.web = web;
+            this.runner = runner;
             const bool truth = true;
             this.timerFinished = 
                 new ManualResetEvent(truth);
@@ -25,8 +25,8 @@
                 return;
             }
 
-            var w = this.web;
-            w?.Run<xofz.Framework.Timer, EventSubscriber>(
+            var r = this.runner;
+            r?.Run<xofz.Framework.Timer, EventSubscriber>(
                 (t, sub) =>
                 {
                     sub.Subscribe(
@@ -35,7 +35,7 @@
                         this.timer_Elapsed);
                 },
                 DependencyNames.Timer);
-            w?.RegisterDependency(this);
+            
         }
 
         public virtual event Do<AccessLevel> AccessLevelChanged;
@@ -47,7 +47,7 @@
         {
             get
             {
-                var w = this.web;
+                var r = this.runner;
                 var cal = this.currentLevel;
                 if (cal == zeroAccess)
                 {
@@ -57,7 +57,7 @@
                 System.DateTime
                     lt = this.loginTime,
                     now = System.DateTime.Now;
-                w?.Run<TimeProvider>(provider =>
+                r?.Run<TimeProvider>(provider =>
                 {
                     now = provider.Now();
                 });
@@ -69,8 +69,8 @@
         public virtual void InputPassword(
             SecureString password)
         {
-            var w = this.web;
-            w?.Run<Access.SettingsHolder>(settings =>
+            var r = this.runner;
+            r?.Run<Access.SettingsHolder>(settings =>
             {
                 this.InputPassword(
                     password,
@@ -81,8 +81,8 @@
         public virtual void InputPassword(
             string password)
         {
-            var w = this.web;
-            w?.Run<Access.SettingsHolder>(settings =>
+            var r = this.runner;
+            r?.Run<Access.SettingsHolder>(settings =>
             {
                 this.InputPassword(
                     password,
@@ -131,9 +131,9 @@
                 return;
             }
 
-            var w = this.web;
+            var r = this.runner;
             var newLevel = zeroAccess;
-            w?.Run<PasswordHolder, SecureStringToolSet>(
+            r?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
             {
                 var ps = holder.Passwords;
@@ -161,18 +161,18 @@
                 return;
             }
 
-            w?.Run<xofz.Framework.Timer>(t =>
+            r?.Run<xofz.Framework.Timer>(t =>
                 {
                     t.AutoReset = falsity;
                     t.Stop();
-                    this.timerFinished?.WaitOne();
+                    this.timerFinished.WaitOne();
                     this.setCurrentAccessLevel(
                         newLevel);
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
                     var now = System.DateTime.Now;
-                    w.Run<TimeProvider>(provider =>
+                    r.Run<TimeProvider>(provider =>
                     {
                         now = provider.Now();
                     });
@@ -205,9 +205,9 @@
                 return;
             }
 
-            var w = this.web;
+            var r = this.runner;
             var newLevel = zeroAccess;
-            w?.Run<PasswordHolder, SecureStringToolSet>(
+            r?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
                 {
                     var ps = holder.Passwords;
@@ -233,18 +233,18 @@
                 return;
             }
 
-            w?.Run<xofz.Framework.Timer>(t =>
+            r?.Run<xofz.Framework.Timer>(t =>
                 {
                     t.AutoReset = falsity;
                     t.Stop();
-                    this.timerFinished?.WaitOne();
+                    this.timerFinished.WaitOne();
                     this.setCurrentAccessLevel(
                         newLevel);
                     this.setLoginDuration(
                         System.TimeSpan.FromMilliseconds(
                             loginDurationMilliseconds));
                     var now = System.DateTime.Now;
-                    w.Run<TimeProvider>(provider =>
+                    r.Run<TimeProvider>(provider =>
                     {
                         now = provider.Now();
                     });
@@ -272,7 +272,8 @@
             }
 
             ThreadPool.QueueUserWorkItem(
-                o => alc.Invoke(currentAccessLevel));
+                o => 
+                    alc.Invoke(currentAccessLevel));
         }
 
         protected virtual void setLoginTime(
@@ -290,10 +291,10 @@
         protected virtual void timer_Elapsed()
         {
             var finished = this.timerFinished;
-            finished?.Reset();
+            finished.Reset();
             this.setCurrentAccessLevel(
                 zeroAccess);
-            finished?.Set();
+            finished.Set();
         }
 
         protected long setupIf1;
@@ -301,7 +302,7 @@
         protected System.DateTime loginTime;
         protected System.TimeSpan loginDuration;
         protected readonly ManualResetEvent timerFinished;
-        protected readonly MethodWeb web;
+        protected readonly MethodRunner runner;
         protected const AccessLevel zeroAccess = AccessLevel.None;
         protected const long max = uint.MaxValue;        
         protected const byte min = 0;

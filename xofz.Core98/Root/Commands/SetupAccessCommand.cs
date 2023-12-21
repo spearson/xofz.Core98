@@ -16,11 +16,19 @@
 
         public override void Execute()
         {
+            var w = this.web;
+            if (w == null)
+            {
+                return;
+            }
+
             this.registerDependencies();
 
-            new AccessController(
-                    this.web)
-                .Setup();
+            var ac = new AccessController(
+                w);
+            ac.Setup();
+            w.RegisterDependency(
+                ac);
         }
 
         protected virtual void registerDependencies()
