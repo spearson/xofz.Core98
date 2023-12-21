@@ -542,7 +542,7 @@
             var oldHead = this.headNode;
             if (oldHead == null)
             {
-                return null;
+                return oldHead;
             }
 
             var newHead = oldHead.Next;
@@ -567,7 +567,7 @@
             var oldTail = this.tailNode;
             if (oldTail == null)
             {
-                return null;
+                return oldTail;
             }
 
             var newTail = oldTail.Previous;

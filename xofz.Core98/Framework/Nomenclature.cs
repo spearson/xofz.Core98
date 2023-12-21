@@ -2,16 +2,17 @@
 {
     public class Nomenclature
     {
-        public virtual void Rename(
+        public virtual Nameable Rename(
             Nameable n,
             Gen<string> readNewName)
         {
             if (n == null)
             {
-                return;
+                return n;
             }
 
             n.Name = readNewName?.Invoke();
+            return n;
         }
 
         public virtual Nameable ApplyName(

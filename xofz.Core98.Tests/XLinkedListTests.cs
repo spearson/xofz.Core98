@@ -148,6 +148,17 @@
             }
 
             [Fact]
+            public void Test_adding_same_node_again()
+            {
+                var x = this.ll;
+                x.Clear();
+                x.AddHead(1);
+                x.AddHead(x.TailN);
+                Assert.True(x.Count == 1);
+                Assert.Same(x.HeadN, x.TailN);
+            }
+
+            [Fact]
             public void Rearranging_test()
             {
                 var ll2 = new XLinkedList<object>();
