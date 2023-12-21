@@ -21,19 +21,19 @@
         public StackLot(
             IEnumerable<T> finiteSource)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                this.stack = new Stack<T>();
-                return;
+                case null:
+                    this.stack = new Stack<T>();
+                    return;
+                case Stack<T> s:
+                    this.stack = s;
+                    return;
+                default:
+                    this.stack = new Stack<T>(
+                        finiteSource);
+                    break;
             }
-
-            if (finiteSource is Stack<T> s)
-            {
-                this.stack = s;
-                return;
-            }
-
-            this.stack = new Stack<T>(finiteSource);
         }
 
         public StackLot(
@@ -59,10 +59,7 @@
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.stack?.GetEnumerator()
-                ?? EnumerableHelpers
-                    .Empty<T>()
-                    .GetEnumerator();
+            return this.stack.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -74,23 +71,24 @@
 
         public virtual T[] ToArray()
         {
-            return this.stack?.ToArray();
+            return this.stack.ToArray();
         }
 
         public virtual T Peek()
         {
-            var s = this.stack;
-            return s == null 
-                ? default 
-                : s.Peek();
+            return this.stack.Peek();
+        }
+
+        public virtual void Push(
+            T item)
+        {
+            this.stack.Push(
+                item);
         }
 
         public virtual T Pop()
         {
-            var s = this.stack;
-            return s == null 
-                ? default 
-                : s.Pop();
+            return this.stack.Pop();
         }
 
         public virtual bool Contains(
@@ -103,32 +101,24 @@
 
         public virtual void Clear()
         {
-            this.stack?.Clear();
+            this.stack.Clear();
         }
 
         public virtual void CopyTo(
             T[] array)
         {
             const byte zero = 0;
-            this.stack?.CopyTo(
+            this.stack.CopyTo(
                 array, 
                 zero);
         }
 
-        public virtual void Push(
-            T item)
-        {
-            this.stack?.Push(
-                item);
-        }
-
         public virtual void TrimExcess()
         {
-            this.stack?.TrimExcess();
+            this.stack.TrimExcess();
         }
 
         protected readonly Stack<T> stack;
         protected const short nOne = -1;
-        protected const bool falsity = false;
     }
 }

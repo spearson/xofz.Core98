@@ -7,32 +7,22 @@
         : Lot<T>
     {
         public SetLot()
-            : this(new XLinkedList<T>())
+            : this(null)
         {
         }
 
         protected SetLot(
             ICollection<T> collection)
         {
-            this.collection = collection;
+            this.collection = collection ??
+                              new XLinkedList<T>();
         }
 
-        public virtual long Count
-        {
-            get
-            {
-                const short nOne = -1;
-                return this.collection?.Count
-                       ?? nOne;
-            }
-        }
+        public virtual long Count => this.collection.Count;
 
         public IEnumerator<T> GetEnumerator()
         {
-            return this.collection?.GetEnumerator()
-                   ?? EnumerableHelpers
-                       .Empty<T>()
-                       .GetEnumerator();
+            return this.collection.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -44,11 +34,6 @@
             T item)
         {
             var c = this.collection;
-            if (c == null)
-            {
-                return falsity;
-            }
-
             var itemIsNull = item == null;
             foreach (var t in c)
             {
@@ -59,26 +44,27 @@
             }
 
             c.Add(item);
-            return true;
+            return truth;
         }
 
         public virtual bool Contains(
             T item)
         {
-            return this.collection?.Contains(
-                       item)
-                   ?? falsity;
+            return this.collection.Contains(
+                       item);
         }
 
         public virtual bool Remove(
             T item)
         {
-            return this.collection?.Remove(
-                       item)
-                   ?? falsity;
+            return this.collection.Remove(
+                       item);
         }
 
         protected readonly ICollection<T> collection;
-        protected const bool falsity = false;
+
+        protected const bool
+            truth = true,
+            falsity = false;
     }
 }

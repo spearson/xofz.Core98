@@ -23,12 +23,9 @@
             get
             {
                 var a = this.currentArray;
-                if (a == null)
-                {
-                    return default;
-                }
-
-                return a[index];
+                return a == null 
+                    ? default 
+                    : a[index];
             }
         }
 
@@ -40,36 +37,30 @@
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.linkedList?.GetEnumerator()
-                   ?? EnumerableHelpers
-                       .Empty<T>()
-                       .GetEnumerator();
+            return this.linkedList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             IEnumerable<T> source = this;
-            return source?.GetEnumerator()
-                ?? EnumerableHelpers
-                    .Empty<T>()
-                    .GetEnumerator();
+            return source.GetEnumerator();
         }
 
         public virtual void ShiftRight(
             T input)
         {
             var ll = this.linkedList;
-            ll?.AddHead(input);
+            ll.AddHead(input);
             var c = this.capacity;
 
-            while (ll?.Count > c)
+            while (ll.Count > c)
             {
                 ll.RemoveTail();
             }
 
             var array = new T[
-                ll?.Count ?? zero];
-            ll?.CopyTo(
+                ll.Count];
+            ll.CopyTo(
                 array, 
                 zero);
             this.setCurrentArray(
@@ -80,17 +71,17 @@
             T input)
         {
             var ll = this.linkedList;
-            ll?.AddTail(input);
+            ll.AddTail(input);
             var c = this.capacity;
 
-            while (ll?.Count > c)
+            while (ll.Count > c)
             {
                 ll.RemoveHead();
             }
 
             var array = new T[
-                ll?.Count ?? zero];
-            ll?.CopyTo(
+                ll.Count];
+            ll.CopyTo(
                 array, 
                 zero);
             this.setCurrentArray(

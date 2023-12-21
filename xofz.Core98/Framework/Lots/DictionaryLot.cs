@@ -14,23 +14,17 @@
         public DictionaryLot(
             IEnumerable<KeyValuePair<TKey, TValue>> finiteSource)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                this.dictionary = new Dictionary<TKey, TValue>();
-                return;
-            }
-
-            if (finiteSource is IDictionary<TKey, TValue> d)
-            {
-                this.dictionary = d;
-                return;
-            }
-
-            if (finiteSource is DictionaryLot<TKey, TValue> lot)
-            {
-                this.dictionary = lot.dictionary
-                                  ?? new Dictionary<TKey, TValue>();
-                return;
+                case null:
+                    this.dictionary = new Dictionary<TKey, TValue>();
+                    return;
+                case IDictionary<TKey, TValue> d:
+                    this.dictionary = d;
+                    return;
+                case DictionaryLot<TKey, TValue> lot:
+                    this.dictionary = lot.dictionary;
+                    return;
             }
 
             var dict = new Dictionary<TKey, TValue>();
@@ -66,34 +60,19 @@
             this.dictionary = d;
         }
 
-        public virtual long Count => this.dictionary?.Count ?? nOne;
+        public virtual long Count => this.dictionary.Count;
 
-        public virtual TValue this[TKey key]
-        {
-            get
-            {
-                var d = this.dictionary;
-                if (d == null)
-                {
-                    return default;
-                }
-
-                return d[key];
-            }
-        }
+        public virtual TValue this[TKey key] => this.dictionary[key];
 
         public virtual ICollection<TKey> Keys => 
-            this.dictionary?.Keys ?? new XLinkedList<TKey>();
+            this.dictionary.Keys;
 
         public virtual ICollection<TValue> Values => 
-            this.dictionary?.Values ?? new XLinkedList<TValue>();
+            this.dictionary.Values;
 
         public virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return this.dictionary?.GetEnumerator()
-                   ?? EnumerableHelpers
-                       .Empty<KeyValuePair<TKey, TValue>>()
-                       .GetEnumerator();
+            return this.dictionary.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -104,22 +83,14 @@
         public virtual bool ContainsKey(
             TKey key)
         {
-            return this.dictionary?.ContainsKey(key)
-                ?? falsity;
+            return this.dictionary.ContainsKey(key);
         }
 
         public virtual bool TryGetValue(
             TKey key,
             out TValue value)
         {
-            var d = this.dictionary;
-            if (d == null)
-            {
-                value = default;
-                return falsity;
-            }
-
-            return d.TryGetValue(
+            return this.dictionary.TryGetValue(
                 key, 
                 out value);
         }
@@ -128,7 +99,7 @@
             TKey key,
             TValue value)
         {
-            this.dictionary?.Add(
+            this.dictionary.Add(
                 key,
                 value);
         }
@@ -136,12 +107,9 @@
         public virtual bool Remove(
             TKey key)
         {
-            return this.dictionary?.Remove(key)
-                ?? falsity;
+            return this.dictionary.Remove(key);
         }
 
         protected readonly IDictionary<TKey, TValue> dictionary;
-        protected const short nOne = -1;
-        protected const bool falsity = false;
     }
 }

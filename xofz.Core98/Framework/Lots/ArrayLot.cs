@@ -58,6 +58,5 @@
         }
 
         protected readonly T[] array;
-        protected const short nOne = -1;
     }
 }

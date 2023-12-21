@@ -8,11 +8,11 @@
         public PrimeGenerator()
             : this(
                 new PrimeTester(),
-                XLinkedList<long>.Create(new long[]
+                new long[]
                 {
                     firstPrime,
                     secondPrime
-                }))
+                })
         {
         }
 
@@ -28,11 +28,11 @@
             PrimeTester tester)
             : this(
                 tester,
-                XLinkedList<long>.Create(new long[]
+                new long[]
                 {
                     firstPrime,
                     secondPrime
-                }))
+                })
         {
         }
 

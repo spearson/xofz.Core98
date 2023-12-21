@@ -21,44 +21,42 @@
         public ListLot(
             IEnumerable<T> finiteSource)
         {
-            if (finiteSource == null)
+            switch (finiteSource)
             {
-                this.list = new List<T>();
-                return;
+                case null:
+                    this.list = new List<T>();
+                    return;
+                case List<T> l:
+                    this.list = l;
+                    return;
+                case ListLot<T> lot:
+                    this.list = lot.list;
+                    return;
+                default:
+                    this.list = new List<T>(finiteSource);
+                    break;
             }
-
-            if (finiteSource is List<T> l)
-            {
-                this.list = l;
-                return;
-            }
-
-            if (finiteSource is ListLot<T> lot)
-            {
-                this.list = lot.list
-                    ?? new List<T>();
-                return;
-            }
-
-            this.list = new List<T>(finiteSource);
         }
 
         public ListLot(
             IEnumerator<T> finiteEnumerator)
         {
             var l = new List<T>();
-            while (finiteEnumerator?.MoveNext()
-            ?? falsity)
+            if (finiteEnumerator == null)
             {
-                l?.Add(
+                goto assign;
+            }
+            while (finiteEnumerator.MoveNext())
+            {
+                l.Add(
                     finiteEnumerator.Current);
             }
 
+            assign:
             this.list = l;
         }
 
-        public virtual long Count => this.list?.Count
-                                     ?? nOne;
+        public virtual long Count => this.list.Count;
 
         public virtual long Capacity
         {
@@ -69,35 +67,14 @@
 
         public virtual T this[long index]
         {
-            get
-            {
-                var l = this.list;
-                if (l == null)
-                {
-                    return default;
-                }
+            get => this.list[(int)index];
 
-                return l[(int)index];
-            }
-
-            set
-            {
-                var l = this.list;
-                if (l == null)
-                {
-                    return;
-                }
-
-                l[(int)index] = value;
-            }
+            set => this.list[(int)index] = value;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return this.list?.GetEnumerator()
-                ?? EnumerableHelpers
-                    .Empty<T>()
-                    .GetEnumerator();
+            return this.list.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -109,14 +86,14 @@
         public virtual void CopyTo(
             T[] array)
         {
-            this.list?.CopyTo(array);
+            this.list.CopyTo(array);
         }
 
         public virtual void CopyTo(
             T[] array, 
             int arrayIndex)
         {
-            this.list?.CopyTo(
+            this.list.CopyTo(
                 array, 
                 arrayIndex);
         }
@@ -127,7 +104,7 @@
             int arrayIndex,
             int count)
         {
-            this.list?.CopyTo(
+            this.list.CopyTo(
                 index, 
                 array, 
                 arrayIndex,
@@ -137,36 +114,34 @@
         public virtual void Add(
             T item)
         {
-            this.list?.Add(item);
+            this.list.Add(item);
         }
 
         public virtual void AddRange(
             IEnumerable<T> collection)
         {
-            this.list?.AddRange(collection);
+            this.list.AddRange(collection);
         }
 
         public virtual ReadOnlyCollection<T> AsReadOnly()
         {
-            return this.list?.AsReadOnly();
+            return this.list.AsReadOnly();
         }
 
         public virtual int BinarySearch(
             T item)
         {
-            return this.list?.BinarySearch(
-                       item)
-                ?? nOne;
+            return this.list.BinarySearch(
+                       item);
         }
 
         public virtual int BinarySearch(
             T item, 
             IComparer<T> comparer)
         {
-            return this.list?.BinarySearch(
+            return this.list.BinarySearch(
                        item,
-                       comparer)
-                   ?? nOne;
+                       comparer);
         }
 
         public virtual int BinarySearch(
@@ -175,73 +150,66 @@
             T item,
             IComparer<T> comparer)
         {
-            return this.list?.BinarySearch(
+            return this.list.BinarySearch(
                        index,
                        count,
                        item,
-                       comparer)
-                   ?? nOne;
+                       comparer);
         }
 
         public virtual void Clear()
         {
-            this.list?.Clear();
+            this.list.Clear();
         }
 
         public virtual bool Contains(
             T item)
         {
-            return this.list?.Contains(item)
-                ?? falsity;
+            return this.list.Contains(item);
         }
 
         public virtual List<TOutput> ConvertAll<TOutput>(
             System.Converter<T, TOutput> converter)
         {
-            return this.list?.ConvertAll(
+            return this.list.ConvertAll(
                 converter);
         }
 
         public virtual bool Exists(
             System.Predicate<T> match)
         {
-            return this.list?.Exists(
-                match) ?? falsity;
+            return this.list.Exists(
+                match);
         }
 
         public virtual T Find(
             System.Predicate<T> match)
         {
-            var l = this.list;
-            if (l == null)
-            {
-                return default;
-            }
-
-            return l.Find(match);
+            return this.list.Find(
+                match);
         }
 
         public virtual List<T> FindAll(
             System.Predicate<T> match)
         {
-            return this.list?.FindAll(match);
+            return this.list.FindAll(
+                match);
         }
 
         public virtual int FindIndex(
             System.Predicate<T> match)
         {
-            return this.list?.FindIndex(match)
-                ?? nOne;
+            return this.list.FindIndex(
+                match);
         }
 
         public virtual int FindIndex(
             int startIndex, 
             System.Predicate<T> match)
         {
-            return this.list?.FindIndex(
+            return this.list.FindIndex(
                        startIndex,
-                       match)
-                   ?? nOne;
+                       match);
         }
 
         public virtual int FindIndex(
@@ -249,41 +217,32 @@
             int count, 
             System.Predicate<T> match)
         {
-            return this.list?.FindIndex(
+            return this.list.FindIndex(
                        startIndex,
                        count,
-                       match)
-                   ?? nOne;
+                       match);
         }
 
         public virtual T FindLast(
             System.Predicate<T> match)
         {
-            var l = this.list;
-            if (l == null)
-            {
-                return default;
-            }
-
-            return l.FindLast(match);
+            return this.list.FindLast(match);
         }
 
         public virtual int FindLastIndex(
             System.Predicate<T> match)
         {
-            return this.list?.FindLastIndex(
-                       match)
-                   ?? nOne;
+            return this.list.FindLastIndex(
+                       match);
         }
 
         public virtual int FindLastIndex(
             int startIndex, 
             System.Predicate<T> match)
         {
-            return this.list?.FindLastIndex(
+            return this.list.FindLastIndex(
                        startIndex,
-                       match)
-                   ?? nOne;
+                       match);
         }
 
         public virtual int FindLastIndex(
@@ -291,17 +250,16 @@
             int count, 
             System.Predicate<T> match)
         {
-            return this.list?.FindLastIndex(
+            return this.list.FindLastIndex(
                        startIndex,
                        count,
-                       match)
-                   ?? nOne;
+                       match);
         }
 
         public virtual void ForEach(
             System.Action<T> action)
         {
-            this.list?.ForEach(
+            this.list.ForEach(
                 action);
         }
 
@@ -309,7 +267,7 @@
             int index, 
             int count)
         {
-            return this.list?.GetRange(
+            return this.list.GetRange(
                 index, 
                 count);
         }
@@ -317,18 +275,16 @@
         public virtual int IndexOf(
             T item)
         {
-            return this.list?.IndexOf(item)
-                ?? nOne;
+            return this.list.IndexOf(item);
         }
 
         public virtual int IndexOf(
             T item, 
             int index)
         {
-            return this.list?.IndexOf(
+            return this.list.IndexOf(
                        item,
-                       index)
-                   ?? nOne;
+                       index);
         }
 
         public virtual int IndexOf(
@@ -336,18 +292,17 @@
             int index, 
             int count)
         {
-            return this.list?.IndexOf(
+            return this.list.IndexOf(
                        item,
                        index,
-                       count)
-                   ?? nOne;
+                       count);
         }
 
         public virtual void Insert(
             int index, 
             T item)
         {
-            this.list?.Insert(
+            this.list.Insert(
                 index, 
                 item);
         }
@@ -356,66 +311,66 @@
             int index,
             IEnumerable<T> collection)
         {
-            this.list?.InsertRange(index, collection);
+            this.list.InsertRange(index, collection);
         }
 
         public virtual bool Remove(
             T item)
         {
-            return this.list?.Remove(item)
-                   ?? falsity;
+            return this.list.Remove(item);
         }
 
         public virtual int RemoveAll(
             System.Predicate<T> match)
         {
-            return this.list?.RemoveAll(
-                       match)
-                   ?? nOne;
+            return this.list.RemoveAll(
+                       match);
         }
 
         public virtual void RemoveAt(
             int index)
         {
-            this.list?.RemoveAt(index);
+            this.list.RemoveAt(index);
         }
 
         public virtual void RemoveRange(
             int index,
             int count)
         {
-            this.list?.RemoveRange(index, count);
+            this.list.RemoveRange(index, count);
         }
 
         public virtual void Reverse()
         {
-            this.list?.Reverse();
+            this.list.Reverse();
         }
 
         public virtual void Reverse(
             int index, 
             int count)
         {
-            this.list?.Reverse(
+            this.list.Reverse(
                 index, 
                 count);
         }
 
         public virtual void Sort()
         {
-            this.list?.Sort();
+            this.list.Sort();
         }
 
         public virtual void Sort(
             IComparer<T> comparer)
         {
-            this.list?.Sort(comparer);
+            this.list.Sort(
+                comparer);
         }
 
         public virtual void Sort(
             System.Comparison<T> comparison)
         {
-            this.list?.Sort(comparison);
+            this.list.Sort(
+                comparison);
         }
 
         public virtual void Sort(
@@ -423,34 +378,36 @@
             int count,
             IComparer<T> comparer)
         {
-            this.list?.Sort(index, count, comparer);
+            this.list.Sort(
+                index, 
+                count, 
+                comparer);
         }
 
         public virtual T[] ToArray()
         {
-            return this.list?.ToArray();
+            return this.list.ToArray();
         }
 
         public virtual void TrimExcess()
         {
-            this.list?.TrimExcess();
+            this.list.TrimExcess();
         }
 
         public virtual int LastIndexOf(
             T item)
         {
-            return this.list?.LastIndexOf(item)
-                ?? nOne;
+            return this.list.LastIndexOf(
+                item);
         }
 
         public virtual int LastIndexOf(
             T item,
             int index)
         {
-            return this.list?.LastIndexOf(
+            return this.list.LastIndexOf(
                        item,
-                       index)
-                   ?? nOne;
+                       index);
         }
 
         public virtual int LastIndexOf(
@@ -458,23 +415,19 @@
             int index,
             int count)
         {
-            return this.list?.LastIndexOf(
+            return this.list.LastIndexOf(
                        item,
                        index,
-                       count)
-                   ?? nOne;
+                       count);
         }
 
         public virtual bool TrueForAll(
             System.Predicate<T> match)
         {
-            return this.list?.TrueForAll(
-                       match)
-                   ?? falsity;
+            return this.list.TrueForAll(
+                       match);
         }
 
         protected readonly List<T> list;
-        protected const short nOne = -1;
-        protected const bool falsity = false;
     }
 }
