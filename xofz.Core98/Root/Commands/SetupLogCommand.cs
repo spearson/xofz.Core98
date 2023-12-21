@@ -89,7 +89,7 @@
 
             var w = this.web;
             var s = this.settings;
-            var n = s?.LogDependencyName;
+            var n = s.LogDependencyName;
             new LogPresenter(
                 this.ui,
                 this.shell,
@@ -109,7 +109,7 @@
                 }.Setup();
             }
 
-            if (s?.StatisticsEnabled ?? falsity)
+            if (s.StatisticsEnabled)
             {
                 new LogStatisticsPresenter(
                     this.statsUi,
@@ -128,8 +128,7 @@
                 return;
             }
 
-            var s = this.settings ??
-                    new SettingsHolder();
+            var s = this.settings;
             var ldn = s.LogDependencyName;
             var location = s.LogLocation;
             var se = s.StatisticsEnabled;
