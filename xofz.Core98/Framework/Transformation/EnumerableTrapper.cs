@@ -9,22 +9,24 @@
         public virtual IEnumerable<T> Trap(
             IEnumerable<T> source)
         {
-            if (source == null)
+            switch (source)
             {
-                ICollection<T> defaultCollection = new XLinkedList<T>();
-                this.setTrapper(defaultCollection);
-                yield break;
-            }
-
-            if (source is ICollection<T> collection)
-            {
-                this.setTrapper(collection);
-                foreach (var item in collection)
+                case null:
                 {
-                    yield return item;
+                    ICollection<T> defaultCollection = new XLinkedList<T>();
+                    this.setTrapper(defaultCollection);
+                    yield break;
                 }
+                case ICollection<T> collection:
+                {
+                    this.setTrapper(collection);
+                    foreach (var item in collection)
+                    {
+                        yield return item;
+                    }
 
-                yield break;
+                    yield break;
+                }
             }
 
             this.setTrapper(new XLinkedList<T>());

@@ -124,9 +124,5 @@
                 enumerator.Dispose();
             }
         }
-
-        protected const byte
-            zero = 0,
-            one = 1;
     }
 }
