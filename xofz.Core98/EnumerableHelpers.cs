@@ -1184,14 +1184,15 @@
             IEnumerable<T> finiteSource,
             Gen<T, int> valueComputer)
         {
+            const int errorSum = int.MinValue;
             if (finiteSource == null)
             {
-                return zero;
+                return errorSum;
             }
 
             if (valueComputer == null)
             {
-                return zero;
+                return errorSum;
             }
 
             int sum = zero;
@@ -1210,14 +1211,15 @@
             IEnumerable<T> finiteSource,
             Gen<T, long> valueComputer)
         {
+            const long errorSum = long.MinValue;
             if (finiteSource == null)
             {
-                return zero;
+                return errorSum;
             }
 
             if (valueComputer == null)
             {
-                return zero;
+                return errorSum;
             }
 
             long sum = zero;
@@ -1235,25 +1237,18 @@
         public static int Min(
             IEnumerable<int> finiteSource)
         {
+            var min = int.MaxValue;
             if (finiteSource == null)
             {
-                return zero;
+                return min;
             }
 
-            var min = int.MaxValue;
-            var minChanged = falsity;
             foreach (var item in finiteSource)
             {
-                minChanged = truth;
                 if (item < min)
                 {
                     min = item;
                 }
-            }
-
-            if (!minChanged)
-            {
-                return zero;
             }
 
             return min;
@@ -1262,25 +1257,18 @@
         public static long Min(
             IEnumerable<long> finiteSource)
         {
+            var min = long.MaxValue;
             if (finiteSource == null)
             {
-                return zero;
+                return min;
             }
-
-            var min = long.MaxValue;
-            var minChanged = falsity;
+            
             foreach (var item in finiteSource)
             {
-                minChanged = truth;
                 if (item < min)
                 {
                     min = item;
                 }
-            }
-
-            if (!minChanged)
-            {
-                return zero;
             }
 
             return min;
@@ -1289,12 +1277,13 @@
         public static int Max(
             IEnumerable<int> finiteSource)
         {
+            var max = int.MinValue;
             if (finiteSource == null)
             {
                 return zero;
             }
 
-            int max = zero;
+            
             foreach (var item in finiteSource)
             {
                 if (item > max)
@@ -1309,12 +1298,12 @@
         public static long Max(
             IEnumerable<long> finiteSource)
         {
+            var max = long.MinValue;
             if (finiteSource == null)
             {
-                return zero;
+                return max;
             }
-
-            long max = zero;
+            
             foreach (var item in finiteSource)
             {
                 if (item > max)
@@ -1631,18 +1620,15 @@
                 return default;
             }
 
-            long indexer = zero;
+            long currentIndex = zero;
             foreach (var item in source)
             {
-                if (indexer == index)
+                if (currentIndex == index)
                 {
                     return item;
                 }
 
-                checked
-                {
-                    ++indexer;
-                }
+                ++currentIndex;
             }
 
             return default;
@@ -1658,9 +1644,20 @@
             }
 
             long index = zero;
+            bool oIsNull = o == null;
             foreach (var item in source)
             {
-                if (o?.Equals(item) ?? item == null)
+                if (oIsNull)
+                {
+                    if (item == null)
+                    {
+                        return index;
+                    }
+
+                    continue;
+                }
+
+                if (o.Equals(item))
                 {
                     return index;
                 }
@@ -1676,8 +1673,8 @@
 
         public static IEnumerable<T> Range<T>(
             IEnumerable<T> source,
-            long startIndex,
-            long count)
+            int startIndex,
+            int count)
         {
             if (source == null)
             {
@@ -1726,13 +1723,17 @@
                 yield break;
             }
 
-            int currentCount = zero;
-            int currentValue = start;
+            int 
+                currentCount = zero, 
+                currentValue = start;
             while (currentCount < count)
             {
                 yield return currentValue;
                 ++currentCount;
-                ++currentValue;
+                checked
+                {
+                    ++currentValue;
+                }
             }
         }
 
@@ -1745,13 +1746,17 @@
                 yield break;
             }
 
-            int currentCount = zero;
-            int currentValue = start;
+            int
+                currentCount = zero,
+                currentValue = start;
             while (currentCount < count)
             {
                 yield return currentValue;
                 ++currentCount;
-                --currentValue;
+                checked
+                {
+                    --currentValue;
+                }
             }
         }
 

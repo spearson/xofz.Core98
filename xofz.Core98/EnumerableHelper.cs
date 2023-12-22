@@ -514,8 +514,8 @@
 
         public virtual IEnumerable<T> Range<T>(
             IEnumerable<T> source,
-            long startIndex,
-            long count)
+            int startIndex,
+            int count)
         {
             return EH.Range(
                 source,
