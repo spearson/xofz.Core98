@@ -2,7 +2,6 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using System.Reflection;
 
     public class EnumerableHelpers
     {
@@ -157,7 +156,7 @@
 
             uint skipIndex = one;
             foreach (var item in source)
-            {               
+            {
                 if (skipIndex > skipCount)
                 {
                     yield return item;
@@ -183,7 +182,7 @@
 
             uint takeIndex = one;
             foreach (var item in source)
-            {                
+            {
                 if (takeIndex > takeCount)
                 {
                     yield break;
@@ -266,11 +265,11 @@
             }
 
             foreach (var item in
-                Reverse(
-                    Take(
-                        Reverse(
-                            finiteSource),
-                        takeCount)))
+                     Reverse(
+                         Take(
+                             Reverse(
+                                 finiteSource),
+                             takeCount)))
             {
                 yield return item;
             }
@@ -587,7 +586,7 @@
                 {
                     lastChanged = truth;
                     lastItem = item;
-                }                
+                }
             }
 
             if (!lastChanged && !empty)
@@ -643,7 +642,7 @@
                 if (predicate(item))
                 {
                     lastItem = item;
-                }                
+                }
             }
 
             return lastItem;
@@ -827,13 +826,13 @@
             {
                 return count;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 checked
                 {
                     ++count;
-                }                
+                }
             }
 
             return count;
@@ -853,7 +852,7 @@
             {
                 return count;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 if (predicate(item))
@@ -861,7 +860,7 @@
                     checked
                     {
                         ++count;
-                    }                    
+                    }
                 }
             }
 
@@ -876,13 +875,13 @@
             {
                 return count;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 checked
                 {
                     ++count;
-                }                
+                }
             }
 
             return count;
@@ -902,7 +901,7 @@
             {
                 return count;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 if (predicate(item))
@@ -910,7 +909,7 @@
                     checked
                     {
                         ++count;
-                    }                    
+                    }
                 }
             }
 
@@ -1070,7 +1069,7 @@
 
                 d[key]?.Add(item);
             }
-            
+
             var keyList = new List<TKey>(d.Keys);
             keyList.Sort(comparer);
 
@@ -1168,10 +1167,10 @@
             }
 
             foreach (var fieldInfo in o
-                .GetType()
-                .GetFields(
-                    BindingFlags.Instance |
-                    BindingFlags.NonPublic))
+                         .GetType()
+                         .GetFields(
+                             System.Reflection.BindingFlags.Instance |
+                             System.Reflection.BindingFlags.NonPublic))
             {
                 if (fieldInfo.GetValue(o) is T t)
                 {
@@ -1262,7 +1261,7 @@
             {
                 return min;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 if (item < min)
@@ -1283,7 +1282,7 @@
                 return zero;
             }
 
-            
+
             foreach (var item in finiteSource)
             {
                 if (item > max)
@@ -1303,7 +1302,7 @@
             {
                 return max;
             }
-            
+
             foreach (var item in finiteSource)
             {
                 if (item > max)
@@ -1692,7 +1691,7 @@
             }
 
             long
-                currentIndex = zero, 
+                currentIndex = zero,
                 currentCount = zero;
             foreach (var item in source)
             {
@@ -1723,8 +1722,8 @@
                 yield break;
             }
 
-            int 
-                currentCount = zero, 
+            int
+                currentCount = zero,
                 currentValue = start;
             while (currentCount < count)
             {
@@ -1763,8 +1762,10 @@
         protected const byte
             zero = 0,
             one = 1;
+
         protected const short
             minusOne = -1;
+
         protected const bool
             truth = true,
             falsity = false;
