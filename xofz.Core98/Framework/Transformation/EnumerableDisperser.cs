@@ -38,16 +38,6 @@
             long counter = zero;
             using (var e = dispersion.GetEnumerator())
             {
-                if (e == null)
-                {
-                    foreach (var item in source)
-                    {
-                        yield return item;
-                    }
-
-                    yield break;
-                }
-
                 foreach (var item in source)
                 {
                     foreach (var dp in dispersionPoints)

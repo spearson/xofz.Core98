@@ -9,33 +9,35 @@
             params IEnumerable<T>[] finiteSources)
         {
             var connection = new XLinkedListLot<T>();
-            if (finiteSources == null)
+            foreach (var item in this.Connect(
+                         (IEnumerable<IEnumerable<T>>)finiteSources))
             {
-                return connection;
+                connection.AddTail(item);
             }
 
-            const byte zero = 0;
-            var l = finiteSources.Length;
-            for (int sourceIndex = zero;
-                sourceIndex < l;
-                ++sourceIndex)
+            return connection;
+        }
+
+        public virtual IEnumerable<T> Connect<T>(
+            IEnumerable<IEnumerable<T>> sources)
+        {
+            if (sources == null)
             {
-                var source = finiteSources[sourceIndex];
+                yield break;
+            }
+
+            foreach (var source in sources)
+            {
                 if (source == null)
                 {
                     continue;
                 }
 
-                using (var e = source.GetEnumerator())
+                foreach (var item in source)
                 {
-                    while (e?.MoveNext() ?? false)
-                    {
-                        connection.AddTail(e.Current);
-                    }
+                    yield return item;
                 }
             }
-
-            return connection;
         }
     }
 }

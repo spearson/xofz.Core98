@@ -5,14 +5,15 @@
     public class EnumerableFluxer
     {
         public EnumerableFluxer()
-            : this(new System.Random())
+            : this(null)
         {
         }
 
         protected EnumerableFluxer(
             System.Random rng)
         {
-            this.rng = rng;
+            this.rng = rng
+                ?? new System.Random();
         }
 
         public virtual IEnumerable<ICollection<T>> Flux<T>(
@@ -56,7 +57,7 @@
                     currentChunk.Add(nextItem);
                 }
 
-                var nextChunkSize = this.rng?.Next(min, maxExclusive);
+                var nextChunkSize = this.rng.Next(min, maxExclusive);
                 while (indexer < nextChunkSize && e.MoveNext())
                 {
                     currentChunk.Add(e.Current);

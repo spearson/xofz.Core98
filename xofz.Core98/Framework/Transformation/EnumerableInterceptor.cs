@@ -29,10 +29,7 @@
 
                 yield return item;
 
-                checked
-                {
-                    ++indexer;
-                }
+                ++indexer;
             }
         }
 
@@ -83,10 +80,7 @@
 
                 yield return item;
 
-                checked
-                {
-                    ++indexer;
-                }
+                ++indexer;
             }
         }
 
@@ -123,10 +117,7 @@
 
                     yield return item;
 
-                    checked
-                    {
-                        ++indexer;
-                    }
+                    ++indexer;
                 }
             }
         }

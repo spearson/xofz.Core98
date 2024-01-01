@@ -13,10 +13,19 @@
                 yield break;
             }
 
-            var bcIsNull = breakCondition == null;
+            if (breakCondition == null)
+            {
+                foreach (var item in source)
+                {
+                    yield return item;
+                }
+
+                yield break;
+            }
+
             foreach (var item in source)
             {
-                if (!bcIsNull && breakCondition(item))
+                if (breakCondition(item))
                 {
                     yield break;
                 }
@@ -34,15 +43,18 @@
                 yield break;
             }
 
-            var bcsAreNull = breakConditions == null;
-            foreach (var item in source)
+            if (breakConditions == null)
             {
-                if (bcsAreNull)
+                foreach (var item in source)
                 {
                     yield return item;
-                    continue;
                 }
 
+                yield break;
+            }
+
+            foreach (var item in source)
+            {
                 foreach (var breakCondition in breakConditions)
                 {
                     if (breakCondition == null)

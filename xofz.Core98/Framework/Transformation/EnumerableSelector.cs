@@ -20,17 +20,17 @@
 
             var e1 = source.GetEnumerator();
             var e2 = selectors.GetEnumerator();
-            while (e1?.MoveNext() ?? false)
+            while (e1.MoveNext())
             {
-                e2?.MoveNext();
-                if (e2?.Current ?? false)
+                e2.MoveNext();
+                if (e2.Current)
                 {
                     yield return e1.Current;
                 }
             }
 
-            e1?.Dispose();
-            e2?.Dispose();
+            e1.Dispose();
+            e2.Dispose();
         }
     }
 }

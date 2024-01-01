@@ -99,10 +99,12 @@
             }
 
             bool reachedOne;
-            const bool truth = true;
+            const bool 
+                truth = true,
+                falsity = false;
 
             splice:
-            reachedOne = false;
+            reachedOne = falsity;
             foreach (var enumerator in enumerators)
             {
                 if (!enumerator.MoveNext())
