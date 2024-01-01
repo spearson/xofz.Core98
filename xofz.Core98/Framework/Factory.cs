@@ -8,28 +8,18 @@
         public virtual T Create<T>(
             params object[] dependencies)
         {
-            var ctors = typeof(T)?.GetConstructors();
-            if (ctors == null)
-            {
-                return default;
-            }
-
             if (dependencies == null)
             {
                 const byte zero = 0;
                 dependencies = new object[zero];
             }
 
+            var ctors = typeof(T).GetConstructors();
             System.Reflection.ConstructorInfo matchingCtor = null;
             var dependencyCount = dependencies.Length;
             foreach (var ctor in ctors)
             {
                 var ps = ctor.GetParameters();
-                if (ps == null)
-                {
-                    continue;
-                }
-
                 if (ps.Length != dependencyCount)
                 {
                     continue;
@@ -42,10 +32,6 @@
                             .Reflection
                             .ParameterInfo>)ps)
                     .GetEnumerator();
-                if (e == null)
-                {
-                    continue;
-                }
 
                 bool matches = truth;
                 foreach (var d in dependencies)
@@ -64,15 +50,10 @@
                         break;
                     }
 
-                    var p = c.ParameterType;
-                    if (p == null)
-                    {
-                        matches = falsity;
-                        break;
-                    }
-
-                    if (!p.IsInstanceOfType(
-                            d))
+                    if (!c
+                            .ParameterType
+                            .IsInstanceOfType(
+                                d))
                     {
                         matches = falsity;
                         break;
