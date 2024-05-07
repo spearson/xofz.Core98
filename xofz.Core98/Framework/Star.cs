@@ -33,7 +33,7 @@
         }
 
         public virtual MethodWeb W { get; set; }
-            = new MethodWebs.HalflockWeb();
+            = new MethodWeb();
 
         public virtual T AccessWeb<T>(
             Do<T> accessor = null)

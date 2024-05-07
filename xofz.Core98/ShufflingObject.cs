@@ -75,8 +75,8 @@
             {
                 var thisBuffer = new byte[one];
                 var otherBuffer = new byte[one];
-                this?.R?.GetBytes(thisBuffer);
-                other?.R?.GetBytes(otherBuffer);
+                this.R?.GetBytes(thisBuffer);
+                other.R?.GetBytes(otherBuffer);
 
                 var thisNumber = thisBuffer[zero];
                 var otherNumber = otherBuffer[zero];

@@ -22,6 +22,13 @@
                 count);
         }
 
+        public virtual bool NullOrEmpty(
+            string s)
+        {
+            return SH.NullOrEmpty(
+                s);
+        }
+
         public virtual bool NullOrWhiteSpace(
             string s)
         {

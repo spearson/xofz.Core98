@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public static class StringHelpers
+    public class StringHelpers
     {
         public static T ToEnum<T>(
             string s)
@@ -38,6 +38,12 @@
                 : s.Substring(
                     zero,
                     l - count);
+        }
+
+        public static bool NullOrEmpty(
+            string s)
+        {
+            return s == null || s.Length < one;
         }
 
         public static bool NullOrWhiteSpace(
@@ -86,10 +92,10 @@
             }
         }
 
-        private const byte 
+        protected const byte 
             zero = 0,
             one = 1;
-        private const bool 
+        protected const bool 
             falsity = false,
             truth = true;
     }

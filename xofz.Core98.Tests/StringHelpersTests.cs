@@ -1,6 +1,8 @@
 ﻿namespace xofz.Tests
 {
+    using Ploeh.AutoFixture;
     using Xunit;
+    using SH = xofz.StringHelpers;
 
     public class StringHelpersTests
     {
@@ -24,7 +26,7 @@
             {
                 Assert.Equal(
                     tester,
-                    StringHelpers.ToEnum<TestEnum>(
+                    SH.ToEnum<TestEnum>(
                         tester.ToString()));
             }
 
@@ -33,6 +35,39 @@
                 Zero,
                 One,
                 Two
+            }
+        }
+
+        public class When_NullOrEmpty_is_called
+        {
+            [Fact]
+            public void Returns_true_for_null()
+            {
+                Assert.True(
+                    SH.NullOrEmpty(null));
+            }
+
+            [Fact]
+            public void Returns_true_for_empty()
+            {
+                Assert.True(
+                    SH.NullOrEmpty(string.Empty));
+            }
+
+            [Fact]
+            public void Returns_false_for_whitespace()
+            {
+                Assert.False(
+                    SH.NullOrEmpty(@" "));
+            }
+
+            [Fact]
+            public void Returns_false_otherwise()
+            {
+                var f = new Fixture();
+                Assert.False(
+                    SH.NullOrEmpty(
+                        f.Create<string>()));
             }
         }
     }
