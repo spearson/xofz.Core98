@@ -21,8 +21,8 @@
         {
             var lll = new XLinkedListLot<string>();
             foreach (var leechName in EH.Select(
-                this.leeches,
-                leechHolder => leechHolder.Name))
+                         this.leeches,
+                         leechHolder => leechHolder.Name))
             {
                 lll.AddTail(
                     leechName);
@@ -46,7 +46,7 @@
             if (sameNameHolder != null)
             {
                 return falsity;
-            }       
+            }
 
             this.add(
                 new NamedLeechHolder

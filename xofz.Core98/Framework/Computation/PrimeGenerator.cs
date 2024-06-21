@@ -96,7 +96,8 @@
         protected const byte
             firstPrime = 2,
             secondPrime = 3;
-        protected const bool 
+
+        protected const bool
             truth = true;
     }
 }

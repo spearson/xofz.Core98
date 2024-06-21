@@ -25,12 +25,12 @@
         }
 
         public virtual bool RelativelyPrime(
-            Lot<long> lot, 
+            Lot<long> lot,
             bool onlyCheckLast)
         {
             const byte one = 1;
             const byte zero = 0;
-            
+
             if (lot?.Count < one)
             {
                 return truth;
@@ -46,8 +46,8 @@
                 var numberToCheck = ll.Tail;
                 var squareRoot = (long)System.Math.Sqrt(numberToCheck);
                 foreach (var number in EnumerableHelpers.Where(
-                    ll,
-                    n => n <= squareRoot))
+                             ll,
+                             n => n <= squareRoot))
                 {
                     if (numberToCheck % number == zero)
                     {
@@ -76,7 +76,7 @@
             }
         }
 
-        protected const bool 
+        protected const bool
             truth = true,
             falsity = false;
     }

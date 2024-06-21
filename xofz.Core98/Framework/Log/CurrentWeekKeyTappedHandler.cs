@@ -23,8 +23,8 @@
                 (uiRW, timeProvider) =>
                 {
                     const short daysToAdd = -6;
-                    var newEndDate = timeProvider.Now().
-                        Date;
+                    var newEndDate = timeProvider.Now()
+                        .Date;
                     var newStartDate = newEndDate
                         .AddDays(daysToAdd);
                     unsubscribe?.Invoke();

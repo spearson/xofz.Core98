@@ -21,8 +21,8 @@
         {
             var lll = new XLinkedListLot<string>();
             foreach (var locatorName in EH.Select(
-                this.locators,
-                locatorHolder => locatorHolder?.Name))
+                         this.locators,
+                         locatorHolder => locatorHolder?.Name))
             {
                 lll.AddTail(
                     locatorName);

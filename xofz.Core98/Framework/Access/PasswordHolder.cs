@@ -7,7 +7,7 @@
     {
         public virtual IDictionary<SecureString, AccessLevel> Passwords
         {
-            get;
+            get; 
             set;
         }
 
@@ -29,9 +29,9 @@
             // assuming 1 password per access level
             // and AccessLevel.None does not have a password
             var maxPwCount = System
-                                 .Enum
-                                 .GetNames(typeof(AccessLevel))
-                                 .Length - one;
+                .Enum
+                .GetNames(typeof(AccessLevel))
+                .Length - one;
             IDictionary<SecureString, AccessLevel> d =
                 new Dictionary<SecureString, AccessLevel>();
             if (maxPwCount < one || passwords == null)
@@ -137,8 +137,8 @@
 
             checkDef:
             if (!System.Enum.IsDefined(
-                typeof(AccessLevel),
-                enumValue))
+                    typeof(AccessLevel),
+                    enumValue))
             {
                 const AccessLevel none = AccessLevel.None;
                 return none;

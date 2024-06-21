@@ -36,7 +36,8 @@
                     var today = System.DateTime.Today;
                     r.Run<TimeProvider>(provider =>
                     {
-                        today = provider.Now().Date;
+                        today = provider.Now()
+                            .Date;
                     });
 
                     var lastWeek = today.Subtract(System.TimeSpan.FromDays(six));
@@ -56,7 +57,7 @@
                     }
 
                     Interlocked.Exchange(
-                        ref fields.refreshOnStartIf1, 
+                        ref fields.refreshOnStartIf1,
                         zero);
                     if (started && needsReload)
                     {
