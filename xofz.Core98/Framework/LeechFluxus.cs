@@ -34,8 +34,8 @@
             lock (this.locker)
             {
                 foreach (var leechName in EH.Select(
-                    this.leeches,
-                    leechHolder => leechHolder?.Name))
+                             this.leeches,
+                             leechHolder => leechHolder?.Name))
                 {
                     lll.AddTail(
                         leechName);
@@ -60,8 +60,8 @@
             {
                 ls = this.leeches;
                 sameNameHolder = EH.FirstOrNull(
-                        ls,
-                        leechHolder => leechHolder.Name == name);
+                    ls,
+                    leechHolder => leechHolder.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -500,6 +500,7 @@
 
         protected readonly ICollection<NamedLeechHolder> leeches;
         protected readonly object locker;
+
         protected const bool
             truth = true,
             falsity = false;

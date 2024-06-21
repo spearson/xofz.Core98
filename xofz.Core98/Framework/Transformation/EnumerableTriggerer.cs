@@ -27,7 +27,7 @@
             const byte zero = 0;
             long currentIndex = zero;
             foreach (var item in source)
-            {                
+            {
                 if (triggerIndices.Contains(currentIndex))
                 {
                     trigger(item);

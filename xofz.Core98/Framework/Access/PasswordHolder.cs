@@ -7,7 +7,7 @@
     {
         public virtual IDictionary<SecureString, AccessLevel> Passwords
         {
-            get; 
+            get;
             set;
         }
 
@@ -29,9 +29,10 @@
             // assuming 1 password per access level
             // and AccessLevel.None does not have a password
             var maxPwCount = System
-                .Enum
-                .GetNames(typeof(AccessLevel))
-                .Length - one;
+                                 .Enum
+                                 .GetNames(typeof(AccessLevel))
+                                 .Length -
+                             one;
             IDictionary<SecureString, AccessLevel> d =
                 new Dictionary<SecureString, AccessLevel>();
             if (maxPwCount < one || passwords == null)
@@ -54,7 +55,9 @@
                 }
 
                 var level = nextLevel(counter);
-                d.Add(password, level);
+                d.Add(
+                    password,
+                    level);
                 ++counter;
             }
 
@@ -71,9 +74,10 @@
             // assuming 1 password per access level
             // and AccessLevel.None does not have a password
             var maxPwCount = System
-                .Enum
-                .GetNames(typeof(AccessLevel))
-                .Length - one;
+                                 .Enum
+                                 .GetNames(typeof(AccessLevel))
+                                 .Length -
+                             one;
 
             IDictionary<SecureString, AccessLevel> d =
                 new Dictionary<SecureString, AccessLevel>();
@@ -103,7 +107,9 @@
                     securePw.AppendChar(c);
                 }
 
-                d.Add(securePw, level);
+                d.Add(
+                    securePw,
+                    level);
                 ++counter;
             }
 

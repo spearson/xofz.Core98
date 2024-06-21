@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class StackLot<T> 
+    public class StackLot<T>
         : Lot<T>
     {
         public StackLot()
@@ -109,7 +109,7 @@
         {
             const byte zero = 0;
             this.stack.CopyTo(
-                array, 
+                array,
                 zero);
         }
 

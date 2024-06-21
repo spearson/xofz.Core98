@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class Translator<T, Y> 
+    public class Translator<T, Y>
         : System.IDisposable
     {
         public Translator(
@@ -12,7 +12,7 @@
         }
 
         public virtual Y Translate(
-            T item, 
+            T item,
             Do<T, Y> transform)
         {
             Y y;

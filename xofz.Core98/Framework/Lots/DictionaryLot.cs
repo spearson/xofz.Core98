@@ -64,10 +64,10 @@
 
         public virtual TValue this[TKey key] => this.dictionary[key];
 
-        public virtual ICollection<TKey> Keys => 
+        public virtual ICollection<TKey> Keys =>
             this.dictionary.Keys;
 
-        public virtual ICollection<TValue> Values => 
+        public virtual ICollection<TValue> Values =>
             this.dictionary.Values;
 
         public virtual IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
@@ -91,7 +91,7 @@
             out TValue value)
         {
             return this.dictionary.TryGetValue(
-                key, 
+                key,
                 out value);
         }
 

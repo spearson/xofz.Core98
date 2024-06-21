@@ -3,11 +3,11 @@
     using System.ComponentModel;
     using System.Windows.Forms;
 
-    public class FormUi 
+    public class FormUi
         : Form, Ui
     {
         ISynchronizeInvoke Ui.Root => this;
-       
+
         bool Ui.Disabled
         {
             get => !this.Enabled;

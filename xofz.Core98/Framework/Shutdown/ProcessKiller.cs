@@ -6,7 +6,9 @@
     {
         public virtual void Kill()
         {
-            Process.GetCurrentProcess().Kill();
+            Process
+                .GetCurrentProcess()
+                .Kill();
         }
 
         public virtual void Kill(

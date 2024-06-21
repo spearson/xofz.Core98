@@ -2,7 +2,7 @@
 {
     using System.Windows.Forms;
 
-    public sealed class FormsMessenger 
+    public sealed class FormsMessenger
         : Messenger
     {
         Ui Messenger.Subscriber { get; set; }
@@ -41,10 +41,10 @@
             }
 
             result = MessageBox.Show(
-                    question,
-                    m.QuestionCaption,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
+                question,
+                m.QuestionCaption,
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
             handleResult:
             switch (result)
@@ -78,10 +78,10 @@
             }
 
             result = MessageBox.Show(
-                    question,
-                    m.QuestionCaption,
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question);
+                question,
+                m.QuestionCaption,
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
 
             handleResult:
             switch (result)
@@ -140,7 +140,7 @@
             string message)
         {
             this.sendMessage(
-                message, 
+                message,
                 MessageBoxIcon.Information);
         }
 
@@ -156,12 +156,12 @@
             string error)
         {
             this.sendMessage(
-                error, 
+                error,
                 MessageBoxIcon.Error);
         }
 
         private void sendMessage(
-            string message, 
+            string message,
             MessageBoxIcon icon)
         {
             string caption;

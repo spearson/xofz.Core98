@@ -129,7 +129,8 @@
 
                 foreach (var line in ec)
                 {
-                    if (line?.ToLowerInvariant()
+                    if (line
+                            ?.ToLowerInvariant()
                             .Contains(fc.ToLowerInvariant())
                         ?? false)
                     {
@@ -151,7 +152,8 @@
             if (!string.IsNullOrEmpty(ft))
             {
                 var et = e.Type;
-                if (!et?.ToLowerInvariant()
+                if (!et
+                        ?.ToLowerInvariant()
                         .Contains(ft.ToLowerInvariant())
                     ?? true)
                 {
@@ -312,7 +314,8 @@
         }
 
         protected readonly MethodRunner runner;
-        protected const byte 
+
+        protected const byte
             zero = 0,
             one = 1;
     }

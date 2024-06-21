@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class CopyWeb 
+    public class CopyWeb
         : MethodWebV2
     {
         public CopyWeb()

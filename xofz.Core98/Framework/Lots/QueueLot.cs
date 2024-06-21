@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class QueueLot<T> 
+    public class QueueLot<T>
         : Lot<T>
     {
         public QueueLot()
@@ -98,7 +98,7 @@
         {
             const byte zero = 0;
             this.queue.CopyTo(
-                array, 
+                array,
                 zero);
         }
 

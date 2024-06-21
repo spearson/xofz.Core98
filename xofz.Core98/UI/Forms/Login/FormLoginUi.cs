@@ -6,13 +6,13 @@
     using System.Windows.Forms;
     using xofz.UI.Login;
 
-    public partial class FormLoginUi 
+    public partial class FormLoginUi
         : FormUi, LoginUiV2
     {
         public FormLoginUi(
             Form shell)
             : this(
-                shell, 
+                shell,
                 new SecureStringToolSet())
         {
         }
@@ -136,7 +136,7 @@
             var ptb = this.passwordTextBox;
             ptb.Focus();
             ptb.Select(
-                ptb.Text.Length, 
+                ptb.Text.Length,
                 zero);
         }
 
@@ -195,7 +195,7 @@
         }
 
         protected virtual void loginKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var lkt = this.LoginKeyTapped;
@@ -209,7 +209,7 @@
         }
 
         protected virtual void numKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var key = (Button)sender;
@@ -229,7 +229,7 @@
         }
 
         protected virtual void clearKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             this.passwordTextBox.Text = null;
@@ -254,7 +254,7 @@
         }
 
         protected virtual void cancelKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var ckt = this.CancelKeyTapped;
@@ -268,7 +268,7 @@
         }
 
         protected virtual void this_FormClosing(
-            object sender, 
+            object sender,
             FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -290,7 +290,7 @@
         }
 
         protected virtual void keyboardKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var kkt = this.KeyboardKeyTapped;

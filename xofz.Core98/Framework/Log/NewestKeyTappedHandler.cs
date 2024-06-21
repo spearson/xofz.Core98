@@ -26,8 +26,8 @@
                     var newestNullable = EH.FirstOrNull(
                             EH.OrderByDescending(
                                 log.ReadEntries(),
-                                entry => entry.Timestamp))?.
-                        Timestamp;
+                                entry => entry.Timestamp))
+                        ?.Timestamp;
                     if (newestNullable == null)
                     {
                         return;

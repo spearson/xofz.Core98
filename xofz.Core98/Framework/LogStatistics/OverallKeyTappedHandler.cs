@@ -49,8 +49,8 @@
                     {
                         const bool falsity = false;
                         sd.Display(
-                            ui, 
-                            stats, 
+                            ui,
+                            stats,
                             falsity);
                     });
                 },

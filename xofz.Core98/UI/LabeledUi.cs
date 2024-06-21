@@ -1,6 +1,6 @@
 ﻿namespace xofz.UI
 {
-    public interface LabeledUi 
+    public interface LabeledUi
         : Ui
     {
         string Label { get; set; }

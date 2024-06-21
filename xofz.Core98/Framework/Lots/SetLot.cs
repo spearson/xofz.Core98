@@ -51,14 +51,14 @@
             T item)
         {
             return this.collection.Contains(
-                       item);
+                item);
         }
 
         public virtual bool Remove(
             T item)
         {
             return this.collection.Remove(
-                       item);
+                item);
         }
 
         protected readonly ICollection<T> collection;

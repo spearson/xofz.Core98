@@ -60,7 +60,8 @@
 
             while (true)
             {
-                var lowestNumber = ll.RemoveHead()?.O;
+                var lowestNumber = ll.RemoveHead()
+                    ?.O;
                 if (ll.Count < one)
                 {
                     return truth;

@@ -21,7 +21,6 @@
                     ui,
                     labels);
             });
-            
         }
 
         public virtual void Apply(

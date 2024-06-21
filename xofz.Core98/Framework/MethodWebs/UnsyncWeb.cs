@@ -2,7 +2,7 @@
 
 namespace xofz.Framework.MethodWebs
 {
-    public class UnsyncWeb 
+    public class UnsyncWeb
         : MethodWeb
     {
         public UnsyncWeb()

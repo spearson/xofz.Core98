@@ -5,7 +5,7 @@
     public static class ControlHelpers
     {
         public static void SafeReplace(
-            Control control, 
+            Control control,
             Control container)
         {
             if (control == null)
@@ -37,7 +37,7 @@
 
             if (controlCount == one &&
                 ReferenceEquals(
-                    control, 
+                    control,
                     otherControl))
             {
                 return;

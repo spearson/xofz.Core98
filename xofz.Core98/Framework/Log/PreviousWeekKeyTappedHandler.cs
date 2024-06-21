@@ -22,11 +22,13 @@
             r?.Run<UiReaderWriter>(uiRW =>
             {
                 const short minusSeven = -7;
-                var newStartDate = uiRW.Read(
+                var newStartDate = uiRW
+                    .Read(
                         ui,
                         () => ui?.StartDate)
                     ?.AddDays(minusSeven);
-                var newEndDate = uiRW.Read(
+                var newEndDate = uiRW
+                    .Read(
                         ui,
                         () => ui?.EndDate)
                     ?.AddDays(minusSeven);
@@ -50,7 +52,7 @@
                             ui.StartDate = newStartDate ?? past;
                             ui.EndDate = newEndDate ?? now;
                         });
-                    
+
                     r.Run<LogStatisticsUi>(statsUi =>
                         {
                             uiRW.Write(

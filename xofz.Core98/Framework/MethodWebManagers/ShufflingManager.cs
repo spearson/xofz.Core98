@@ -34,7 +34,8 @@
         {
             var matchingWebs = this.shuffleWebs();
             return EH.FirstOrNull(
-                matchingWebs)?.Web;
+                    matchingWebs)
+                ?.Web;
         }
 
         public virtual T Shuffle<T>()
@@ -69,7 +70,7 @@
             lock (this.locker)
             {
                 foreach (var webHolder in
-                    this.webs ?? EH.Empty<NamedMethodWebHolder>())
+                         this.webs ?? EH.Empty<NamedMethodWebHolder>())
                 {
                     matchingWebs.Add(
                         new ShufflingObject<NamedMethodWebHolder>(

@@ -32,8 +32,8 @@
         }
 
         public virtual Lot<T> Target<T>(
-            IEnumerable<T> source, 
-            T target, 
+            IEnumerable<T> source,
+            T target,
             int radius)
         {
             var ll = new XLinkedListLot<T>();

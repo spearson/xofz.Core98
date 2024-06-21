@@ -14,6 +14,6 @@
         {
             System.Threading.Thread.Sleep(
                 (int)delay.TotalMilliseconds);
-        }        
+        }
     }
 }

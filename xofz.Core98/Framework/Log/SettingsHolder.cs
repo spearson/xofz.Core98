@@ -3,7 +3,7 @@
     public class SettingsHolder
     {
         public virtual string LogLocation { get; set; }
-        
+
         public virtual string SecondaryLogLocation { get; set; }
 
         public virtual string LogDependencyName { get; set; }

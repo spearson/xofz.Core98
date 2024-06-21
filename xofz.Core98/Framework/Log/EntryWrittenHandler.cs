@@ -27,7 +27,8 @@
                     var today = System.DateTime.Today;
                     r.Run<TimeProvider>(provider =>
                     {
-                        today = provider.Now().Date;
+                        today = provider.Now()
+                            .Date;
                     });
 
                     if (uiRW.Read(ui, () => ui?.EndDate) < today)

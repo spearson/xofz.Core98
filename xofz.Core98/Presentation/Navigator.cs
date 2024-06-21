@@ -77,7 +77,7 @@
                 p => p.Name == name);
         }
 
-        public virtual void Present<T>() 
+        public virtual void Present<T>()
             where T : Presenter
         {
             var ps = this.presenters;
@@ -103,7 +103,7 @@
         {
             var ps = this.presenters;
             foreach (var presenter in EH.OfType<T>(
-                ps))
+                         ps))
             {
                 if (presenter.Name != name)
                 {
@@ -139,7 +139,7 @@
             where T : NamedPresenter
         {
             foreach (var presenter in EH.OfType<T>(
-                this.presenters))
+                         this.presenters))
             {
                 if (presenter.Name != name)
                 {
@@ -175,7 +175,7 @@
             where T : Presenter
         {
             foreach (var presenter in EH.OfType<T>(
-                this.presenters))
+                         this.presenters))
             {
                 presenter?.Stop();
                 break;
@@ -187,10 +187,10 @@
             where T : NamedPresenter
         {
             foreach (var presenter in
-                EH.Where(
-                    EH.OfType<T>(
-                        this.presenters),
-                    p => p.Name == name))
+                     EH.Where(
+                         EH.OfType<T>(
+                             this.presenters),
+                         p => p.Name == name))
             {
                 presenter?.Stop();
                 break;
@@ -205,9 +205,9 @@
             Lot<Presenter> matchingPresenters
                 = new XLinkedListLot<Presenter>(
                     XLinkedList<Presenter>.Create(
-                    EH.Where(
-                        this.presenters,
-                        p => p is TPresenter)));
+                        EH.Where(
+                            this.presenters,
+                            p => p is TPresenter)));
             const byte one = 1;
             if (matchingPresenters.Count < one)
             {

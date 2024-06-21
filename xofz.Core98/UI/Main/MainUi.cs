@@ -1,6 +1,6 @@
 ﻿namespace xofz.UI.Main
 {
-    public interface MainUi 
+    public interface MainUi
         : Ui
     {
         event Do ShutdownRequested;

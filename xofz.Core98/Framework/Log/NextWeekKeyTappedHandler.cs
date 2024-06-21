@@ -22,11 +22,13 @@
             const byte seven = 7;
             r?.Run<UiReaderWriter>(uiRW =>
             {
-                var newStartDate = uiRW.Read(
+                var newStartDate = uiRW
+                    .Read(
                         ui,
                         () => ui?.StartDate)
                     ?.AddDays(seven);
-                var newEndDate = uiRW.Read(
+                var newEndDate = uiRW
+                    .Read(
                         ui,
                         () => ui?.EndDate)
                     ?.AddDays(seven);
@@ -37,7 +39,7 @@
                 {
                     var now = provider.Now();
                     var past = now.AddDays(-seven);
-                    
+
                     uiRW.WriteSync(
                         ui,
                         () =>
@@ -65,9 +67,9 @@
                                     }
 
                                     statsUi.StartDate = newStartDate
-                                        ?? past;
+                                                        ?? past;
                                     statsUi.EndDate = newEndDate
-                                        ?? now;
+                                                      ?? now;
                                 });
                         },
                         name);

@@ -39,8 +39,8 @@
             get
             {
                 var head = this.headNode;
-                return head == null 
-                    ? default 
+                return head == null
+                    ? default
                     : head.O;
             }
         }
@@ -50,8 +50,8 @@
             get
             {
                 var tail = this.tailNode;
-                return tail == null 
-                    ? default 
+                return tail == null
+                    ? default
                     : tail.O;
             }
         }
@@ -356,7 +356,6 @@
                     headNext.Previous = null;
                     this.setHead(
                         headNext);
-                    
                 }
             }
 
@@ -723,8 +722,8 @@
                 get
                 {
                     var c = this.currentNode;
-                    return c == null 
-                        ? default 
+                    return c == null
+                        ? default
                         : c.O;
                 }
             }
@@ -750,8 +749,9 @@
             headNode,
             tailNode;
 
-        protected const byte 
+        protected const byte
             zero = 0;
+
         protected const bool
             truth = true,
             falsity = false;

@@ -21,8 +21,8 @@
         {
             var lll = new XLinkedListLot<string>();
             foreach (var managerName in EH.Select(
-                this.managers,
-                nmh => nmh?.Name))
+                         this.managers,
+                         nmh => nmh?.Name))
             {
                 lll.AddTail(
                     managerName);

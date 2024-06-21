@@ -43,7 +43,7 @@
             Do<T> prepare)
         {
             foreach (var item in this.Generate(
-                         instantiate, 
+                         instantiate,
                          decider))
             {
                 prepare?.Invoke(item);

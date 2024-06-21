@@ -5,7 +5,7 @@
     using xofz.Framework.Main;
     using xofz.UI.Main;
 
-    public sealed class MainPresenter 
+    public sealed class MainPresenter
         : Presenter
     {
         public MainPresenter(
@@ -21,7 +21,7 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                    ref this.setupIf1, 
+                    ref this.setupIf1,
                     one) == one)
             {
                 return;
@@ -35,8 +35,8 @@
                     nameof(this.ui.ShutdownRequested),
                     this.ui_ShutdownRequested);
             });
-            
-            r?.Run<Navigator>(nav => 
+
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 

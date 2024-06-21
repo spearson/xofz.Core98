@@ -73,7 +73,8 @@
             var pivot = array[pivotIndex];
             while (lowIndex <= highIndex)
             {
-                while (array[lowIndex]?.CompareTo(pivot) < zero)
+                while (array[lowIndex]
+                           ?.CompareTo(pivot) < zero)
                 {
                     ++lowIndex;
                     if (lowIndex > lengthDownOne)
@@ -82,7 +83,8 @@
                     }
                 }
 
-                while (array[highIndex]?.CompareTo(pivot) > zero)
+                while (array[highIndex]
+                           ?.CompareTo(pivot) > zero)
                 {
                     --highIndex;
                     if (highIndex < zero)

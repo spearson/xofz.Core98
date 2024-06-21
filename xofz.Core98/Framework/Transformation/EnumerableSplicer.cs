@@ -99,7 +99,7 @@
             }
 
             bool reachedOne;
-            const bool 
+            const bool
                 truth = true,
                 falsity = false;
 

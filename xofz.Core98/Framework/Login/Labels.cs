@@ -28,6 +28,5 @@
 
         public virtual string Title { get; set; }
             = @"Log In";
-
     }
 }

@@ -6,7 +6,7 @@
     using xofz.UI;
     using xofz.UI.Login;
 
-    public sealed class LoginPresenter 
+    public sealed class LoginPresenter
         : Presenter
     {
         public LoginPresenter(
@@ -25,7 +25,7 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                    ref this.setupIf1, 
+                    ref this.setupIf1,
                     one) == one)
             {
                 return;
@@ -72,7 +72,7 @@
                 handler.Handle(this.ui);
             });
 
-            r?.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 

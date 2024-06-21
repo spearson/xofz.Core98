@@ -3,7 +3,7 @@
     public interface MethodRunner
     {
         T Run<T>(
-            Do<T> method = null, 
+            Do<T> method = null,
             string tName = null);
 
         XTuple<T, U> Run<T, U>(

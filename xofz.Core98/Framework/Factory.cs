@@ -91,7 +91,6 @@
                 creation = default;
                 return falsity;
             }
-            
         }
 
         protected const bool

@@ -62,7 +62,8 @@
                     const byte four = 4;
                     var avgPerDay = reset
                         ? string.Empty
-                        : System.Math.Round(stats.AvgEntriesPerDay, four)
+                        : System
+                            .Math.Round(stats.AvgEntriesPerDay, four)
                             .ToString(CultureInfo.CurrentUICulture);
                     r.Run<UiReaderWriter>(uiRW =>
                     {

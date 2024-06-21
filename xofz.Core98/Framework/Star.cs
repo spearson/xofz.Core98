@@ -28,7 +28,7 @@
         public virtual Nameable N
         {
             get => this.name;
-            
+
             set => this.name = value;
         }
 

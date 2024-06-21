@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
-    public class DeetManagerLocator 
+    public class DeetManagerLocator
         : ManagerLocator
     {
         public virtual IEnumerable<XTuple<MethodWebManager, string>> ViewManagers()

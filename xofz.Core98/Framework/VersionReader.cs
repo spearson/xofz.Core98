@@ -14,7 +14,7 @@
         {
             this.executingAssembly = executingAssembly;
         }
-       
+
         public virtual string Read()
         {
             var ea = this.executingAssembly;
@@ -51,9 +51,9 @@
             if (assembly == null)
             {
                 return new System.Version(
-                    zero, 
-                    zero, 
-                    zero, 
+                    zero,
+                    zero,
+                    zero,
                     zero);
             }
 
@@ -68,9 +68,9 @@
             if (v == null)
             {
                 v = new System.Version(
-                    zero, 
-                    zero, 
-                    zero, 
+                    zero,
+                    zero,
+                    zero,
                     zero);
             }
 

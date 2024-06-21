@@ -1067,7 +1067,8 @@
                     d.Add(key, new XLinkedList<T>());
                 }
 
-                d[key]?.Add(item);
+                d[key]
+                    ?.Add(item);
             }
 
             var keyList = new List<TKey>(d.Keys);

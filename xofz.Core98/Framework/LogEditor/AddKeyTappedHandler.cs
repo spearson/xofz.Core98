@@ -34,7 +34,7 @@
                     var customIsSelected =
                         uiRW
                             .Read(
-                                ui, 
+                                ui,
                                 () => ui?.SelectedType)
                             ?.Contains(DefaultEntryTypes
                                 .Custom)
@@ -49,7 +49,7 @@
                             () => ui?.Content));
 
                     uiRW.Write(
-                        ui, 
+                        ui,
                         () =>
                         {
                             if (ui == null)

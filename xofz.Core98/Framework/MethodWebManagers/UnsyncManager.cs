@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UnsyncManager 
+    public class UnsyncManager
         : MethodWebManager
     {
         public UnsyncManager()

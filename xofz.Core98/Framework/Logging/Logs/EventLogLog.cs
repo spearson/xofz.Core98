@@ -5,7 +5,7 @@
     using xofz.Framework.Lots;
 
     // note: this class requires Windows 2000 or above
-    public sealed class EventLogLog 
+    public sealed class EventLogLog
         : Log, LogEditor
     {
         public EventLogLog(
@@ -37,10 +37,10 @@
                     getEntryType(entry),
                     new XLinkedListLot<string>(
                         XLinkedList<string>.Create(
-                        new[]
-                        {
-                            entry.Message
-                        })));
+                            new[]
+                            {
+                                entry.Message
+                            })));
             }
         }
 
@@ -70,8 +70,8 @@
             Log log = this;
             ICollection<LogEntry> collection = new XLinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
-                log.ReadEntries(),
-                e => e.Timestamp))
+                         log.ReadEntries(),
+                         e => e.Timestamp))
             {
                 if (entry.Timestamp < oldestTimestamp)
                 {
@@ -85,14 +85,14 @@
         }
 
         void LogEditor.AddEntry(
-            string type, 
+            string type,
             IEnumerable<string> content)
         {
             var entry = new LogEntry(
                 type,
                 new XLinkedListLot<string>(
                     XLinkedList<string>.Create(
-                    content)));
+                        content)));
             LogEditor editor = this;
             editor.AddEntry(entry);
         }

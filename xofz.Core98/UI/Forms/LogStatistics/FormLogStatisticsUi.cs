@@ -4,7 +4,7 @@
     using System.Windows.Forms;
     using xofz.UI.LogStatistics;
 
-    public partial class FormLogStatisticsUi 
+    public partial class FormLogStatisticsUi
         : FormUi, LogStatisticsUiV2
     {
         public FormLogStatisticsUi(
@@ -249,7 +249,7 @@
         }
 
         private void this_FormClosing(
-            object sender, 
+            object sender,
             FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -277,7 +277,7 @@
         }
 
         protected virtual void overallKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var okt = this.OverallKeyTapped;
@@ -291,7 +291,7 @@
         }
 
         protected virtual void rangeKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var rkt = this.RangeKeyTapped;
@@ -305,7 +305,7 @@
         }
 
         protected virtual void hideKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var hkt = this.HideKeyTapped;
@@ -319,7 +319,7 @@
         }
 
         protected virtual void resetContentKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var rckt = this.ResetContentKeyTapped;

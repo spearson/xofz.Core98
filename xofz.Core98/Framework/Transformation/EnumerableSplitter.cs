@@ -36,7 +36,7 @@
                 {
                     new XLinkedListLot<T>(
                         XLinkedList<T>.Create(
-                        finiteSource))
+                            finiteSource))
                 };
             }
 

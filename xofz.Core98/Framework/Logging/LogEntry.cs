@@ -16,11 +16,11 @@
         }
 
         public LogEntry(
-            string type, 
+            string type,
             Lot<string> content)
             : this(
-                System.DateTime.Now, 
-                type, 
+                System.DateTime.Now,
+                type,
                 content)
         {
         }
@@ -39,8 +39,8 @@
         }
 
         public LogEntry(
-            System.DateTime timestamp, 
-            string type, 
+            System.DateTime timestamp,
+            string type,
             Lot<string> content)
         {
             this.Timestamp = timestamp;

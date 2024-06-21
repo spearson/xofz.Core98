@@ -35,7 +35,7 @@
 
                 continue;
 
-            addChar:
+                addChar:
                 sb.Append(nextChar);
                 ++counter;
             }
@@ -74,7 +74,7 @@
 
                 continue;
 
-            addChar:
+                addChar:
                 s.AppendChar(nextChar);
                 ++counter;
             }
@@ -89,7 +89,8 @@
         protected const char a = 'a', z = 'z';
         protected const char capA = 'A', capZ = 'Z';
         protected const char zero = '0', nine = '9';
-        protected const byte 
+
+        protected const byte
             zeroN = 0,
             oneN = 1;
     }

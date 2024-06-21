@@ -13,7 +13,7 @@
             System.Random rng)
         {
             this.rng = rng
-                ?? new System.Random();
+                       ?? new System.Random();
         }
 
         public virtual IEnumerable<ICollection<T>> Flux<T>(

@@ -23,7 +23,8 @@
                     var today = System.DateTime.Today;
                     r.Run<Framework.Log.TimeProvider>(provider =>
                     {
-                        today = provider.Now().Date;
+                        today = provider.Now()
+                            .Date;
                     });
 
                     const byte six = 6;
@@ -48,13 +49,12 @@
                     {
                         const bool truth = true;
                         displayer.Display(
-                            ui, 
-                            stats, 
+                            ui,
+                            stats,
                             truth);
                     });
                 },
                 name);
-
         }
 
         protected readonly MethodRunner runner;

@@ -7,7 +7,7 @@
         public const string DefaultUiFieldName = nameof(ui);
 
         public Presenter(
-            Ui ui, 
+            Ui ui,
             ShellUi shell)
         {
             this.ui = ui;

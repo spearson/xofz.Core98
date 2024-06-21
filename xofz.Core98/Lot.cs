@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using xofz.Framework.Lots;
 
-    public interface Lot<T> 
+    public interface Lot<T>
         : IEnumerable<T>
     {
         long Count { get; }

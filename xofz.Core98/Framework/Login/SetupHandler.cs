@@ -10,7 +10,7 @@
         {
             this.runner = runner;
         }
-        
+
         /// <summary>
         /// Requires a UiReaderWriter, an AccessController, and
         /// a timer called LoginTimer registered with the MethodWeb
@@ -23,21 +23,6 @@
             var r = this.runner;
             r?.Run<Labels, UiReaderWriter>(
                 (labels, uiRW) =>
-            {
-                uiRW.Write(
-                    ui,
-                    () =>
-                    {
-                        if (ui == null)
-                        {
-                            return;
-                        }
-
-                        ui.TimeRemaining = labels.NotLoggedIn;
-                        ui.KeyboardKeyVisible = false;
-                    });
-
-                r.Run<KeyboardLoader>(loader =>
                 {
                     uiRW.Write(
                         ui,
@@ -48,42 +33,57 @@
                                 return;
                             }
 
-                            ui.KeyboardKeyVisible = true;
+                            ui.TimeRemaining = labels.NotLoggedIn;
+                            ui.KeyboardKeyVisible = false;
                         });
-                });
 
-                r.Run<AccessController>(ac =>
-                {
-                    var cal = ac.CurrentAccessLevel;
-                    uiRW.Write(
-                        ui,
-                        () =>
-                        {
-                            if (ui == null)
+                    r.Run<KeyboardLoader>(loader =>
+                    {
+                        uiRW.Write(
+                            ui,
+                            () =>
                             {
-                                return;
-                            }
+                                if (ui == null)
+                                {
+                                    return;
+                                }
 
-                            ui.CurrentAccessLevel = cal;
-                        });
-                });
-
-                if (ui is LoginUiV2 v2)
-                {
-                    r.Run<LabelApplier>(applier =>
-                    {
-                        applier.Apply(
-                            v2);
+                                ui.KeyboardKeyVisible = true;
+                            });
                     });
-                }
 
-                r.Run<xofz.Framework.Timer>(t =>
+                    r.Run<AccessController>(ac =>
                     {
-                        const short timerInterval = 1000;
-                        t.Start(timerInterval);
-                    },
-                    DependencyNames.Timer);
-            });
+                        var cal = ac.CurrentAccessLevel;
+                        uiRW.Write(
+                            ui,
+                            () =>
+                            {
+                                if (ui == null)
+                                {
+                                    return;
+                                }
+
+                                ui.CurrentAccessLevel = cal;
+                            });
+                    });
+
+                    if (ui is LoginUiV2 v2)
+                    {
+                        r.Run<LabelApplier>(applier =>
+                        {
+                            applier.Apply(
+                                v2);
+                        });
+                    }
+
+                    r.Run<xofz.Framework.Timer>(t =>
+                        {
+                            const short timerInterval = 1000;
+                            t.Start(timerInterval);
+                        },
+                        DependencyNames.Timer);
+                });
         }
 
         protected readonly MethodRunner runner;

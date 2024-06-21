@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ListLot<T> 
+    public class ListLot<T>
         : GetArray<T>
     {
         public ListLot()
@@ -46,6 +46,7 @@
             {
                 goto assign;
             }
+
             while (finiteEnumerator.MoveNext())
             {
                 l.Add(
@@ -90,23 +91,23 @@
         }
 
         public virtual void CopyTo(
-            T[] array, 
+            T[] array,
             int arrayIndex)
         {
             this.list.CopyTo(
-                array, 
+                array,
                 arrayIndex);
         }
 
         public virtual void CopyTo(
-            int index, 
-            T[] array, 
+            int index,
+            T[] array,
             int arrayIndex,
             int count)
         {
             this.list.CopyTo(
-                index, 
-                array, 
+                index,
+                array,
                 arrayIndex,
                 count);
         }
@@ -132,16 +133,16 @@
             T item)
         {
             return this.list.BinarySearch(
-                       item);
+                item);
         }
 
         public virtual int BinarySearch(
-            T item, 
+            T item,
             IComparer<T> comparer)
         {
             return this.list.BinarySearch(
-                       item,
-                       comparer);
+                item,
+                comparer);
         }
 
         public virtual int BinarySearch(
@@ -151,10 +152,10 @@
             IComparer<T> comparer)
         {
             return this.list.BinarySearch(
-                       index,
-                       count,
-                       item,
-                       comparer);
+                index,
+                count,
+                item,
+                comparer);
         }
 
         public virtual void Clear()
@@ -204,23 +205,23 @@
         }
 
         public virtual int FindIndex(
-            int startIndex, 
+            int startIndex,
             System.Predicate<T> match)
         {
             return this.list.FindIndex(
-                       startIndex,
-                       match);
+                startIndex,
+                match);
         }
 
         public virtual int FindIndex(
-            int startIndex, 
-            int count, 
+            int startIndex,
+            int count,
             System.Predicate<T> match)
         {
             return this.list.FindIndex(
-                       startIndex,
-                       count,
-                       match);
+                startIndex,
+                count,
+                match);
         }
 
         public virtual T FindLast(
@@ -233,27 +234,27 @@
             System.Predicate<T> match)
         {
             return this.list.FindLastIndex(
-                       match);
+                match);
         }
 
         public virtual int FindLastIndex(
-            int startIndex, 
+            int startIndex,
             System.Predicate<T> match)
         {
             return this.list.FindLastIndex(
-                       startIndex,
-                       match);
+                startIndex,
+                match);
         }
 
         public virtual int FindLastIndex(
-            int startIndex, 
-            int count, 
+            int startIndex,
+            int count,
             System.Predicate<T> match)
         {
             return this.list.FindLastIndex(
-                       startIndex,
-                       count,
-                       match);
+                startIndex,
+                count,
+                match);
         }
 
         public virtual void ForEach(
@@ -264,11 +265,11 @@
         }
 
         public virtual List<T> GetRange(
-            int index, 
+            int index,
             int count)
         {
             return this.list.GetRange(
-                index, 
+                index,
                 count);
         }
 
@@ -279,31 +280,31 @@
         }
 
         public virtual int IndexOf(
-            T item, 
+            T item,
             int index)
         {
             return this.list.IndexOf(
-                       item,
-                       index);
+                item,
+                index);
         }
 
         public virtual int IndexOf(
-            T item, 
-            int index, 
+            T item,
+            int index,
             int count)
         {
             return this.list.IndexOf(
-                       item,
-                       index,
-                       count);
+                item,
+                index,
+                count);
         }
 
         public virtual void Insert(
-            int index, 
+            int index,
             T item)
         {
             this.list.Insert(
-                index, 
+                index,
                 item);
         }
 
@@ -324,7 +325,7 @@
             System.Predicate<T> match)
         {
             return this.list.RemoveAll(
-                       match);
+                match);
         }
 
         public virtual void RemoveAt(
@@ -346,11 +347,11 @@
         }
 
         public virtual void Reverse(
-            int index, 
+            int index,
             int count)
         {
             this.list.Reverse(
-                index, 
+                index,
                 count);
         }
 
@@ -374,13 +375,13 @@
         }
 
         public virtual void Sort(
-            int index, 
+            int index,
             int count,
             IComparer<T> comparer)
         {
             this.list.Sort(
-                index, 
-                count, 
+                index,
+                count,
                 comparer);
         }
 
@@ -406,26 +407,26 @@
             int index)
         {
             return this.list.LastIndexOf(
-                       item,
-                       index);
+                item,
+                index);
         }
 
         public virtual int LastIndexOf(
-            T item, 
+            T item,
             int index,
             int count)
         {
             return this.list.LastIndexOf(
-                       item,
-                       index,
-                       count);
+                item,
+                index,
+                count);
         }
 
         public virtual bool TrueForAll(
             System.Predicate<T> match)
         {
             return this.list.TrueForAll(
-                       match);
+                match);
         }
 
         protected readonly List<T> list;

@@ -28,7 +28,7 @@
                     Interlocked.Exchange(
                         ref fields.startedIf1,
                         one);
-                    
+
                     if (Interlocked.Exchange(
                             ref fields.startedFirstTimeIf1,
                             one) != one)

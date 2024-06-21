@@ -5,8 +5,8 @@
     public class EnumerableHeartbeater
     {
         public virtual IEnumerable<T> AddHeartbeat<T>(
-            IEnumerable<T> source, 
-            T heartbeat, 
+            IEnumerable<T> source,
+            T heartbeat,
             int interval)
         {
             if (source == null)
@@ -14,7 +14,7 @@
                 yield break;
             }
 
-            const byte 
+            const byte
                 zero = 0,
                 one = 1;
             if (interval < one)

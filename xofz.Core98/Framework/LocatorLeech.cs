@@ -34,8 +34,8 @@
             lock (this.locker)
             {
                 foreach (var locatorName in EH.Select(
-                    this.locators,
-                    locatorHolder => locatorHolder?.Name))
+                             this.locators,
+                             locatorHolder => locatorHolder?.Name))
                 {
                     lll.AddTail(
                         locatorName);
@@ -60,8 +60,8 @@
             {
                 ls = this.locators;
                 sameNameHolder = EH.FirstOrNull(
-                        ls,
-                        locatorHolder => locatorHolder.Name == name);
+                    ls,
+                    locatorHolder => locatorHolder.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -484,6 +484,7 @@
 
         protected readonly ICollection<NamedLocatorHolder> locators;
         protected readonly object locker;
+
         protected const bool
             truth = true,
             falsity = false;

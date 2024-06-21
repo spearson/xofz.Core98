@@ -24,8 +24,8 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                ref this.setupIf1,
-                one) == one)
+                    ref this.setupIf1,
+                    one) == one)
             {
                 return;
             }

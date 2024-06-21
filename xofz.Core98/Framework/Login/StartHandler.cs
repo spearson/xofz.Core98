@@ -39,7 +39,6 @@
                     {
                         // already visible, swallow
                     }
-                    
                 });
             });
         }

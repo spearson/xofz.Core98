@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using xofz.UI.LogEditor;
 
-    public partial class FormLogEditorUi 
+    public partial class FormLogEditorUi
         : FormUi, LogEditorUiV2
     {
         public FormLogEditorUi(
@@ -182,11 +182,11 @@
         {
             e.Cancel = true;
 
-            this.Hide();            
+            this.Hide();
         }
 
         protected virtual void entryTypeComboBox_SelectedIndexChanged(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var tc = this.TypeChanged;
@@ -200,7 +200,7 @@
         }
 
         protected virtual void addKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var akt = this.AddKeyTapped;

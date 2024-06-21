@@ -4,7 +4,7 @@
     using xofz.Framework;
     using xofz.Framework.Shutdown;
 
-    public sealed class ShutdownPresenter 
+    public sealed class ShutdownPresenter
         : Presenter
     {
         public ShutdownPresenter(
@@ -18,14 +18,14 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                ref this.setupIf1,
-                one) == one)
+                    ref this.setupIf1,
+                    one) == one)
             {
                 return;
             }
 
             var r = this.runner;
-            r?.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 

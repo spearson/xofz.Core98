@@ -5,7 +5,7 @@
     public class EnumerableBreaker
     {
         public virtual IEnumerable<T> AddBreak<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             Gen<T, bool> breakCondition)
         {
             if (source == null)
@@ -35,7 +35,7 @@
         }
 
         public virtual IEnumerable<T> AddBreak<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             params Gen<T, bool>[] breakConditions)
         {
             if (source == null)

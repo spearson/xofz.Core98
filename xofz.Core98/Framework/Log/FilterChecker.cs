@@ -50,9 +50,9 @@
                 if (filterType != null)
                 {
                     if (!entryType
-                        ?.ToLowerInvariant()
-                        .Contains(filterType
-                            .ToLowerInvariant()) ?? true)
+                            ?.ToLowerInvariant()
+                            .Contains(filterType
+                                .ToLowerInvariant()) ?? true)
                     {
                         return;
                     }
@@ -66,11 +66,11 @@
                 if (filterContent != null)
                 {
                     if (EnumerableHelpers.All(
-                        entryContent,
-                        s => !s
-                                 ?.ToLowerInvariant()
-                                 ?.Contains(filterContent
-                                     ?.ToLowerInvariant()) ?? true))
+                            entryContent,
+                            s => !s
+                                ?.ToLowerInvariant()
+                                ?.Contains(filterContent
+                                    ?.ToLowerInvariant()) ?? true))
                     {
                         return;
                     }

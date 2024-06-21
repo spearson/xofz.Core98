@@ -5,7 +5,7 @@
     public class EnumerableKicker
     {
         public virtual IEnumerable<T> Kick<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             long kickPoint)
         {
             if (source == null)
@@ -34,7 +34,7 @@
         }
 
         public virtual IEnumerable<T> Kick<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             ICollection<long> kickPoints)
         {
             if (source == null)

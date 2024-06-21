@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public interface LogEditorUi 
+    public interface LogEditorUi
         : PopupUi
     {
         event Do AddKeyTapped;

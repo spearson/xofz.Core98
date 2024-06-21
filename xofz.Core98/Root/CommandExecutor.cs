@@ -14,7 +14,7 @@
         protected CommandExecutor(
             object locker)
             : this(
-                null, 
+                null,
                 locker)
         {
         }
@@ -24,9 +24,9 @@
             object locker = null)
         {
             this.executedCommands = executedCommands
-                ?? new XLinkedList<Command>();
+                                    ?? new XLinkedList<Command>();
             this.locker = locker
-                ?? new object();
+                          ?? new object();
         }
 
         public virtual T Get<T>()

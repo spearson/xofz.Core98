@@ -70,7 +70,7 @@
                 {
                     it.Interval = intervalMilliseconds;
                 }
-                
+
                 it?.Start();
                 this.started = true;
             }
@@ -96,7 +96,7 @@
         }
 
         protected virtual void innerTimer_Elapsed(
-            object sender, 
+            object sender,
             System.Timers.ElapsedEventArgs e)
         {
             if (!this.AutoReset)

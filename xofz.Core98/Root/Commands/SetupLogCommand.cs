@@ -396,8 +396,7 @@
                         new Framework.LogStatistics.StartHandler(w));
                 }
 
-                if (w.
-                    Run<Framework.LogStatistics.
+                if (w.Run<Framework.LogStatistics.
                         ResetContentKeyTappedHandler>() == null)
                 {
                     w.RegisterDependency(
@@ -405,9 +404,8 @@
                             ResetContentKeyTappedHandler(w));
                 }
 
-                if (w.
-                        Run<Framework.LogStatistics.
-                            ResetTypeKeyTappedHandler>() ==
+                if (w.Run<Framework.LogStatistics.
+                        ResetTypeKeyTappedHandler>() ==
                     null)
                 {
                     w.RegisterDependency(
@@ -473,6 +471,7 @@
         protected readonly LogStatisticsUi statsUi;
         protected readonly SettingsHolder settings;
         protected readonly MethodWeb web;
+
         protected const bool
             truth = true,
             falsity = false;

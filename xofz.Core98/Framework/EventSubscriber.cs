@@ -138,7 +138,7 @@
             {
                 return;
             }
-            
+
             publisher
                 ?.GetType()
                 ?.GetEvent(eventName)

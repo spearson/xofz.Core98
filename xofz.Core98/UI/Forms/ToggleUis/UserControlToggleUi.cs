@@ -5,7 +5,7 @@
     using System.Threading;
     using System.Windows.Forms;
 
-    public partial class UserControlToggleUi 
+    public partial class UserControlToggleUi
         : UserControlUi, ToggleUiV2
     {
         public UserControlToggleUi()
@@ -127,7 +127,7 @@
         }
 
         protected virtual void key_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var t = this.Tapped;
@@ -141,7 +141,7 @@
         }
 
         protected virtual void key_MouseDown(
-            object sender, 
+            object sender,
             MouseEventArgs e)
         {
             var p = this.Pressed;
@@ -155,7 +155,7 @@
         }
 
         protected virtual void key_MouseUp(
-            object sender, 
+            object sender,
             MouseEventArgs e)
         {
             var r = this.Released;

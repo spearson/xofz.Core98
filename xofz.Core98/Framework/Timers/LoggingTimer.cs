@@ -2,7 +2,7 @@
 {
     using xofz.Framework.Logging;
 
-    public class LoggingTimer 
+    public class LoggingTimer
         : Timer
     {
         public LoggingTimer(

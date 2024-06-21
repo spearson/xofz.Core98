@@ -7,7 +7,7 @@
     using xofz.UI.Log;
     using xofz.UI.LogStatistics;
 
-    public sealed class LogStatisticsPresenter 
+    public sealed class LogStatisticsPresenter
         : PopupNamedPresenter
     {
         public LogStatisticsPresenter(
@@ -23,7 +23,7 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                    ref this.setupIf1, 
+                    ref this.setupIf1,
                     one) == one)
             {
                 return;
@@ -33,7 +33,7 @@
             r?.Run<SetupHandler>(handler =>
             {
                 handler.Handle(
-                    this.ui, 
+                    this.ui,
                     this.Name);
             });
 
@@ -60,8 +60,8 @@
                     nameof(this.ui.ResetTypeKeyTapped),
                     this.ui_ResetTypeKeyTapped);
             });
-            
-            r?.Run<Navigator>(nav => 
+
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 

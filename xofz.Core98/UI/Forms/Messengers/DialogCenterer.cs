@@ -8,7 +8,7 @@ namespace xofz.UI.Forms.Messengers
     using System.Text;
     using System.Windows.Forms;
 
-    public class DialogCenterer 
+    public class DialogCenterer
         : System.IDisposable
     {
         public DialogCenterer(
@@ -41,9 +41,9 @@ namespace xofz.UI.Forms.Messengers
 
             EnumThreadWndProc callback = this.checkWindow;
             if (!EnumThreadWindows(
-                GetCurrentThreadId(), 
-                callback, 
-                System.IntPtr.Zero))
+                    GetCurrentThreadId(),
+                    callback,
+                    System.IntPtr.Zero))
             {
                 return;
             }
@@ -96,15 +96,16 @@ namespace xofz.UI.Forms.Messengers
         }
 
         protected delegate bool EnumThreadWndProc(
-            System.IntPtr hWnd, 
+            System.IntPtr hWnd,
             System.IntPtr lp);
+
         protected short tryCount;
         protected readonly Form owner;
 
         [DllImport(@"user32.dll")]
         protected static extern bool EnumThreadWindows(
-            int tid, 
-            EnumThreadWndProc callback, 
+            int tid,
+            EnumThreadWndProc callback,
             System.IntPtr lp);
 
         [DllImport(@"kernel32.dll")]
@@ -112,13 +113,13 @@ namespace xofz.UI.Forms.Messengers
 
         [DllImport(@"user32.dll")]
         protected static extern int GetClassName(
-            System.IntPtr hWnd, 
-            StringBuilder buffer, 
+            System.IntPtr hWnd,
+            StringBuilder buffer,
             int buflen);
 
         [DllImport(@"user32.dll")]
         protected static extern bool GetWindowRect(
-            System.IntPtr hWnd, 
+            System.IntPtr hWnd,
             out RECT rc);
 
         [DllImport(@"user32.dll")]
@@ -127,7 +128,7 @@ namespace xofz.UI.Forms.Messengers
             int x,
             int y,
             int w,
-            int h, 
+            int h,
             bool repaint);
 
         protected struct RECT

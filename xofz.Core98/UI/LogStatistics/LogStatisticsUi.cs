@@ -1,6 +1,6 @@
 ﻿namespace xofz.UI.LogStatistics
 {
-    public interface LogStatisticsUi 
+    public interface LogStatisticsUi
         : PopupUi
     {
         event Do OverallKeyTapped;

@@ -3,7 +3,7 @@
     using System.ComponentModel;
     using System.Windows.Forms;
 
-    public class ControlUi 
+    public class ControlUi
         : Control, Ui
     {
         ISynchronizeInvoke Ui.Root => this;

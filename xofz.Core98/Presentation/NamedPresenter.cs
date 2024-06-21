@@ -2,12 +2,12 @@
 {
     using UI;
 
-    public class NamedPresenter 
+    public class NamedPresenter
         : Presenter, Nameable
     {
         public NamedPresenter(
-            Ui ui, 
-            ShellUi shell) 
+            Ui ui,
+            ShellUi shell)
             : base(ui, shell)
         {
         }

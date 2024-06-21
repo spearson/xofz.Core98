@@ -33,7 +33,7 @@
             r?.Run<UiReaderWriter>(uiRW =>
             {
                 var contentFilter = uiRW.Read(
-                    ui, 
+                    ui,
                     () => ui?.FilterContent);
                 if (string.IsNullOrEmpty(contentFilter))
                 {

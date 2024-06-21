@@ -11,7 +11,7 @@
         {
             this.runner = runner;
             const bool truth = true;
-            this.timerFinished = 
+            this.timerFinished =
                 new ManualResetEvent(truth);
         }
 
@@ -35,7 +35,6 @@
                         this.timer_Elapsed);
                 },
                 DependencyNames.Timer);
-            
         }
 
         public virtual event Do<AccessLevel> AccessLevelChanged;
@@ -135,25 +134,25 @@
             var newLevel = zeroAccess;
             r?.Run<PasswordHolder, SecureStringToolSet>(
                 (holder, ssts) =>
-            {
-                var ps = holder.Passwords;
-                if (ps == null)
                 {
-                    return;
-                }
-
-                foreach (var kvp in ps)
-                {
-                    if (ssts.Decode(password) !=
-                        ssts.Decode(kvp.Key))
+                    var ps = holder.Passwords;
+                    if (ps == null)
                     {
-                        continue;
+                        return;
                     }
 
-                    newLevel = kvp.Value;
-                    break;
-                }
-            });
+                    foreach (var kvp in ps)
+                    {
+                        if (ssts.Decode(password) !=
+                            ssts.Decode(kvp.Key))
+                        {
+                            continue;
+                        }
+
+                        newLevel = kvp.Value;
+                        break;
+                    }
+                });
 
             if (newLevel == zeroAccess)
             {
@@ -272,7 +271,7 @@
             }
 
             ThreadPool.QueueUserWorkItem(
-                o => 
+                o =>
                     alc.Invoke(currentAccessLevel));
         }
 
@@ -304,7 +303,7 @@
         protected readonly ManualResetEvent timerFinished;
         protected readonly MethodRunner runner;
         protected const AccessLevel zeroAccess = AccessLevel.None;
-        protected const long max = uint.MaxValue;        
+        protected const long max = uint.MaxValue;
         protected const byte min = 0;
         protected const bool falsity = false;
     }

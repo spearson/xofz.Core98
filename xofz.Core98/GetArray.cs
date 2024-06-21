@@ -2,7 +2,7 @@
 {
     using xofz.Framework.Lots;
 
-    public interface GetArray<T> 
+    public interface GetArray<T>
         : Lot<T>
     {
         T this[long index] { get; }

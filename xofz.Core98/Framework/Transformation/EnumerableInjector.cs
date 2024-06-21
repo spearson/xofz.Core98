@@ -110,6 +110,7 @@
         protected const byte
             zero = 0,
             one = 1;
+
         protected const short
             minusOne = -1;
     }

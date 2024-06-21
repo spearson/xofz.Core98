@@ -5,7 +5,7 @@
     public class EnumerableSkipper
     {
         public virtual IEnumerable<T> Skip<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             long skipInterval)
         {
             if (skipInterval < one)
@@ -37,7 +37,7 @@
         // note: if number of elements % skip point != 0,
         // will not enumerate the entire enumerable
         public virtual ICollection<T> SkipThrough<T>(
-            IEnumerable<T> finiteSource, 
+            IEnumerable<T> finiteSource,
             int skipPoint)
         {
             if (finiteSource == null)
@@ -57,7 +57,7 @@
             return result;
         }
 
-        protected const byte 
+        protected const byte
             zero = 0,
             one = 1;
     }

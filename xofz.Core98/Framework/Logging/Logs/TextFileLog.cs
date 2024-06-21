@@ -51,7 +51,7 @@
                         if (contentLine == string.Empty)
                         {
                             if (!string.IsNullOrEmpty(contentLine =
-                                reader.ReadLine()))
+                                    reader.ReadLine()))
                             {
                                 content.Add(string.Empty);
                                 content.Add(contentLine);
@@ -61,7 +61,7 @@
                             if (contentLine == string.Empty)
                             {
                                 if (!string.IsNullOrEmpty(contentLine =
-                                    reader.ReadLine()))
+                                        reader.ReadLine()))
                                 {
                                     content.Add(string.Empty);
                                     content.Add(string.Empty);
@@ -73,11 +73,11 @@
 
                         System.DateTime timestamp;
                         if (System.DateTime.TryParseExact(
-                            timestampString,
-                            timestampFormatV2,
-                            CultureInfo.CurrentCulture,
-                            DateTimeStyles.AllowWhiteSpaces,
-                            out timestamp))
+                                timestampString,
+                                timestampFormatV2,
+                                CultureInfo.CurrentCulture,
+                                DateTimeStyles.AllowWhiteSpaces,
+                                out timestamp))
                         {
                             yield return new LogEntry(
                                 timestamp,
@@ -89,11 +89,11 @@
                         }
 
                         if (System.DateTime.TryParseExact(
-                            timestampString,
-                            timestampFormat,
-                            CultureInfo.CurrentCulture,
-                            DateTimeStyles.AllowWhiteSpaces,
-                            out timestamp))
+                                timestampString,
+                                timestampFormat,
+                                CultureInfo.CurrentCulture,
+                                DateTimeStyles.AllowWhiteSpaces,
+                                out timestamp))
                         {
                             yield return new LogEntry(
                                 timestamp,
@@ -113,8 +113,8 @@
             Log log = this;
             ICollection<LogEntry> collection = new XLinkedList<LogEntry>();
             foreach (var entry in EnumerableHelpers.OrderByDescending(
-                log.ReadEntries(),
-                e => e.Timestamp))
+                         log.ReadEntries(),
+                         e => e.Timestamp))
             {
                 if (entry.Timestamp < oldestTimestamp)
                 {
@@ -206,6 +206,7 @@
         private readonly string filePath;
         private readonly object locker;
         private const string timestampFormat = "yyyy MMMM dd hh:mm.ss tt";
+
         private const string timestampFormatV2 =
             "yyyy MMMM dd hh:mm:ss.fffffff tt";
     }

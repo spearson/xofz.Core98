@@ -11,7 +11,7 @@
         }
 
         public virtual Y Strike(
-            Do<T> tAction, 
+            Do<T> tAction,
             Do<T, Y> transform,
             Do<Y> yAction)
         {
@@ -37,7 +37,7 @@
             }
 
             y = tr.Translate(
-                t, 
+                t,
                 transform);
 
             actY:

@@ -9,8 +9,8 @@
             Ui ui,
             Gen<T> read)
         {
-            return read == null 
-                ? default 
+            return read == null
+                ? default
                 : read();
         }
 

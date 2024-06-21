@@ -5,7 +5,7 @@
     public class EnumerableJoiner
     {
         public virtual IEnumerable<XTuple<T, Y>> Join2<T, Y>(
-            IEnumerable<T> source1, 
+            IEnumerable<T> source1,
             IEnumerable<Y> source2)
         {
             if (source1 == null || source2 == null)
@@ -19,7 +19,7 @@
             while ((e1?.MoveNext() ?? false) && (e2?.MoveNext() ?? false))
             {
                 yield return XTuple.Create(
-                    e1.Current, 
+                    e1.Current,
                     e2.Current);
             }
 
@@ -42,13 +42,13 @@
             var e3 = source3.GetEnumerator();
 
             while (
-                (e1?.MoveNext() ?? false) && 
-                (e2?.MoveNext() ?? false) && 
+                (e1?.MoveNext() ?? false) &&
+                (e2?.MoveNext() ?? false) &&
                 (e3?.MoveNext() ?? false))
             {
                 yield return XTuple.Create(
-                    e1.Current, 
-                    e2.Current, 
+                    e1.Current,
+                    e2.Current,
                     e3.Current);
             }
 

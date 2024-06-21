@@ -6,7 +6,7 @@
     using xofz.UI;
     using xofz.UI.LogEditor;
 
-    public sealed class LogEditorPresenter 
+    public sealed class LogEditorPresenter
         : PopupNamedPresenter
     {
         public LogEditorPresenter(
@@ -27,8 +27,8 @@
         {
             const long one = 1;
             if (Interlocked.Exchange(
-                ref this.setupIf1,
-                one) == one)
+                    ref this.setupIf1,
+                    one) == one)
             {
                 return;
             }
@@ -51,7 +51,7 @@
                     this.ui_AddKeyTapped);
             });
 
-            r?.Run<Navigator>(nav => 
+            r?.Run<Navigator>(nav =>
                 nav.RegisterPresenter(this));
         }
 

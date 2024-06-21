@@ -48,7 +48,7 @@
             {
                 return new XLinkedList<string>();
             }
-            
+
             var headers = this.readSectionHeaders(
                 lines);
             var targetHeader = EH.FirstOrNull(
@@ -60,7 +60,7 @@
         }
 
         public virtual string ReadValue(
-            string sectionName, 
+            string sectionName,
             string key)
         {
             return this.readValueProtected(
@@ -107,13 +107,15 @@
 
                 ++nextHeaderCounter;
             }
+
             if (targetHeader == null)
             {
                 return;
             }
 
-            if (!this.readKeysInSectionProtected(lines, targetHeader)
-                .Contains(key))
+            if (!this
+                    .readKeysInSectionProtected(lines, targetHeader)
+                    .Contains(key))
             {
                 return;
             }
@@ -171,7 +173,7 @@
                 {
                     return;
                 }
-                
+
                 return;
             }
         }
@@ -187,7 +189,7 @@
             }
 
             int lineNumber = zero;
-            const string 
+            const string
                 leftBracket = @"[",
                 rightBracket = @"]",
                 semicolon = @";";
@@ -244,20 +246,20 @@
 
             var headers = this.readSectionHeaders(lines);
             if (!EH.Contains(
-                EH.Select(
-                    headers,
-                    header => header.Name),
-                targetHeader.Name))
+                    EH.Select(
+                        headers,
+                        header => header.Name),
+                    targetHeader.Name))
             {
                 return keys;
             }
-                        
+
             var lineNumber = targetHeader.LineNumber;
             int lastLineIndex;
             if (EH.Last(
-                EH.Select(
-                    headers,
-                    header => header.Name)) == targetHeader.Name)
+                    EH.Select(
+                        headers,
+                        header => header.Name)) == targetHeader.Name)
             {
                 lastLineIndex = lines.Length - one;
                 goto readKeys;
@@ -278,7 +280,7 @@
                 EH.Skip(
                     headers, headerCounter));
             lastLineIndex = nextHeader?.LineNumber - one
-                ?? lines.Length - one;
+                            ?? lines.Length - one;
 
 
             readKeys:
@@ -287,13 +289,15 @@
                 const char
                     semicolon = ';',
                     equals = '=';
-                var indexOfSemicolon = lines[i].IndexOf(semicolon);
+                var indexOfSemicolon = lines[i]
+                    .IndexOf(semicolon);
                 if (indexOfSemicolon == zero)
                 {
                     continue;
                 }
 
-                var indexOfEquals = lines[i].IndexOf(equals);
+                var indexOfEquals = lines[i]
+                    .IndexOf(equals);
                 if (indexOfEquals < zero)
                 {
                     continue;
@@ -330,10 +334,10 @@
             }
 
             if (!this
-                .readKeysInSectionProtected(
-                    lines,
-                    targetHeader)
-                .Contains(key))
+                    .readKeysInSectionProtected(
+                        lines,
+                        targetHeader)
+                    .Contains(key))
             {
                 return null;
             }
@@ -342,8 +346,8 @@
             int endOfKey;
             const char equals = '=';
             foreach (var line in EH.Skip(
-                lines,
-                targetHeader.LineNumber))
+                         lines,
+                         targetHeader.LineNumber))
             {
                 endOfKey = line.IndexOf(equals);
                 if (line.Substring(zero, endOfKey) == key)
@@ -380,8 +384,10 @@
 
         protected readonly Gen<string[]> readLines;
         protected readonly Do<IEnumerable<string>> writeLines;
+
         protected const short
             minusOne = -1;
+
         protected const byte
             zero = 0,
             one = 1;

@@ -23,7 +23,7 @@
             object locker = null)
         {
             this.webs = webs ??
-                                new XLinkedList<NamedMethodWebHolder>();
+                        new XLinkedList<NamedMethodWebHolder>();
             this.locker = locker ??
                           new object();
         }
@@ -47,10 +47,10 @@
             }
 
             if (EH.Contains(
-                EH.Select(
-                    this.webs, 
-                    webHolder => webHolder?.Name),
-                name))
+                    EH.Select(
+                        this.webs,
+                        webHolder => webHolder?.Name),
+                    name))
             {
                 return falsity;
             }
@@ -132,7 +132,7 @@
             }
 
             return web.Run(
-                engine, 
+                engine,
                 dependencyName);
         }
 
@@ -299,8 +299,8 @@
         {
             var targetHolder
                 = EH.FirstOrNull(
-                this.webs,
-                webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
 
             var web = targetHolder?.Web;
             if (web == null)

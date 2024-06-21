@@ -47,16 +47,20 @@
                         period = '.',
                         zeroC = '0';
 
-                    sb.Append((int)tr.TotalHours).
-                        Append(colon).
-                        Append(tr.Minutes.ToString().
-                            PadLeft(two, zeroC)).
-                        Append(colon).
-                        Append(tr.Seconds.ToString().
-                            PadLeft(two, zeroC)).
-                        Append(period).
-                        Append(tr.Milliseconds.ToString().
-                            PadLeft(three, zeroC));
+                    sb
+                        .Append((int)tr.TotalHours)
+                        .Append(colon)
+                        .Append(tr
+                            .Minutes.ToString()
+                            .PadLeft(two, zeroC))
+                        .Append(colon)
+                        .Append(tr
+                            .Seconds.ToString()
+                            .PadLeft(two, zeroC))
+                        .Append(period)
+                        .Append(tr
+                            .Milliseconds.ToString()
+                            .PadLeft(three, zeroC));
                     timeRemaining = sb.ToString();
 
                     checkAccess:

@@ -9,7 +9,7 @@
         }
 
         protected Synchronizer(
-            T t, 
+            T t,
             object locker)
         {
             this.t = t;

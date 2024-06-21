@@ -153,7 +153,7 @@ namespace xofz
             item1 = this.Item1;
             item2 = this.Item2;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -171,7 +171,7 @@ namespace xofz
             this.Item1 = item1;
             this.Item2 = item2;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -189,7 +189,7 @@ namespace xofz
             item1 = this.Item1;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -207,7 +207,7 @@ namespace xofz
             this.Item1 = item1;
             this.Item3 = item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -225,7 +225,7 @@ namespace xofz
             item2 = this.Item2;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -243,7 +243,7 @@ namespace xofz
             this.Item2 = item2;
             this.Item3 = item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -263,7 +263,7 @@ namespace xofz
             item2 = this.Item2;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -283,7 +283,7 @@ namespace xofz
             this.Item2 = item2;
             this.Item3 = item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -390,7 +390,7 @@ namespace xofz
             item1 = this.Item1;
             item2 = this.Item2;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -408,7 +408,7 @@ namespace xofz
             this.Item1 = item1;
             this.Item2 = item2;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -426,7 +426,7 @@ namespace xofz
             item1 = this.Item1;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -444,7 +444,7 @@ namespace xofz
             this.Item1 = item1;
             this.Item3 = item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -498,7 +498,7 @@ namespace xofz
             item2 = this.Item2;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -534,7 +534,7 @@ namespace xofz
             item2 = this.Item2;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -552,7 +552,7 @@ namespace xofz
             this.Item2 = item2;
             this.Item4 = item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -570,7 +570,7 @@ namespace xofz
             item3 = this.Item3;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -608,7 +608,7 @@ namespace xofz
             item2 = this.Item2;
             item3 = this.Item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -628,7 +628,7 @@ namespace xofz
             this.Item2 = item2;
             this.Item3 = item3;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -648,7 +648,7 @@ namespace xofz
             item2 = this.Item2;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -668,7 +668,7 @@ namespace xofz
             this.Item2 = item2;
             this.Item4 = item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -688,7 +688,7 @@ namespace xofz
             item3 = this.Item3;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -708,7 +708,7 @@ namespace xofz
             this.Item3 = item3;
             this.Item4 = item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -728,7 +728,7 @@ namespace xofz
             item3 = this.Item3;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -770,7 +770,7 @@ namespace xofz
             item3 = this.Item3;
             item4 = this.Item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 
@@ -792,7 +792,7 @@ namespace xofz
             this.Item3 = item3;
             this.Item4 = item4;
             Interlocked.Exchange(
-                ref this.settingOrGettingIf1, 
+                ref this.settingOrGettingIf1,
                 zeroL);
         }
 

@@ -5,7 +5,7 @@
     using System.Windows.Forms;
     using xofz.UI.Log;
 
-    public partial class UserControlLogUi 
+    public partial class UserControlLogUi
         : UserControlUi, LogUiV4
     {
         public UserControlLogUi()
@@ -73,16 +73,22 @@
                     entriesCollection = new XLinkedList<XTuple<string, string, string>>();
                 foreach (DataGridViewRow row in this.entriesGrid.Rows)
                 {
-                    var timestamp = row.Cells[0].Value?.ToString();
-                    var type = row.Cells[1].Value?.ToString();
-                    var content = row.Cells[2].Value?.ToString();
+                    var timestamp = row
+                        .Cells[0]
+                        .Value?.ToString();
+                    var type = row
+                        .Cells[1]
+                        .Value?.ToString();
+                    var content = row
+                        .Cells[2]
+                        .Value?.ToString();
                     if (timestamp != null && type != null)
                     {
                         entriesCollection.Add(
-                        XTuple.Create(
-                            timestamp,
-                            type,
-                            content));
+                            XTuple.Create(
+                                timestamp,
+                                type,
+                                content));
                     }
                 }
 
@@ -102,7 +108,7 @@
                 {
                     eg.Rows.Add(
                         entry.Item1,
-                        entry.Item2, 
+                        entry.Item2,
                         entry.Item3);
                 }
 
@@ -290,7 +296,6 @@
                 }
 
                 columns[zero].HeaderText = value;
-
             }
         }
 
@@ -373,7 +378,7 @@
         }
 
         protected virtual void addKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var akt = this.AddKeyTapped;
@@ -387,7 +392,7 @@
         }
 
         protected virtual void clearKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var ckt = this.ClearKeyTapped;
@@ -401,7 +406,7 @@
         }
 
         protected virtual void startDatePicker_DateSelected(
-            object sender, 
+            object sender,
             DateRangeEventArgs e)
         {
             var drc = this.DateRangeChanged;
@@ -415,7 +420,7 @@
         }
 
         protected virtual void endDatePicker_DateSelected(
-            object sender, 
+            object sender,
             DateRangeEventArgs e)
         {
             var drc = this.DateRangeChanged;
@@ -429,7 +434,7 @@
         }
 
         protected virtual void downKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var dkt = this.DownKeyTapped;
@@ -443,7 +448,7 @@
         }
 
         protected virtual void upKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var ukt = this.UpKeyTapped;
@@ -457,7 +462,7 @@
         }
 
         protected virtual void statisticsKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var skt = this.StatisticsKeyTapped;
@@ -471,7 +476,7 @@
         }
 
         protected virtual void filterContentTextBox_TextChanged(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             this.activeFilterTextBox = this.filterContentTextBox;
@@ -486,7 +491,7 @@
         }
 
         protected virtual void filterTypeTextBox_TextChanged(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             this.activeFilterTextBox = this.filterTypeTextBox;
@@ -501,7 +506,7 @@
         }
 
         protected virtual void resetContentKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var rckt = this.ResetContentKeyTapped;
@@ -515,7 +520,7 @@
         }
 
         protected virtual void resetTypeKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var rtkt = this.ResetTypeKeyTapped;
@@ -529,7 +534,7 @@
         }
 
         protected virtual void nextWeekKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var nwkt = this.NextWeekKeyTapped;
@@ -543,7 +548,7 @@
         }
 
         protected virtual void previousWeekKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var pwkt = this.PreviousWeekKeyTapped;
@@ -554,11 +559,10 @@
 
             ThreadPool.QueueUserWorkItem(
                 o => pwkt.Invoke());
-
         }
 
         protected virtual void currentWeekKey_Click(
-            object sender, 
+            object sender,
             System.EventArgs e)
         {
             var cwkt = this.CurrentWeekKeyTapped;

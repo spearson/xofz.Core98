@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ArrayLot<T> 
+    public class ArrayLot<T>
         : GetArray<T>
     {
         public ArrayLot(
@@ -52,8 +52,8 @@
             T[] array)
         {
             System.Array.Copy(
-                this.array, 
-                array, 
+                this.array,
+                array,
                 array.Length);
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace xofz.Framework.Timers
 {
-    public class OneOffTimer 
+    public class OneOffTimer
         : Timer
     {
         public OneOffTimer()

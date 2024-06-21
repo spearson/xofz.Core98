@@ -57,7 +57,9 @@
                 .Create(
                     new[]
                     {
-                        e.GetType().ToString(),
+                        e
+                            .GetType()
+                            .ToString(),
                         e.Message,
                         string.Empty,
                         StackTraceHeader
@@ -65,7 +67,7 @@
                 );
             content.Append(
                 ExceptionHelpers
-                .TrimmedStackTraceFor(e));
+                    .TrimmedStackTraceFor(e));
 
             var ie = e.InnerException;
             if (ie != null)

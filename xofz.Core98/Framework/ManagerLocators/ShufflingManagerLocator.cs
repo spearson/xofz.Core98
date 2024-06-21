@@ -34,7 +34,8 @@
         {
             var matchingManagers = this.shuffleManagers();
             return EH.FirstOrNull(
-                matchingManagers)?.Manager;
+                    matchingManagers)
+                ?.Manager;
         }
 
         public virtual T Shuffle<T>()
@@ -69,7 +70,7 @@
             lock (this.locker)
             {
                 foreach (var managerHolder in
-                    this.managers ?? EH.Empty<NamedManagerHolder>())
+                         this.managers ?? EH.Empty<NamedManagerHolder>())
                 {
                     matchingManagers.Add(
                         new ShufflingObject<NamedManagerHolder>(

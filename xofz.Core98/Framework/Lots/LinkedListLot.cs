@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    public class LinkedListLot<T> 
+    public class LinkedListLot<T>
         : Lot<T>
     {
         public LinkedListLot()
@@ -57,7 +57,7 @@
 
         public virtual LinkedListNode<T> First => this.linkedList.First;
 
-        public virtual LinkedListNode<T> Last => this.linkedList.Last; 
+        public virtual LinkedListNode<T> Last => this.linkedList.Last;
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
@@ -99,14 +99,14 @@
             T value)
         {
             return this.linkedList?.Contains(value)
-                ?? falsity;
+                   ?? falsity;
         }
 
         public virtual bool Remove(
             T value)
         {
             return this.linkedList?.Remove(value)
-                ?? falsity;
+                   ?? falsity;
         }
 
         public virtual void AddFirst(
@@ -122,38 +122,38 @@
         }
 
         public virtual void AddAfter(
-            LinkedListNode<T> node, 
+            LinkedListNode<T> node,
             T value)
         {
             this.linkedList.AddAfter(
-                node, 
+                node,
                 value);
         }
 
         public virtual void AddAfter(
-            LinkedListNode<T> node, 
+            LinkedListNode<T> node,
             LinkedListNode<T> newNode)
         {
             this.linkedList.AddAfter(
-                node, 
+                node,
                 newNode);
         }
 
         public virtual void AddBefore(
-            LinkedListNode<T> node, 
+            LinkedListNode<T> node,
             T value)
         {
             this.linkedList.AddBefore(
-                node, 
+                node,
                 value);
         }
 
         public virtual void AddBefore(
-            LinkedListNode<T> node, 
+            LinkedListNode<T> node,
             LinkedListNode<T> newNode)
         {
             this.linkedList.AddBefore(
-                node, 
+                node,
                 newNode);
         }
 
@@ -166,16 +166,16 @@
             T[] array)
         {
             this.linkedList.CopyTo(
-                array, 
+                array,
                 zero);
         }
 
         public virtual void GetObjectData(
-            SerializationInfo info, 
+            SerializationInfo info,
             StreamingContext context)
         {
             this.linkedList.GetObjectData(
-                info, 
+                info,
                 context);
         }
 

@@ -7,7 +7,7 @@
         event Do Cleared;
 
         void AddEntry(
-            string type, 
+            string type,
             IEnumerable<string> content);
 
         void AddEntry(

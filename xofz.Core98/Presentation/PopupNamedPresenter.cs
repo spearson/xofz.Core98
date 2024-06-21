@@ -6,7 +6,7 @@
         : NamedPresenter
     {
         public PopupNamedPresenter(
-            PopupUi ui) 
+            PopupUi ui)
             : base(ui, null)
         {
             this.ui = ui;
@@ -32,7 +32,7 @@
         public override void Stop()
         {
             UiHelpers.WriteSync(
-                this.ui, 
+                this.ui,
                 this.ui.Hide);
         }
 

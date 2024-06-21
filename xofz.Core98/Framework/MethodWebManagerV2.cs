@@ -31,8 +31,8 @@
             lock (this.locker)
             {
                 foreach (var webName in EH.Select(
-                    this.webs,
-                    webHolder => webHolder.Name))
+                             this.webs,
+                             webHolder => webHolder.Name))
                 {
                     lll.AddTail(
                         webName);
@@ -56,10 +56,10 @@
             {
                 ws = this.webs;
                 if (EH.Contains(
-                    EH.Select(
-                        ws,
-                        webHolder => webHolder.Name),
-                    name))
+                        EH.Select(
+                            ws,
+                            webHolder => webHolder.Name),
+                        name))
                 {
                     return falsity;
                 }
@@ -120,8 +120,8 @@
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrNull(
-                        this.webs,
-                        webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -142,8 +142,8 @@
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrNull(
-                        this.webs,
-                        webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web as T;
@@ -165,8 +165,8 @@
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrNull(
-                        this.webs,
-                        webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -190,8 +190,8 @@
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrNull(
-                        this.webs,
-                        webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;
@@ -219,8 +219,8 @@
             lock (this.locker)
             {
                 targetHolder = EH.FirstOrNull(
-                        this.webs,
-                        webHolder => webHolder.Name == webName);
+                    this.webs,
+                    webHolder => webHolder.Name == webName);
             }
 
             var web = targetHolder?.Web;

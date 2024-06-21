@@ -57,10 +57,10 @@
                 foreach (var d in this.dependencies)
                 {
                     if (this.tryGet(
-                        d.Content,
-                        d.Name,
-                        dependencyName,
-                        out t))
+                            d.Content,
+                            d.Name,
+                            dependencyName,
+                            out t))
                     {
                         goto invoke;
                     }
@@ -99,10 +99,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -112,10 +112,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                         }
@@ -163,10 +163,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -176,10 +176,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -189,10 +189,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                         }
@@ -243,10 +243,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -256,10 +256,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -269,10 +269,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                             continue;
@@ -282,10 +282,10 @@
                     if (!wFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            wName,
-                            out w))
+                                content,
+                                name,
+                                wName,
+                                out w))
                         {
                             wFound = truth;
                         }
@@ -339,10 +339,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -352,10 +352,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -365,10 +365,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                             continue;
@@ -378,10 +378,10 @@
                     if (!wFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            wName,
-                            out w))
+                                content,
+                                name,
+                                wName,
+                                out w))
                         {
                             wFound = truth;
                             continue;
@@ -391,10 +391,10 @@
                     if (!xFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            xName,
-                            out x))
+                                content,
+                                name,
+                                xName,
+                                out x))
                         {
                             xFound = truth;
                         }
@@ -452,10 +452,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -465,10 +465,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -478,10 +478,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                             continue;
@@ -491,10 +491,10 @@
                     if (!wFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            wName,
-                            out w))
+                                content,
+                                name,
+                                wName,
+                                out w))
                         {
                             wFound = truth;
                             continue;
@@ -504,10 +504,10 @@
                     if (!xFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            xName,
-                            out x))
+                                content,
+                                name,
+                                xName,
+                                out x))
                         {
                             xFound = truth;
                             continue;
@@ -517,10 +517,10 @@
                     if (!yFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            yName,
-                            out y))
+                                content,
+                                name,
+                                yName,
+                                out y))
                         {
                             yFound = truth;
                         }
@@ -581,10 +581,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -594,10 +594,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -607,10 +607,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                             continue;
@@ -620,10 +620,10 @@
                     if (!wFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            wName,
-                            out w))
+                                content,
+                                name,
+                                wName,
+                                out w))
                         {
                             wFound = truth;
                             continue;
@@ -633,10 +633,10 @@
                     if (!xFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            xName,
-                            out x))
+                                content,
+                                name,
+                                xName,
+                                out x))
                         {
                             xFound = truth;
                             continue;
@@ -646,10 +646,10 @@
                     if (!yFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            yName,
-                            out y))
+                                content,
+                                name,
+                                yName,
+                                out y))
                         {
                             yFound = truth;
                             continue;
@@ -659,10 +659,10 @@
                     if (!zFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            zName,
-                            out z))
+                                content,
+                                name,
+                                zName,
+                                out z))
                         {
                             zFound = truth;
                         }
@@ -728,10 +728,10 @@
                     if (!tFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            tName,
-                            out t))
+                                content,
+                                name,
+                                tName,
+                                out t))
                         {
                             tFound = truth;
                             continue;
@@ -741,10 +741,10 @@
                     if (!uFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            uName,
-                            out u))
+                                content,
+                                name,
+                                uName,
+                                out u))
                         {
                             uFound = truth;
                             continue;
@@ -754,10 +754,10 @@
                     if (!vFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            vName,
-                            out v))
+                                content,
+                                name,
+                                vName,
+                                out v))
                         {
                             vFound = truth;
                             continue;
@@ -767,10 +767,10 @@
                     if (!wFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            wName,
-                            out w))
+                                content,
+                                name,
+                                wName,
+                                out w))
                         {
                             wFound = truth;
                             continue;
@@ -780,10 +780,10 @@
                     if (!xFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            xName,
-                            out x))
+                                content,
+                                name,
+                                xName,
+                                out x))
                         {
                             xFound = truth;
                             continue;
@@ -793,10 +793,10 @@
                     if (!yFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            yName,
-                            out y))
+                                content,
+                                name,
+                                yName,
+                                out y))
                         {
                             yFound = truth;
                             continue;
@@ -806,10 +806,10 @@
                     if (!zFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            zName,
-                            out z))
+                                content,
+                                name,
+                                zName,
+                                out z))
                         {
                             zFound = truth;
                             continue;
@@ -819,10 +819,10 @@
                     if (!aaFound)
                     {
                         if (this.tryGet(
-                            content,
-                            name,
-                            aaName,
-                            out aa))
+                                content,
+                                name,
+                                aaName,
+                                out aa))
                         {
                             aaFound = truth;
                         }

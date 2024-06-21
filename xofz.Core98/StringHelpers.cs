@@ -66,7 +66,7 @@
         }
 
         public static IEnumerable<string> Chunks(
-            string s, 
+            string s,
             int chunkSize)
         {
             if (s == null)
@@ -92,10 +92,11 @@
             }
         }
 
-        protected const byte 
+        protected const byte
             zero = 0,
             one = 1;
-        protected const bool 
+
+        protected const bool
             falsity = false,
             truth = true;
     }

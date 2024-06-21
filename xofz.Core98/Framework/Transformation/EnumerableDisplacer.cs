@@ -5,7 +5,7 @@
     public class EnumerableDisplacer
     {
         public virtual IEnumerable<T> Displace<T>(
-            IEnumerable<T> source, 
+            IEnumerable<T> source,
             long displaceCount)
         {
             if (source == null)

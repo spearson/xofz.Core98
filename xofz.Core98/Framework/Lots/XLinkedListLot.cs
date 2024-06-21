@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class XLinkedListLot<T> 
+    public class XLinkedListLot<T>
         : Lot<T>
     {
         public XLinkedListLot()
@@ -91,9 +91,9 @@
         public virtual XLinkedListNode<T> AddAfter(
             XLinkedListNode<T> node,
             T o)
-        {   
+        {
             return this.linkedList.AddAfter(
-                node, 
+                node,
                 o);
         }
 
@@ -139,7 +139,6 @@
         public virtual bool Contains(
             T o)
         {
-            
             return this.linkedList.Contains(
                 o);
         }
@@ -149,7 +148,7 @@
         {
             const byte zero = 0;
             this.linkedList.CopyTo(
-                array, 
+                array,
                 zero);
         }
 
@@ -158,7 +157,7 @@
             int arrayIndex)
         {
             this.linkedList.CopyTo(
-                array, 
+                array,
                 arrayIndex);
         }
 

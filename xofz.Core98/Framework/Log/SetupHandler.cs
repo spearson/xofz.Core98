@@ -42,7 +42,8 @@
                     r.Run<TimeProvider>(provider =>
                     {
                         const short daysToAdd = -6;
-                        var today = provider.Now().Date;
+                        var today = provider.Now()
+                            .Date;
                         var lastWeek = today
                             .AddDays(daysToAdd)
                             .Date;

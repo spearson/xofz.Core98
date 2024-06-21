@@ -35,8 +35,8 @@
             lock (this.locker)
             {
                 foreach (var managerName in EH.Select(
-                    this.managers,
-                    nmh => nmh.Name))
+                             this.managers,
+                             nmh => nmh.Name))
                 {
                     lll.AddTail(
                         managerName);
@@ -61,8 +61,8 @@
             {
                 ms = this.managers;
                 sameNameHolder = EH.FirstOrNull(
-                        ms,
-                        nmh => nmh.Name == name);
+                    ms,
+                    nmh => nmh.Name == name);
             }
 
             if (sameNameHolder != null)
@@ -452,8 +452,8 @@
                     default(Y),
                     default(Z),
                     default(AA));
-            } 
-            
+            }
+
             return manager.RunWeb(
                 locat,
                 webName,
@@ -469,6 +469,7 @@
 
         protected readonly ICollection<NamedManagerHolder> managers;
         protected readonly object locker;
+
         protected const bool
             truth = true,
             falsity = false;

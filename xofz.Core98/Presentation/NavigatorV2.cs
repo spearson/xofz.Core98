@@ -1,4 +1,5 @@
 ﻿// ReSharper disable InconsistentlySynchronizedField
+
 namespace xofz.Presentation
 {
     using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace xofz.Presentation
             object locker = null)
             : base(runner, startPresenter, presenters)
         {
-            this.locker = locker ?? 
+            this.locker = locker ??
                           new object();
         }
 
@@ -213,7 +214,7 @@ namespace xofz.Presentation
             lock (this.locker)
             {
                 foreach (var presenter in EH.OfType<T>(
-                    this.presenters))
+                             this.presenters))
                 {
                     if (presenter.Name != name)
                     {
@@ -235,7 +236,7 @@ namespace xofz.Presentation
             lock (this.locker)
             {
                 foreach (var presenter in EH.OfType<T>(
-                    this.presenters))
+                             this.presenters))
                 {
                     presenter.Stop();
                     break;
@@ -249,10 +250,10 @@ namespace xofz.Presentation
             lock (this.locker)
             {
                 foreach (var presenter in
-                    EH.Where(
-                        EH.OfType<T>(
-                            this.presenters),
-                        p => p.Name == name))
+                         EH.Where(
+                             EH.OfType<T>(
+                                 this.presenters),
+                             p => p.Name == name))
                 {
                     presenter.Stop();
                     break;
@@ -270,9 +271,9 @@ namespace xofz.Presentation
                 matchingPresenters
                     = new XLinkedListLot<Presenter>(
                         XLinkedList<Presenter>.Create(
-                        EH.Where(
-                            this.presenters,
-                            p => p is TPresenter)));
+                            EH.Where(
+                                this.presenters,
+                                p => p is TPresenter)));
             }
 
             const byte one = 1;

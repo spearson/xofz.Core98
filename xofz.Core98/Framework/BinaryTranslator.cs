@@ -32,7 +32,7 @@
                 yield break;
             }
 
-            const byte 
+            const byte
                 six = 6,
                 five = 5,
                 four = 4,
@@ -59,7 +59,7 @@
         }
 
         public virtual string ReadString(
-            IEnumerable<bool> bits, 
+            IEnumerable<bool> bits,
             Encoding encoding)
         {
             return encoding?.GetString(
@@ -192,7 +192,7 @@
         }
 
         protected virtual bool getBit(
-            byte b, 
+            byte b,
             byte shift)
         {
             return (b >> shift) % two == one;

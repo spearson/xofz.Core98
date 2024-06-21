@@ -39,7 +39,7 @@
                 {
                     yield return e.Current;
                 }
-            }            
+            }
         }
     }
 }

@@ -3,7 +3,7 @@
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ShiftingLot<T> 
+    public class ShiftingLot<T>
         : GetArray<T>
     {
         public ShiftingLot(
@@ -23,8 +23,8 @@
             get
             {
                 var a = this.currentArray;
-                return a == null 
-                    ? default 
+                return a == null
+                    ? default
                     : a[index];
             }
         }
@@ -61,7 +61,7 @@
             var array = new T[
                 ll.Count];
             ll.CopyTo(
-                array, 
+                array,
                 zero);
             this.setCurrentArray(
                 array);
@@ -82,7 +82,7 @@
             var array = new T[
                 ll.Count];
             ll.CopyTo(
-                array, 
+                array,
                 zero);
             this.setCurrentArray(
                 array);
