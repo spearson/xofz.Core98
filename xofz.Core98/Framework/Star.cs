@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     public class Star
-     : MethodRunnerV2
+        : MethodRunnerV2
     {
         public Star()
             : this(null)
@@ -18,18 +18,18 @@
             this.name = Namer.Create(null);
         }
 
-        public virtual Nameable N
-        {
-            get => this.name;
-
-            set => this.name = value;
-        }
-
         public virtual ICollection<Star> Stars
         {
             get => this.subs;
 
             protected set => this.subs = value;
+        }
+
+        public virtual Nameable N
+        {
+            get => this.name;
+            
+            set => this.name = value;
         }
 
         public virtual MethodWeb W { get; set; }
@@ -49,18 +49,18 @@
         }
 
         public T Run<T>(
-            Do<T> method = null, 
+            Do<T> method = null,
             string tName = null)
         {
             var w = this.W;
-            return w == null 
-                ? default 
+            return w == null
+                ? default
                 : w.Run(method, tName);
         }
 
         public XTuple<T, U> Run<T, U>(
-            Do<T, U> method = null, 
-            string tName = null, 
+            Do<T, U> method = null,
+            string tName = null,
             string uName = null)
         {
             return this.W?.Run(
@@ -70,9 +70,9 @@
         }
 
         public XTuple<T, U, V> Run<T, U, V>(
-            Do<T, U, V> method = null, 
-            string tName = null, 
-            string uName = null, 
+            Do<T, U, V> method = null,
+            string tName = null,
+            string uName = null,
             string vName = null)
         {
             return this.W?.Run(
@@ -83,9 +83,9 @@
         }
 
         public XTuple<T, U, V, W> Run<T, U, V, W>(
-            Do<T, U, V, W> method = null, 
-            string tName = null, 
-            string uName = null, 
+            Do<T, U, V, W> method = null,
+            string tName = null,
+            string uName = null,
             string vName = null,
             string wName = null)
         {
@@ -115,12 +115,12 @@
         }
 
         public XTuple<T, U, V, W, X, Y> Run<T, U, V, W, X, Y>(
-            Do<T, U, V, W, X, Y> method = null, 
-            string tName = null, 
-            string uName = null, 
+            Do<T, U, V, W, X, Y> method = null,
+            string tName = null,
+            string uName = null,
             string vName = null,
-            string wName = null, 
-            string xName = null, 
+            string wName = null,
+            string xName = null,
             string yName = null)
         {
             return this.W?.Run(
@@ -134,13 +134,13 @@
         }
 
         public XTuple<T, U, V, W, X, Y, Z> Run<T, U, V, W, X, Y, Z>(
-            Do<T, U, V, W, X, Y, Z> method = null, 
-            string tName = null, 
-            string uName = null, 
+            Do<T, U, V, W, X, Y, Z> method = null,
+            string tName = null,
+            string uName = null,
             string vName = null,
-            string wName = null, 
-            string xName = null, 
-            string yName = null, 
+            string wName = null,
+            string xName = null,
+            string yName = null,
             string zName = null)
         {
             return this.W?.Run(
@@ -155,14 +155,14 @@
         }
 
         public XTuple<T, U, V, W, X, Y, Z, AA> Run<T, U, V, W, X, Y, Z, AA>(
-            Do<T, U, V, W, X, Y, Z, AA> method = null, 
-            string tName = null, 
-            string uName = null, 
+            Do<T, U, V, W, X, Y, Z, AA> method = null,
+            string tName = null,
+            string uName = null,
             string vName = null,
-            string wName = null, 
-            string xName = null, 
-            string yName = null, 
-            string zName = null, 
+            string wName = null,
+            string xName = null,
+            string yName = null,
+            string zName = null,
             string aaName = null)
         {
             return this.W?.Run(
@@ -179,5 +179,60 @@
 
         protected ICollection<Star> subs;
         protected Nameable name;
+    }
+
+    public class Star<T>
+    {
+        public Star()
+            : this(null)
+        {
+        }
+
+        public Star(
+            ICollection<Star<T>> subs)
+        {
+            this.subs = subs ??
+                        new XLinkedList<Star<T>>();
+            this.name = Namer.Create(null);
+        }
+
+        public virtual ICollection<Star<T>> Stars
+        {
+            get => this.subs;
+
+            protected set => this.subs = value;
+        }
+
+        public virtual Nameable N
+        {
+            get => this.name;
+
+            set => this.name = value;
+        }
+
+        public virtual T O
+        {
+            get => this.ob;
+
+            set => this.ob = value;
+        }
+
+        public virtual K Access<K>(
+            Do<K> accessor = null)
+            where K : T
+        {
+            if (this.O is K k)
+            {
+                accessor?.Invoke(k);
+
+                return k;
+            }
+
+            return default;
+        }
+
+        protected ICollection<Star<T>> subs;
+        protected Nameable name;
+        protected T ob;
     }
 }
