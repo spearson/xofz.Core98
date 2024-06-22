@@ -224,7 +224,6 @@
             if (this.O is K k)
             {
                 accessor?.Invoke(k);
-
                 return k;
             }
 
