@@ -34,7 +34,7 @@
                 XLinkedList<string>.Create(
                     EH.Select(
                         this.webs,
-                        webHolder => webHolder?.Name)));
+                        webHolder => webHolder.Name)));
         }
 
         public virtual bool AddWeb(
@@ -49,7 +49,7 @@
             if (EH.Contains(
                     EH.Select(
                         this.webs,
-                        webHolder => webHolder?.Name),
+                        webHolder => webHolder.Name),
                     name))
             {
                 return falsity;

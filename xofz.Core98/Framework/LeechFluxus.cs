@@ -35,7 +35,7 @@
             {
                 foreach (var leechName in EH.Select(
                              this.leeches,
-                             leechHolder => leechHolder?.Name))
+                             leechHolder => leechHolder.Name))
                 {
                     lll.AddTail(
                         leechName);

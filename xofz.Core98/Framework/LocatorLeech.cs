@@ -35,7 +35,7 @@
             {
                 foreach (var locatorName in EH.Select(
                              this.locators,
-                             locatorHolder => locatorHolder?.Name))
+                             locatorHolder => locatorHolder.Name))
                 {
                     lll.AddTail(
                         locatorName);
