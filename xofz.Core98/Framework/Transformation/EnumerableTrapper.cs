@@ -17,6 +17,7 @@
                     this.setTrapper(defaultCollection);
                     yield break;
                 }
+
                 case ICollection<T> collection:
                 {
                     this.setTrapper(collection);
