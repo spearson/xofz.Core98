@@ -145,6 +145,7 @@
     <Compile Include="Framework\Transformation\EnumerableInjectorTests.cs" />
     <Compile Include="Framework\Transformation\EnumerableSplicerTests.cs" />
     <Compile Include="Framework\Transformation\ReverserTests.cs" />
+    <Compile Include="Framework\Transformation\SynonymTests.cs" />
     <Compile Include="Framework\VersionReaderTests.cs" />
     <Compile Include="Presentation\Presenters\EmptyPresenterTests.cs" />
     <Compile Include="Presentation\Presenters\LogEditorPresenterTests.cs" />
