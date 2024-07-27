@@ -5,6 +5,7 @@
 
     public class SecureStringToolSet
     {
+        // I think this was taken from Stack Overflow
         public virtual string Decode(
             SecureString ss)
         {

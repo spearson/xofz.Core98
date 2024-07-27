@@ -35,7 +35,8 @@
 
                 while (indexer < partitionSize && e.MoveNext())
                 {
-                    currentPartition.Add(e.Current);
+                    currentPartition.Add(
+                        e.Current);
                     ++indexer;
                 }
 

@@ -52,6 +52,9 @@
                 yield break;
             }
 
+            const bool 
+                truth = true,
+                falsity = false;
             long kickCounter = zero;
             foreach (var item in source)
             {
@@ -60,12 +63,12 @@
                     ++kickCounter;
                 }
 
-                var shouldKick = false;
+                var shouldKick = falsity;
                 foreach (var kickPoint in kickPoints)
                 {
                     if (kickPoint == kickCounter)
                     {
-                        shouldKick = true;
+                        shouldKick = truth;
                         break;
                     }
                 }
