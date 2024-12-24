@@ -17,7 +17,7 @@
         }
 
         protected ShufflingObject(
-            RNGCryptoServiceProvider randomGen,
+            RandomNumberGenerator randomGen,
             object o)
             : base(randomGen, o)
         {
@@ -29,7 +29,7 @@
     {
         public ShufflingObject()
             : this(
-                new RNGCryptoServiceProvider(),
+                RandomNumberGenerator.Create(),
                 default)
         {
         }
@@ -37,13 +37,13 @@
         public ShufflingObject(
             T o)
             : this(
-                new RNGCryptoServiceProvider(),
+                RandomNumberGenerator.Create(),
                 o)
         {
         }
 
         protected ShufflingObject(
-            RNGCryptoServiceProvider randomGen,
+            RandomNumberGenerator randomGen,
             T o)
         {
             this.randomGen = randomGen;
@@ -57,7 +57,7 @@
             set => this.ob = value;
         }
 
-        public virtual RNGCryptoServiceProvider R
+        public virtual RandomNumberGenerator R
         {
             get => this.randomGen;
 
@@ -91,6 +91,6 @@
         }
 
         protected T ob;
-        protected RNGCryptoServiceProvider randomGen;
+        protected RandomNumberGenerator randomGen;
     }
 }

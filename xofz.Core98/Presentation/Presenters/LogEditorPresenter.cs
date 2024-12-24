@@ -3,7 +3,6 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.LogEditor;
-    using xofz.UI;
     using xofz.UI.LogEditor;
 
     public sealed class LogEditorPresenter

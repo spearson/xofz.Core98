@@ -23,9 +23,8 @@
             string question)
         {
             Messenger m = this;
-            var subscriber = m.Subscriber as Form;
             DialogResult result;
-            if (subscriber != null)
+            if (m.Subscriber is Form subscriber)
             {
                 using (new DialogCenterer(subscriber))
                 {
@@ -90,8 +89,6 @@
                     return Response.Yes;
                 case DialogResult.No:
                     return Response.No;
-                case DialogResult.Cancel:
-                    return Response.Cancel;
                 default:
                     return Response.Cancel;
             }
@@ -101,9 +98,8 @@
             string question)
         {
             Messenger m = this;
-            var subscriber = m.Subscriber as Form;
             DialogResult result;
-            if (subscriber != null)
+            if (m.Subscriber is Form subscriber)
             {
                 using (new DialogCenterer(subscriber))
                 {
@@ -129,8 +125,6 @@
             {
                 case DialogResult.OK:
                     return Response.OK;
-                case DialogResult.Cancel:
-                    return Response.Cancel;
                 default:
                     return Response.Cancel;
             }
@@ -183,8 +177,7 @@
             }
 
             Messenger messenger = this;
-            var subscriber = messenger.Subscriber as Form;
-            if (subscriber != null)
+            if (messenger.Subscriber is Form subscriber)
             {
                 using (new DialogCenterer(subscriber))
                 {

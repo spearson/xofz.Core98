@@ -3,7 +3,6 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.Login;
-    using xofz.UI;
     using xofz.UI.Login;
 
     public sealed class LoginPresenter

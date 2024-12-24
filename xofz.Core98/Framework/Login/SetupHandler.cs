@@ -21,6 +21,10 @@
             LoginUi ui)
         {
             var r = this.runner;
+
+            const bool 
+                truth = true,
+                falsity = false;
             r?.Run<Labels, UiReaderWriter>(
                 (labels, uiRW) =>
                 {
@@ -34,7 +38,7 @@
                             }
 
                             ui.TimeRemaining = labels.NotLoggedIn;
-                            ui.KeyboardKeyVisible = false;
+                            ui.KeyboardKeyVisible = falsity;
                         });
 
                     r.Run<KeyboardLoader>(loader =>
@@ -48,7 +52,7 @@
                                     return;
                                 }
 
-                                ui.KeyboardKeyVisible = true;
+                                ui.KeyboardKeyVisible = truth;
                             });
                     });
 

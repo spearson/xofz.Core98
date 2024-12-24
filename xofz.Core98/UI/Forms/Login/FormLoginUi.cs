@@ -170,12 +170,12 @@
                 ptb.Focus();
             }
 
-            this.firstInputKeyPressed = false;
+            this.firstInputKeyPressed = falsity;
         }
 
         void PopupUi.Hide()
         {
-            this.Visible = false;
+            this.Visible = falsity;
         }
 
         protected virtual Color determineColorForLevel(
@@ -217,7 +217,7 @@
             if (!this.firstInputKeyPressed)
             {
                 ptb.Text = key.Text;
-                this.firstInputKeyPressed = true;
+                this.firstInputKeyPressed = truth;
                 goto focus;
             }
 
@@ -248,7 +248,7 @@
                 return;
             }
 
-            this.firstInputKeyPressed = true;
+            this.firstInputKeyPressed = truth;
             ThreadPool.QueueUserWorkItem(
                 o => bkt.Invoke());
         }
@@ -286,7 +286,7 @@
             object sender,
             KeyPressEventArgs e)
         {
-            this.firstInputKeyPressed = true;
+            this.firstInputKeyPressed = truth;
         }
 
         protected virtual void keyboardKey_Click(
@@ -307,5 +307,8 @@
         protected AccessLevel currentLevel;
         protected readonly Form shell;
         protected readonly SecureStringToolSet ssts;
+        protected const bool 
+            truth = true,
+            falsity = false;
     }
 }

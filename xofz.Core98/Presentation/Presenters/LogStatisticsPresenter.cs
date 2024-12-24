@@ -3,7 +3,6 @@
     using System.Threading;
     using xofz.Framework;
     using xofz.Framework.LogStatistics;
-    using xofz.UI;
     using xofz.UI.Log;
     using xofz.UI.LogStatistics;
 

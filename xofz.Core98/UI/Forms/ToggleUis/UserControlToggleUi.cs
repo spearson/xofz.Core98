@@ -32,7 +32,7 @@
             }
         }
 
-        [Browsable(true)]
+        [Browsable(truth)]
         public virtual Font KeyFont
         {
             get => this.key.Font;
@@ -60,7 +60,7 @@
                 }
                 catch
                 {
-                    backColor = Color.Lime;
+                    backColor = defaultToggledColor;
                 }
 
                 return this.key.BackColor == backColor;
@@ -79,7 +79,7 @@
                     }
                     catch
                     {
-                        backColor = Color.Lime;
+                        backColor = defaultToggledColor;
                     }
 
                     goto setKeyBackColor;
@@ -92,7 +92,7 @@
                 }
                 catch
                 {
-                    backColor = Color.DimGray;
+                    backColor = defaultUntoggledColor;
                 }
 
                 setKeyBackColor:
@@ -101,10 +101,10 @@
         }
 
         string ToggleUiV2.ToggledColor { get; set; }
-            = nameof(Color.Lime);
+            = defaultToggledColor.Name;
 
         string ToggleUiV2.UntoggledColor { get; set; }
-            = nameof(Color.DimGray);
+            = defaultUntoggledColor.Name;
 
         string ToggleUiV2.PressedColor
         {
@@ -167,5 +167,12 @@
             ThreadPool.QueueUserWorkItem(
                 o => r.Invoke(this));
         }
+
+        protected static readonly Color defaultToggledColor
+            = Color.Lime;
+        protected static readonly Color defaultUntoggledColor 
+            = Color.DimGray;
+
+        protected const bool truth = true;
     }
 }

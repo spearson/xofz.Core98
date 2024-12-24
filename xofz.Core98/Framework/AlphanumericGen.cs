@@ -12,7 +12,7 @@
             var sb = new StringBuilder(length);
             var buffer = new byte[oneN];
             short counter = zeroN;
-            var rng = new RNGCryptoServiceProvider();
+            var rng = RandomNumberGenerator.Create();
             while (counter < length)
             {
                 rng.GetBytes(buffer);
@@ -51,7 +51,7 @@
             var s = new SecureString();
             var buffer = new byte[oneN];
             short counter = zeroN;
-            var rng = new RNGCryptoServiceProvider();
+            var rng = RandomNumberGenerator.Create();
             while (counter < length)
             {
                 rng.GetBytes(buffer);

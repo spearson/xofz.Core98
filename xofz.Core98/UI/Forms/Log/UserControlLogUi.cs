@@ -74,13 +74,13 @@
                 foreach (DataGridViewRow row in this.entriesGrid.Rows)
                 {
                     var timestamp = row
-                        .Cells[0]
+                        .Cells[zero]
                         .Value?.ToString();
                     var type = row
-                        .Cells[1]
+                        .Cells[one]
                         .Value?.ToString();
                     var content = row
-                        .Cells[2]
+                        .Cells[two]
                         .Value?.ToString();
                     if (timestamp != null && type != null)
                     {

@@ -75,8 +75,8 @@ namespace xofz.UI.Forms.Messengers
             GetWindowRect(windowHandle, out dialogRectangle);
             MoveWindow(
                 windowHandle,
-                formRectangle.Left + ((formRectangle.Width - dialogRectangle.Right + dialogRectangle.Left) / 2),
-                formRectangle.Top + ((formRectangle.Height - dialogRectangle.Bottom + dialogRectangle.Top) / 2),
+                formRectangle.Left + (formRectangle.Width - dialogRectangle.Right + dialogRectangle.Left) / 2,
+                formRectangle.Top + (formRectangle.Height - dialogRectangle.Bottom + dialogRectangle.Top) / 2,
                 dialogRectangle.Right - dialogRectangle.Left,
                 dialogRectangle.Bottom - dialogRectangle.Top,
                 true);

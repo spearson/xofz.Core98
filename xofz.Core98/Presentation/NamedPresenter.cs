@@ -1,6 +1,6 @@
 ﻿namespace xofz.Presentation
 {
-    using UI;
+    using xofz.UI;
 
     public class NamedPresenter
         : Presenter, Nameable
