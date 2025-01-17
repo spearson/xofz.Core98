@@ -62,6 +62,7 @@
     <Compile Include="Framework\Computation\PrimeGenerator.cs" />
     <Compile Include="Framework\Computation\PrimeTester.cs" />
     <Compile Include="Framework\Computation\QuickSorter.cs" />
+    <Compile Include="Framework\FactoryFactory.cs" />
     <Compile Include="Framework\MethodWebs\HyperWeb.cs" />
     <Compile Include="Framework\Transformation\Glory.cs" />
     <Compile Include="Framework\MethodWebs\HalfsyncWeb.cs" />
